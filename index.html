@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- head-->
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+        <meta name="description" 
+              content="" />
+
+        <meta name="author"
+              content="" />
+
+        <title>제품 및 서비스 트렌드 파악 Home Page </title>
+
+        <!-- 글꼴 (구글 폰트 적용 ) -->
+        <link rel="preconnect"
+              href="https://fonts.googleapis.com">
+        <link rel="preconnect"
+              href="https://fonts.gstatic.com"
+              crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+              rel="stylesheet">
+       
+        <!-- Favicon-->
+        <link rel="icon"
+              type="image/x-icon"
+              href="assets/favicon.ico" />
+
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" 
+              rel="stylesheet"
+              type="text/css" />
+        
+        <!-- Google fonts-->
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
+              rel="stylesheet"
+              type="text/css" />
+
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css"
+              rel="stylesheet" />
+    </head>
+
+    <body>
+        <!-- header -->
+        <nav class="navbar navbar-light bg-light static-top">
+            <div class="container d-flex justify-content-between">
+                <div class="d-flex flex-row align-items-center">
+                    <img src="assets/img/aivle-logo.png"
+                         class='navbar-brand'
+                         alt="KT 에이블 로고"/> <!-- 이미지 로고-->
+
+                    <p class="webpage_title"
+                       style="font-size:3em" 
+                       href="#!">상부상조</p> <!-- 타이틀 제목 -->
+                </div>
+        
+                <div class="d-flex flex-row align-items-center"
+                     style="margin-right: 80px;">
+                    <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <a class="btn btn-light"
+                            id='prompt_sayong'
+                            href="/board" 
+                            style="color: inherit;
+                                   background-color:
+                                   transparent; 
+                                   border: none;
+                                   font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
+                    </div>
+
+                    <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                            <a class="btn btn-light"
+                                id='gaseipan'
+                                href="/board" 
+                                style="color: inherit;
+                                       background-color:
+                                       transparent; 
+                                       border: none;
+                                       font-size:2em">게시판</a>          <!-- 게시판 --> 
+                    </div>
+
+                    <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <a class="btn btn-light"
+                                id='login_logout'
+                                href="/board2" 
+                                style="color: inherit;
+                                       background-color:
+                                       transparent; 
+                                       border: none;
+                                       font-size:2em">로그인</a>          <!-- 로그인 --> 
+
+                    </div>
+
+                    <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <a class="btn btn-light"
+                        id='huiwongaip'
+                        href="/board3" 
+                        style="color: inherit;
+                               background-color:
+                               transparent; 
+                               border: none;
+                               font-size:2em">회원가입</a>          <!-- 회원가입 --> 
+                    </div>
+        
+                </div>
+            </div>
+        </nav>
+    
+        <!-- header 메인 화면 -->
+        <header class="masthead">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <div class="text-center text-white">
+                            <!-- Page Title-->
+                            <h2 class="mb-5">원하는 제품을 입력하면<br> 리서치 결과 즉시 도출<br> 간단하고 손쉬운 프롬프트 사용 하기</h1>
+
+                            <!-- Page Subtitle-->
+                            <h3 class="mb-4"
+                                id='sonshipgae'>"손쉽게 경쟁력을 키워보세요"</h3>
+
+                            <!-- 바로 시작하기! 버튼 -->
+                            <button type="button" 
+                                    class="btn btn-secondary">프롬프트 사용하기!</button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- section1 - 서비스에 대한 핵심 요약 -->
+        <section class="features-icons bg-light text-center">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-4"> <!-- Summarize Point 1-->
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
+                                 style="height: 100%;">
+                                <img src="assets/img/automation.png"
+                                     alt="automated"
+                                     width="100"
+                                     height="100">
+                            </div>
+
+                            <h3 style="margin-top: 20px;">자동화</h3>
+
+                            <p class="lead mb-0">제품 및 서비스에 대한<br> 분석, 시각화를 자동화!!</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4"> <!-- Summarize Point 2-->
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
+                                 style="height: 100%;">
+                                <img src="assets/img/marketing-strategy-2.png"
+                                     alt="automated"
+                                     width="100"
+                                     height="100">
+                            </div>
+
+                            <h3 style="margin-top: 20px;">전략 수립 체계화</h3>
+
+                            <p class="lead mb-0">새로운 인사이트를 바탕으로<br> 전략 수립을 효율적이면서 신속하게!!</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4"> <!-- Summarize Point 3-->
+                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
+                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
+                                 style="height: 100%;">
+                                <img src="assets/img/easy-to-use.png"
+                                     alt="automated"
+                                     width="100"
+                                     height="100">
+                            </div>
+
+                            <h3 style="margin-top: 20px;">직관적인 사용법</h3>
+
+                            <p class="lead mb-0">프롬프트에 입력하고<br> 리서치 결과를 받기만 하면 끝!!</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- section2 - 서비스에 대한 자세한 내용 -->
+        <section class="showcase">
+            <div class="container-fluid p-0">
+                <div class="row g-0">  <!-- Point 1-->
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" 
+                         style="background-image: url('assets/img/automation_picture.jpg')"></div>
+
+                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                        <h2>자동화</h2>
+                        <p class="lead mb-0">
+                            제품 및 서비스에 대한 만족도 조사, 시장 조사에 따른 분석, 시각화를 자동화 합니다.<br>
+                            데이터 수집 부터 통계 도출까지 시간 소요를 줄이고, 해당 파이프라인을 수행할<br>
+                            인적 자원 비용 그 외 비용 부담에서 크게 벗어날 수 있습니다. 
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-0">  <!-- Point 2-->
+                    <div class="col-lg-6 text-white showcase-img" 
+                         style="background-image: url('assets/img/startup.jpg')"></div>
+
+                    <div class="col-lg-6 my-auto showcase-text">
+                        <h2>전략 수립 체계화</h2>
+                        <p class="lead mb-0">
+                            새로운 인사이트를 도출하여 전략 수립을 효율적이면서 신속하게 진행할 수 있습니다.<br>
+                            예를 들어 개선 사항, 타겟 세분화, 광고 제작 가이드, 예상 판매량 등에 대한 전략 수립이<br>
+                            가능합니다.<br>
+
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row g-0">  <!-- Point 3-->
+                    <div class="col-lg-6 order-lg-2 text-white showcase-img" 
+                         style="background-image: url('assets/img/easy_to_use.jpg')"></div>
+
+                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+                        <h2>간단하고 직관적인 사용법</h2>
+                        <p class="lead mb-0">프롬프트 페이지에 들어가세요<br>
+                                             주제를 입력하여 채팅방에 입장하세요<br>
+                                             주제와 관련된 질문을 하세요 (ex. ~의 제품에 대한 대중들의 인식은 어떄?)<br>
+                                             5초 안으로 즉시 리서치 결과를 받아보세요!!
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- section3 - 어떤 기능이 있는지에 대한 소개 -->
+        <section class="testimonials text-center bg-light">
+            <div class="container">
+                <h2 class="mb-5">대표적인 기능을 소개 합니다.</h2>  
+
+                <div class="row">        
+                    <div class="col-lg-4">   <!-- 기능 1 -->
+                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                            <img class="img-fluid rounded-circle mb-3"
+                                 src="assets/img/testimonials-1.jpg" 
+                                 alt="..." />
+                            <h5>분석 결과 기능</h5>
+                            <p class="font-weight-light mb-0">분석 결과 기능 </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">    <!-- 기능 2 -->
+                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                            <img class="img-fluid rounded-circle mb-3" 
+                                 src="assets/img/testimonials-2.jpg"
+                                 alt="..." />
+                            <h5>프롬프트 질문 템플릿화 기능 </h5>
+                            <p class="font-weight-light mb-0">기능2</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">    <!-- 기능 3 -->
+                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
+                            <img class="img-fluid rounded-circle mb-3"
+                                 src="assets/img/testimonials-3.jpg"
+                                 alt="..." />
+                            <h5>기능3</h5>
+                            <p class="font-weight-light mb-0">기능3</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action-->
+        <section class="call-to-action text-white text-center" id="signup">
+            <div class="container position-relative">
+                <div class="row justify-content-center">
+                    <div class="col-xl-6">
+                        <h2 class="mb-4">Ready to get started? Sign up now!</h2>
+                        <!-- Signup form-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- * * SB Forms Contact Form * *-->
+                        <!-- * * * * * * * * * * * * * * *-->
+                        <!-- This form is pre-integrated with SB Forms.-->
+                        <!-- To make this form functional, sign up at-->
+                        <!-- https://startbootstrap.com/solution/contact-forms-->
+                        <!-- to get an API token!-->
+                        <form class="form-subscribe" id="contactFormFooter" data-sb-form-api-token="API_TOKEN">
+                            <!-- Email address input-->
+                            <div class="row">
+                                <div class="col">
+                                    <input class="form-control form-control-lg" id="emailAddressBelow" type="email" placeholder="Email Address" data-sb-validations="required,email" />
+                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:required">Email Address is required.</div>
+                                    <div class="invalid-feedback text-white" data-sb-feedback="emailAddressBelow:email">Email Address Email is not valid.</div>
+                                </div>
+                                <div class="col-auto"><button class="btn btn-primary btn-lg disabled" id="submitButton" type="submit">Submit</button></div>
+                            </div>
+                            <!-- Submit success message-->
+                            <!---->
+                            <!-- This is what your users will see when the form-->
+                            <!-- has successfully submitted-->
+                            <div class="d-none" id="submitSuccessMessage">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder">Form submission successful!</div>
+                                    <p>To activate this form, sign up at</p>
+                                    <a class="text-white" href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
+                                </div>
+                            </div>
+                            <!-- Submit error message-->
+                            <!---->
+                            <!-- This is what your users will see when there is-->
+                            <!-- an error submitting the form-->
+                            <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer-->
+        <footer class="footer bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
+                        <ul class="list-inline mb-2">
+                            <li class="list-inline-item"><a href="#!">About</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Contact</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
+                            <li class="list-inline-item">⋅</li>
+                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
+                        </ul>
+                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
+                    </div>
+                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
+                        <ul class="list-inline mb-0">
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item me-4">
+                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
+
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <!-- * *                               SB Forms JS                               * *-->
+        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    </body>
+</html>
