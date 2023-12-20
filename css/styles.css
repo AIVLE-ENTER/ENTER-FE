@@ -10922,12 +10922,25 @@ footer.footer {
 
 /* 여기부터 내가 적용한 부분 */
 
-.webpage_title, #prompt_sayong, #gaseipan, #login_logout, #huiwongaip {    /* header text(ex. 상부상조, 프롬프트 사용하기, 게시판, 로그인, 회원가입) 글꼴 적용 */            
+.webpage_title, #prompt_sayong, #gaseipan, #login_logout, #huiwongaip {                     /* header text(ex. 상부상조, 프롬프트 사용하기, 게시판, 로그인, 회원가입) 글꼴 적용 */            
   font-family: 'Nanum Pen Script', cursive;
 }  
 
-#sonshipgae {                                                              /* "손쉽게 경쟁력을 확인해보세요" 문구 글꼴 적용                 */
+#sonshipgae {                                                                               /* "손쉽게 경쟁력을 확인해보세요" 문구 글꼴 적용            */
   font-family: 'Nanum Pen Script', cursive;
 }
 
+#sm_title1, #sm_content1, #sm_title2, #sm_content2, #sm_title3, #sm_content3 {              /* section1 - 서비스에 대한 핵심 요약에 대한 문구 글꼴 적용 */
+  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+}
 
+#main_title1, #main_content1, #main_title2, #main_content2, #main_title3, #main_content3 {  /* section2 - 서비스에 대한 자세한 내용에 대한 문구 글꼴 적용 */
+  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+#func_title1, #func_content1, #func_title2, #func_content2, #func_title3, #func_content3 {  /* section3 - 어떤 기능이 있는지에 대한 소개에 대한 문구 글꼴 적용 */
+  font-family: 'Nanum Pen Script', cursive;
+  font-family: 'Noto Sans KR', sans-serif;
+}
