@@ -11073,3 +11073,13 @@ color:#fff
         width: 100%;
     }
 }
+   
+#modify-id {         /* '아이디 수정하기' 버튼에 대한 css */
+  display: none;
+}
+
+.timer-container {  /* '타이머'에 대한 css */
+  text-align: right;
+  color: red;
+  display: none; 
+}

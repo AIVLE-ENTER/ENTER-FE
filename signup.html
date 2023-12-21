@@ -29,6 +29,9 @@
 
     <link rel="stylesheet"
           href="./css/signup.css">
+
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -105,43 +108,89 @@
         <!-- 2. 필드 -->
         <div class="field">
             <b id='signup_id'>아이디</b>
-            <span class="placehold-text">
-                <input type="text" placeholder="@naver.com">
-            </span>
-        </div>
+            <div class="input-group mb-3">
+                <input type="text"
+                       class="form-control"
+                       id="input_id"
+                       placeholder="아이디를 입력해주세요"
+                       aria-label="Username">
 
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-6 d-flex justify-content-start">
+                            <button class="btn btn-custom"
+                                    type="button"
+                                    id="check-duplicate"
+                                    onclick="checkDuplicateID()">중복 확인</button>
+                        </div>
+
+                        <div class="col-6 d-flex justify-content-end">
+                            <button class="btn btn-custom"
+                                    type="button"
+                                    id="modify-id"
+                                    onclick="modify_ID()">아이디 수정하기</button>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    
         <div class="field">
             <b>비밀번호</b>
-            <input class="userpw" 
+            <input class="userpw"
+                   id='password' 
                    type="password">
         </div>
 
         <div class="field">
             <b>비밀번호 재확인</b>
             <input class="userpw-confirm" 
-                   type="password">
+                   id='confirm_password'
+                   type="password"
+                   onkeyup="checkPasswordMatch();">
         </div>
+
+       <!-- 비밀번호 일치 여부 메시지 (default로 보이지 않게(hidden) 한다.) -->
+       <span id="password_match" 
+             style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
 
         <div class="field">
             <b>이름</b>
             <input type="text">
         </div>
+
+        <b>회사</b>
+        <select name="dropdown">
+            <option value="option1">KT</option>
+            <option value="option2">LG</option>
+            <option value="option3">삼성</option>
+            <!-- 기타 옵션들 -->
+        </select>
     
         <!-- 5. 이메일_인증번호 -->
         <div class="field">
             <b>본인 확인 이메일</b>
             <input type="email" 
+                   id='input_email'
                    placeholder="이메일 입력">
             <input type="button"
                    value="인증번호 받기"
-                   style="background-color: #808080; color: white;">      
+                   style="background-color: #808080; color: white;"
+                   id='receiveVerificationCodeBtn'
+                   onclick="requestVerificationCode();">    
+                   
+            <div class="timer-container">    <!-- 타이머 -->
+                  <span id="timer">01:00</span>
+            </div>   
         </div>
         
         <div class="field tel-number">
             <b>인증번호</b>
-
             <div>
                 <input type="tel"
+                       id='verifyCodeInput'
                        placeholder="인증번호 입력">
             </div>
         </div>
@@ -151,8 +200,10 @@
         <!-- 6. 가입하기 버튼 -->
         <input type="submit"
                value="가입하기"
-               style="background-color: #808080; color: white;">
+               style="background-color: #808080; color: white;"
+               onclick="signUp();">
 
+        
         <!-- 7. 푸터 -->
         <div class="member-footer">
             <div>
@@ -168,5 +219,8 @@
             <span><a href="#none">Aivle Corp.</a></span>
         </div>
     </div>
+
+     <!-- JS와 연동 -->
+     <script src="js/signup.js"></script>
 </body>
 </html>

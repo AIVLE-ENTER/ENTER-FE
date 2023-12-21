@@ -107,11 +107,19 @@
         <!-- 2. 필드 -->
         <div class="field">
             <b id='signup_id'>아이디</b>
-            <span class="placehold-text">
-                <input type="text" placeholder="@naver.com">
-            </span>
+            <div class="input-group mb-3">
+                <input type="text"
+                       class="form-control"
+                       placeholder="@naver.com" 
+                       aria-label="Username">
+        
+                <div class="input-group-append">
+                    <button class="btn btn-custom" type="button" id="check-duplicate">중복 확인</button>
+                </div>
+            </div>
         </div>
 
+    
         <div class="field">
             <b>비밀번호</b>
             <input class="userpw" 
@@ -129,6 +137,11 @@
         <input type="submit"
                value="로그인"
                style="background-color: #808080; color: white;">
+
+        <!-- 카카오톡 소셜 로그인 -->
+        <!-- 네이버 소셜 로그인   -->
+        <!-- 구글 소셜 로그인 -->
+        
 
         <!-- 4. 푸터 -->
         <div class="member-footer">
