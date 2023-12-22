@@ -1,4 +1,4 @@
-<!-- 회원 가입(SignUp) 페이지 -->
+<!-- 문의 화면(Inquiry) 페이지 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>상무상조 로그인 페이지</title>
+    <title>상무상조 문의 화면 페이지</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -28,7 +28,7 @@
           href="./assets/favicon.ico">
 
     <link rel="stylesheet"
-          href="./css/signup.css">
+          href="./css/inquiry.css">
 </head>
 
 <body>
@@ -95,68 +95,42 @@
             </div>
         </div>
     </nav>
-    
-    <div style="margin-top: 100px; margin-bottom: 20px;"></div> <!-- 간격 -->
 
-    <!-- 본 body-->
-    <div class="member">
-        <!-- 1. 로고 -->
-        <img class="logo" 
-             src="./assets/favicon.ico">
+    <!-- 사실상 body -->
+    <div class='card'>
+        
+        <div class='card-write'>
+            <label for="exampleSelect">문의 유형 선택</label>
+            <select id="exampleSelect" 
+                    name="example">
+            <option value="option1">옵션 1</option>
+            <option value="option2">옵션 2</option>
+            <option value="option3">옵션 3</option>
+            <option value="option4">옵션 4</option>
+            <option value="option5">옵션 5</option>
+            </select>
 
-        <!-- 2. 필드 -->
-        <div class="field">
-            <b id='signup_id'>아이디</b>
-            <div class="input-group mb-3">
-                <input type="text"
-                       class="form-control"
-                       aria-label="Username">
+            <div class='title-w'>
+                제목<input type='text' placeholder='제목을 입력하세요.'>
+            </div>
+
+            <div class='msg'>
+                <!-- 내용을 입력하기 위해 textarea tag를 이용 -->
+                내용<textarea placeholder='내용을 입력하세요.'></textarea>
+                <input type='file' name='' id=''>
+            
             </div>
         </div>
 
-    
-        <div class="field">
-            <b>비밀번호</b>
-            <input class="userpw" 
-                   type="password">
-        </div>
-
-        <div class="links-container">
-            <a href="find-id.html">아이디 찾기</a>
-            <a href="find-password.html">비밀번호 찾기</a>
-        </div>
-
-        <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->
-        
-        <!-- 3. 로그인 버튼 -->
-        <input type="submit"
-               value="로그인"
-               style="background-color: #808080; color: white;"
-               onclick="signin();">
-
-
-        <!-- 카카오톡 소셜 로그인 -->
-        <!-- 네이버 소셜 로그인   -->
-        <!-- 구글 소셜 로그인 -->
-        
-
-        <!-- 4. 푸터 -->
-        <div class="member-footer">
-            <div>
-                <a href="#none">이용약관</a>
-
-                <a href="#none">개인정보처리방침</a>
-
-                <a href="#none">책임의 한계와 법적고지</a>
-
-                <a href="#none">회원정보 고객센터</a>
-            </div>
-
-            <span><a href="#none">Aivle Corp.</a></span>
+        <div class='btn-w'
+              id='write'>
+           <a href='#'>작성</a>
         </div>
     </div>
 
+
+
     <!-- JS와 연동 -->
-    <script src="js/signin.js"></script>
+    <script src="js/inquiry.js"></script>
 </body>
 </html>

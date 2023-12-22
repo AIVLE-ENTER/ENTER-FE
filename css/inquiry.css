@@ -11073,13 +11073,84 @@ color:#fff
         width: 100%;
     }
 }
-   
-#modify-id {         /* '아이디 수정하기' 버튼에 대한 css */
-  display: none;
+
+
+/* '사실상 body'에 대한 css */
+
+.card {
+    width: 100vw; /* 뷰포트의 전체 너비 */
+    height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
+    margin: 0;
+    padding: 200px;             /* 모든 방향에 20px의 패딩 적용 */
+    background-color: #f8f9fa; /* 회색으로 설정 */
 }
 
-.timer-container {  /* '타이머'에 대한 css */
-  text-align: right;
-  color: red;
-  display: none; 
+#exampleSelect {
+    width: 50%; /* 드롭다운의 너비 */
+    padding: 8px; /* 드롭다운 내부의 패딩 */
+    margin-top: 10px; /* 드롭다운 위의 여백 */
+    border-radius: 4px; /* 드롭다운 모서리의 둥근 정도 */
+    background-color: #ffffff; /* 드롭다운의 배경색 */
+    border: 1px solid #ddd; /* 드롭다운의 테두리 스타일 */
+  }
+
+.card-write {
+    padding:20px;
+    margin-left: 200px; /* 원하는 여백 크기로 설정 */
+    margin-top: -100px; /* 위로 100px 이동 */
 }
+
+.card-write input, textarea {
+    margin-left:10px;
+    padding:10px;
+    border: 1px solid #999;
+    border-radius:10px;
+    box-shadow:3px 3px 10px #e6e6e6;
+}
+
+.card-write .myinfo input[type='text'] {
+    width:25%;
+    margin-right:50px;
+}
+
+.card-write .myinfo input[type='password'] {
+    width:31%;
+}
+
+.card-write .title-w input[type='text'] {
+    margin-top:20px;
+    margin-bottom:20px;
+    width:85.5%;
+}
+
+.card-write .msg textarea {
+    min-width:85.5%;
+    max-width:85.5%;
+    min-height:200px;
+    max-height:200px;
+    box-shadow: inset 3px 3px 10px #e6e6e6;
+    vertical-align: top;
+}
+
+.card-write input[type='file'] {
+    border:none;
+    box-shadow:none;
+    padding:10px;
+    margin-left:40px;
+}
+
+#write {
+    right: 0;
+    bottom: 0;
+    margin: 10px 10px 20px 10px;
+    padding: 10px;
+    margin-left: 200px; /* 원하는 여백 크기로 설정 */
+}
+
+#write a {
+    background-color: tomato;
+    padding:10px;
+    color:#fff;
+    border-radius:10px;
+} 
+
