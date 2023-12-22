@@ -1,0 +1,183 @@
+<!-- 문의 글에 대한 상세 페이지(Inquiry Detail) -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>상무상조 문의 상세 페이지</title>
+
+     <!-- 글꼴 (구글 폰트 적용 ) -->
+     <link rel="preconnect"
+           href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+          rel="stylesheet">
+
+    <!--                       -->
+    <link rel="icon" 
+          href="./assets/favicon.ico">
+
+    <link rel="stylesheet"
+          href="./css/inquiry.css">
+</head>
+
+<body>
+    <!-- header -->
+   
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+                <img src="assets/img/aivle-logo.png"
+                     class='navbar-brand'
+                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
+
+                <p class="webpage_title"
+                   style="font-size:3em" 
+                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
+            </div>
+    
+            <div class="d-flex flex-row align-items-center"
+                 style="margin-right: 80px;">
+                <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                        id='prompt_sayong'
+                        href="/prompt.html" 
+                        style="color: inherit;
+                               background-color:
+                               transparent; 
+                               border: none;
+                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
+                </div>
+
+                <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <a class="btn btn-light"
+                            id='gaseipan'
+                            href="/board" 
+                            style="color: inherit;
+                                   background-color:
+                                   transparent; 
+                                   border: none;
+                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
+                </div>
+
+                <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                            id='login_logout'
+                            href="/board2" 
+                            style="color: inherit;
+                                   background-color:
+                                   transparent; 
+                                   border: none;
+                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
+
+                </div>
+
+                <div class="col-md-6 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                    id='huiwongaip'
+                    href="/signup.html" 
+                    style="color: inherit;
+                           background-color:
+                           transparent; 
+                           border: none;
+                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
+                </div>
+    
+            </div>
+        </div>
+    </nav>
+
+   <!-- 사실상 body -->
+   <div class='card'
+        style="width: 100%; height: 2000px;">
+    <div class='card-write'>  
+        <div class='title-w'>
+            문의유형<input type='text' 
+                            style="width: 200px;"
+                            placeholder='KT 기가지니'
+                            disabled>
+        </div>
+
+        <div class='title-w'>
+            등록자<input type='text' 
+                            style="width: 200px; margin-left: 25px;"
+                            placeholder='김영*'
+                            disabled>
+        </div>
+        
+
+        <div class='title-w'>
+            제목<input type='text'
+                        style="width: 500px; margin-left: 40px;"
+                        placeholder='KT 기가지니에 대한 질문 입니다.'
+                        disabled>
+        </div>
+
+        <div class='msg'>
+            <span style="margin-right: 20px;">내용</span>
+            <textarea placeholder='KT 기가지니를 써보니까 참 안좋아요'
+                        readonly></textarea>
+        </div>
+
+        <div style="height: 20px;"></div> <!-- 높이 간격을 위한 빈 div -->
+
+        <div>
+            <span style="float: left;">이미지</span>
+            <img src="assets/img/analysis.jpg" 
+                    alt="예제 이미지"
+                    style="float: left; margin-left: 30px;"
+                    width="300"
+                    height="300">
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+        <div class='update'
+            id='write'>
+            <a href='#'>수정</a>
+        </div>
+    
+        <div class='delete' 
+            id='write'
+            style="margin-left: 10px;">
+            <a href='#'>삭제</a>
+        </div>
+    </div>
+
+  <div style="height: 100px;"></div> <!-- 20픽셀 높이 간격 -->
+
+  <form onsubmit=""
+        style="display: flex; justify-content: space-between; width: 80%; margin-left: 400px;">
+        <div class="form-group"
+        style="display: flex; justify-content: flex-end; width: 50%;">
+        <input type="text" 
+                class="form-control"
+                placeholder="댓글을 입력하세요"
+                required
+                style="flex-grow: 1; margin-right: 10px;"> <!-- flex-grow 속성으로 늘어나게 설정 -->
+
+        <button type="submit"
+                class="btn btn-primary"
+                style="width: 10%;">작성</button> <!-- width를 auto로 설정 -->
+        </div>
+    </form>
+
+
+  
+
+</div>
+
+    <!-- JS와 연동 -->
+    <script src="js/inquiryDetail.js"></script>
+</body>
+</html>
