@@ -96,7 +96,7 @@ function requestVerificationCode(){
     // 1. setting 
     var regMail = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/;   // 이메일 유효성 검사를 위한 변수 
     var input_email=document.getElementById('input_email').value;                                        // 사용자가 입력한 아이디를 가져온다.
-    const requestVerifyCode_URL=`http://localhost:8000/account/signUp/email/`;                           // 백엔드와 소통할 URL
+    const requestVerifyCode_URL=`http://localhost:8000/utils/sendCertificationNumber/`;       // 백엔드와 소통할 URL
 
     // 2. 이메일 유효성 검사
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
@@ -104,7 +104,7 @@ function requestVerificationCode(){
 
       // 3. 백엔드와 소통하는 로직을 여기에 추가
       const result=function(){
-          axios.post('http://localhost:8000/account/signUp/email/', {email: input_email})
+          axios.post(requestVerifyCode_URL, {'email':input_email, 'purpose':'signup'})
                 .then(function (response) {
                   console.log(response);
 
