@@ -307,9 +307,13 @@ function signUp(){
                     })
                 .then(function (response) {
                   console.log(response);
+
+                  // 4. 회원 가입 완료 하면 Home 페이지(index.html)로 Routing 한다.
+                  alert('회원 가입 완료!!');
+                  window.location.href = '../index.html';
                 })
                 .catch(function (error) {
-                  console.log('에러');
+                  alert('에러');
                   console.log(error);
                 });
         }
