@@ -50,7 +50,7 @@
               type="text/css" />
 
         <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css"
+        <link href="css/mypage.css"
               rel="stylesheet" />
     </head>
     <body>
@@ -130,7 +130,7 @@
       </nav>
 
       <!-- 사실상 Body 영역 -->
-      <main class="main-content">
+      <main class="mc">
             <!-- 영역 1 -->
             <div class="image-container1"
                  style="display: flex; justify-content: center; align-items: center; height: 100px; margin-top: 50px;">  
@@ -143,27 +143,52 @@
                  <h2>마이페이지</h2>         <!-- 마이 페이지 Text 문구 -->
             </div>
 
-            <div style="margin-top: 140px;"></div>  <!-- 간격 -->
+            <div style="margin-top: 20px;"></div>  <!-- 간격 -->
 
             <!-- 영역 2 -->
             <div class="image-container2" 
                   style="display: flex; justify-content: center; align-items: center; height: 500px; margin-top: 50px;">  
-                  <div style="flex: 1; height: 500px; margin-top: -5px;">      <!-- 왼쪽 영역 (50%)-->
-                       
+                  <div style="flex: 1; height: 450px; margin-top: -5px;">      <!-- 왼쪽 영역 (50%)-->
+                        <p class='myInfoText'>나의 정보</p>
                         <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 400px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
                               <!-- 여기에 사용자 정보 내용을 넣습니다 -->
+                              <ul class='myInfoList' 
+                                  style="list-style: none; padding: 0;">
+                                    <li><strong>이메일:</strong> 사용자의 이메일이 들어가야 합니다.</li>
+
+                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
+
+                                    <li><strong>이름:</strong> 사용자의 이름이 들어가야 합니다.</li>
+
+                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
+
+                                    <li><strong>회사:</strong> 사용자의 회사가 들어가야 합니다.</li>
+
+                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
+
+                                    <li><strong>가입일자:</strong> 사용자의 가입일자가 들어가야 합니다.</li>
+
+                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
+
+                                    <li><strong>최근 로그인일자:</strong> 사용자의 로그인일자가 들어가야 합니다.</li>
+
+                                    <!-- 기타 정보 -->
+                              </ul>
                         </div>
 
                         
                   </div>
 
                   <div style="flex: 1; height: 500px; margin-top: -20px;">     <!-- 오른쪽 영역(50%) -->
+                        <p class='history'>히스토리</p>
                         <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 200px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
                               <!-- 여기에 사용자 정보 내용을 넣습니다 -->
+                             
                         </div>
 
                         <div style="margin-top: 20px;"></div>  <!-- 간격 -->
 
+                        <p class='inquiryList'>내 문의 내역</p>
                         <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 200px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
                               <!-- 여기에 사용자 정보 내용을 넣습니다 -->
                         </div>
@@ -176,6 +201,10 @@
                   <button class="edit-member-info-button"
                         onclick="routeToEditMyInfo()"
                         type="button">회원 정보 수정하기</button>
+
+                  <button class="edit-prompt-button"
+                          onclick=""
+                          type="button">프롬프트 템플릿 생성하기</button>
             
                   <button class="withdraw-member-info-button"
                         onclick=""
@@ -187,18 +216,16 @@
            
       </main>
 
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
+      <!-- Core theme JS-->
+      <script src="js/mypage.js"></script>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-        <!-- Core theme JS-->
-        <script src="js/mypage.js"></script>
-
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+      <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+      <!-- * *                               SB Forms JS                               * *-->
+      <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+      <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+      <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
