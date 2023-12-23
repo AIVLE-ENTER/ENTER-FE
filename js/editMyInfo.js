@@ -21,8 +21,6 @@ function checkPasswordMatch() {
 document.addEventListener("DOMContentLoaded", function () {
     const company_URL=`http://localhost:8000/account/signUp/company/`;       // 회사 리스트를 불러오는 백엔드 URL
     
-    alert('함수 실행');
-
     // 비동기 통신으로 회사 정보 가져오기 
     axios.get(company_URL).then(
       (response) => {
