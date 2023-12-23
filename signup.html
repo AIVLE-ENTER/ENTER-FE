@@ -116,7 +116,7 @@
         <img class="logo" 
              src="./assets/favicon.ico">
 
-        <!-- 2. 필드 -->
+        <!-- 2. 아이디 -->
         <div class="field">
             <b id='signup_id'>아이디</b>
             <div class="input-group mb-3">
@@ -128,7 +128,6 @@
 
                 <div class="container">
                     <div class="row">
-
                         <div class="col-6 d-flex justify-content-start">
                             <button class="btn btn-custom"
                                     type="button"
@@ -147,7 +146,8 @@
                 </div>
             </div>
         </div>
-    
+
+        <!-- 3. 비밀번호 -->
         <div class="field">
             <b>비밀번호</b>
             <input class="userpw"
@@ -169,23 +169,25 @@
 
         <div class="field">
             <b>이름</b>
-            <input type="text">
+            <input type="text"
+                   id="name">
         </div>
 
+        <!-- 4. 회사 -->
         <b>회사</b>
         <select name="dropdown">
             <option value="option1">KT</option>
             <option value="option2">LG</option>
-            <option value="option3">삼성</option>
-            <!-- 기타 옵션들 -->
+            <option value="option3">SK</option>
         </select>
     
-        <!-- 5. 이메일_인증번호 -->
+        <!-- 5. 이메일 -->
         <div class="field">
             <b>본인 확인 이메일</b>
             <input type="email" 
                    id='input_email'
                    placeholder="이메일 입력">
+
             <input type="button"
                    value="인증번호 받기"
                    style="background-color: #808080; color: white;"
@@ -202,9 +204,16 @@
             <div>
                 <input type="tel"
                        id='verifyCodeInput'
-                       placeholder="인증번호 입력">
+                       placeholder="인증번호 입력"
+                       disabled>
             </div>
         </div>
+
+         <input type="submit"
+                id='checkAuthNum'
+                value="인증번호 확인"
+                style="background-color: #808080; color: white; display:none;"
+                onclick="checkAuthNum();">
 
         <div style="margin-top: 40px; margin-bottom: 20px;"></div>
         
@@ -212,9 +221,10 @@
         <input type="submit"
                value="가입하기"
                style="background-color: #808080; color: white;"
-               onclick="signUp();">
+               id='signUpBtn'
+               onclick="signUp();"
+               disabled>
 
-        
         <!-- 7. 푸터 -->
         <div class="member-footer">
             <div>
