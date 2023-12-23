@@ -1,3 +1,26 @@
+// 회사 SELECT
+document.addEventListener("DOMContentLoaded", function () {
+  const company_URL=`http://localhost:8000/account/signUp/company/`;       // 회사 리스트를 불러오는 백엔드 URL
+  
+  // 비동기 통신으로 회사 정보 가져오기 
+  axios.get(company_URL).then(
+    (response) => {
+      const companyData = response.data.company_list;
+      console.log(companyData);
+
+      // HTML select 엘리먼트 참조
+      const companySelect = document.getElementById("company_select");
+
+      // 비동기로 가져온 회사 정보를 이용하여 select 옵션 추가
+      companyData.forEach(function (company) {
+          const option = document.createElement("option");
+          option.value = company.company_id;
+          option.text = company.company_name;
+          companySelect.appendChild(option);
+      });
+  });
+});
+
 // 전역적으로 관리되는 변수
 var interval;   // Timer를 시작하고 종료하는데 큰 공헌을 하는 변수
 
@@ -241,24 +264,6 @@ function checkAuthNum(){
   
 }
 
-// 회사 선택시 1, 2, 3를 return 하는 함수 
-function getSelectedCompanyValue() {
-  var selectElement = document.getElementsByName('dropdown')[0];
-  var selectedValue = selectElement.value;
-
-  switch (selectedValue) {
-      case 'option1':
-          return 1;  // KT 선택시
-      case 'option2':
-          return 2;  // LG 선택시
-      case 'option3':
-          return 3;  // SK 선택시
-      default:
-          return 0;  // 기본값 혹은 선택되지 않았을 때
-  }
-}
-
-
 // '가입하기' 버튼 click했을 떄 이를 수행하는 함수 
 function signUp(){
     // 1. setting
@@ -266,6 +271,7 @@ function signUp(){
     var password=document.getElementById('password').value;                               // 비밀번호 value
     var confirmPassword=document.getElementById('confirm_password').value;                // 확인 비밀번호 value
     var name=document.getElementById('name').value;                                       // 이름 value
+    var companySelect = document.getElementById('company_select')                            // 회사 아이디 
     var input_email=document.getElementById('input_email');                               // 이메일 입력칸  
     var input_verifyCode=document.getElementById('verifyCodeInput');                      // 인증번호 입력칸
 
@@ -302,7 +308,7 @@ function signUp(){
                      'user_email':input_email.value,
                      'certification_number':input_verifyCode.value,
                      'user_name':name,
-                     'company_id':getSelectedCompanyValue(),
+                     'company_id':companySelect.value,
                      'privacy_agreement':true,
                     })
                 .then(function (response) {
