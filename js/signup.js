@@ -1,26 +1,3 @@
-// 회사 SELECT
-document.addEventListener("DOMContentLoaded", function () {
-  const company_URL=`http://localhost:8000/account/signUp/company/`;       // 회사 리스트를 불러오는 백엔드 URL
-  
-  // 비동기 통신으로 회사 정보 가져오기 
-  axios.get(company_URL).then(
-    (response) => {
-      const companyData = response.data.company_list;
-      console.log(companyData);
-
-      // HTML select 엘리먼트 참조
-      const companySelect = document.getElementById("company_select");
-
-      // 비동기로 가져온 회사 정보를 이용하여 select 옵션 추가
-      companyData.forEach(function (company) {
-          const option = document.createElement("option");
-          option.value = company.company_id;
-          option.text = company.company_name;
-          companySelect.appendChild(option);
-      });
-  });
-});
-
 // 전역적으로 관리되는 변수
 var interval;   // Timer를 시작하고 종료하는데 큰 공헌을 하는 변수
 
@@ -264,6 +241,29 @@ function checkAuthNum(){
   
 }
 
+// 회사 SELECT(signup.html이 불러와질 떄 자동적으로 호출되는 함수)
+document.addEventListener("DOMContentLoaded", function () {
+  const company_URL=`http://localhost:8000/account/signUp/company/`;       // 회사 리스트를 불러오는 백엔드 URL
+  
+  // 비동기 통신으로 회사 정보 가져오기 
+  axios.get(company_URL).then(
+    (response) => {
+      const companyData = response.data.company_list;
+      console.log(companyData);
+
+      // HTML select 엘리먼트 참조
+      const companySelect = document.getElementById("company_select");
+
+      // 비동기로 가져온 회사 정보를 이용하여 select 옵션 추가
+      companyData.forEach(function (company) {
+          const option = document.createElement("option");
+          option.value = company.company_id;
+          option.text = company.company_name;
+          companySelect.appendChild(option);
+      });
+  });
+});
+
 // '가입하기' 버튼 click했을 떄 이를 수행하는 함수 
 function signUp(){
     // 1. setting
@@ -271,7 +271,7 @@ function signUp(){
     var password=document.getElementById('password').value;                               // 비밀번호 value
     var confirmPassword=document.getElementById('confirm_password').value;                // 확인 비밀번호 value
     var name=document.getElementById('name').value;                                       // 이름 value
-    var companySelect = document.getElementById('company_select')                            // 회사 아이디 
+    var companySelect = document.getElementById('company_select')                         // 회사 아이디 
     var input_email=document.getElementById('input_email');                               // 이메일 입력칸  
     var input_verifyCode=document.getElementById('verifyCodeInput');                      // 인증번호 입력칸
 

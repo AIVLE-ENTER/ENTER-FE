@@ -52,95 +52,172 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/editMyInfo.css"
               rel="stylesheet" />
+        
+        <!-- Axios CDN(Axios를 사용하기 위함) -->
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
-        <!-- header -->
-        <nav class="navbar navbar-light bg-light static-top">
+      <!-- header -->
+      <nav class="navbar navbar-light bg-light static-top">
             <div class="container d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                    <img src="assets/img/aivle-logo.png"
-                         class='navbar-brand'
-                         alt="KT 에이블 로고"/> <!-- 이미지 로고-->
+                  <div class="d-flex flex-row align-items-center">
+                        <img src="assets/img/aivle-logo.png"
+                              class='navbar-brand'
+                              alt="KT 에이블 로고"/> <!-- 이미지 로고-->
 
-                    <p class="webpage_title"
-                       style="font-size:3em" 
-                       href="#!">상부상조</p> <!-- 타이틀 제목 -->
-                </div>
-        
-                <div class="d-flex flex-row align-items-center"
-                     style="margin-right: 80px;">
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <p class="webpage_title"
+                        style="font-size:3em" 
+                        href="#!">상부상조</p> <!-- 타이틀 제목 -->
+                  </div>
+            
+                  <div class="d-flex flex-row align-items-center"
+                        style="margin-right: 80px;">
+                        <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
                         <a class="btn btn-light"
-                            id='prompt_sayong'
-                            href="/prompt.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                    </div>
+                              id='prompt_sayong'
+                              href="/prompt.html" 
+                              style="color: inherit;
+                                    background-color:
+                                    transparent; 
+                                    border: none;
+                                    font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
+                        </div>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                            <a class="btn btn-light"
-                                id='gaseipan'
-                                href="/inquiryBoard.html" 
-                                style="color: inherit;
-                                       background-color:
-                                       transparent; 
-                                       border: none;
-                                       font-size:2em">게시판</a>          <!-- 게시판 --> 
-                    </div>
+                        <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                              <a class="btn btn-light"
+                                    id='gaseipan'
+                                    href="/inquiryBoard.html" 
+                                    style="color: inherit;
+                                          background-color:
+                                          transparent; 
+                                          border: none;
+                                          font-size:2em">게시판</a>          <!-- 게시판 --> 
+                        </div>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
                         <a class="btn btn-light"
-                                id='login_logout'
-                                href="/signin.html" 
-                                style="color: inherit;
-                                       background-color:
-                                       transparent; 
-                                       border: none;
-                                       font-size:2em">로그인</a>          <!-- 로그인 --> 
+                                    id='login_logout'
+                                    href="/signin.html" 
+                                    style="color: inherit;
+                                          background-color:
+                                          transparent; 
+                                          border: none;
+                                          font-size:2em">로그인</a>          <!-- 로그인 --> 
 
-                    </div>
+                        </div>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
                         <a class="btn btn-light"
                         id='huiwongaip'
                         href="/privacyPolicy.html" 
                         style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                    </div>
+                                    background-color:
+                                    transparent; 
+                                    border: none;
+                                    font-size:2em">회원가입</a>          <!-- 회원가입 --> 
+                        </div>
 
-                    <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
                         <a class="btn btn-light"
-                            id='huiwongaip'
-                            href="/privacyPolicy.html" 
-                            style="color: inherit;
-                                background-color:
-                                transparent; 
-                                border: none;
-                                font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                    </div>
-        
-                </div>
+                              id='huiwongaip'
+                              href="/privacyPolicy.html" 
+                              style="color: inherit;
+                                    background-color:
+                                    transparent; 
+                                    border: none;
+                                    font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
+                        </div>
+            
+                  </div>
             </div>
-        </nav>
+      </nav>
 
-        <h1> 회원 정보 수정 페이지 </h1>
+      <!-- 본 body-->
+      <div class="member">
+            <!-- 1. 로고 -->
+            <img class="logo" 
+                 src="./assets/favicon.ico">
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+            <!-- 2. 아이디 : 본래 아이디를 띄워주고 언제든지 변경할 수 있게 한다. -->
+            <div class="field">
+                  <b id='signup_id'>아이디</b>
+                  <div class="input-group mb-3">
+                        <input type="text"
+                               class="form-control"
+                               id="input_id"
+                               placeholder="본래 자신의 아이디가 들어가 있어야 합니다."
+                               aria-label="Username">
+                  </div>
+            </div>
 
-        <!-- Core theme JS-->
-        <script src="js/editMyInfo.js"></script>
+            <!-- 3. 비밀번호 : 비밀번호는 암호화 되어있으므로 불러오기가 어렵다. 따라서 사용자가 수동으로 입력해야 한다. -->
+            <div class="field">
+            <b>비밀번호</b>
+            <input class="userpw"
+                  id='password' 
+                  type="password"
+                  placeholder='사용자가 수동으로 입력'>
+            </div>
 
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+            <div class="field">
+            <b>비밀번호 재확인</b>
+            <input class="userpw-confirm" 
+                   id='confirm_password'
+                   type="password"
+                   onkeyup="checkPasswordMatch();"
+                   placeholder='사용자가 수동으로 입력'>
+            </div>
+
+            <!-- 비밀번호 일치 여부 메시지 (default로 보이지 않게(hidden) 한다.) -->
+           <span id="password_match" 
+                style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
+
+            <!-- 4. 이름 : 본래 자신의 이름이 들어가 있어야 한다. -->
+            <div class="field">
+                  <b>이름</b>
+                  <input type="text"
+                         id="name"
+                         placeholder='본래 자신의 이름이 들어가 있어야 한다.'>
+            </div>
+
+            <!-- 5. 회사 : 본래 자신의 회사가 들어가 있어야 한다. -->
+            <b>회사</b>
+            <select id="company_select"></select>
+            
+            <!-- 6. 수정하기 버튼 -->
+            <input type="submit"
+                   value="수정하기"
+                   style="background-color: #808080; color: white;"
+                   id='signUpBtn'
+                   onclick="modifyMyInfo()"
+                   disabled>
+
+            <!-- 7. 푸터 -->
+            <div class="member-footer">
+            <div>
+                  <a href="#none">이용약관</a>
+
+                  <a href="#none">개인정보처리방침</a>
+
+                  <a href="#none">책임의 한계와 법적고지</a>
+
+                  <a href="#none">회원정보 고객센터</a>
+            </div>
+
+            <span><a href="#none">Aivle Corp.</a></span>
+            </div>
+      </div>
+
+      <!-- Bootstrap core JS-->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+      <!-- JS와 연동 -->
+      <script src="js/editMyInfo.js"></script>
+
+      <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+      <!-- * *                               SB Forms JS                               * *-->
+      <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
+      <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+      <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
     </body>
 </html>
