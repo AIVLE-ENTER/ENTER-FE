@@ -10,6 +10,7 @@ function findID(){
 
 // '비밀번호 변경' 버튼을 click 했을 떄 호출되는 함수 
 function changePassword(){
+    window.location.href='../changePassword.html';
     
 }
 
