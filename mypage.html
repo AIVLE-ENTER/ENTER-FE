@@ -52,6 +52,9 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/mypage.css"
               rel="stylesheet" />
+              
+        <!-- Axios CDN(Axios를 사용하기 위함) -->
+       <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     </head>
     <body>
       <!-- header -->
@@ -199,8 +202,8 @@
             <!-- 영역 3-->
             <div style="display: flex; flex-direction: column; align-items: start; margin-top: 20px; height: 300px; padding-left: 240px;">
                   <button class="edit-member-info-button"
-                        onclick="routeToEditMyInfo()"
-                        type="button">회원 정보 수정하기</button>
+                          onclick="routeToEditMyInfo()"
+                          type="button">회원 정보 수정하기</button>
 
                   <button class="find-id-button"
                           onclick=""
@@ -215,7 +218,7 @@
                           type="button">프롬프트 템플릿 생성하기</button>
             
                   <button class="withdraw-member-info-button"
-                        onclick=""
+                        onclick="withdrawAccount()"
                         type="button"
                         style="margin-top: 10px;">탈퇴하기</button>
   
