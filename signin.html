@@ -29,6 +29,9 @@
 
     <link rel="stylesheet"
           href="./css/signup.css">
+
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -115,23 +118,26 @@
         <img class="logo" 
              src="./assets/favicon.ico">
 
-        <!-- 2. 필드 -->
+        <!-- 2. 아이디 -->
         <div class="field">
             <b id='signup_id'>아이디</b>
             <div class="input-group mb-3">
                 <input type="text"
+                       id='input_id'
                        class="form-control"
                        aria-label="Username">
             </div>
         </div>
 
-    
+        <!-- 3. 비밀번호 -->
         <div class="field">
             <b>비밀번호</b>
-            <input class="userpw" 
+            <input id='input_password'
+                   class="userpw"
                    type="password">
         </div>
 
+        <!-- 4. 아이디 찾기, 비밀번호 찾기 -->
         <div class="links-container">
             <a href="find-id.html">아이디 찾기</a>
             <a href="find-password.html">비밀번호 찾기</a>
@@ -139,19 +145,17 @@
 
         <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->
         
-        <!-- 3. 로그인 버튼 -->
+        <!-- 5. 로그인 버튼 -->
         <input type="submit"
                value="로그인"
                style="background-color: #808080; color: white;"
                onclick="signin();">
 
 
-        <!-- 카카오톡 소셜 로그인 -->
-        <!-- 네이버 소셜 로그인   -->
-        <!-- 구글 소셜 로그인 -->
+        <!-- 6. 소셜 로그인 버튼 -->
         
 
-        <!-- 4. 푸터 -->
+        <!-- 7. footer -->
         <div class="member-footer">
             <div>
                 <a href="#none">이용약관</a>
