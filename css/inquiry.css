@@ -11086,7 +11086,7 @@ color:#fff
 }
 
 #exampleSelect {
-    width: 50%; /* 드롭다운의 너비 */
+    width: 20%; /* 드롭다운의 너비 */
     padding: 8px; /* 드롭다운 내부의 패딩 */
     margin-top: 10px; /* 드롭다운 위의 여백 */
     border-radius: 4px; /* 드롭다운 모서리의 둥근 정도 */
@@ -11120,12 +11120,11 @@ color:#fff
 .card-write .title-w input[type='text'] {
     margin-top:20px;
     margin-bottom:20px;
-    width:85.5%;
+    width:50%;
 }
 
 .card-write .msg textarea {
-    min-width:85.5%;
-    max-width:85.5%;
+    width:70%;
     min-height:200px;
     max-height:200px;
     box-shadow: inset 3px 3px 10px #e6e6e6;
@@ -11139,18 +11138,28 @@ color:#fff
     margin-left:40px;
 }
 
-#write {
-    right: 0;
-    bottom: 0;
-    margin: 10px 10px 20px 10px;
-    padding: 10px;
-    margin-left: 200px; /* 원하는 여백 크기로 설정 */
+/* 작성 버튼 스타일 */
+.btn-w#write {
+  width: 75px;
+  height: 50px;
+  float: right;
+  background-color: #000000; /* 검은색 배경 */
+  color: #ffffff; /* 흰색 텍스트 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  line-height: 50px; /* 텍스트를 버튼 높이의 중앙에 위치시킴 */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+  border-radius: 5px; /* 모서리 둥글게 */
+  text-decoration: none; /* 링크 밑줄 제거 */
 }
 
-#write a {
-    background-color: tomato;
-    padding:10px;
-    color:#fff;
-    border-radius:10px;
-} 
+/* a 태그 스타일 - 버튼 내부의 링크에 적용 */
+.btn-w#write a {
+  color: inherit; /* 부모 요소의 텍스트 색상 상속 */
+  text-decoration: none; /* 링크 밑줄 제거 */
+  display: block; /* 블록 레벨 요소로 만들기 */
+  height: 100%; /* 부모의 전체 높이를 차지 */
+}
+
+
+
 

@@ -11151,3 +11151,12 @@ color:#fff
 textarea:disabled {
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
+
+/* '수정' 및 '삭제' 버튼을 포함하는 div 스타일 */
+.update-delete-buttons {
+  width: 100%; /* 전체 너비로 설정 */
+  padding: 20px; /* 안쪽 여백 추가 */
+  box-sizing: border-box; /* 패딩이 너비에 포함되도록 설정 */
+  display: flex; /* Flexbox 레이아웃 사용 */
+  justify-content: flex-end; /* 오른쪽 정렬 */
+}

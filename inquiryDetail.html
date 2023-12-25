@@ -23,6 +23,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
           rel="stylesheet">
 
+    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
+
     <!--                       -->
     <link rel="icon" 
           href="./assets/favicon.ico">
@@ -109,31 +118,30 @@
 
    <!-- 사실상 body -->
    <div class='card'
-        style="width: 100%; height: 2000px;">
+        style="width: 100%; height: auto;">
     <div class='card-write'>  
-        <div class='title-w'>
+        <div class='title-w'>        <!-- 문의 유형-->
             문의유형<input type='text' 
                             style="width: 200px;"
                             placeholder='KT 기가지니'
                             disabled>
         </div>
 
-        <div class='title-w'>
+        <div class='title-w'>        <!-- 등록자 -->
             등록자<input type='text' 
                             style="width: 200px; margin-left: 25px;"
                             placeholder='김영*'
                             disabled>
         </div>
         
-
-        <div class='title-w'>
+        <div class='title-w'>        <!-- 제목 -->
             제목<input type='text'
                         style="width: 500px; margin-left: 40px;"
                         placeholder='KT 기가지니에 대한 질문 입니다.'
                         disabled>
         </div>
 
-        <div class='msg'>
+        <div class='msg'>            <!-- 내용 -->
             <span style="margin-right: 20px;">내용</span>
             <textarea placeholder='KT 기가지니를 써보니까 참 안좋아요'
                         readonly></textarea>
@@ -141,7 +149,7 @@
 
         <div style="height: 20px;"></div> <!-- 높이 간격을 위한 빈 div -->
 
-        <div>
+        <div>                              <!-- 이미지 -->
             <span style="float: left;">이미지</span>
             <img src="assets/img/analysis.jpg" 
                     alt="예제 이미지"
@@ -151,18 +159,23 @@
         </div>
     </div>
 
-    <div style="display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+    <div class='update-delete buttons'
+         style="height:50px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
         <div class='update'
-            id='write'>
-            <a href='#'>수정</a>
+            id='write'
+            style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+            <a href='#'
+            style="color: inherit; text-decoration: none;">수정</a>
         </div>
-    
+
         <div class='delete' 
             id='write'
-            style="margin-left: 10px;">
-            <a href='#'>삭제</a>
+            style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+            <a href='#'
+            style="color: inherit; text-decoration: none;">삭제</a>
         </div>
-    </div>
+   </div>
+
 
   <div style="height: 100px;"></div> <!-- 100픽셀 높이 간격 -->
 
@@ -178,13 +191,9 @@
 
         <button type="submit"
                 class="btn btn-primary"
-                style="width: 10%;">작성</button> <!-- width를 auto로 설정 -->
+                style="width: 15%;">작성</button> <!-- width를 auto로 설정 -->
         </div>
     </form>
-
-
-  
-
 </div>
 
     <!-- JS와 연동 -->

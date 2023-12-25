@@ -11019,29 +11019,47 @@ table.board-table {
     padding: 20px;
 }
 
+article {
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
 .button {
-    float: right;
-    text-align: center;
+  float: right;
+  text-align: center;
 }
 
+/* 버튼에 대한 공통 스타일 */
+button, .button-gray, .button-black {
+  font-family: 'Noto Sans KR', sans-serif; /* 폰트 적용 */
+  font-size: 1em; /* 폰트 크기 */
+  padding: 10px 20px; /* 버튼 안쪽 여백 */
+  border-radius: 5px; /* 버튼 모서리 둥글게 */
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
+  cursor: pointer; /* 마우스 커서 변경 */
+  border: none; /* 테두리 제거 */
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 회색 버튼 스타일 */
 .button-gray {
-    border: 0px;
-    border-radius: 5px;
-    background-color: gray;
-    color: white;
-    font: 12px 굴림;
-    font-weight: bold;
-    width: 60px;
-    height: 30px;
+  background-color: #e0e0e0; /* 배경 색상 */
+  color: black; /* 글자 색상 */
 }
 
+/* 검은색 버튼 스타일 */
 .button-black {
-    border: 0px;
-    border-radius: 5px;
-    background-color: rgb(46, 46, 46);
-    color: white;
-    font: 12px 굴림;
-    font-weight: bold;
-    width: 70px;
-    height: 30px;
+  background-color: #000000; /* 배경 색상 */
+  color: white; /* 글자 색상 */
+}
+
+/* form 내부의 button-black 클래스 버튼 스타일 */
+form .button-black {
+  padding: 8px 16px; /* 버튼 안쪽 여백 줄이기 */
+  font-size: 0.8em; /* 폰트 크기 줄이기 */
+}
+
+
+/* 버튼 호버 효과 */
+button:hover, .button-gray:hover, .button-black:hover {
+  box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.4); /* 그림자 강조 */
 }

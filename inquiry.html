@@ -23,6 +23,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
           rel="stylesheet">
 
+    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
+
     <!--                       -->
     <link rel="icon" 
           href="./assets/favicon.ico">
@@ -109,8 +118,7 @@
 
     <!-- 사실상 body -->
     <div class='card'>
-        
-        <div class='card-write'>
+        <div class='card-write'>                                         <!-- 문의 유형 선택 -->
             <label for="exampleSelect">문의 유형 선택</label>
             <select id="exampleSelect" 
                     name="example">
@@ -121,22 +129,27 @@
             <option value="option5">옵션 5</option>
             </select>
 
-            <div class='title-w'>
+            <div class='title-w'>                                         <!-- 제목 -->
                 제목<input type='text' placeholder='제목을 입력하세요.'>
             </div>
 
-            <div class='msg'>
-                <!-- 내용을 입력하기 위해 textarea tag를 이용 -->
+            <div class='msg'>                                             <!-- 내용 -->
                 내용<textarea placeholder='내용을 입력하세요.'></textarea>
-                <input type='file' name='' id=''>
+            </div>     
+
+            <input type='file'                              
+                   name=''
+                   id=''>                                                  <!-- 파일 다운로드-->
             
+
+            <div class='btn-w'                                                                        
+                 id='write'
+                 style='width:75px; height:50px; float: right;'>
+                 <a href='#'>작성</a>                                      <!-- 작성 -->       
             </div>
         </div>
 
-        <div class='btn-w'
-              id='write'>
-           <a href='#'>작성</a>
-        </div>
+        
     </div>
 
 
