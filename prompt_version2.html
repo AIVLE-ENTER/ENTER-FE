@@ -38,7 +38,7 @@
                           onclick="closePopup()">&times;</span>
 
                     <h3>새 채팅방 생성</h3>
-                    
+
                     <form id="new-chat-form">
                         <label for="topic">주제:</label>
 
@@ -55,15 +55,83 @@
                 </div>
             </div>
 
+            <div class="sidebar-controls">
+                <button class="exit"
+                        onclick=""><i class="fa fa-times"></i> 나가기</button>
+            </div>
+
+            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+            <div style="height: 30px;"></div>
+
+            <!-- 자주 쓰는 문구를 불러온다.(선택할 떄만 보임)-->
+            <div id="wellPhrasesPopup" 
+                 class="popup2" 
+                 style="display: none;">
+                  <!-- 반영하기 및 나가기 버튼을 위한 div -->
+                 <div style="display: flex; justify-content: flex-end;">
+                    <span class="reflect"
+                          onclick="">reflect</span>
+
+                    <div style='width:10px'></div>
+
+                    <span class="close-btn" 
+                          onclick="closeWellPhrasesPopup()">exit</span>
+                 </div>
+                 
+                 <h3>자주 쓰는 문구</h3>
+
+                 <div class="popup2-content">
+                    <!-- 사용자의 프롬트프 템플릿 가져오기  -->
+                    <div class='promptTemplate'
+                         style="display: flex; align-items: center;">
+                         <input type="checkbox"
+                                style="width:30px; margin-right: 10px;"> <!-- 체크박스 추가 -->
+
+                         <p style="margin: 0px 10px 0px 0px; width: 100px;">문구</p>
+
+                         <input type='text' 
+                                placeholder='템플릿 문구에 대한 Text를 불러와야 합니다.'>
+                    
+                         <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
+                     </div>
+
+                     <!-- 사용자의 프롬트프 템플릿 가져오기  -->
+                    <div class='promptTemplate'
+                         style="display: flex; align-items: center;">
+                         <input type="checkbox" 
+                                style="width:30px; margin-right: 10px;"> <!-- 체크박스 추가 -->
+
+                         <p style="margin: 0px 10px 0px 0px; width: 100px;">문구</p>
+
+                         <input type='text' 
+                                placeholder='템플릿 문구에 대한 Text를 불러와야 합니다.'>
+               
+                         <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
+                   </div>
+                </div>
+            </div>
+
+            <!-- 자주 쓰는 문구 -->
+            <div class="sidebar-controls">
+                <button class="useWell"
+                        onclick="useWell()"><i class="fa fa-pencil"></i> 자주 쓰는 문구</button>
+            </div>
+
+
+            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+            <div style="height: 30px;"></div>
+
             <!-- New Chat -->
             <div class="sidebar-controls">
                 <button class="new-chat"
                         onclick="openPopup()"><i class="fa fa-plus"></i> New chat</button>
                 <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button>
             </div>
-
+           
+    
             <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
             <div style="height: 30px;"></div>
+
 
             <!-- 주제 (Target)-->
             <p class='topic'  
@@ -121,8 +189,11 @@
             </button>
             <ul>
                 <li><button>My plan</button></li>
+
                 <li><button>Custom instructions</button></li>
+
                 <li><button>Settings &amp; Beta</button></li>
+
                 <li><button>Log out</button></li>
             </ul>
         </div>
@@ -134,15 +205,12 @@
             <div class="logo">
                 ChatWTF
             </div>
-            <div class="logo"
-                 style="display: flex; justify-content: flex-end; margin-right: 40px;">
-                <button id="exit-button">나가기</button>
-            </div>
-           
+            
         </div>
 
-        <div class="view conversation-view">   <!-- 중간 -->
-            <!-- 히스토리 -->
+        <div class="view conversation-view"
+             style="flex-grow: 1; overflow-y: auto; height: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
+            <!-- 질문과 대답의 반복 (History) -->
         </div>
  
         <div id="message-form">                <!-- 하단 -->
@@ -152,6 +220,8 @@
                           placeholder="Send a message"></textarea>
                 <button class="send-button"><i class="fa fa-paper-plane"></i></button>
             </div>
+
+
             <div class="disclaimer">This is a ChatGPT UI Clone for personal use and educational purposes only.</div>
         </div>
     </main>
