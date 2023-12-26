@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible" 
+          content="IE=edge">
+
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
+
+    <!-- CSS와 연계 -->
+    <link rel="stylesheet"
+          href="/css/prompt_version2.css" />
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
+
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <title>ChatGPT Clone</title>
+</head>
+<body>
+    <!-- Prompt Sidebar-->
+    <nav id="sidebar">
+        <div class="float-top">
+            <!-- 팝업 레이아웃 (New Chat을 클릭할 떄 나타남)--> 
+            <div id="new-chat-popup"
+                 class="popup"
+                 style="display: none;">
+
+                <div class="popup-content">
+                    <span class="close-btn"
+                          onclick="closePopup()">&times;</span>
+
+                    <h3>새 채팅방 생성</h3>
+                    
+                    <form id="new-chat-form">
+                        <label for="topic">주제:</label>
+
+                        <input type="text" 
+                               id="topic"
+                               name="topic"><br>
+                        <label for="chatroom-name">채팅방명:</label>
+
+                        <input type="text"
+                               id="chatroom-name"
+                               name="chatroom"><br>
+                        <button type="submit">생성하기</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- New Chat -->
+            <div class="sidebar-controls">
+                <button class="new-chat"
+                        onclick="openPopup()"><i class="fa fa-plus"></i> New chat</button>
+                <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button>
+            </div>
+
+            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+            <div style="height: 30px;"></div>
+
+            <!-- 주제 (Target)-->
+            <p class='topic'  
+               style="color: white; font-weight: bold;">주제(Target)</p>
+            <ul class="conversations">
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('gigagenie')">기가지니</button>
+                </li>
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('pass')">PASS</button>
+                </li>
+
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('other1')">Other1</button>
+                </li>
+
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('other2')">Other2</button>
+                </li>
+
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('other3')">Other3</button>
+                </li>
+                
+
+                <li>
+                    <button class="conversation-button"
+                            onclick="showChats('other4')">Other4</button>
+                </li>
+
+            </ul>
+
+            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+            <div style="height: 60px;"></div>
+
+            <!-- 주제에 따른 채팅방 -->
+            <p class='topic'  
+               style="color: white; font-weight: bold;">주제에 따른 채팅방</p>
+            <div id="chat-list">
+                <!-- 여기에 동적으로 채팅방 목록이 표시됩니다 -->
+            </div>
+        </div>
+
+        <!-- User Menu-->
+        <div class="user-menu">
+            <button>
+                <i class="user-icon">u</i>
+                username
+                <i class="fa fa-ellipsis dots"></i>
+            </button>
+            <ul>
+                <li><button>My plan</button></li>
+                <li><button>Custom instructions</button></li>
+                <li><button>Settings &amp; Beta</button></li>
+                <li><button>Log out</button></li>
+            </ul>
+        </div>
+    </nav>
+ 
+    <!-- Prompt Main 화면 -->
+    <main>
+        <div class="view new-chat-view">  <!-- 상단 -->
+            <div class="logo">
+                ChatWTF
+            </div>
+            <div class="logo"
+                 style="display: flex; justify-content: flex-end; margin-right: 40px;">
+                <button id="exit-button">나가기</button>
+            </div>
+           
+        </div>
+
+        <div class="view conversation-view">   <!-- 중간 -->
+            <!-- 히스토리 -->
+        </div>
+ 
+        <div id="message-form">                <!-- 하단 -->
+            <div class="message-wrapper">
+                <textarea id="message"
+                          rows="1"
+                          placeholder="Send a message"></textarea>
+                <button class="send-button"><i class="fa fa-paper-plane"></i></button>
+            </div>
+            <div class="disclaimer">This is a ChatGPT UI Clone for personal use and educational purposes only.</div>
+        </div>
+    </main>
+
+    <!-- JS와 연계 -->
+    <script src="js/prompt_version2.js"></script>
+</body>
+</html>
