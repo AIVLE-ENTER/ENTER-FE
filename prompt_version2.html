@@ -57,7 +57,7 @@
 
             <div class="sidebar-controls">
                 <button class="exit"
-                        onclick=""><i class="fa fa-times"></i> 나가기</button>
+                        onclick="exit()"><i class="fa fa-times"></i> 나가기</button>
             </div>
 
             <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
@@ -213,7 +213,8 @@
             <!-- 질문과 대답의 반복 (History) -->
         </div>
  
-        <div id="message-form">                <!-- 하단 -->
+        <div id="message-form"
+             style='display:none'>                <!-- 하단 -->
             <div class="message-wrapper">
                 <textarea id="message"
                           rows="1"
