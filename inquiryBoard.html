@@ -51,6 +51,8 @@
           href="./css/inquiryBoard.css">
 
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 
 <body>
@@ -163,7 +165,7 @@
                 </form>
             </div>
 
-            <table class="board-table">
+            <table id="boardList" class="board-table">
                 <thead>
                     <tr>
                         <th>번호</th>
@@ -186,27 +188,6 @@
                     </tr>
                 </tbody>
 
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>요금제</td>
-                        <td>게시글 2 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-
-                <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td>요금제</td>
-                        <td>게시글 3 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
             </table>
 
             <div class="page">
@@ -227,8 +208,8 @@
         </div>
     </article>
 
-     <!-- JS와 연동 -->
-     <script src="js/inquiryBoard.js"></script>
+    <!-- JS와 연동 -->
+    <script src="js/inquiryBoard.js"></script>
 </body>
 
 </html>

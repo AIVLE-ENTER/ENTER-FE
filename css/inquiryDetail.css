@@ -11160,3 +11160,67 @@ textarea:disabled {
   display: flex; /* Flexbox 레이아웃 사용 */
   justify-content: flex-end; /* 오른쪽 정렬 */
 }
+
+.faq {
+  position: relative;
+  padding: 10px;
+}
+
+.faqHeader {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  border-top: 3px solid #000;
+  border-bottom: 1px solid #000;
+  align-items: center;
+  justify-content: center;
+}
+
+.faqHeader-type {
+  width: 160px;
+  text-align: center;
+  border-right: 1px solid #000;
+}
+
+.faqHeader-title {
+  width: 800px;
+  text-align: center;
+  flex: 1;
+  border-right: 1px solid #000;
+}
+
+.faqHeader-writer {
+  width: 120px;
+  text-align: center;
+}
+
+.faqItem-info {
+  display: flex;
+  width: 100%;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+}
+.faqItem-type {
+  width: 160px;
+  text-align: center;
+}
+
+.faqItem-title {
+  text-align: left;
+  margin-left: 5px;
+  flex: 1;
+}
+
+.faqItem-writer {
+  width: 120px;
+  text-align: center;
+}
+
+.faqItem-content {
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 300px;
+  background-color: #f1f1f1;
+}

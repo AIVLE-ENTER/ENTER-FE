@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>상무상조 문의 상세 페이지</title>
+    <title>상부상조 문의 상세 페이지</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -37,7 +37,9 @@
           href="./assets/favicon.ico">
 
     <link rel="stylesheet"
-          href="./css/inquiry.css">
+          href="./css/inquiryDetail.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -116,72 +118,54 @@
         </div>
     </nav>
 
-   <!-- 사실상 body -->
-   <div class='card'
-        style="width: 100%; height: auto;">
-    <div class='card-write'>  
-        <div class='title-w'>        <!-- 문의 유형-->
-            문의유형<input type='text' 
-                            style="width: 200px;"
-                            placeholder='KT 기가지니'
-                            disabled>
+    <!-- 사실상 body -->
+    <div class="card">
+        <div class="faq">
+            <div class="faqHeader">
+                <p class="faqHeader-type">문의유형</p>
+                <p class="faqHeader-title">제목</p>
+                <p class="faqHeader-writer">작성자</p>    
+            </div>
+            <div class="faqItem-box">
+                <div class="faqItem-header">
+                    <div class="faqItem-info">
+                        <p class="faqItem-type"></p>
+                        <p class="faqItem-title"></p>
+                        <p class="faqItem-writer">홍길동</p>
+                    </div>
+                </div>
+                <div class="faqItem-content">
+                    
+                </div>
+            </div>
         </div>
 
-        <div class='title-w'>        <!-- 등록자 -->
-            등록자<input type='text' 
-                            style="width: 200px; margin-left: 25px;"
-                            placeholder='김영*'
-                            disabled>
-        </div>
-        
-        <div class='title-w'>        <!-- 제목 -->
-            제목<input type='text'
-                        style="width: 500px; margin-left: 40px;"
-                        placeholder='KT 기가지니에 대한 질문 입니다.'
-                        disabled>
-        </div>
-
-        <div class='msg'>            <!-- 내용 -->
-            <span style="margin-right: 20px;">내용</span>
-            <textarea placeholder='KT 기가지니를 써보니까 참 안좋아요'
-                        readonly></textarea>
-        </div>
-
-        <div style="height: 20px;"></div> <!-- 높이 간격을 위한 빈 div -->
-
-        <div>                              <!-- 이미지 -->
-            <span style="float: left;">이미지</span>
-            <img src="assets/img/analysis.jpg" 
-                    alt="예제 이미지"
-                    style="float: left; margin-left: 30px;"
-                    width="300"
-                    height="300">
-        </div>
-    </div>
-
-    <div class='update-delete buttons'
+        <div class='update-delete buttons'
          style="height:50px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
          <div class='response'
               id='write'
-              style="width:70px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
                 <a href='#'
                    style="color: inherit; text-decoration: none;">답변하기</a>
         </div>
          
         <div class='update'
               id='write'
-              style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
               <a href='#'
                 style="color: inherit; text-decoration: none;">수정</a>
         </div>
 
         <div class='delete' 
               id='write'
-              style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
               <a href='#'
                 style="color: inherit; text-decoration: none;">삭제</a>
         </div>
    </div>
+    </div>
+
+    
 </div>
 
     <!-- JS와 연동 -->
