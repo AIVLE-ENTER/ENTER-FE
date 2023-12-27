@@ -12,8 +12,8 @@
 
     <title>상무상조 문의 화면 페이지</title>
 
-     <!-- 글꼴 (구글 폰트 적용 ) -->
-     <link rel="preconnect"
+    <!-- 글꼴 (구글 폰트 적용 ) -->
+    <link rel="preconnect"
            href="https://fonts.googleapis.com">
 
     <link rel="preconnect"
@@ -119,7 +119,7 @@
     <!-- 사실상 body -->
     <div class='card'>
         <div class='card-write'>                                         <!-- 문의 유형 선택 -->
-            <label for="exampleSelect">문의 유형 선택</label>
+            <p>문의 유형 선택</p>
             <select id="exampleSelect" 
                     name="example">
             <option value="option1">옵션 1</option>
@@ -128,18 +128,27 @@
             <option value="option4">옵션 4</option>
             <option value="option5">옵션 5</option>
             </select>
+            <br><br>
 
-            <div class='title-w'>                                         <!-- 제목 -->
-                제목<input type='text' placeholder='제목을 입력하세요.'>
+            <div class='title-w'>    
+                <p>제목</p>
+                <input type='text' placeholder='제목을 입력하세요.'>
+                
+            </div>
+            
+
+            <div class='msg'>
+                <p>내용</p>
+                <textarea placeholder='내용을 입력하세요.'></textarea>
+            </div>
+            <br>
+
+            <div class="file-detach">
+                <p>파일</p>
+                <input type='file' name='' id=''>
             </div>
 
-            <div class='msg'>                                             <!-- 내용 -->
-                내용<textarea placeholder='내용을 입력하세요.'></textarea>
-            </div>     
-
-            <input type='file'                              
-                   name=''
-                   id=''>                                                  <!-- 파일 다운로드-->
+                                                             <!-- 파일 다운로드-->
             
 
             <div class='btn-w'                                                                        
