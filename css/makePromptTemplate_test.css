@@ -1,0 +1,59 @@
+/* header에 대한 css 적용 */
+header {
+    width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
+    height:80px;
+    margin: 0; /* 상하 마진 제거 */
+    background-color: white; /* 흰색 배경 */
+    position: fixed;
+    padding: 10px 0; /* 상하 패딩 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    position: fixed; /* 상단에 고정 */
+    top: 0; /* 상단에 위치 */
+    left: 0; /* 왼쪽에 위치 */
+    z-index: 100;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
+    display: flex; /* 가로 정렬 */
+}
+
+#header-logo {
+    width: 150px; /* 로고 이미지의 너비를 비율에 맞게 자동 조정 */
+    height: 75px; /* 로고 이미지의 높이 */
+    margin-left:20px;
+}
+
+.header-link {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
+}
+
+
+.header-link h3 {
+    margin-right: 30px;
+    transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
+    font-size:20px;
+}
+
+.header-link:hover h3 {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
+}
+	
+
+/* 사실상 Body에 대한 CSS */
+.promptTemplate {
+    width: 50%;                               /* 가로 크기 설정 */
+    margin: 0 auto;                           /* 상하 마진 없음, 좌우 마진으로 가운데 정렬 */
+    padding: 10px;                            /* 내부 여백 */
+    font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
+}
+
+.promptTemplate input {
+    width: 100%; /* input의 너비를 부모 div에 맞춤 */
+    border: 2px solid #aaa;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f8f8f8;
+    font-size: 1em;
+}

@@ -1,0 +1,694 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+:root {
+    --color-white: #fff;
+    --color-main: #2c2d30;
+    --color-main-fade: #2c2d3000;
+    --color-secondary: #171717;
+    --color-secondary-fade: #17171700;
+    --color-button-hover: #242629;
+    --color-button-hover-fade: #24262900;
+    --color-user-icon: #8e0000;
+    --color-groupings: #9ca6b5;
+    --color-gpt-icon: #000000;
+    --color-black: #1e1e1f;
+    --color-user-menu-hover: #383b42;
+    --color-text: #f5f9ff;
+    --color-gpt3: #5fc319;
+    --color-gpt4: #f22626;
+    --color-secondary-p: #c9ccd1;
+    --color-logo: #848484;
+    --color-model-name: #ffffff;
+    --color-assistant-bg: #3f4042;
+    --color-assistant-text: #e1e6ed;
+    --color-disclaimer: #d0d2e1;
+    --color-border1: #484a4e;
+    --color-user-menu-border: #34373a;
+    --color-user-menu-selected-border: #4a5562;
+    --color-border2: #292d32;
+    --color-user-message-border: #2f353d;
+}
+
+header {
+    width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
+    height:60px;
+    margin: 0; /* 상하 마진 제거 */
+    background-color: white; /* 흰색 배경 */
+    position: fixed;
+    padding: 10px 0; /* 상하 패딩 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    position: fixed; /* 상단에 고정 */
+    top: 0; /* 상단에 위치 */
+    left: 0; /* 왼쪽에 위치 */
+    z-index: 100;
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
+    display: flex; /* 가로 정렬 */
+}
+
+#header-logo {
+    width: 150px; /* 로고 이미지의 너비를 비율에 맞게 자동 조정 */
+    height: 75px; /* 로고 이미지의 높이 */
+    padding:20px;
+}
+
+.header-link {
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
+}
+
+
+.header-link h3 {
+    margin-right: 30px;
+    transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
+}
+
+.header-link:hover h3 {
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
+}
+	
+
+body {
+    font-family: 'Noto Sans KR', sans-serif; /* 폰트 패밀리 지정 */
+    padding-top: 5rem;
+    background: var(--color-main);
+    display: flex;
+    font-size: 1em;
+}
+
+#sidebar {
+    /* position: relative; */
+    flex-shrink: 0; /* 사이드바 크기가 줄어들지 않도록 설정 */
+    left: 0;
+    background: var(--color-secondary);
+    width: 260px;
+    padding: 8px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    transition: all 0.2s ease-in-out;
+}
+
+.float-top {
+    display: flex;
+    flex-direction: column;
+    height: calc( 100% - 10px );
+}
+
+#sidebar.hidden {
+    left: -260px;
+    margin-right: -260px;
+}
+
+#sidebar.hidden .hide-sidebar {
+    left: 60px;
+    transform: rotate(180deg);
+    padding: 15px 13px 11px 13px;
+}
+
+button {
+    display: block;
+    background: inherit;
+    border: 1px solid var(--color-border1);
+    border-radius: 5px;
+    color: var(--color-white);
+    padding: 13px;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
+}
+
+button:hover {
+    background: var(--color-button-hover);
+}
+
+.sidebar-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.sidebar-controls button {
+    padding: 12px 13px 12px 13px;
+}
+
+.hide-sidebar {
+    position: relative;
+    left: 0;
+    top: 0;
+    transition: all 0.2s ease-in-out;
+    transform: rotate(0deg);
+}
+
+.new-chat i {
+    margin-right: 13px;
+}
+
+.new-chat {
+    flex: 1;
+}
+
+.exit i {
+    margin-right: 13px;
+}
+
+.exit {
+    flex: 1;
+}
+
+.useWell i {
+    margin-right: 13px;
+}
+
+.useWell {
+    flex: 1;
+}
+
+.conversations {
+    width: calc( 100% + 8px );
+    overflow-y: scroll;
+}
+
+.conversations,
+.conversations li {
+    list-style: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.conversations li {
+    position: relative;
+}
+
+.conversations li .fa {
+    margin-right: 7px;
+}
+
+.conversations li > button {
+    width: 100%;
+    border: none;
+    font-size: 0.9em;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.conversations li.active > button {
+    background: var(--color-main);
+}
+
+.edit-buttons {
+    display: none;
+    position: absolute;
+    right: 8px;
+    top: 0;
+}
+
+.conversations li:hover .edit-buttons {
+    display: flex;
+}
+
+.fade {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: var(--color-user-icon);
+    width: 40px;
+    height: 100%;
+    border-radius: 5px;
+    background: transparent;
+    background: linear-gradient(90deg, var(--color-secondary-fade) 0%, var(--color-secondary) 50%);
+}
+
+.conversations li.active .fade {
+    background: linear-gradient(90deg, var(--color-main-fade) 0%, var(--color-main) 50%);
+}
+
+.conversations li:hover .fade {
+    width: 80px;
+    background: linear-gradient(90deg, var(--color-button-hover-fade) 0%, var(--color-button-hover) 30%);
+}
+
+.edit-buttons button {
+    border: none;
+    padding: 0;
+    margin: 13px 1px 13px 1px;
+    opacity: 0.7;
+}
+
+.edit-buttons button:hover {
+    background: none;
+    opacity: 1;
+}
+
+.conversations li.grouping {
+    color: var(--color-groupings);
+    font-size: 0.7em;
+    font-weight: bold;
+    padding-left: 13px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+i.user-icon {
+    padding: 6px;
+    color: var(--color-white);
+    background: var(--color-user-icon);
+    display: inline-block;
+    text-align: center;
+    width: 15px;
+    border-radius: 3px;
+    margin-right: 6px;
+    font-style: normal;
+    width: 18px;
+    height: 18px;
+    font-size: 15px;
+    text-transform: uppercase;
+    font-family: system-ui, sans-serif;
+}
+
+.gpt.user-icon  {
+    background: var(--color-gpt-icon);
+}
+
+.user-menu {
+    position: relative;
+    border-top: 1px solid var(--color-border1);
+}
+
+.user-menu button {
+    width: 100%;
+    border: none;
+}
+
+.user-menu .dots {
+    position: relative;
+    top: 11px;
+    float: right;
+    opacity: 0.7;
+}
+
+.user-menu > ul,
+.user-menu li {
+    list-style: none;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.user-menu > ul {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateY(-100%);
+    background: var(--color-black);
+    border-radius: 10px;
+    width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.user-menu > ul.show-animate {
+    display: block;
+}
+
+.user-menu > ul.show {
+    opacity: 1;
+    margin-top: -8px;
+}
+
+.user-menu li button {
+    border-radius: 0;
+}
+
+.user-menu li button:hover {
+    background: var(--color-user-menu-hover);
+}
+
+.user-menu li:first-child button {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.user-menu li:last-child button {
+    border-top: 1px solid var(--color-user-menu-border);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+}
+
+:hover::-webkit-scrollbar-thumb {
+    background-color: var(--color-text)c3;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-text);
+    border-radius: 5px;
+}
+
+main {
+    /* width: 100%; */
+    width:1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+    padding: 0 0 30px 0;
+    box-sizing: border-box;
+}
+
+main .view {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.gpt-3 .fa {
+    color: var(--color-gpt3);
+}
+
+.gpt-4 .fa {
+    color: var(--color-gpt4);
+}
+
+.model-info {
+    display: none;
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    transform: translateY(100%);
+    padding: 15px;
+    cursor: default;
+}
+
+.model-info-box {
+    padding: 20px 20px 10px 20px;
+    border-radius: 15px;
+    background: var(--color-secondary);
+    color: var(--color-white);
+    text-align: left;
+}
+
+.model-selector > button:hover .model-info {
+    display: block;
+}
+
+.model-selector p {
+    font-size: 1.1em;
+    margin: 0 0 15px 0;
+}
+
+p.secondary {
+    font-size: 1em;
+    color: var(--color-secondary-p);
+}
+
+.logo {
+    position: relative;
+    z-index: 1;
+    color: var(--color-logo);
+    font-weight: bold;
+    text-align: center;
+    font-size: 2.3em;
+    margin-top:30px;
+}
+
+.view.conversation-view {
+    display: block;
+    overflow-y: auto;
+}
+
+.model-name {
+    background: var(--color-main);
+    text-align: center;
+    color: var(--color-model-name);
+    padding: 23px;
+    border-bottom: 1px solid var(--color-border2);
+    font-size: 0.85em;
+}
+
+.message {
+    display: flex;
+    gap: 20px;
+    padding: 25px 60px 15px 60px;
+    border-bottom: 1px solid var(--color-border2);
+    font-size: 0.95em;
+}
+
+.message .content {
+    padding-top: 5px;
+}
+
+.user.message {
+    color: var(--color-text);
+}
+
+.assistant.message {
+    background: var(--color-assistant-bg);
+    color: var(--color-assistant-text);
+}
+
+#message-form {
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    max-width: 850px;
+    text-align: center;
+    padding: 0px 45px 0 45px;
+    box-shadow: var(--color-main) 0 0 50px;
+}
+
+.message-wrapper {
+    position: relative;
+}
+
+#message::placeholder {
+    color: var(--color-groupings);
+}
+
+#message {
+    background: var(--color-user-menu-hover);
+    border-radius: 13px;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid var(--color-user-message-border);
+    resize: none;
+    padding: 17px 85px 17px 15px;
+    font-family: inherit;
+    font-size: 1em;
+    color: var(--color-white);
+    box-shadow: rgba(0,0,0,0.2) 0 0 45px;
+    outline: none;
+}
+
+.disclaimer {
+    margin-top: 12px;
+    color: var(--color-disclaimer);
+    font-size: 0.7em;
+}
+
+.send-button {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-gpt3);
+    border-radius: 5px;
+    display: inline-block;
+    font-size: 1em;
+    padding: 7px 9px 7px 7px;
+    color: var(--color-white);
+    border: none;
+    margin-top: -2px;
+}
+
+button.send-button:hover {
+    border: none;
+    background: var(--color-gpt3);
+    color: var(--color-white);
+}
+
+p {
+    margin: 0 0 1.5em 0;
+}
+
+#exit-button {
+    background-color: purple; /* 배경색 */
+    color: white; /* 텍스트 색상 */
+    padding: 10px 20px; /* 패딩 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 테두리 둥글게 */
+    font-size: 16px; /* 폰트 크기 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5); /* 그림자 효과 */
+    transition: all 0.3s ease; /* 부드러운 효과를 위한 전환 */
+
+}
+
+#exit-button:hover {
+    background-color: #333; /* 마우스 오버 시 배경색 변경 */
+}
+
+.conversations {
+    max-height: 200px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 세로 스크롤바 설정 */
+}
+
+#chat-list {
+    max-height: 300px; /* 최대 높이 설정 */
+    overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤바 표시 */
+    color: white; /* 텍스트 색상 설정 */
+}
+
+/* 팝업 관련 */
+.popup {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0, 0, 0, 0.5); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+/* 팝업 관련 */
+.popup-content {
+    background: white; 
+    padding: 20px; 
+    border-radius: 5px;
+}
+
+/* 팝업 관련 */
+/* .close-btn {
+    float: right; 
+    font-size: 20px; 
+    cursor: pointer;
+} */
+
+
+.message-icon {
+    font-size: 24px; /* 아이콘 크기 증가 */
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+
+.question {
+    width: 50%; /* 최대 너비 설정 */
+    background-color: #4d4646; /* 회색 배경 */
+    color: #ffffff; 
+    margin-bottom: 30px; /* 메시지 사이 간격 */
+    padding: 10px; /* 상단 및 하단 패딩 */
+    word-wrap: break-word;
+
+   
+    /* ... 다른 스타일 ... */
+}
+
+.answer {
+    width: 50%; /* 최대 너비 설정 */
+    background-color: #333; /* 검정색 배경 */
+    color: #ffffff; 
+    margin-bottom: 60px; /* 메시지 사이 간격 */
+    padding: 10px; /* 상단 및 하단 패딩 */
+    word-wrap: break-word;
+    
+    /* ... 다른 스타일 ... */
+}
+
+.popup2 {
+    position: fixed; /* 팝업을 고정된 위치에 표시 */
+    top: 50%; /* 상단에서 50% 위치에 배치 */
+    left: 50%; /* 왼쪽에서 50% 위치에 배치 */
+    transform: translate(-50%, -50%); /* 정확히 중앙에 오도록 조정 */
+    width: 60%; /* 팝업의 가로 크기 */
+    height: 80%; /* 팝업의 세로 크기 */
+    background-color: white; /* 배경색 */
+    padding: 20px; /* 패딩 */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* 그림자 효과 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    overflow-y: auto; /* 세로 스크롤바 추가 */
+}
+
+.popup2-content {
+    height: auto; /* 높이를 자동으로 설정 */
+}
+
+.reflect, .close-btn {
+    background-color: #505050; /* 연한 검정색 배경 */
+    color: white; /* 텍스트 색상 */
+    padding: 8px 12px; /* 상하 8px, 좌우 12px의 패딩 */
+    border-radius: 4px; /* 테두리 반경 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+    display: inline-block; /* 인라인 블록 요소로 표시 */
+    margin: 4px; /* 주변 요소와의 간격 */
+    transition: background-color 0.3s; /* 배경색 변경에 대한 부드러운 전환 효과 */
+}
+
+.close-btn:hover {
+    background-color: #606060; /* 마우스 오버 시 배경색 변경 */
+}
+
+.promptTemplate {
+    width: 50%;                               /* 가로 크기 설정 */
+    margin: 0 auto;                           /* 상하 마진 없음, 좌우 마진으로 가운데 정렬 */
+    padding: 10px;                            /* 내부 여백 */
+    font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
+}
+
+.promptTemplate input {
+    width: 100%; /* input의 너비를 부모 div에 맞춤 */
+    border: 2px solid #aaa;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    background-color: #f8f8f8;
+    font-size: 1em;
+}
+
+.chat-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /*  질문과 대답 사이 간격 조정 */
+    align-items: center; /* 자식 요소들을 수평 중앙에 정렬 */
+}
+
+.menu1, .menu2, .menu3, .menu4 {
+    display: flex; /* Flexbox 사용 */
+    align-items: center; /* 수직 방향으로 중앙 정렬 */
+    gap: 10px; /* 아이콘과 텍스트 사이의 간격 */
+    color: white; 
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+}
+
+.bright-img {
+    width: 150px; /* 이미지의 너비 조절 */
+    height: auto; /* 이미지 비율 유지 */
+    filter: brightness(0) invert(1);
+}

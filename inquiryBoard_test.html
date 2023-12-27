@@ -1,7 +1,6 @@
 <!-- 문의 게시판 페이지 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,95 +42,34 @@
         type="text/css" />
 
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css"
+    <link href="/css/inquiryBoard_test.css"
         rel="stylesheet" />
 
     <!-- css 연결 -->
     <link rel="stylesheet"
-          href="./css/inquiryBoard.css">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+          href="./css/inquiryBoard_test.css">
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" 
+           integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+           crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between"
-             style="width: 100%;">
-            <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/aivle-logo.png"
-                     class='navbar-brand'
-                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
+    <!-- Header -->
+    <header>
+        <img src="assets/img/Logo2.png" 
+             alt="로고"
+             id="header-logo">
 
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/inquiryBoard.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/signin.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                    id='huiwongaip'
-                    href="/signup.html" 
-                    style="color: inherit;
-                           background-color:
-                           transparent; 
-                           border: none;
-                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/privacyPolicy.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-    
-            </div>
-        </div>
-    </nav>
+        <a href="마이페이지_URL" 
+           class="header-link">
+            <h3>winner23456님 안녕하세요!!</h3>
+       </a>
+    </header>
 
     <!-- 간격 -->
-    <div class="mt-5"></div>
+    <div style='height:150px'></div>
 
     <!-- 사실상 본체 -->
     <article>
@@ -222,13 +160,13 @@
                 <span><input type="button" 
                              class="button-black"
                              value="글쓰기" 
-                             onclick="location.href='/inquiry.html'"></span>
+                             onclick="location.href='/inquiry_test.html'"></span>
             </div>
         </div>
     </article>
 
      <!-- JS와 연동 -->
-     <script src="js/inquiryBoard.js"></script>
+     <script src="/js/inquiryBoard_test.js"></script>
 </body>
 
 </html>

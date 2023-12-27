@@ -9,9 +9,23 @@
     <meta name="viewport" 
           content="width=device-width, initial-scale=1.0">
 
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
+
+
     <!-- CSS와 연계 -->
     <link rel="stylesheet"
-          href="/css/prompt_version2.css" />
+          href="/css/index_test.css" />
 
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -25,6 +39,18 @@
     <title>ChatGPT Clone</title>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <img src="assets/img/Logo2.png" 
+             alt="로고"
+             id="header-logo">
+
+        <a href="/mypage_test.html" 
+           class="header-link">
+            <h3>winner23456님 안녕하세요!!</h3>
+       </a>
+    </header>
+    
     <!-- Prompt Sidebar-->
     <nav id="sidebar">
         <div class="float-top">
@@ -54,11 +80,6 @@
                                 onclick='generateChat()'>생성하기</button>
                     </form>
                 </div>
-            </div>
-
-            <div class="sidebar-controls">
-                <button class="exit"
-                        onclick="exit()"><i class="fa fa-times"></i> 나가기</button>
             </div>
 
             <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
@@ -125,7 +146,7 @@
             <div class="sidebar-controls">
                 <button class="new-chat"
                         onclick="openPopup()"><i class="fa fa-plus"></i> New chat</button>
-                <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button>
+                <!-- <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button> -->
             </div>
            
     
@@ -171,21 +192,47 @@
         </div>
 
         <!-- User Menu-->
-        <div class="user-menu">
-            <button>
-                <i class="user-icon">u</i>
-                username
-                <i class="fa fa-ellipsis dots"></i>
-            </button>
-            <ul>
-                <li><button>My plan</button></li>
+        <div class="user-menu"
+            style='margin-bottom:120px;'>
+            <!-- 엔터란? -->
+            <div class="menu1"
+                 style='padding:10px;'
+                 onclick='question_enter();'>
+                <i class="fa-solid fa-question"></i>
+                <span>엔터란?</span>
+            </div>
 
-                <li><button>Custom instructions</button></li>
+            <!-- AI 설정 -->
+            <div class="menu2"
+                 style='padding:10px;'
+                 onclick=''>
+                 <i class="fa-solid fa-gear"></i>
+                <span>AI 설정</span>
+            </div>
 
-                <li><button>Settings &amp; Beta</button></li>
+            <!-- 문의 게시판 -->
+            <div class="menu3"
+                 style='padding:10px;'
+                 onclick='goInquiry();'>
+                 <i class="fa-solid fa-question"></i>
+                <span>문의 게시판</span>
+            </div>
 
-                <li><button>Log out</button></li>
-            </ul>
+            <!-- 로그인/로그아웃 -->
+            <div class="menu4"
+                style='padding:10px;'
+                onclick='goLogin();'>
+                <span>로그인</span>
+            </div>
+
+            <!-- 로그인/로그아웃 -->
+            <div class="menu4"
+                style='padding:10px;'
+                onclick='goLogout();'>
+               <span>로그아웃</span>
+            </div>
+
+
         </div>
     </nav>
  
@@ -193,7 +240,7 @@
     <main>
         <div class="view new-chat-view">  <!-- 상단 -->
             <div class="logo">
-                ChatWTF
+                Enter
             </div>
             
         </div>
@@ -205,7 +252,7 @@
         </div>
  
         <div id="message-form"
-             style='display:none'>                <!-- 하단 -->
+             style='display:none; margin-bottom:30px;'>                <!-- 하단 -->
             <div class="message-wrapper">
                 <textarea id="message"
                           rows="1"
@@ -219,6 +266,6 @@
     </main>
 
     <!-- JS와 연계 -->
-    <script src="js/prompt_version2.js"></script>
+    <script src="js/index_test.js"></script>
 </body>
 </html>

@@ -1,0 +1,131 @@
+<!-- 회원 가입(SignUp) 페이지 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>상무상조 로그인 페이지</title>
+
+     <!-- 글꼴 (구글 폰트 적용 ) -->
+     <link rel="preconnect"
+           href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+          rel="stylesheet">
+
+    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
+
+    <!--                       -->
+    <link rel="icon" 
+          href="./assets/favicon.ico">
+
+    <!-- CSS와 연계 -->
+    <link rel="stylesheet"
+          href="./css/signin_test.css">
+
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <img src="assets/img/Logo2.png" 
+             alt="로고"
+             id="header-logo">
+
+        <a href="마이페이지_URL" 
+           class="header-link">
+            <h3>winner23456님 안녕하세요!!</h3>
+       </a>
+    </header>
+
+    <div style='height:140px;'></div>
+
+    <!-- 본 body-->
+    <div class="member">
+        <!-- 1. 로고 -->
+        <img class="logo" 
+             src="./assets/favicon.ico">
+
+        <!-- 2. 아이디 -->
+        <div class="field">
+            <b id='signup_id'>아이디</b>
+            <div class="input-group mb-3">
+                <input type="text"
+                       id='input_id'
+                       class="form-control"
+                       aria-label="Username">
+            </div>
+        </div>
+
+        <!-- 3. 비밀번호 -->
+        <div class="field">
+            <b>비밀번호</b>
+            <input id='input_password'
+                   class="userpw"
+                   type="password">
+        </div>
+
+        <!-- 4. 회원가입 하기, 아이디 찾기, 비밀번호 찾기 -->
+        <div class="links-container">
+            <a href="/privacyPolicy_test.html">회원가입 하기 </a>
+
+            <div style='width:10px;'></div>
+
+            <a href="/findId_test.html">아이디 찾기</a>
+
+            <div style='width:10px;'></div>
+
+            <a href="/changePassword_test.html">비밀번호 찾기</a>
+        </div>
+
+        <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->
+        
+        <!-- 5. 로그인 버튼 -->
+        <input type="submit"
+               value="로그인"
+               style="background-color: #808080; color: white;"
+               onclick="signin();">
+
+
+        <!-- 6. 소셜 로그인 버튼 -->
+        
+
+        <!-- 7. footer -->
+        <div class="member-footer">
+            <div>
+                <a href="#none">이용약관</a>
+
+                <a href="#none">개인정보처리방침</a>
+
+                <a href="#none">책임의 한계와 법적고지</a>
+
+                <a href="#none">회원정보 고객센터</a>
+            </div>
+
+            <span><a href="#none">Aivle Corp.</a></span>
+        </div>
+    </div>
+
+    <!-- JS와 연동 -->
+    <script src="/js/signin_test.js"></script>
+</body>
+</html>

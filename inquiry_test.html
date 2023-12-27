@@ -1,0 +1,103 @@
+<!-- 문의 화면(Inquiry) 페이지 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>상무상조 문의 화면 페이지</title>
+
+    <!-- 글꼴 (구글 폰트 적용 ) -->
+    <link rel="preconnect"
+           href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
+          rel="stylesheet">
+
+    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
+
+    <!--                       -->
+    <link rel="icon" 
+          href="./assets/favicon.ico">
+
+    <!-- CSS 연계 -->
+    <link rel="stylesheet"
+          href="./css/inquiry_test.css">
+</head>
+
+<body>
+    <!-- Header -->
+    <header>
+        <img src="assets/img/Logo2.png" 
+             alt="로고"
+             id="header-logo">
+
+        <a href="마이페이지_URL" 
+           class="header-link">
+            <h3>winner23456님 안녕하세요!!</h3>
+       </a>
+    </header>
+
+    <!-- 사실상 body -->
+    <div class='card'>
+        <div class='card-write'>                                         <!-- 문의 유형 선택 -->
+            <p>문의 유형 선택</p>
+            <select id="exampleSelect" 
+                    name="example">
+            <option value="option1">옵션 1</option>
+            <option value="option2">옵션 2</option>
+            <option value="option3">옵션 3</option>
+            <option value="option4">옵션 4</option>
+            <option value="option5">옵션 5</option>
+            </select>
+            <br><br>
+
+            <div class='title-w'>    
+                <p>제목</p>
+                <input type='text' placeholder='제목을 입력하세요.'>
+                
+            </div>
+            
+
+            <div class='msg'>
+                <p>내용</p>
+                <textarea placeholder='내용을 입력하세요.'></textarea>
+            </div>
+            <br>
+
+            <div class="file-detach">
+                <p>파일</p>
+                <input type='file' name='' id=''>
+            </div>
+
+                                                             <!-- 파일 다운로드-->
+            
+            <div class='btn-w'                                                                        
+                 id='write'
+                 style='width:75px; height:50px; float: right;'>
+                 <a href='#'>작성</a>                                      <!-- 작성 -->       
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JS와 연동 -->
+    <script src="/js/inquiry_test.js"></script>
+</body>
+</html>
