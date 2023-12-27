@@ -1,6 +1,3 @@
-//import {detailRendering} from "./inquiryDetail.js"
-
-
 var contentNumber = 1;
 
 tempUrl = 'http://127.0.0.1:8000/board/'
@@ -9,6 +6,7 @@ axios.get(tempUrl)
         console.log('success');
         console.log(typeof(response));
         const board_list = response.data['post_list']
+        totalContentItem = document.create
         console.log(board_list)
 
         board_list.forEach((content) => {
@@ -35,9 +33,7 @@ axios.get(tempUrl)
         console.log('End.')
     })
 
-
-function redirectToDetailPage(postId) {
-    detailRendering(postId);
+function redirectToDetailPage(postId) {    
     window.location.href = '/inquiryDetail.html?id=' + postId;
 }
 
