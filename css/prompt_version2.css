@@ -562,6 +562,7 @@ p {
     margin-bottom: 30px; /* 메시지 사이 간격 */
     padding: 10px; /* 상단 및 하단 패딩 */
     word-wrap: break-word;
+
    
     /* ... 다른 스타일 ... */
 }
@@ -628,3 +629,10 @@ p {
     font-size: 1em;
 }
 
+.chat-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /*  질문과 대답 사이 간격 조정 */
+    align-items: center; /* 자식 요소들을 수평 중앙에 정렬 */
+}
