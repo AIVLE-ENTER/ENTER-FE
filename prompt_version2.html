@@ -41,16 +41,17 @@
 
                     <form id="new-chat-form">
                         <label for="topic">주제:</label>
-
                         <input type="text" 
                                id="topic"
                                name="topic"><br>
-                        <label for="chatroom-name">채팅방명:</label>
 
+                        <label for="chatroom-name">채팅방명:</label>
                         <input type="text"
                                id="chatroom-name"
                                name="chatroom"><br>
-                        <button type="submit">생성하기</button>
+
+                        <button type="submit"
+                                onclick='generateChat()'>생성하기</button>
                     </form>
                 </div>
             </div>
@@ -117,7 +118,6 @@
                         onclick="useWell()"><i class="fa fa-pencil"></i> 자주 쓰는 문구</button>
             </div>
 
-
             <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
             <div style="height: 30px;"></div>
 
@@ -133,17 +133,17 @@
             <div style="height: 30px;"></div>
 
 
-            <!-- 주제 (Target)-->
+            <!-- 채팅방명-->
             <p class='topic'  
-               style="color: white; font-weight: bold;">주제(Target)</p>
+               style="color: white; font-weight: bold;">채팅방명</p>
             <ul class="conversations">
                 <li>
                     <button class="conversation-button"
-                            onclick="showChats('gigagenie')">기가지니</button>
+                            onclick="showChats('gigagenie')">기가지니 뭐 질문 할 게 있는데요?</button>
                 </li>
                 <li>
                     <button class="conversation-button"
-                            onclick="showChats('pass')">PASS</button>
+                            onclick="showChats('pass')">PASS가 궁금하네 쩝...</button>
                 </li>
 
                 <li>
@@ -168,16 +168,6 @@
                 </li>
 
             </ul>
-
-            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
-            <div style="height: 60px;"></div>
-
-            <!-- 주제에 따른 채팅방 -->
-            <p class='topic'  
-               style="color: white; font-weight: bold;">주제에 따른 채팅방</p>
-            <div id="chat-list">
-                <!-- 여기에 동적으로 채팅방 목록이 표시됩니다 -->
-            </div>
         </div>
 
         <!-- User Menu-->
@@ -209,8 +199,9 @@
         </div>
 
         <div class="view conversation-view"
-             style="flex-grow: 1; overflow-y: auto; height: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
+             style="flex-grow: 1;  height: auto; overflow-y: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
             <!-- 질문과 대답의 반복 (History) -->
+
         </div>
  
         <div id="message-form"

@@ -63,106 +63,85 @@ show_user_menu.addEventListener( "click", function() {
 //     show_view( ".new-chat-view" );
 // });
 
-/* 주제(Target) 목록 중에 하나의 주제를 선택했을 떄 */
-  
-const chatRoomsData = {                                                 // 각 주제별 채팅방 목록 예시 데이터
-    'gigagenie': ['기가지니 채팅방 1', '기가지니 채팅방 2', '기가지니 채팅방 3', '기가지니 채팅방 4',
-                  '기자지니 채팅방 5', '기가지니 채팅방 6', '기가지니 채팅방 7', '기가지니 채팅방 8'],
-    'pass': ['PASS 채팅방 1', 'PASS 채팅방 2'],
-    'other1': ['Other1 채팅방 1', 'Other1 채팅방 2'],
-    'other2': ['Other2 채팅방 1', 'Other2 채팅방 2'],
-    'other3': ['Other3 채팅방 1', 'Other3 채팅방 2'],
-    'other4': ['Other4 채팅방 1', 'Other4 채팅방 2'],
-    // 여기에 추가 주제별 채팅방 목록 추가 가능
-};
 
-    // 주제(Target)를 선택했으면 그에 따른 채팅방 목록도 보여주기 
-function showChats(topicKey) {
-    const chatListDiv = document.getElementById('chat-list');
-    chatListDiv.innerHTML = ''; // 기존 내용 초기화
 
-    const ul = document.createElement('ul');
-    ul.className = 'conversations';
 
-    const chats = chatRoomsData[topicKey];
-    chats.forEach(chat => {
-        const li = document.createElement('li');
-        const button = document.createElement('button');
-        button.textContent = chat;
-        button.onclick = function() {
-            // 여기에 채팅방 선택 시 수행할 동작 추가
-            
-            console.log(chat + ' 채팅방이 선택되었습니다.');
-            displayChatHistory(chat);  // 목록을 가져옴 
-        };
 
-        li.appendChild(button);
-        ul.appendChild(li);
+
+// '채팅방명'을 click 했을 떄 호출되는 함수
+function showChats(chatRoomName) {
+    var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
+
+    var conversationView = document.querySelector('.conversation-view');
+    conversationView.innerHTML = '';
+
+       
+    chatData.forEach(function(chat) {    // 질문(Q)와 대답(R) 데이터를 화면에 뿌려준다.(JS 코드로 html 설정)
+        var questionDiv = document.createElement('div');    // 질문(Q)
+        questionDiv.className = 'chat-container';
+        var questionElem = document.createElement('p');
+        questionElem.className = 'question';
+        questionElem.innerHTML = '<b>Q:</b> ' + chat.question;
+        questionDiv.appendChild(questionElem);
+        conversationView.appendChild(questionDiv);
+
+        var answerDiv = document.createElement('div');     // 대답(R)
+        answerDiv.className = 'chat-container';
+        var answerElem = document.createElement('p');
+        answerElem.className = 'answer';
+        answerElem.innerHTML = '<b>A:</b> ' + chat.answer;
+        answerDiv.appendChild(answerElem);
+        conversationView.appendChild(answerDiv);
     });
 
-    chatListDiv.appendChild(ul);
+    // 채팅 내용이 추가된 후 스크롤을 맨 아래로 이동
+    conversationView.scrollTop = conversationView.scrollHeight;
+
+    // 입력 버튼 보이게 한다.
+    var messageForm = document.getElementById('message-form');
+    messageForm.style.display = 'block'; // 'none' 대신 'block' 또는 'flex'로 변경
 }
 
-
-/* 주제에 따른 채팅방을 click 했을 떄 과거의 히스토리를 목록으로 보여주는 함수 */
-const chatRoomHistories = {
-    '기가지니 채팅방 1': [
-        { type: 'Q', text: '기가지니는 어떤 서비스인가요?' },
-        { type: 'A', text: '기가지니는 AI 기반 음성 인식 서비스입니다.sadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsaasdsadsadsadsadsadsadsadsadsadsadsadsadasdsadsadsadsadsasasasadasdsadsadassadsadsadsadsasadsadsadsadsadsadsadsadsadasdasdsadsadsasadsadasdsadassadsadsadsadsadsadsadsadsadsadsadsadassadasdsadsadsadsadsadsadasdasdsadadsdsadsadsadsadsadsadsasadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsad' },
-
-        { type: 'Q', text: '기가지니는 어떤 서비스인가요?' },
-        { type: 'A', text: '기가지니는 AI 기반 음성 인식 서비스입니다.sadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsaasdsadsadsadsadsadsadsadsadsadsadsadsadasdsadsadsadsadsasasasadasdsadsadassadsadsadsadsasadsadsadsadsadsadsadsadsadasdasdsadsadsasadsadasdsadassadsadsadsadsadsadsadsadsadsadsadsadassadasdsadsadsadsadsadsadasdasdsadadsdsadsadsadsadsadsadsasadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsad' },  
-
-        { type: 'Q', text: '기가지니는 어떤 서비스인가요?' },
-        { type: 'A', text: '기가지니는 AI 기반 음성 인식 서비스입니다.sadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsaasdsadsadsadsadsadsadsadsadsadsadsadsadasdsadsadsadsadsasasasadasdsadsadassadsadsadsadsasadsadsadsadsadsadsadsadsadasdasdsadsadsasadsadasdsadassadsadsadsadsadsadsadsadsadsadsadsadassadasdsadsadsadsadsadsadasdasdsadadsdsadsadsadsadsadsadsasadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsad' },
-        
-        { type: 'Q', text: '기가지니는 어떤 서비스인가요?' },
-        { type: 'A', text: '기가지니는 AI 기반 음성 인식 서비스입니다.sadsadsadsadsadsadasdsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsaasdsadsadsadsadsadsadsadsadsadsadsadsadasdsadsadsadsadsasasasadasdsadsadassadsadsadsadsasadsadsadsadsadsadsadsadsadasdasdsadsadsasadsadasdsadassadsadsadsadsadsadsadsadsadsadsadsadassadasdsadsadsadsadsadsadasdasdsadadsdsadsadsadsadsadsadsasadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsadsad' },
-    ],
-    '기가지니 채팅방 2':[
-        { type: 'Q', text: '기가지니는 어떤 서비스인가요?' },
-        { type: 'A', text: '기가지니는 AI 기반 음성 인식 서비스입니다.sadasdsadsadsadsadsadadasdsfafsg' }
-    ],
-    // 다른 채팅방의 대화 히스토리
-};
-// 채팅방 히스토리를 표시하는 함수
-function displayChatHistory(chatRoomKey) {
-    const conversationView = document.querySelector('.view.conversation-view');
-    conversationView.innerHTML = ''; // 기존 내용 초기화
-
-    const histories = chatRoomHistories[chatRoomKey] || [];
-    histories.forEach(item => {
-        const messageDiv = document.createElement('div');
-        messageDiv.className = item.type === 'Q' ? 'question' : 'answer';
-
-        // 아이콘을 위한 span 요소 생성
-        const iconSpan = document.createElement('span');
-        iconSpan.className = 'message-icon';
-        iconSpan.textContent = item.type === 'Q' ? 'Q' : 'A';
-
-        // 메시지 텍스트를 위한 span 요소 생성
-        const textSpan = document.createElement('span');
-        textSpan.className='text';
-        textSpan.textContent = item.text;
-
-        // span 요소들을 messageDiv에 추가
-        messageDiv.appendChild(iconSpan);
-        messageDiv.appendChild(textSpan);
-
-        conversationView.appendChild(messageDiv);
-    });
-    
-    // 버튼 입력창 보여주기 
-    const message_form = document.querySelector('#message-form');
-    message_form.style.display='block';
+// 서버에서 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
+function getChatData(chatRoomName) {
+    // 예시 데이터 
+    return {
+        'gigagenie': [
+            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+            { question: '질문2', answer: '대답2' },
+            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+            { question: '질문2', answer: '대답2' },
+            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+            { question: '질문2', answer: '대답2' },
+            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+            { question: '질문2', answer: '대답2' },
+            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐무랴루ㅑ우랴ㅐㅇ누량누랴앤룽내ㅑㅜㄹㄴ애ㅑ룽냐ㅐ룽내룬애루ㅐㄴㅇ루ㅑㅐㄴ우랴ㅐㄴㅇ루ㅑㅐㅇ누랴ㅐㄴㅇ루ㅐㄴㅇ루앤루ㅑㅐㄴㅇ룽내룬애루앤ㄹㅇ내루ㅐ냐혀휵뎌휵뎌ㅑ휵댜ㅕ휻ㄱㅎdasdasfasfdfdsfsdfhsdfsdfhsdufhdsiufhdsfiuhdsfiudsfisdhfiusdigsdfdifgdufgsdifusdfgdsuifdgsifgsdiufgsdifgdsifgidsfgdisfgisdfgdisfgidsfgidsfgdisufgeuifgfegfguefgwefgewfewuifgufigdufidgsfgdsfgsdifgdsifgdsfisdgfidsgfidsgfidsfgdsifgydwdywfdwydfywfdyufdwyfduydfwywqdfywdfywfqdywqdfwtdwqdfwqdfwqdufqwdtwqdfwtdwqfdytwqfdwqtydfwqytdfqwydfwqydfwqtydfqwtydfwqtydfwqytdfwqytdfwqdfwqudfwqydfwqduwqfyduwqdfwqdufwqdfuwqydufwqydufywqdfwqdfwqdyuwfqduywfdwqydwfqydwqfyd' },
+            { question: '질문2', answer: '대답2' },
+            // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+        ],
+        'pass' : [
+            { question: '질문1', answer: '대답1' },
+            { question: '질문2', answer: '대답2' },
+            // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+        ],
+        // 다른 채팅방 데이터도 이와 유사하게 추가
+    }[chatRoomName];
 }
-
-
 
 
 // 'New Chat'click 시 팝업 나타나는 함수 
 function openPopup() {
     document.getElementById('new-chat-popup').style.display = 'flex';
+
+    var topic = document.getElementById('topic');
+    var chatRoomName = document.getElementById('chatroom-name');
+
+    topic.value='';
+    chatRoomName='';
+
+    document.getElementById('topic').addEventListener('input', function() {
+        document.getElementById('chatroom-name').value = this.value;
+    });
 }
 
 // 팝업 닫기 함수 
@@ -180,8 +159,17 @@ function closeWellPhrasesPopup() {
     document.getElementById('wellPhrasesPopup').style.display = 'none';
 }
 
+// 나가기 함수
 function exit(){
     window.location.href = '../index.html'; // 홈페이지 URL로 변경하세요
 }
+
+// 'New Chat - 생성하기' click 했을 떄 호출되는 함수 
+function generateChat(){
+    
+
+}
+
+
 
 

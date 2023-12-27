@@ -161,39 +161,27 @@
 
     <div class='update-delete buttons'
          style="height:50px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+         <div class='response'
+              id='write'
+              style="width:70px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+                <a href='#'
+                   style="color: inherit; text-decoration: none;">답변하기</a>
+        </div>
+         
         <div class='update'
-            id='write'
-            style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
-            <a href='#'
-            style="color: inherit; text-decoration: none;">수정</a>
+              id='write'
+              style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+              <a href='#'
+                style="color: inherit; text-decoration: none;">수정</a>
         </div>
 
         <div class='delete' 
-            id='write'
-            style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-            <a href='#'
-            style="color: inherit; text-decoration: none;">삭제</a>
+              id='write'
+              style="width:60px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+              <a href='#'
+                style="color: inherit; text-decoration: none;">삭제</a>
         </div>
    </div>
-
-
-  <div style="height: 100px;"></div> <!-- 100픽셀 높이 간격 -->
-
-  <form onsubmit=""
-        style="display: flex; justify-content: space-between; width: 80%; margin-left: 400px;">
-        <div class="form-group"
-        style="display: flex; justify-content: flex-end; width: 50%;">
-        <input type="text" 
-                class="form-control"
-                placeholder="댓글을 입력하세요"
-                required
-                style="flex-grow: 1; margin-right: 10px;"> <!-- flex-grow 속성으로 늘어나게 설정 -->
-
-        <button type="submit"
-                class="btn btn-primary"
-                style="width: 15%;">작성</button> <!-- width를 auto로 설정 -->
-        </div>
-    </form>
 </div>
 
     <!-- JS와 연동 -->
