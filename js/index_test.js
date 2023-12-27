@@ -128,7 +128,6 @@ function getChatData(chatRoomName) {
     }[chatRoomName];
 }
 
-
 // 'New Chat'click 시 팝업 나타나는 함수 
 function openPopup() {
     document.getElementById('new-chat-popup').style.display = 'flex';
@@ -144,25 +143,11 @@ function openPopup() {
     });
 }
 
-// 팝업 닫기 함수 
+// 'New Chat' 팝업 닫기 함수 
 function closePopup() {
     document.getElementById('new-chat-popup').style.display = 'none';
 }
 
-// '자주 사용하는 문구' click 했을 떄 열리는 함수
-function useWell() {
-    document.getElementById('wellPhrasesPopup').style.display = 'block';
-}
-
-// 팝업 닫기 함수 
-function closeWellPhrasesPopup() {
-    document.getElementById('wellPhrasesPopup').style.display = 'none';
-}
-
-// 나가기 함수
-function exit(){
-    window.location.href = '../index.html'; // 홈페이지 URL로 변경하세요
-}
 
 // 'New Chat - 생성하기' click 했을 떄 호출되는 함수 
 function generateChat() {
@@ -182,14 +167,41 @@ function generateChat() {
     }
 }
 
-function closePopup() {
-    document.getElementById('new-chat-popup').style.display = 'none';
-}
 
 // '엔터란?'를 클릭하면 Routing 하는 함수
 function question_enter(){
     window.location.href='../enter_introduction.html';
 }
+
+// 'AI 설정'을 click하면 호출되는 함수
+function toggleModal() {
+    var modal = document.getElementById("myModal");
+    var isModalOpen = modal.style.display === "block";
+
+    if (isModalOpen) {
+        modal.style.display = "none";
+        removeBlurFromElements();
+    } else {
+        modal.style.display = "block";
+        applyBlurToElements();
+    }
+}
+
+function applyBlurToElements() {
+    // 모달을 제외한 주요 요소에 블러 효과 적용
+    document.querySelector('header').classList.add('blur-effect');
+    document.querySelector('#sidebar').classList.add('blur-effect');
+    document.querySelector('main').classList.add('blur-effect');
+}
+
+function removeBlurFromElements() {
+    // 모든 요소에서 블러 효과 제거
+    document.querySelector('header').classList.remove('blur-effect');
+    document.querySelector('#sidebar').classList.remove('blur-effect');
+    document.querySelector('main').classList.remove('blur-effect');
+}
+
+
 
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
@@ -206,4 +218,21 @@ function goLogin(){
 function goLogout(){
 
 }
+
+// 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
+function handleCrawlerClick(){
+    
+}
+
+// 모달 창에서 '템플릿'을 click 했을 떄 호출되는 함수
+function handleTemplateClick(){
+
+}
+
+// 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
+function handleUseClick(){
+    var popupContent = document.querySelector(".popup3-content");
+    popupContent.style.display = 'block'; // 팝업 내용을 표시합니다.
+}
+
 

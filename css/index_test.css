@@ -604,9 +604,6 @@ p {
     margin-bottom: 30px; /* 메시지 사이 간격 */
     padding: 10px; /* 상단 및 하단 패딩 */
     word-wrap: break-word;
-
-   
-    /* ... 다른 스타일 ... */
 }
 
 .answer {
@@ -620,10 +617,10 @@ p {
     /* ... 다른 스타일 ... */
 }
 
-.popup2 {
+.popup3 {
     position: fixed; /* 팝업을 고정된 위치에 표시 */
     top: 50%; /* 상단에서 50% 위치에 배치 */
-    left: 50%; /* 왼쪽에서 50% 위치에 배치 */
+    left: 20%; /* 왼쪽에서 50% 위치에 배치 */
     transform: translate(-50%, -50%); /* 정확히 중앙에 오도록 조정 */
     width: 60%; /* 팝업의 가로 크기 */
     height: 80%; /* 팝업의 세로 크기 */
@@ -634,7 +631,7 @@ p {
     overflow-y: auto; /* 세로 스크롤바 추가 */
 }
 
-.popup2-content {
+.popup3-content {
     height: auto; /* 높이를 자동으로 설정 */
 }
 
@@ -654,7 +651,7 @@ p {
 }
 
 .promptTemplate {
-    width: 50%;                               /* 가로 크기 설정 */
+    width: 60%;                               /* 가로 크기 설정 */
     margin: 0 auto;                           /* 상하 마진 없음, 좌우 마진으로 가운데 정렬 */
     padding: 10px;                            /* 내부 여백 */
     font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
@@ -691,4 +688,59 @@ p {
     width: 150px; /* 이미지의 너비 조절 */
     height: auto; /* 이미지 비율 유지 */
     filter: brightness(0) invert(1);
+}
+
+/* 모달 스타일 */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-content {
+    width: 60%; 
+    height: 800px; /* 또는 원하는 높이 값으로 설정 */
+    background-color: #fefefe;
+    margin: 15% auto; 
+    margin-top: 5%; /* 기존의 margin-top 값을 줄입니다 */
+    padding: 20px;
+    border: 1px solid #888;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.blur-effect {
+    filter: blur(5px); /* 블러 효과 강도 조절 */
+}
+
+.modal-body {
+    display: flex; /* 플렉스박스 레이아웃 사용 */
+}
+
+.sidebar-area {
+    flex: 1; /* 사이드바 영역이 차지할 공간 비율 */
+    /* 추가 스타일링 */
+}
+
+.content-area {
+    flex: 2; /* 내용 영역이 차지할 공간 비율 */
+    /* 추가 스타일링 */
 }
