@@ -88,7 +88,11 @@
             <!-- New Chat -->
             <div class="sidebar-controls">
                 <button class="new-chat"
-                        onclick="openPopup()"><i class="fa fa-plus"></i> New chat</button>
+                        style='color:black'
+                        onclick="openPopup()">
+                        <i class="fa fa-plus" style="margin-right: 10px;"></i>
+                        <span>New Chat</span>
+                </button>
                 <!-- <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button> -->
             </div>
            
@@ -97,7 +101,7 @@
 
             <!-- 채팅방명-->
             <p class='topic'  
-               style="color: white; font-weight: bold;">채팅방명</p>
+               style="color: black; font-weight: bold;">채팅방명</p>
             <ul class="conversations"> <!-- 채팅방명 목록 -->
                 <li>
                     <button class="conversation-button"
@@ -158,7 +162,7 @@
 
         <!-- User Menu-->
         <div class="user-menu"
-            style='margin-bottom:120px;'>
+             style='margin-bottom:120px;'>
             <!-- 엔터란? -->
             <div class="menu1"
                  style='padding:10px;'
@@ -196,8 +200,6 @@
                 onclick='goLogout();'>
                <span>로그아웃</span>
             </div>
-
-
         </div>
     </nav>
  
@@ -222,10 +224,12 @@
                 <textarea id="message"
                           rows="1"
                           placeholder="Send a message"></textarea>
-                <button class="send-button"><i class="fa fa-paper-plane"></i></button>
+                <button class="send-button">
+                    <i class="fa fa-paper-plane"></i>
+                </button>
             </div>
 
-            <div class="disclaimer">This is a ChatGPT UI Clone for personal use and educational purposes only.</div>
+            <div class="disclaimer">This is a ENTER UI for personal use and educational purposes only.</div>
         </div>
     </main>
 

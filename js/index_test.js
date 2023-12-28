@@ -1,7 +1,7 @@
 
 // 문서 로드 시 초기화 함수 실행
-document.addEventListener('DOMContentLoaded', initializeTrashIcons);
-
+document.addEventListener('DOMContentLoaded', 
+                          initializeTrashIcons);
 
 // const sidebar = document.querySelector("#sidebar");
 // const hide_sidebar = document.querySelector(".hide-sidebar");
@@ -12,23 +12,23 @@ document.addEventListener('DOMContentLoaded', initializeTrashIcons);
 //     sidebar.classList.toggle( "hidden" );
 // });
 
-const user_menu = document.querySelector(".user-menu ul");
-const show_user_menu = document.querySelector(".user-menu button");
+// const user_menu = document.querySelector(".user-menu ul");
+// const show_user_menu = document.querySelector(".user-menu button");
 
-/* 하단 Show Menu 보여주기 */
-show_user_menu.addEventListener( "click", function() {
-    if( user_menu.classList.contains("show") ) {
-        user_menu.classList.toggle( "show" );
-        setTimeout( function() {
-            user_menu.classList.toggle( "show-animate" );
-        }, 200 );
-    } else {
-        user_menu.classList.toggle( "show-animate" );
-        setTimeout( function() {
-            user_menu.classList.toggle( "show" );
-        }, 50 );
-    }
-} );
+// /* 하단 Show Menu 보여주기 */
+// show_user_menu.addEventListener( "click", function() {
+//     if( user_menu.classList.contains("show") ) {
+//         user_menu.classList.toggle( "show" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show-animate" );
+//         }, 200 );
+//     } else {
+//         user_menu.classList.toggle( "show-animate" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show" );
+//         }, 50 );
+//     }
+// } );
 
 // const models = document.querySelectorAll(".model-selector button");
 
@@ -85,10 +85,9 @@ function clearMainContent() {
 
 // '채팅방명'을 click 했을 떄 호출되는 함수
 function showChats(chatRoomName) {
-    // 입력 버튼 보이게 한다.
-    var messageForm = document.getElementById('message-form');
-    messageForm.style.display = 'block'; // 'none' 대신 'block' 또는 'flex'로 변경
-    
+    var messageForm = document.getElementById('message-form'); // 하단 입력 창을 보이게 한다.
+    messageForm.style.display = 'block'; 
+
     var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
 
     var conversationView = document.querySelector('.conversation-view');
@@ -116,7 +115,7 @@ function showChats(chatRoomName) {
     conversationView.scrollTop = conversationView.scrollHeight;
 }
 
-// 서버에서 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
+// 서버에서 질문과 대답 형식의 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
 function getChatData(chatRoomName) {
     // 예시 데이터 
     return {
@@ -162,7 +161,7 @@ function closePopup() {
     document.getElementById('new-chat-popup').style.display = 'none';
 }
 
-// 'New Chat - 생성하기' click 했을 떄 호출되는 함수 
+// 'New Chat - 생성하기' click 했을 떄 호출되는 함수 (휴지통 버튼 기능도 포함)
 function generateChat(event) {
     // 폼 제출에 의한 페이지 새로고침 방지
     event.preventDefault();
@@ -219,7 +218,6 @@ function initializeTrashIcons() {
     });
 }
 
-
 // '엔터란?'를 클릭하면 Routing 하는 함수
 function question_enter(){
     window.location.href='../enter_introduction.html';
@@ -246,6 +244,7 @@ function toggleModal() {
     }
 }
 
+// 모달을 제외한 주요 요소에 블러 효과 적용 하는 함수
 function applyBlurToElements() {
     // 모달을 제외한 주요 요소에 블러 효과 적용
     document.querySelector('header').classList.add('blur-effect');
@@ -253,14 +252,13 @@ function applyBlurToElements() {
     document.querySelector('main').classList.add('blur-effect');
 }
 
+// 모든 요소에서 블러 효과를 제거하는 함수 
 function removeBlurFromElements() {
     // 모든 요소에서 블러 효과 제거
     document.querySelector('header').classList.remove('blur-effect');
     document.querySelector('#sidebar').classList.remove('blur-effect');
     document.querySelector('main').classList.remove('blur-effect');
 }
-
-
 
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
@@ -293,7 +291,6 @@ function handleUseClick(){
     var popup3_content = document.querySelector(".popup3-content");
     popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
 }
-
 
 // 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
 function addTemplate() {
@@ -353,10 +350,6 @@ function addTemplate() {
 function deleteTemplate(button) {
     // 버튼이 속한 promptTemplate 요소를 삭제
     button.parentElement.remove();
-}
-
-function trash(){
-    console.log('trash');
 }
 
 
