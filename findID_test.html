@@ -82,22 +82,24 @@
         <img class="logo" 
              src="./assets/favicon.ico">
 
-        <!-- 2. 이메일 -->
+        <!-- 2. 이름 -->
         <div class="field">
-            <b>이메일</b>
-            <input type="email" 
-                   id='input_email'
-                   placeholder="이메일 입력">
+            <b>이름</b>
+            <input type="text"
+                   id="name"
+                   placeholder="김엔터">
         </div>
 
         <div style="margin-top: 10px; margin-bottom: 20px;"></div> <!-- 간격 -->
 
-        <!-- 3. 이름 -->
+        <!-- 3. 이메일 -->
         <div class="field">
-            <b>이름</b>
-            <input type="text"
-                   id="name">
+            <b>이메일</b>
+            <input type="email" 
+                   id='input_email'
+                   placeholder="abcd@enter.com">
         </div>
+        
 
         <div style="margin-top: 10px; margin-bottom: 20px;"></div> <!-- 간격 -->
 
@@ -106,7 +108,7 @@
         <input type="submit"
                value="아이디 찾기"
                style="background-color: #808080; color: white;"
-               onclick="">
+               onclick="findId()">
 
 
       <!-- 6. 소셜 로그인 버튼 -->
