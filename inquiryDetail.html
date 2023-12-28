@@ -38,6 +38,10 @@
 
     <link rel="stylesheet"
           href="./css/inquiryDetail.css">
+
+    <style type="text/css">
+        p { margin-bottom: 0; }
+    </style>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
@@ -131,38 +135,38 @@
                     <div class="faqItem-info">
                         <p class="faqItem-type"></p>
                         <p class="faqItem-title"></p>
-                        <p class="faqItem-writer">홍길동</p>
+                        <p class="faqItem-writer"></p>
                     </div>
+                    <p style="margin: 10px;">내용</p>
                 </div>
                 <div class="faqItem-content">
-                    
                 </div>
             </div>
         </div>
 
         <div class='update-delete buttons'
          style="height:50px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
-         <div class='response'
-              id='write'
-              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
-                <a href='#'
-                   style="color: inherit; text-decoration: none;">답변하기</a>
-        </div>
+            <div class='response'
+                id='write'
+                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+                    <a href='#'
+                    style="color: inherit; text-decoration: none;">답변하기</a>
+            </div>
          
-        <div class='update'
-              id='write'
-              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">수정</a>
-        </div>
+            <div class='update'
+                id='write'
+                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
+                <a href='#'
+                    style="color: inherit; text-decoration: none;">수정</a>
+            </div>
 
-        <div class='delete' 
-              id='write'
-              style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">삭제</a>
+            <div class='delete' 
+                id='write'
+                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                <a href='#'
+                    style="color: inherit; text-decoration: none;">삭제</a>
+            </div>
         </div>
-   </div>
     </div>
 
     
