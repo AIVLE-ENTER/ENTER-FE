@@ -197,6 +197,14 @@ button:hover {
     overflow-y: scroll;
 }
 
+.conversation-button {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* 기존의 다른 스타일 속성들 */
+}
+
+
 .conversations,
 .conversations li {
     list-style: none;
