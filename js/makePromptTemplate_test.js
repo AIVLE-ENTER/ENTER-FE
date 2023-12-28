@@ -16,7 +16,7 @@ function addTemplate() {
     // 입력창 추가
     var input = document.createElement("input");
     input.type = 'text';
-    input.placeholder = '템플릿 문구에 대한 Text를 불러와야 합니다.';
+    input.placeholder = '자주쓰는 문구에 대한 Text를 불러와야 합니다.';
     newPrompt.appendChild(input);
 
     // 간격을 위한 빈 div 태그 추가
