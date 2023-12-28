@@ -87,7 +87,7 @@ body {
     flex-shrink: 0; /* 사이드바 크기가 줄어들지 않도록 설정 */
     left: 0;
     background: var(--color-secondary);
-    width: 260px;
+    width: 300px;
     padding: 8px;
     box-sizing: border-box;
     display: flex;
@@ -749,4 +749,8 @@ p {
 
 .sidebar-area {
     border-right: 1px solid #cccccc; /* 연한 회색의 1픽셀 세로 선 */
+}
+
+.trash-icon {
+    cursor: pointer; /* 클릭 가능한 요소임을 나타내는 커서 스타일 */
 }

@@ -1,3 +1,8 @@
+
+// 문서 로드 시 초기화 함수 실행
+document.addEventListener('DOMContentLoaded', initializeTrashIcons);
+
+
 // const sidebar = document.querySelector("#sidebar");
 // const hide_sidebar = document.querySelector(".hide-sidebar");
 // const new_chat_button = document.querySelector(".new-chat");
@@ -64,12 +69,26 @@ show_user_menu.addEventListener( "click", function() {
 // });
 
 
+// 'Prompt-Main'화면을 clear, 입력창을 보이지 않게 하는 함수
+function clearMainContent() {
+    const mainContent = document.querySelector('.conversation-view');
+    const messageForm = document.getElementById('message-form');
 
+    if (mainContent) {
+        mainContent.innerHTML = ''; // Main 화면의 내용을 비웁니다.
+    }
 
-
+    if (messageForm) {
+        messageForm.style.display = 'none'; // 하단 입력창을 숨깁니다.
+    }
+}
 
 // '채팅방명'을 click 했을 떄 호출되는 함수
 function showChats(chatRoomName) {
+    // 입력 버튼 보이게 한다.
+    var messageForm = document.getElementById('message-form');
+    messageForm.style.display = 'block'; // 'none' 대신 'block' 또는 'flex'로 변경
+    
     var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
 
     var conversationView = document.querySelector('.conversation-view');
@@ -95,10 +114,6 @@ function showChats(chatRoomName) {
 
     // 채팅 내용이 추가된 후 스크롤을 맨 아래로 이동
     conversationView.scrollTop = conversationView.scrollHeight;
-
-    // 입력 버튼 보이게 한다.
-    var messageForm = document.getElementById('message-form');
-    messageForm.style.display = 'block'; // 'none' 대신 'block' 또는 'flex'로 변경
 }
 
 // 서버에서 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
@@ -149,23 +164,59 @@ function closePopup() {
 
 // 'New Chat - 생성하기' click 했을 떄 호출되는 함수 
 function generateChat(event) {
-    // 폼 제출에 의한 페이지 새로고침 방지 -> 새로 고침이 되어서 데이터가 추가 안된 것으로 파악하고 있다.
+    // 폼 제출에 의한 페이지 새로고침 방지
     event.preventDefault();
 
     var chatRoomName = document.getElementById('chatroom-name').value;
     if (chatRoomName) {
         var li = document.createElement('li');
         var button = document.createElement('button');
+        var span = document.createElement('span'); // 휴지통 아이콘을 위한 span 요소 생성
 
+        // 버튼 설정
         button.className = 'conversation-button';
-        button.textContent = chatRoomName;
         button.setAttribute('onclick', "showChats('" + chatRoomName + "')");
+        button.textContent = chatRoomName;
 
+        // 휴지통 아이콘 설정
+        span.className = 'trash-icon';
+        span.style.marginLeft = '5px';
+        span.innerHTML = '🗑️';
+
+        // 휴지통 아이콘에 이벤트 리스너 추가
+        span.addEventListener('click', function(event) {
+            console.log('휴지통 아이콘 출력');
+            event.stopPropagation(); // 버블링 방지
+            li.remove(); // 해당 li 요소 삭제
+
+            clearMainContent(); // Main 화면의 내용을 클리어하고, 하단 입력창을 보이지 않게 합니다.
+        });
+
+        // li 요소에 버튼 추가
         li.appendChild(button);
+
+        // li 요소에 휴지통 아이콘 추가
+        li.appendChild(span);
+
+        // ul 요소에 li 요소 추가
         document.getElementsByClassName('conversations')[0].appendChild(li);
         
-        closePopup(); // 팝업 창을 닫습니다
+        closePopup(); // 팝업 창을 닫음
     }
+}
+
+// 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
+function initializeTrashIcons() {
+    document.querySelectorAll('.trash-icon').forEach(function(icon) {
+        icon.addEventListener('click', function(event) {
+            console.log('휴지통 버튼');
+
+            event.stopPropagation(); // 버블링 방지
+            this.closest('li').remove(); // 가장 가까운 li 요소 삭제
+
+            clearMainContent(); // Main 화면의 내용을 클리어합니다.
+        });
+    });
 }
 
 
@@ -304,7 +355,9 @@ function deleteTemplate(button) {
     button.parentElement.remove();
 }
 
-
+function trash(){
+    console.log('trash');
+}
 
 
 
