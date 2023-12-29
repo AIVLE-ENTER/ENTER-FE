@@ -8,18 +8,16 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 // 로그인 여부를 판별하는 함수
 function checkLoginStatusAndUpdateUI() {
-    // localStorage에서 토큰 가져오기
-    const token = localStorage.getItem('accessToken');
-
-    console.log(`token : ${token}`);
+    
+    const token = getWithExpire('accessToken');
 
     // 로그인 상태이면?
     if (token!==null) {
         // 백엔드 코드를 이용해서 유저 정보 불러오기
-        getUserInfo();
+        getUserInfo(token);
 
         // 백엔드 코드를 이용해서 채팅방 목록 보여오기
-        getChatList();
+        getChatList(token);
 
     } 
     // 비로그인 상태이면?
@@ -40,9 +38,8 @@ function checkLoginStatusAndUpdateUI() {
 }
 
 // 백엔드에서 유저 정보 불러오기
-function getUserInfo(){
+function getUserInfo(token){
     const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
-    const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
 
     // 백엔드 유저 정보 불러오기 
     axios({
@@ -66,9 +63,8 @@ function getUserInfo(){
 }
 
 // 백엔드에서 채팅방 목록 가져오기
-function getChatList(){
+function getChatList(token){
     const getChatList_URL=`http://localhost:8000/main/`;
-    const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
 
     axios({
         method: 'get',
