@@ -273,7 +273,7 @@ function goLogin(){
 
 // '로그아웃'을 클릭하면 Routing 하는 함수
 function goLogout(){
-
+    localStorage.removeItem('accessToken');
 }
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
