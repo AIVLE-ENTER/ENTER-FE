@@ -404,15 +404,11 @@ function goInquiry(){
 
 // '로그아웃'을 클릭하면 Routing 하는 함수
 function goLogout(){
-<<<<<<< HEAD
-    localStorage.removeItem('accessToken');
-=======
     alert('로그아웃을 했습니다.');
     localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제
 
     
     window.location.reload(); // 현재 페이지를 새로고침
->>>>>>> 4bb20a6bb0d05a97f25e1928f4f94da9c63c7ebc
 }
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
