@@ -1,7 +1,73 @@
+// index_test.html을 불러왔을 떄 로그인 여부를 판별한다.
+window.addEventListener('DOMContentLoaded', (event) => {
+    checkLoginStatusAndUpdateUI();
+});
+
+// 로그인 여부를 판별하는 함수
+function checkLoginStatusAndUpdateUI() {
+    // localStorage에서 토큰 가져오기
+    const token = localStorage.getItem('accessToken');
+
+    console.log(`token : ${token}`);
+
+    // 로그인 상태이면?
+    if (token!==null) {
+        // 백엔드에서 유저 정보 불러오기
+        getUserInfo();
+
+        // 백엔드에서 채팅방 목록 보여오기 
+        
+    } 
+    // 비로그인 상태이면?
+    else {
+          // sidebar에 '로그인을 해야 사용 가능 합니다' 문구를 보여준다.
+          document.getElementById('sidebar').innerHTML = `
+          <div style="text-align:center; padding:20px;">
+              <h2>로그인을 해야 사용 가능합니다</h2>
+              <a href="../signin_test.html" style="text-decoration: none; color: black;">
+                  로그인
+              </a>
+          </div>
+      `;
+
+      // Header 창 오른쪽 'winner23456님 안녕하세요!!를 보여주지 않도록 한다.
+      document.querySelector('header .header-link').style.display='none';
+    }
+}
+
+// 백엔드에서 유저 정보 불러오기
+function getUserInfo(){
+    const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
+    const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
+
+    // 백엔드 유저 정보 불러오기 
+    axios({
+        method: 'get',
+        url: getUserInfo_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        }
+    })
+    .then(response => {
+        // 요청이 성공하면 이 부분이 실행됩니다.
+        console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+
+        const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
+        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
+    })
+    .catch(error => {
+        // 오류가 발생하면 이 부분이 실행됩니다.
+        alert('유저 정보 불러오기 오류');
+    });
+}
+
+
 
 // 문서 로드 시 초기화 함수 실행
 document.addEventListener('DOMContentLoaded', 
                           initializeTrashIcons);
+
+
 
 // const sidebar = document.querySelector("#sidebar");
 // const hide_sidebar = document.querySelector(".hide-sidebar");
@@ -265,15 +331,14 @@ function goInquiry(){
     window.location.href='../inquiryBoard_test.html';
 }
 
-// '로그인'를 클릭하면 Routing 하는 함수
-function goLogin(){
-    window.location.href='../signin_test.html';
-
-}
 
 // '로그아웃'을 클릭하면 Routing 하는 함수
 function goLogout(){
+    alert('로그아웃을 했습니다.');
+    localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제
 
+    
+    window.location.reload(); // 현재 페이지를 새로고침
 }
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
