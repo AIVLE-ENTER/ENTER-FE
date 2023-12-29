@@ -8,8 +8,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 // 로그인 여부를 판별하는 함수
 function checkLoginStatusAndUpdateUI() {
-    
-    const token = getWithExpire('accessToken');
+    const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
     // 로그인 상태이면?
     if (token!==null) {
@@ -32,7 +31,7 @@ function checkLoginStatusAndUpdateUI() {
           </div>
       `;
 
-      // Header 창 오른쪽 'winner23456님 안녕하세요!!를 보여주지 않도록 한다.
+      // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
       document.querySelector('header .header-link').style.display='none';
     }
 }
@@ -57,8 +56,7 @@ function getUserInfo(token){
         document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
     })
     .catch(error => {
-        // 오류가 발생하면 이 부분이 실행됩니다.
-        alert('유저 정보 불러오기 오류');
+        window.location.reload(); // 새로 고침한다.
     });
 }
 
@@ -105,24 +103,26 @@ function getChatList(token){
             button.className = 'conversation-button';
             button.textContent = chatRoom.title;
             button.id = chatRoom.target_object;
-            button.onclick = function() {   // 채팅방 클릭했을 떄 
+
+            // 채팅방 클릭했을 떄 
+            button.onclick = function() {  
                 // url에 userID와 TargetObject(키워드)를 포함해야 한다.
 
-                // 172.29.26.116:8000/user_id/keyword
-                axios({
-                    method: 'get',
-                    url: `http://172.29.26.116:8000/asdf123/cafe`,
-                })
-                .then(response => {
-                    // 요청이 성공한 경우
-                    console.log('성공:', response);
-                    // 여기에 성공했을 때의 로직을 추가합니다.
-                })
-                .catch(error => {
-                    // 오류가 발생한 경우
-                    console.error('오류:', error);
-                    // 여기에 오류 처리 로직을 추가합니다.
-                });
+                // // 172.29.26.116:8000/user_id/keyword
+                // axios({
+                //     method: 'get',
+                //     url: `http://172.29.26.116:8000/asdf123/cafe`,
+                // })
+                // .then(response => {
+                //     // 요청이 성공한 경우
+                //     console.log('성공:', response);
+                //     // 여기에 성공했을 때의 로직을 추가합니다.
+                // })
+                // .catch(error => {
+                //     // 오류가 발생한 경우
+                //     console.error('오류:', error);
+                //     // 여기에 오류 처리 로직을 추가합니다.
+                // });
              };
 
             // 채팅방 수정, 삭제 아이콘 생성
