@@ -16,6 +16,7 @@ function checkLoginStatusAndUpdateUI() {
         getUserInfo();
 
         // 백엔드 코드를 이용해서 채팅방 목록 보여오기
+        getChatList();
 
     } 
     // 비로그인 상태이면?
@@ -59,6 +60,75 @@ function getUserInfo(){
         // 오류가 발생하면 이 부분이 실행됩니다.
         alert('유저 정보 불러오기 오류');
     });
+}
+
+// 백엔드에서 채팅방 목록 가져오기
+function getChatList(){
+    const getChatList_URL=`http://localhost:8000/main/`;
+    const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
+
+    axios({
+        method: 'get',
+        url: getChatList_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        }
+    })
+    .then(response => {
+        // 요청이 성공하면 이 부분이 실행됩니다.
+        console.log('채팅방 불러오기 성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+
+       // 채팅방 목록을 화면에 붙이기
+       const chat_List = response.data['data']['chat_list']; // 백엔드에서 받은 채팅방 목록
+       console.log(`chatList : ${chat_List}`);
+
+       const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
+       conversationsElement.innerHTML = ''; // 기존 목록 클리어
+
+       // 채팅방이 없을 떄 
+       if(chat_List.length==0){
+            // 채팅방 목록이 비어 있을 때
+            const li = document.createElement('li');
+            li.textContent = '채팅방이 없습니다';
+            li.style.textAlign = 'center';
+            li.style.marginTop = '150px'; // 위치를 아래로 조정
+            li.style.fontSize = '1.6em'; // 텍스트 크기 키우기
+            conversationsElement.appendChild(li);
+       }
+       // 채팅방이 있을 떄 
+       else{
+         // 채팅방 목록을 순회하면서 각 채팅방에 대한 HTML 요소 생성
+         chat_List.forEach(chatRoom => {
+            const li = document.createElement('li'); // 새로운 li 요소 생성
+
+            // 채팅방 버튼 생성
+            const button = document.createElement('button');
+            button.className = 'conversation-button';
+            button.onclick = function() { showChats(chatRoom.chat_window_id); };
+            button.textContent = chatRoom.title;
+
+            // 채팅방 삭제 아이콘 생성
+            const span = document.createElement('span');
+            span.className = 'trash-icon';
+            span.style.marginLeft = '5px';
+            span.textContent = '🗑️';
+            // 여기에 삭제 기능을 추가할 수 있습니다.
+
+            // li 요소에 버튼과 삭제 아이콘 추가
+            li.appendChild(button);
+            li.appendChild(span);
+
+            // ul 요소에 새로운 li 요소 추가
+            conversationsElement.appendChild(li);
+        });
+       }
+    })
+    .catch(error => {
+        // 오류가 발생하면 이 부분이 실행됩니다.
+        alert('채팅방 불러오기 오류');
+    });
+
+
 }
 
 
