@@ -82,7 +82,7 @@
                   <div id="mypageUserinfo" class="content-header-mypage-info">
                         <p class="content-header-username">winner23456</p>
                         <p class="content-header-plus">님의 정보</p>
-                        <p class="content-header-usertype">관리자</p>
+                        <p class="content-header-usertype"></p>
                   </div>
             </div>
             
@@ -91,143 +91,34 @@
                   <div class="content-wrap">
                         <div id="mypageId" class="content-body-item">
                               <p class="content-body-item-header">아이디</p>
-                              <p class="content-body-item-body"></p>
+                              <p class="content-body-item-body1"></p>
                         </div>
                         <div id="mypagePassword" class="content-body-item">
                               <p class="content-body-item-header">비밀번호</p>
-                              <p class="content-body-item-body"></p>
+                              <p class="content-body-item-body2"></p>                                    
+                        </div>
+                        <div id="mypageUsername" class="content-body-item">
+                              <p class="content-body-item-header">이름</p>
+                              <p class="content-body-item-body3"></p>
                         </div>
                         <div id="mypageUseremail" class="content-body-item">
                               <p class="content-body-item-header">이메일</p>
-                              <p class="content-body-item-body"></p>
-                        </div>
-                        <div id="mypageUsername" class="content-body-item">
-                              <p class="content-body-item-header">별명</p>
-                              <p class="content-body-item-body"></p>
-                        </div>
-                        <div id="mypageRole" class="content-body-item">
-                              <p class="content-body-item-header">역할</p>
-                              <p class="content-body-item-body"></p>
+                              <p class="content-body-item-body4"></p>
                         </div>
                   </div>
-            </div>
-
-
-
-
-      </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <main class="mc">
-            <!-- 영역 1 -->
-            <div class="image-container1"
-                 style="display: flex; justify-content: center; align-items: center; height: 100px; margin-top: 50px;">  
-                 <img src="assets/favicon.ico"   
-                       alt="로고 이미지"
-                       title="홈으로 이동">  <!-- 로고 이미지 -->
-
-                  <div style="margin-left: 20px; margin-right: 20px;"></div>  <!-- 간격 -->
-
-                 <h2>마이페이지</h2>         <!-- 마이 페이지 Text 문구 -->
-            </div>
-
-            <div style="margin-top: 20px;"></div>  <!-- 간격 -->
-
-            <!-- 영역 2 -->
-            <div class="image-container2" 
-                  style="display: flex; justify-content: center; align-items: center; height: 500px; margin-top: 50px;">  
-                  <div style="flex: 1; height: 450px; margin-top: -5px;">      <!-- 왼쪽 영역 (50%)-->
-                        <p class='myInfoText'>나의 정보</p>
-                        <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 400px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
-                              <!-- 여기에 사용자 정보 내용을 넣습니다 -->
-                              <ul class='myInfoList' 
-                                  style="list-style: none; padding: 0;">
-                                    <li><strong>이메일:</strong> 사용자의 이메일이 들어가야 합니다.</li>
-
-                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
-
-                                    <li><strong>이름:</strong> 사용자의 이름이 들어가야 합니다.</li>
-
-                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
-
-                                    <li><strong>회사:</strong> 사용자의 회사가 들어가야 합니다.</li>
-
-                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
-
-                                    <li><strong>가입일자:</strong> 사용자의 가입일자가 들어가야 합니다.</li>
-
-                                    <div style="margin-top: 30px;"></div>  <!-- 간격 -->
-
-                                    <li><strong>최근 로그인일자:</strong> 사용자의 로그인일자가 들어가야 합니다.</li>
-
-                                    <!-- 기타 정보 -->
-                              </ul>
-                        </div>
-
-                        
+                  <div class="content-button-section">
+                        <button class="edit-password-button" onclick="changePassword()">비밀번호 변경하기</button>
+                        <button class="withdraw-button" onclick="withdrawAccount()" type="button">탈퇴하기</button>
                   </div>
-
-                  <div style="flex: 1; height: 500px; margin-top: -20px;">     <!-- 오른쪽 영역(50%) -->
-                        <p class='history'>히스토리</p>
-                        <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 200px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
-                              <!-- 여기에 사용자 정보 내용을 넣습니다 -->
-                             
-                        </div>
-
-                        <div style="margin-top: 20px;"></div>  <!-- 간격 -->
-
-                        <p class='inquiryList'>내 문의 내역</p>
-                        <div style="border: 2px solid #000; border-radius: 10px; padding: 10px; margin: auto; width: 50%; height: 200px;">   <!-- 사용자 정보를 담는 외곽 공간 -->
-                              <!-- 여기에 사용자 정보 내용을 넣습니다 -->
-                        </div>
-                        
-                  </div>
+                  
             </div>
 
             <!-- 영역 3-->
             <div style="display: flex; flex-direction: column; align-items: start; margin-top: 60px; height: 300px; padding-left: 240px;">
-                  <button class="common-button-style edit-member-info-button" 
-                          onclick="routeToEditMyInfo()"
-                          type="button">회원 정보 수정하기</button>
-              
-                  <button class="common-button-style find-id-button"
-                          onclick="findID()" 
-                          type="button">아이디 찾기</button>
-              
-                  <button class="common-button-style edit-password-button" 
-                          onclick="changePassword()" 
-                          type="button">비밀번호 변경하기</button>
-              
-                  <button class="common-button-style edit-prompt-button" 
-                          onclick="makePrompotTemplate()"
-                          type="button">자주쓰는 문구 생성하기</button>
-              
-                  <button class="common-button-style withdraw-member-info-button"
-                          onclick="withdrawAccount()"
-                          type="button"
-                          style="margin-top: 10px;">탈퇴하기</button>
-              </div>
-              
-      </main>
-      
+                  
+            </div>
+      </div>
+
       <footer></footer>
 
       <!-- Bootstrap core JS-->

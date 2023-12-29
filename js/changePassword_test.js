@@ -21,5 +21,5 @@ function checkPasswordMatch() {
 
 // '비밀번호 변경' 버튼 click 했을 떄 호출되는 함수
 function changePassword(){
-
+    
 }

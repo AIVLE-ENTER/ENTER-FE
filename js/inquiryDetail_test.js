@@ -1,3 +1,34 @@
+<<<<<<< HEAD
+const currentId = window.location.search.substring(4);
+console.log(currentId);
+
+tempUrl = 'http://127.0.0.1:8000/board/' + currentId + '/';
+
+axios.get(tempUrl)
+.then((response) => {
+    console.log('success');
+    inquiryData = response.data;
+
+    faqItemType = document.querySelector('.faqItem-type')
+    faqItemTitle = document.querySelector('.faqItem-title')
+    faqItemWriter = document.querySelector('.faqItem-writer')
+    faqItemContent = document.querySelector('.faqItem-content')
+
+    faqItemType.append(inquiryData['question_type_title'])
+    faqItemTitle.append(inquiryData['question_title'])
+    faqItemWriter.append(inquiryData['user_name'])
+    faqItemContent.append(inquiryData['question_content'])
+})
+.catch((error) => {
+    console.log(`error: ${error}`);
+})
+.finally(() => {
+    console.log('End.')
+})
+
+
+
+=======
 const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
 const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
 
@@ -37,3 +68,4 @@ function getUserInfo(){
         alert('유저 정보 불러오기 오류');
     });
 }
+>>>>>>> 4bb20a6bb0d05a97f25e1928f4f94da9c63c7ebc
