@@ -303,8 +303,29 @@ function editChatRoom(){
 
 // 채팅방을 삭제할 떄 함수
 function deleteChatRoom(){
-    console.log('삭제');
+    var contextMenu=document.getElementById("contextMenu");
+    var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
 
+    const deleteChatRoom_URL='http://localhost:8000/main/chatWindow/delete/'; // 백엔드 소통 URL
+
+    // 백엔드에서 구현한 '채팅방 삭제' 기능을 통신한다.
+    axios({
+        method: 'post',
+        url: deleteChatRoom_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data: {
+           'chat_window_id': chatWindowId,
+        }
+    })
+    .then(response => {
+        console.log('성공!!');
+        window.location.reload(); // 새로 고침
+    })
+    .catch(error => {
+        console.log(`에러 : ${error.response.data.message}`);
+    });
 }
 
 
