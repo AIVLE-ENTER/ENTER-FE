@@ -292,10 +292,39 @@
          class="context-menu"
          style="display:none;">
         <ul>
-            <li onclick="editChatRoom()">수정</li>
-            <li onclick="deleteChatRoom()">삭제</li>
+            <li onclick="modify()">수정</li>
+            <li onclick="delete()">삭제</li>
         </ul>
     </div>
+
+    <!-- 채팅방명 수정 팝업 (채팅방명을 수정하려 할 떄 나타남)--> 
+    <div id="update-popup"
+          class="popup"
+          style="display: none;">
+
+        <div class="popup-content">
+            <span class="close-btn"
+                onclick="closePopup()">&times;</span>
+            <h3>채팅방명 변경 </h3>
+
+            <form id="update-chat-form">
+                <label for="chatroom-name">채팅방명:</label>
+                <input type="text"
+                    id="chatroom-name"
+                    name="chatroom"><br>
+
+                <div id="error-message" 
+                    style="display: none; color: red; margin:10px;">
+                </div>   <!-- 오류 메시지를 위한 요소 추가 -->
+
+                <button type="submit"
+                        onclick='editChatRoom()'>변경하기</button>
+            </form>
+        </div>
+    </div>
+
+
+    
 
     <!-- JS와 연계 -->
     <script src="/js/common.js"></script>

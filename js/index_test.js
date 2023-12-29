@@ -124,9 +124,11 @@ function openPopup() {
     });
 }
 
-// 'New Chat' 팝업 닫기 함수 
+// 'New Chat', '채팅방명 수정' 팝업 닫기 함수 
 function closePopup() {
     document.getElementById('new-chat-popup').style.display = 'none';
+    document.getElementById('update-popup').style.display = 'none';
+
 }
 
 // 백엔드에서 채팅방 목록 가져오기
@@ -202,10 +204,13 @@ function getChatList(token){
             span.style.marginTop = '15px';
 
             // '|' 아이콘 클릭 시 이벤트 리스너 추가
-            span.onclick = function() {            
+            span.onclick = function() {         
+                event.stopPropagation(); // 이벤트 버블링 방지
+                   
                 // 수정이나 삭제가 나오는 context-menu를 보여준다.
                 const contextMenu = document.getElementById('contextMenu');
                 contextMenu.style.display = 'block';
+                contextMenu.setAttribute('data-chat-window-id', chatRoom.chat_window_id); 
                 contextMenu.style.left = event.clientX + 'px';
                 contextMenu.style.top = event.clientY + 'px';
 
@@ -229,6 +234,79 @@ function getChatList(token){
         alert('채팅방 불러오기 오류');
     });
 }
+
+// context에서 '수정'을 클릭했을 떄 
+function modify(){
+    var contextMenu=document.getElementById("contextMenu");
+    var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
+    var update_popup=document.getElementById('update-popup');
+
+    // 채팅방 제목을 수정하는 팝업을 띄운다.
+    update_popup.style.display = 'flex';
+    update_popup.setAttribute('data-chat-window-id', chatWindowId); 
+
+    // 채팅방 제목을 빈값으로 만든다.
+    var form = document.getElementById('update-chat-form');
+    form.elements['chatroom-name'].value = '';
+
+    // 혹시 오류 메시지가 있으면 빈칸으로 설정한다.
+    var form = document.getElementById('update-chat-form');
+    var errorMessageDiv = form.querySelector('#error-message');
+    errorMessageDiv.textContent='';
+}
+
+// 팝업에서 채팅방 제목을 수정했을 떄 호출되는 함수
+function editChatRoom(){
+    event.preventDefault(); // 새로고침 방지
+
+    var contextMenu = document.getElementById('update-popup');
+    var chatWindowId = contextMenu.getAttribute('data-chat-window-id');
+
+    var form = document.getElementById('update-chat-form');
+    var chatroomName = form.elements['chatroom-name'].value;
+
+    const editChatRoom_URL='http://localhost:8000/main/chatWindow/update/'; // 백엔드 소통 URL
+
+    // 백엔드에서 구현한 '채팅방 수정' 기능을 통신한다.
+    axios({
+        method: 'post',
+        url: editChatRoom_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data: {
+           'chat_window_id':chatWindowId, 
+            'title': chatroomName,
+        }
+    })
+    .then(response => {
+        console.log('성공!!');
+
+        document.getElementById('update-popup').style.display = 'none';   // 팝업을 숨김
+
+        window.location.reload(); // 새로 고침
+    })
+    .catch(error => {
+        console.log(`에러 : ${error.response.data.message}`);
+
+        // 폼 요소 가져오기
+        var form = document.getElementById('update-chat-form');
+
+        // 폼 내의 오류 메시지 요소에 접근
+        var errorMessageDiv = form.querySelector('#error-message');
+
+        // 에러 메시지를 보여준다.
+        errorMessageDiv.style.display='block';
+        errorMessageDiv.textContent=error.response.data.message;
+    });
+}
+
+// 채팅방을 삭제할 떄 함수
+function deleteChatRoom(){
+    console.log('삭제');
+
+}
+
 
 // 문서 로드 시 초기화 함수 실행
 // document.addEventListener('DOMContentLoaded', 
