@@ -87,7 +87,7 @@ body {
     /* position: relative; */
     width: 300px;
     padding: 8px;
-    flex-shrink: 0; /* 사이드바 크기가 줄어들지 않도록 설정 */
+    flex-shrink: 0; /* 사이드바 기가 줄어들지 않도록 설정 */
     left: 0;
     background-color: #eeebfa;
     /* color: #000000; 텍스트 색상을 검정색으로 설정 */
@@ -101,14 +101,15 @@ body {
 .float-top {
     display: flex;
     flex-direction: column;
-    /* height: calc( 100% - 10px ); */
-    height:70%;
 }
 
 #sidebar.hidden {
     left: -260px;
     margin-right: -260px;
 }
+
+
+
 
 #sidebar.hidden .hide-sidebar {
     left: 60px;
@@ -192,8 +193,17 @@ button:hover {
 
 .conversations {
     width: calc( 100% + 8px );
+    min-height: 400px; 
     overflow-y: scroll;
 }
+
+.conversation-button {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    /* 기존의 다른 스타일 속성들 */
+}
+
 
 .conversations,
 .conversations li {
@@ -205,6 +215,7 @@ button:hover {
 
 .conversations li {
     position: relative;
+    height: 100px; /* li 요소의 높이를 50px로 설정 */
 }
 
 .conversations li .fa {

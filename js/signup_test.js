@@ -316,7 +316,7 @@ function modify_ID(){
   
                     // 4. 회원 가입 완료 하면 Home 페이지(index.html)로 Routing 한다.
                     alert('회원 가입 완료!!');
-                    window.location.href = '../index.html';
+                    window.location.href = '../index_test.html';
                   })
                   .catch(function (error) {
                     alert('에러');
