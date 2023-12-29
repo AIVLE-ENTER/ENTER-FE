@@ -9,8 +9,14 @@ function signin() {
     .then(response => {
         // localStroage에 토큰(Token)을 적재한다.
         const accessToken = response['data']['data']['token'];
-        localStorage.setItem('accessToken', accessToken);
-        
+        const setWithExpire = (key, value, exp) => {
+            let now = new Date(); // 현재 날짜와 시간
+            const item = {[`${key}`]: value, expires: now.getTime() + exp}
+            // item의 형태로 로컬에 저장
+            localStorage.setItem(key, JSON.stringify(item));
+        }
+        setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
+
         // index_test.html로 Routing 한다.
         alert('로그인 완료!');
         window.location.href = '../index_test.html';
