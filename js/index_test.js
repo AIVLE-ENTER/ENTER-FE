@@ -12,11 +12,11 @@ function checkLoginStatusAndUpdateUI() {
 
     // 로그인 상태이면?
     if (token!==null) {
-        // 백엔드에서 유저 정보 불러오기
+        // 백엔드 코드를 이용해서 유저 정보 불러오기
         getUserInfo();
 
-        // 백엔드에서 채팅방 목록 보여오기 
-        
+        // 백엔드 코드를 이용해서 채팅방 목록 보여오기
+
     } 
     // 비로그인 상태이면?
     else {
