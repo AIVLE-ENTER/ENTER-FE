@@ -27,6 +27,11 @@
     <link rel="stylesheet"
           href="/css/index_test.css" />
 
+    <!-- 구글 아이콘-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+          rel="stylesheet">
+
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
@@ -276,6 +281,16 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- context 메뉴 -->
+    <div id="contextMenu"
+         class="context-menu"
+         style="display:none;">
+        <ul>
+            <li onclick="editChatRoom()">수정</li>
+            <li onclick="deleteChatRoom()">삭제</li>
+        </ul>
     </div>
 
     <!-- JS와 연계 -->

@@ -1,3 +1,6 @@
+// 전역 변수
+let user_id; // 사용자 id 
+
 // index_test.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
     checkLoginStatusAndUpdateUI();
@@ -53,7 +56,7 @@ function getUserInfo(){
         // 요청이 성공하면 이 부분이 실행됩니다.
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
-        const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
+        user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
         document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
     })
     .catch(error => {
@@ -104,15 +107,48 @@ function getChatList(){
             // 채팅방 버튼 생성
             const button = document.createElement('button');
             button.className = 'conversation-button';
-            button.onclick = function() { showChats(chatRoom.chat_window_id); };
             button.textContent = chatRoom.title;
+            button.id = chatRoom.target_object;
+            button.onclick = function() {   // 채팅방 클릭했을 떄 
+                // url에 userID와 TargetObject(키워드)를 포함해야 한다.
 
-            // 채팅방 삭제 아이콘 생성
+                // 172.29.26.116:8000/user_id/keyword
+                axios({
+                    method: 'get',
+                    url: `http://172.29.26.116:8000/asdf123/cafe`,
+                })
+                .then(response => {
+                    // 요청이 성공한 경우
+                    console.log('성공:', response);
+                    // 여기에 성공했을 때의 로직을 추가합니다.
+                })
+                .catch(error => {
+                    // 오류가 발생한 경우
+                    console.error('오류:', error);
+                    // 여기에 오류 처리 로직을 추가합니다.
+                });
+             };
+
+            // 채팅방 수정, 삭제 아이콘 생성
             const span = document.createElement('span');
-            span.className = 'trash-icon';
-            span.style.marginLeft = '5px';
-            span.textContent = '🗑️';
-            // 여기에 삭제 기능을 추가할 수 있습니다.
+            span.className = 'material-icons';
+            span.textContent = 'more_vert';
+            span.style.marginLeft = '15px';
+            span.style.marginTop = '15px';
+
+            // '|' 아이콘 클릭 시 이벤트 리스너 추가
+            span.onclick = function() {            
+                // 수정이나 삭제가 나오는 context-menu를 보여준다.
+                const contextMenu = document.getElementById('contextMenu');
+                contextMenu.style.display = 'block';
+                contextMenu.style.left = event.clientX + 'px';
+                contextMenu.style.top = event.clientY + 'px';
+
+                 // 외부 클릭 시 컨텍스트 메뉴 숨기기
+                document.addEventListener("click", function() {
+                    document.getElementById("contextMenu").style.display = "none";
+                });
+            };
 
             // li 요소에 버튼과 삭제 아이콘 추가
             li.appendChild(button);
@@ -127,17 +163,11 @@ function getChatList(){
         // 오류가 발생하면 이 부분이 실행됩니다.
         alert('채팅방 불러오기 오류');
     });
-
-
 }
 
-
-
 // 문서 로드 시 초기화 함수 실행
-document.addEventListener('DOMContentLoaded', 
-                          initializeTrashIcons);
-
-
+// document.addEventListener('DOMContentLoaded', 
+//                           initializeTrashIcons);
 
 // const sidebar = document.querySelector("#sidebar");
 // const hide_sidebar = document.querySelector(".hide-sidebar");
@@ -341,18 +371,18 @@ function generateChat(event) {
 }
 
 // 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
-function initializeTrashIcons() {
-    document.querySelectorAll('.trash-icon').forEach(function(icon) {
-        icon.addEventListener('click', function(event) {
-            console.log('휴지통 버튼');
+// function initializeTrashIcons() {
+//     document.querySelectorAll('.trash-icon').forEach(function(icon) {
+//         icon.addEventListener('click', function(event) {
+//             console.log('휴지통 버튼');
 
-            event.stopPropagation(); // 버블링 방지
-            this.closest('li').remove(); // 가장 가까운 li 요소 삭제
+//             event.stopPropagation(); // 버블링 방지
+//             this.closest('li').remove(); // 가장 가까운 li 요소 삭제
 
-            clearMainContent(); // Main 화면의 내용을 클리어합니다.
-        });
-    });
-}
+//             clearMainContent(); // Main 화면의 내용을 클리어합니다.
+//         });
+//     });
+// }
 
 // '엔터란?'를 클릭하면 Routing 하는 함수
 function question_enter(){
