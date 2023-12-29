@@ -79,9 +79,7 @@
         <div class="container">
             <h2>게시판</h2>
 
-            <div class="aside">
-                ▷ 총 3개의 게시물이 있습니다.
-            </div>
+            <div class="aside"></div>
 
             <div class="select-grup">
                 <form action="">
@@ -104,7 +102,7 @@
                 </form>
             </div>
 
-            <table class="board-table">
+            <table id="boardList" class="board-table">
                 <thead>
                     <tr>
                         <th>번호</th>
@@ -115,39 +113,6 @@
                         <th>조회수</th>
                     </tr>
                 </thead>
-
-                <tbody onclick="redirectToDetailPage(1)">
-                    <tr>
-                        <td>1</td>
-                        <td>요금제</td>
-                        <td>게시글 1 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td>요금제</td>
-                        <td>게시글 2 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-
-                <tbody>
-                    <tr>
-                        <td>3</td>
-                        <td>요금제</td>
-                        <td>게시글 3 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
             </table>
 
             <div class="page">
