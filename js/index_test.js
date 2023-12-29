@@ -1,5 +1,6 @@
 // 전역 변수
 let user_id; // 사용자 id 
+let token;   // 토큰 
 
 // index_test.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -8,7 +9,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 // 로그인 여부를 판별하는 함수
 function checkLoginStatusAndUpdateUI() {
-    const token = getWithExpire('accessToken'); // 토큰을 받아온다.
+    token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
     // 로그인 상태이면?
     if (token!==null) {
@@ -50,7 +51,7 @@ function getUserInfo(token){
     })
     .then(response => {
         // 요청이 성공하면 이 부분이 실행됩니다.
-        console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+        // console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
         document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
@@ -58,6 +59,74 @@ function getUserInfo(token){
     .catch(error => {
         window.location.reload(); // 새로 고침한다.
     });
+}
+
+// 'New Chat - 생성하기' click 했을 떄 호출되는 함수
+function generateChat(event) {
+    event.preventDefault();  // 폼 제출에 의한 페이지 새로고침 방지
+
+    console.log('생성하기');
+
+    var topic=document.getElementById('topic').value;                // 주제를 가져온다.
+    var chatRoomName=document.getElementById('chatroom-name').value; // 채팅방명을 가져온다.
+    var generateChat_URL='http://localhost:8000/main/chatWindow/create/'; // 백엔드 통신 URL
+
+    if(topic=='' || chatRoomName==''){  // 둘 중 하나가 빈 값일 떄 처리
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
+        errorMessageDiv.textContent='빈 값이 있습니다.'; // 오류 메시지 설정
+        return;
+    }
+
+    // 백엔드에서 구현한 '채팅방 생성' 기능을 통신한다.
+    axios({
+        method: 'post',
+        url: generateChat_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data: {
+            'target': topic, 
+            'title': chatRoomName,
+        }
+    })
+    .then(response => {
+        console.log('message : ', response.data.message);
+        console.log('errors : ', response.data.errors);
+
+        closePopup(); // 팝업 창을 닫음
+
+        window.location.reload(); // 새로 고침하기
+    })
+    .catch(error => {
+        console.error('Error :', error);
+
+        const errorMessageDiv = document.getElementById('error-message');
+        errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
+        errorMessageDiv.textContent=error.response.data.message; // 오류 메시지 설정
+    });
+}
+
+// 'New Chat'click 시 팝업 나타나는 함수 
+function openPopup() {
+    document.getElementById('new-chat-popup').style.display = 'flex';
+
+    var topic = document.getElementById('topic');
+    var chatRoomName = document.getElementById('chatroom-name');
+    const errorMessageDiv = document.getElementById('error-message');
+
+    topic.value='';
+    chatRoomName.value='';
+    errorMessageDiv.style.display = 'none';
+
+    document.getElementById('topic').addEventListener('input', function() {
+        document.getElementById('chatroom-name').value = this.value;
+    });
+}
+
+// 'New Chat' 팝업 닫기 함수 
+function closePopup() {
+    document.getElementById('new-chat-popup').style.display = 'none';
 }
 
 // 백엔드에서 채팅방 목록 가져오기
@@ -77,7 +146,7 @@ function getChatList(token){
 
        // 채팅방 목록을 화면에 붙이기
        const chat_List = response.data['data']['chat_list']; // 백엔드에서 받은 채팅방 목록
-       console.log(`chatList : ${chat_List}`);
+    //    console.log(`chatList : ${chat_List}`);
 
        const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
        conversationsElement.innerHTML = ''; // 기존 목록 클리어
@@ -303,68 +372,6 @@ function getChatData(chatRoomName) {
     }[chatRoomName];
 }
 
-// 'New Chat'click 시 팝업 나타나는 함수 
-function openPopup() {
-    document.getElementById('new-chat-popup').style.display = 'flex';
-
-    var topic = document.getElementById('topic');
-    var chatRoomName = document.getElementById('chatroom-name');
-
-    topic.value='';
-    chatRoomName.value='';
-
-    document.getElementById('topic').addEventListener('input', function() {
-        document.getElementById('chatroom-name').value = this.value;
-    });
-}
-
-// 'New Chat' 팝업 닫기 함수 
-function closePopup() {
-    document.getElementById('new-chat-popup').style.display = 'none';
-}
-
-// 'New Chat - 생성하기' click 했을 떄 호출되는 함수 (휴지통 버튼 기능도 포함)
-function generateChat(event) {
-    // 폼 제출에 의한 페이지 새로고침 방지
-    event.preventDefault();
-
-    var chatRoomName = document.getElementById('chatroom-name').value;
-    if (chatRoomName) {
-        var li = document.createElement('li');
-        var button = document.createElement('button');
-        var span = document.createElement('span'); // 휴지통 아이콘을 위한 span 요소 생성
-
-        // 버튼 설정
-        button.className = 'conversation-button';
-        button.setAttribute('onclick', "showChats('" + chatRoomName + "')");
-        button.textContent = chatRoomName;
-
-        // 휴지통 아이콘 설정
-        span.className = 'trash-icon';
-        span.style.marginLeft = '5px';
-        span.innerHTML = '🗑️';
-
-        // 휴지통 아이콘에 이벤트 리스너 추가
-        span.addEventListener('click', function(event) {
-            console.log('휴지통 아이콘 출력');
-            event.stopPropagation(); // 버블링 방지
-            li.remove(); // 해당 li 요소 삭제
-
-            clearMainContent(); // Main 화면의 내용을 클리어하고, 하단 입력창을 보이지 않게 합니다.
-        });
-
-        // li 요소에 버튼 추가
-        li.appendChild(button);
-
-        // li 요소에 휴지통 아이콘 추가
-        li.appendChild(span);
-
-        // ul 요소에 li 요소 추가
-        document.getElementsByClassName('conversations')[0].appendChild(li);
-        
-        closePopup(); // 팝업 창을 닫음
-    }
-}
 
 // 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
 // function initializeTrashIcons() {
