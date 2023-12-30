@@ -837,7 +837,7 @@ p {
     background-color: #555; /* 호버 효과 */
 }
 
-#addFrequentMessagePopup {
+#addFrequentMessagePopup, #editFrequentMessagePopup {
     z-index: 1000; /* 예시 값, 필요에 따라 조정 */
     position: fixed;
     left: 0;

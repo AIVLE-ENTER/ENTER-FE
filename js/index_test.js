@@ -513,11 +513,11 @@ function renderFrequentMessages(messageList){
 
             <button type="button"
                     style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="editFrequentMessage(this, '${message.template_id}')">수정하기</button>
+                    onclick="editFrequentMessage('${message.template_id}')">수정하기</button>
 
             <button type="button" 
                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="deleteFrequentMessage(this)">삭제하기</button>
+                    onclick="deleteFrequentMessage('${message.template_id}')">삭제하기</button>
 
             <div style="margin-left: 20px;"></div>
         `;
@@ -550,10 +550,85 @@ function renderFrequentMessages(messageList){
     container.appendChild(actionDiv); // 컨테이너에 추가
 }
 
+// 모달 창에서 '자주 쓰는 문구' -> '수정하기' 버튼이 click 될 떄 호출하는 함수
+function editFrequentMessage(template_id){
+      // 수정용 팝업 표시
+      document.getElementById("editFrequentMessagePopup").style.display = "flex";
+
+      // 입력을 빈칸으로 표시
+      document.getElementById("editMessageTitle").value='';
+      document.getElementById("editMessageContent").value='';
+
+      // '수정하기' 버튼에 template_id 설정
+     document.getElementById("editSubmitButton").dataset.templateId = template_id;
+}
+
+// 자주 쓰는 문구를 수정하는 팝업에서 '수정하기'를 click했을 떄 호출되는 함수
+function submitEditFrequentMessage(){
+    var templateId = document.getElementById("editSubmitButton").dataset.templateId;
+    var editMessageTitle = document.getElementById("editMessageTitle").value;
+    var editMessageContent = document.getElementById("editMessageContent").value;
+
+    // 백엔드에서 구현한 '자주 쓰는 문구 수정' 기능과 통신한다.
+    const editFrequentMessage_URL='http://localhost:8000/main/frequentMessage/update/'; 
+    axios({
+        method: 'post',
+        url: editFrequentMessage_URL,
+        headers: {
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data:  {'template_id': templateId, 
+                'template_name': editMessageTitle, 
+                'template_content': editMessageContent},
+    })
+    .then(response => {
+        // '수정하는 자주 쓰는 문구' 팝업을 종료한다.
+        document.getElementById("editFrequentMessagePopup").style.display = "none";
+
+        // AI 설정 팝업을 다시 불러온다
+        handleUseClick();
+    })
+    .catch(error => {
+        console.log('에러');
+        console.log(error);
+    });
+}
+
+// 자주 쓰는 문구를 수정하는 팝업에서 '취소하기'를 click 했을 떄 호출되는 함수
+function closeEditFrequentMessagePopup(){
+    // 수정용 팝업의 'display' 속성을 'none'으로 설정
+    document.getElementById("editFrequentMessagePopup").style.display = "none";
+}
+
+// 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출하는 함수
+function deleteFrequentMessage(template_id){
+    // 백엔드에서 구현한 '자주 쓰는 문구 삭제하기' 기능과 통신한다.
+    const deleteFrequentMessage_URL='http://localhost:8000/main/frequentMessage/delete/';
+    axios({
+        method: 'post',
+        url: deleteFrequentMessage_URL,
+        headers: {
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data:{'template_id': template_id},
+    })
+    .then(response => {
+        // AI 설정 팝업을 다시 불러온다
+        handleUseClick();
+    })
+    .catch(error => {
+        console.log('에러');
+        console.log(error);
+    });
+   
+}
+
 // 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
 function addFrequentMessage() {
+    // 추가용 팝업 표시
     document.getElementById("addFrequentMessagePopup").style.display = "flex";
 
+    // 입력을 빈칸으로 표시
     document.getElementById("messageTitle").value='';
     document.getElementById("messageContent").value='';
 }
@@ -595,7 +670,6 @@ function submitFrequentMessage() {
 function closeFrequentMessagePopup() {
     document.getElementById("addFrequentMessagePopup").style.display = "none";
 }
-
 
 // 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출되는 함수
 function deleteTemplate(button) {

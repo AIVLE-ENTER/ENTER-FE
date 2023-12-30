@@ -311,6 +311,33 @@
         </div>
     </div>
 
+    <!-- 자주 쓰는 문구를 수정할 때 등장하는 팝업 -->
+    <div id="editFrequentMessagePopup"
+         style="display:none;">
+        <div class="popup-content">
+            <h2>자주 쓰는 문구 수정</h2>
+
+            <label for="editMessageTitle">문구 제목:</label>
+            <input type="text" 
+                   id="editMessageTitle"
+                   name="editMessageTitle">
+
+            <label for="editMessageContent">문구 내용:</label>
+            <textarea id="editMessageContent"
+                      name="editMessageContent"></textarea>
+
+            <div class="button-container"
+                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                <button onclick="submitEditFrequentMessage()"
+                        data-template-id=""
+                        id="editSubmitButton">수정하기</button>
+                        
+                <button onclick="closeEditFrequentMessagePopup()">취소하기</button>
+            </div>
+        </div>
+    </div>
+
+
     <!-- JS와 연계 -->
     <script src="/js/common.js"></script>
     <script src="/js/index_test.js"></script>
