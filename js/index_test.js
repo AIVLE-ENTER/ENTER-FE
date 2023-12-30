@@ -486,7 +486,7 @@ function handleUseClick(){
     });
 }
 
-// 모달 창에서 자주 쓰는 문구를 보여주는 함수
+// 모달 창에서 자주 쓰는 문구를 목록으로 보여주는 함수
 function renderFrequentMessages(messageList){
     const container = document.querySelector('.popup3-content'); // 문구를 표시할 컨테이너 선택
     container.innerHTML = ''; // 기존 내용 클리어
@@ -511,9 +511,13 @@ function renderFrequentMessages(messageList){
                    placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'
                    disabled>
 
+            <button type="button"
+                    style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
+                    onclick="editFrequentMessage(this, '${message.template_id}')">수정하기</button>
+
             <button type="button" 
-                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 140px;"
-                    onclick="deleteTemplate(this)">삭제하기</button>
+                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
+                    onclick="deleteFrequentMessage(this)">삭제하기</button>
 
             <div style="margin-left: 20px;"></div>
         `;
@@ -549,6 +553,9 @@ function renderFrequentMessages(messageList){
 // 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
 function addFrequentMessage() {
     document.getElementById("addFrequentMessagePopup").style.display = "flex";
+
+    document.getElementById("messageTitle").value='';
+    document.getElementById("messageContent").value='';
 }
 
 // 자주 쓰는 문구를 추가하는 팝업에서 '추가'를 click했을 떄 호출되는 함수
@@ -573,19 +580,14 @@ function submitFrequentMessage() {
         console.log('성공');
 
         // '자주 쓰는 문구 생성' 팝업을 종료한다.
-        title='';
-        content='';
         document.getElementById("addFrequentMessagePopup").style.display = "none";
-        // AI 설정 팝업을 다시 불러온다.
 
-
+        // AI 설정 팝업을 다시 불러온다
+        handleUseClick();
     })
     .catch(error => {
         console.log('에러');
         console.log(error);
-
-        title='';
-        content='';
     });
 }
 
