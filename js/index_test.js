@@ -220,24 +220,63 @@ function getChatList(token){
 // 채팅방에 따른 질문과 히스토리를 가져오는 함수
 function getHistory(chatRoom){
     console.log(chatRoom);
+
     // url에 userID와 TargetObject(키워드)를 포함해야 한다.
+    // ex. http://127.0.0.1:8002/hist/{user_id}/{keyword명}
 
-                // // 172.29.26.116:8000/user_id/keyword
-                // axios({
-                //     method: 'get',
-                //     url: `http://172.29.26.116:8000/asdf123/cafe`,
-                // })
-                // .then(response => {
-                //     // 요청이 성공한 경우
-                //     console.log('성공:', response);
-                //     // 여기에 성공했을 때의 로직을 추가합니다.
-                // })
-                // .catch(error => {
-                //     // 오류가 발생한 경우
-                //     console.error('오류:', error);
-                //     // 여기에 오류 처리 로직을 추가합니다.
-                // });
+    // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
+    axios({
+        method: 'get',
+        // url: `http://127.0.0.1:8002/hist/${user_id}/${chatRoom.target_object}`, 원래는 이거 사용해야 하는데 채팅 기록이 없어서... 
+        url:`http://127.0.0.1:8002/hist/asdf123/cafe`,
+    })
+    .then(response => {
+        console.log('성공:', response.data.conversation);
 
+        displayConversation(response.data.conversation); // 화면에 표시하는 함수 호출
+    })
+    .catch(error => {
+        console.error('오류:', error);
+        alert('채팅 기록을 가져오지 못했습니다.');
+    });
+   
+}
+
+// 화면에 채팅 이력을 가져오는 함수
+function displayConversation(conversationData) {
+    const conversationView = document.querySelector('.view.conversation-view');
+    conversationView.innerHTML = ''; // 기존 내용을 지웁니다.
+
+    conversationData.forEach(entry => {
+        // 질문 div 생성
+        const questionDiv = document.createElement('div');
+        questionDiv.style.backgroundColor = '#ffcccb'; // 배경색: 분홍색
+        questionDiv.style.color = 'white'; // 텍스트 색: 흰색
+        questionDiv.style.padding = '10px';
+        questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+        questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+        questionDiv.textContent = `Q: ${entry.question}`;
+
+        // 대답 div 생성
+        const answerDiv = document.createElement('div');
+        answerDiv.style.backgroundColor = '#dda0dd'; // 배경색: 보라색
+        answerDiv.style.color = 'white'; // 텍스트 색: 흰색
+        answerDiv.style.padding = '10px';
+        answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
+        answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+        answerDiv.textContent = `A: ${entry.answer}`;
+
+        // 질문과 대답 div를 conversation view에 추가
+        conversationView.appendChild(questionDiv);
+        conversationView.appendChild(answerDiv);
+    });
+
+    // 최신 채팅이 먼저 보이게끔 적용한다.
+    conversationView.scrollTop = conversationView.scrollHeight;
+
+    // 입력창도 보이게 해야 한다.
+    const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
+    messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
 }
 
 // context에서 '수정'을 클릭했을 떄 
@@ -326,83 +365,12 @@ function deleteChatRoom(){
     })
     .then(response => {
         console.log('성공!!');
+
         window.location.reload(); // 새로 고침
     })
     .catch(error => {
         console.log(`에러 : ${error.response.data.message}`);
     });
-}
-
-// 'Prompt-Main'화면을 clear, 입력창을 보이지 않게 하는 함수
-function clearMainContent() {
-    const mainContent = document.querySelector('.conversation-view');
-    const messageForm = document.getElementById('message-form');
-
-    if (mainContent) {
-        mainContent.innerHTML = ''; // Main 화면의 내용을 비웁니다.
-    }
-
-    if (messageForm) {
-        messageForm.style.display = 'none'; // 하단 입력창을 숨깁니다.
-    }
-}
-
-// '채팅방명'을 click 했을 떄 호출되는 함수
-function showChats(chatRoomName) {
-    var messageForm = document.getElementById('message-form'); // 하단 입력 창을 보이게 한다.
-    messageForm.style.display = 'block'; 
-
-    var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
-
-    var conversationView = document.querySelector('.conversation-view');
-    conversationView.innerHTML = '';
-
-    chatData.forEach(function(chat) {    // 질문(Q)와 대답(R) 데이터를 화면에 뿌려준다.(JS 코드로 html 설정)
-        var questionDiv = document.createElement('div');    // 질문(Q)
-        questionDiv.className = 'chat-container';
-        var questionElem = document.createElement('p');
-        questionElem.className = 'question';
-        questionElem.innerHTML = '<b>Q:</b> ' + chat.question;
-        questionDiv.appendChild(questionElem);
-        conversationView.appendChild(questionDiv);
-
-        var answerDiv = document.createElement('div');     // 대답(R)
-        answerDiv.className = 'chat-container';
-        var answerElem = document.createElement('p');
-        answerElem.className = 'answer';
-        answerElem.innerHTML = '<b>A:</b> ' + chat.answer;
-        answerDiv.appendChild(answerElem);
-        conversationView.appendChild(answerDiv);
-    });
-
-    // 채팅 내용이 추가된 후 스크롤을 맨 아래로 이동
-    conversationView.scrollTop = conversationView.scrollHeight;
-}
-
-// 서버에서 질문과 대답 형식의 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
-function getChatData(chatRoomName) {
-    // 예시 데이터 
-    return {
-        'gigagenie': [
-            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
-            { question: '질문2', answer: '대답2' },
-            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
-            { question: '질문2', answer: '대답2' },
-            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
-            { question: '질문2', answer: '대답2' },
-            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
-            { question: '질문2', answer: '대답2' },
-            { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐무랴루ㅑ우랴ㅐㅇ누량누랴앤룽내ㅑㅜㄹㄴ애ㅑ룽냐ㅐ룽내룬애루ㅐㄴㅇ루ㅑㅐㄴ우랴ㅐㄴㅇ루ㅑㅐㅇ누랴ㅐㄴㅇ루ㅐㄴㅇ루앤루ㅑㅐㄴㅇ룽내룬애루앤ㄹㅇ내루ㅐ냐혀휵뎌휵뎌ㅑ휵댜ㅕ휻ㄱㅎdasdasfasfdfdsfsdfhsdfsdfhsdufhdsiufhdsfiuhdsfiudsfisdhfiusdigsdfdifgdufgsdifusdfgdsuifdgsifgsdiufgsdifgdsifgidsfgdisfgisdfgdisfgidsfgidsfgdisufgeuifgfegfguefgwefgewfewuifgufigdufidgsfgdsfgsdifgdsifgdsfisdgfidsgfidsgfidsfgdsifgydwdywfdwydfywfdyufdwyfduydfwywqdfywdfywfqdywqdfwtdwqdfwqdfwqdufqwdtwqdfwtdwqfdytwqfdwqtydfwqytdfqwydfwqydfwqtydfqwtydfwqtydfwqytdfwqytdfwqdfwqudfwqydfwqduwqfyduwqdfwqdufwqdfuwqydufwqydufywqdfwqdfwqdyuwfqduywfdwqydwfqydwqfydadsadasdsadsadsadsdsadsadsdsadsadsadsadsadsad' },
-            { question: '질문2', answer: '대답2' },
-            // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
-        ],
-        'pass' : [
-            { question: '질문1', answer: '대답1' },
-            { question: '질문2', answer: '대답2' },
-            // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
-        ],
-        // 다른 채팅방 데이터도 이와 유사하게 추가
-    }[chatRoomName];
 }
 
 // '엔터란?'를 클릭하면 Routing 하는 함수
@@ -776,3 +744,74 @@ function goLogout(){
 //     show_view( ".new-chat-view" );
 // });
 
+// 'Prompt-Main'화면을 clear, 입력창을 보이지 않게 하는 함수
+// function clearMainContent() {
+//     const mainContent = document.querySelector('.conversation-view');
+//     const messageForm = document.getElementById('message-form');
+
+//     if (mainContent) {
+//         mainContent.innerHTML = ''; // Main 화면의 내용을 비웁니다.
+//     }
+
+//     if (messageForm) {
+//         messageForm.style.display = 'none'; // 하단 입력창을 숨깁니다.
+//     }
+// }
+
+// '채팅방명'을 click 했을 떄 호출되는 함수
+// function showChats(chatRoomName) {
+//     var messageForm = document.getElementById('message-form'); // 하단 입력 창을 보이게 한다.
+//     messageForm.style.display = 'block'; 
+
+//     var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
+
+//     var conversationView = document.querySelector('.conversation-view');
+//     conversationView.innerHTML = '';
+
+//     chatData.forEach(function(chat) {    // 질문(Q)와 대답(R) 데이터를 화면에 뿌려준다.(JS 코드로 html 설정)
+//         var questionDiv = document.createElement('div');    // 질문(Q)
+//         questionDiv.className = 'chat-container';
+//         var questionElem = document.createElement('p');
+//         questionElem.className = 'question';
+//         questionElem.innerHTML = '<b>Q:</b> ' + chat.question;
+//         questionDiv.appendChild(questionElem);
+//         conversationView.appendChild(questionDiv);
+
+//         var answerDiv = document.createElement('div');     // 대답(R)
+//         answerDiv.className = 'chat-container';
+//         var answerElem = document.createElement('p');
+//         answerElem.className = 'answer';
+//         answerElem.innerHTML = '<b>A:</b> ' + chat.answer;
+//         answerDiv.appendChild(answerElem);
+//         conversationView.appendChild(answerDiv);
+//     });
+
+//     // 채팅 내용이 추가된 후 스크롤을 맨 아래로 이동
+//     conversationView.scrollTop = conversationView.scrollHeight;
+// }
+
+// 서버에서 질문과 대답 형식의 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
+// function getChatData(chatRoomName) {
+//     // 예시 데이터 
+//     return {
+//         'gigagenie': [
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐무랴루ㅑ우랴ㅐㅇ누량누랴앤룽내ㅑㅜㄹㄴ애ㅑ룽냐ㅐ룽내룬애루ㅐㄴㅇ루ㅑㅐㄴ우랴ㅐㄴㅇ루ㅑㅐㅇ누랴ㅐㄴㅇ루ㅐㄴㅇ루앤루ㅑㅐㄴㅇ룽내룬애루앤ㄹㅇ내루ㅐ냐혀휵뎌휵뎌ㅑ휵댜ㅕ휻ㄱㅎdasdasfasfdfdsfsdfhsdfsdfhsdufhdsiufhdsfiuhdsfiudsfisdhfiusdigsdfdifgdufgsdifusdfgdsuifdgsifgsdiufgsdifgdsifgidsfgdisfgisdfgdisfgidsfgidsfgdisufgeuifgfegfguefgwefgewfewuifgufigdufidgsfgdsfgsdifgdsifgdsfisdgfidsgfidsgfidsfgdsifgydwdywfdwydfywfdyufdwyfduydfwywqdfywdfywfqdywqdfwtdwqdfwqdfwqdufqwdtwqdfwtdwqfdytwqfdwqtydfwqytdfqwydfwqydfwqtydfqwtydfwqtydfwqytdfwqytdfwqdfwqudfwqydfwqduwqfyduwqdfwqdufwqdfuwqydufwqydufywqdfwqdfwqdyuwfqduywfdwqydwfqydwqfydadsadasdsadsadsadsdsadsadsdsadsadsadsadsadsad' },
+//             { question: '질문2', answer: '대답2' },
+//             // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+//         ],
+//         'pass' : [
+//             { question: '질문1', answer: '대답1' },
+//             { question: '질문2', answer: '대답2' },
+//             // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+//         ],
+//         // 다른 채팅방 데이터도 이와 유사하게 추가
+//     }[chatRoomName];
+// }
