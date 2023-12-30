@@ -4,6 +4,8 @@ let token;   // 토큰
 
 // index_test.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('새로고침');
+
     checkLoginStatusAndUpdateUI();
 });
 
@@ -277,6 +279,10 @@ function displayConversation(conversationData) {
     // 입력창도 보이게 해야 한다.
     const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
     messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
+    
+    // 입력은 항상 빈값 상태로 유지
+    var textareaElement = document.getElementById('message');
+    textareaElement.value='';
 }
 
 // context에서 '수정'을 클릭했을 떄 
@@ -467,10 +473,12 @@ function renderFrequentMessages(messageList){
         div.style.alignItems = 'center';
 
         div.innerHTML = `
-            <input type="checkbox" 
-                   style="width:30px; 
-                   margin-right: 10px;">
-
+            <input type="radio" 
+                    name="selectedMessage"
+                    data-template-id="${message.template_id}"
+                    style="width:30px; 
+                    margin-right: 10px;">
+                  
             <p style="margin: 0px 10px 0px 0px; width: 300px;">${message.template_name}</p>
 
             <input type='text'
@@ -510,7 +518,7 @@ function renderFrequentMessages(messageList){
     reflectButton.textContent = '반영하기';
     // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
     reflectButton.onclick = function() {
-        // 반영하기 로직 구현
+        reflectFrequentMessage();
     };
 
     actionDiv.appendChild(addButton);
@@ -639,11 +647,45 @@ function closeFrequentMessagePopup() {
     document.getElementById("addFrequentMessagePopup").style.display = "none";
 }
 
-// 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출되는 함수
-function deleteTemplate(button) {
-    // 버튼이 속한 promptTemplate 요소를 삭제
-    button.parentElement.remove();
+// 모달 창에서 '자주 쓰는 문구' -> '반영하기' 버튼을 click 했을 떄 호출되는 함수
+function reflectFrequentMessage(){
+    const selectedCheckbox = document.querySelector('.promptTemplate input[type="radio"]:checked'); 
+
+    // 체크박스를 적용했는지 안했는지 여부를 판단한다.
+    if (selectedCheckbox) {
+        // const templateId = selectedCheckbox.getAttribute('data-template-id');
+        const templateValue = selectedCheckbox.nextElementSibling.nextElementSibling.value; // 체크박스의 다음 다음 요소인 input 태그의 value를 가져옵니다.
+
+        // AI 설정 팝업을 닫는다.
+        const modal = document.getElementById('myModal');
+        modal.style.display = 'none';
+
+        // 블러를 제거한다.
+        removeBlurFromElements();
+
+        // 하단 입력창이 열려있는지 안열려있는지 확인
+        checkMessageFormDisplay(templateValue);
+    } 
+    else {
+        alert('선택된 메시지가 없습니다.');
+    }
 }
+
+// 하단 입력창이 열려 있는지 확인한다.
+function checkMessageFormDisplay(templateValue){
+    const messageForm = document.getElementById('message-form');
+    const style = window.getComputedStyle(messageForm);
+
+    if (style.display==='block') {
+        // 하단 입력창에 text 붙이기
+        var textareaElement = document.getElementById('message');
+        textareaElement.value=templateValue;
+    }  
+    else {
+        alert('하단에 입력창이 활성화 되어야 적용할 수 있습니다.');
+    }
+}
+
 
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
@@ -814,4 +856,10 @@ function goLogout(){
 //         ],
 //         // 다른 채팅방 데이터도 이와 유사하게 추가
 //     }[chatRoomName];
+// }
+
+// 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출되는 함수
+// function deleteTemplate(button) {
+//     // 버튼이 속한 promptTemplate 요소를 삭제
+//     button.parentElement.remove();
 // }
