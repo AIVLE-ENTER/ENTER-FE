@@ -148,7 +148,7 @@ function getChatList(token){
 
        // 채팅방 목록을 화면에 붙이기
        const chat_List = response.data['data']['chat_list']; // 백엔드에서 받은 채팅방 목록
-    //    console.log(`chatList : ${chat_List}`);
+       //  console.log(`chatList : ${chat_List}`);
 
        const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
        conversationsElement.innerHTML = ''; // 기존 목록 클리어
@@ -175,26 +175,8 @@ function getChatList(token){
             button.textContent = chatRoom.title;
             button.id = chatRoom.target_object;
 
-            // 채팅방 클릭했을 떄 
-            button.onclick = function() {  
-                // url에 userID와 TargetObject(키워드)를 포함해야 한다.
-
-                // // 172.29.26.116:8000/user_id/keyword
-                // axios({
-                //     method: 'get',
-                //     url: `http://172.29.26.116:8000/asdf123/cafe`,
-                // })
-                // .then(response => {
-                //     // 요청이 성공한 경우
-                //     console.log('성공:', response);
-                //     // 여기에 성공했을 때의 로직을 추가합니다.
-                // })
-                // .catch(error => {
-                //     // 오류가 발생한 경우
-                //     console.error('오류:', error);
-                //     // 여기에 오류 처리 로직을 추가합니다.
-                // });
-             };
+            // 채팅방을 클릭하면 질문과 대답으로 구성된 히스토리를 가져온다.
+            button.addEventListener('click', () => getHistory(chatRoom));
 
             // 채팅방 수정, 삭제 아이콘 생성
             const span = document.createElement('span');
@@ -233,6 +215,29 @@ function getChatList(token){
         // 오류가 발생하면 이 부분이 실행됩니다.
         alert('채팅방 불러오기 오류');
     });
+}
+
+// 채팅방에 따른 질문과 히스토리를 가져오는 함수
+function getHistory(chatRoom){
+    console.log(chatRoom);
+    // url에 userID와 TargetObject(키워드)를 포함해야 한다.
+
+                // // 172.29.26.116:8000/user_id/keyword
+                // axios({
+                //     method: 'get',
+                //     url: `http://172.29.26.116:8000/asdf123/cafe`,
+                // })
+                // .then(response => {
+                //     // 요청이 성공한 경우
+                //     console.log('성공:', response);
+                //     // 여기에 성공했을 때의 로직을 추가합니다.
+                // })
+                // .catch(error => {
+                //     // 오류가 발생한 경우
+                //     console.error('오류:', error);
+                //     // 여기에 오류 처리 로직을 추가합니다.
+                // });
+
 }
 
 // context에서 '수정'을 클릭했을 떄 
@@ -328,77 +333,6 @@ function deleteChatRoom(){
     });
 }
 
-
-// 문서 로드 시 초기화 함수 실행
-// document.addEventListener('DOMContentLoaded', 
-//                           initializeTrashIcons);
-
-// const sidebar = document.querySelector("#sidebar");
-// const hide_sidebar = document.querySelector(".hide-sidebar");
-// const new_chat_button = document.querySelector(".new-chat");
-
-/* Hidden */
-// hide_sidebar.addEventListener( "click", function() {
-//     sidebar.classList.toggle( "hidden" );
-// });
-
-// const user_menu = document.querySelector(".user-menu ul");
-// const show_user_menu = document.querySelector(".user-menu button");
-
-// /* 하단 Show Menu 보여주기 */
-// show_user_menu.addEventListener( "click", function() {
-//     if( user_menu.classList.contains("show") ) {
-//         user_menu.classList.toggle( "show" );
-//         setTimeout( function() {
-//             user_menu.classList.toggle( "show-animate" );
-//         }, 200 );
-//     } else {
-//         user_menu.classList.toggle( "show-animate" );
-//         setTimeout( function() {
-//             user_menu.classList.toggle( "show" );
-//         }, 50 );
-//     }
-// } );
-
-// const models = document.querySelectorAll(".model-selector button");
-
-// for( const model of models ) {
-//     model.addEventListener("click", function() {
-//         document.querySelector(".model-selector button.selected")?.classList.remove("selected");
-//         model.classList.add("selected");
-//     });
-// }
-
-// const message_box = document.querySelector("#message");
-
-// message_box.addEventListener("keyup", function() {
-//     message_box.style.height = "auto";
-//     let height = message_box.scrollHeight + 2;
-//     if( height > 200 ) {
-//         height = 200;
-//     }
-//     message_box.style.height = height + "px";
-// });
-
-// function show_view( view_selector ) {
-//     document.querySelectorAll(".view").forEach(view => {
-//         view.style.display = "none";
-//     });
-
-//     document.querySelector(view_selector).style.display = "flex";
-// }
-
-// document.querySelectorAll(".conversation-button").forEach(button => {
-//     button.addEventListener("click", function() {
-//         show_view( ".conversation-view" );
-//     })
-// });
-
-// new_chat_button.addEventListener("click", function() {
-//     show_view( ".new-chat-view" );
-// });
-
-
 // 'Prompt-Main'화면을 clear, 입력창을 보이지 않게 하는 함수
 function clearMainContent() {
     const mainContent = document.querySelector('.conversation-view');
@@ -471,21 +405,6 @@ function getChatData(chatRoomName) {
     }[chatRoomName];
 }
 
-
-// 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
-// function initializeTrashIcons() {
-//     document.querySelectorAll('.trash-icon').forEach(function(icon) {
-//         icon.addEventListener('click', function(event) {
-//             console.log('휴지통 버튼');
-
-//             event.stopPropagation(); // 버블링 방지
-//             this.closest('li').remove(); // 가장 가까운 li 요소 삭제
-
-//             clearMainContent(); // Main 화면의 내용을 클리어합니다.
-//         });
-//     });
-// }
-
 // '엔터란?'를 클릭하면 Routing 하는 함수
 function question_enter(){
     window.location.href='../enter_introduction.html';
@@ -528,21 +447,6 @@ function removeBlurFromElements() {
     document.querySelector('main').classList.remove('blur-effect');
 }
 
-// '문의 게시판?'를 클릭하면 Routing 하는 함수
-function goInquiry(){
-    window.location.href='../inquiryBoard_test.html';
-}
-
-
-// '로그아웃'을 클릭하면 Routing 하는 함수
-function goLogout(){
-    alert('로그아웃을 했습니다.');
-    localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제
-
-    
-    window.location.reload(); // 현재 페이지를 새로고침
-}
-
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
 function handleCrawlerClick(){
     
@@ -555,63 +459,141 @@ function handleTemplateClick(){
 
 // 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
 function handleUseClick(){
+    // '메인 창'을 block으로 보이게끔 한다.
     var popup3_content = document.querySelector(".popup3-content");
     popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+
+    // 백엔드에서 구현한 '자주 쓰는 문구 리스트 불러오기'를 구현한다.
+    var frequentMessage_URL='http://localhost:8000/main/frequentMessage/';
+    axios({
+        method: 'get',
+        url: frequentMessage_URL,
+        headers: {
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+    })
+    .then(response => {
+        console.log('자주 쓰는 문구 리스트 : ', response.data.data.message_list);
+
+        // 화면에 자주 쓰는 문구를 보여준다.
+        const messageList = response.data.data.message_list;
+        renderFrequentMessages(messageList); // 화면에 자주 쓰는 문구를 보여주는 함수 호출
+    })
+    .catch(error => {
+        // console.log('에러');
+        // console.error(error); // 오류 처리
+        alert('자주 쓰는 문구를 불러오는데 오류가 발생했습니다.');
+    });
+}
+
+// 모달 창에서 자주 쓰는 문구를 보여주는 함수
+function renderFrequentMessages(messageList){
+    const container = document.querySelector('.popup3-content'); // 문구를 표시할 컨테이너 선택
+    container.innerHTML = ''; // 기존 내용 클리어
+
+    // 하나씩 자주 쓰는 문구를 화면에 그린다.
+    messageList.forEach(message => {   
+        const div = document.createElement('div');
+        div.className = 'promptTemplate';
+        div.style.display = 'flex';
+        div.style.alignItems = 'center';
+
+        div.innerHTML = `
+            <input type="checkbox" 
+                   style="width:30px; 
+                   margin-right: 10px;">
+
+            <p style="margin: 0px 10px 0px 0px; width: 300px;">${message.template_name}</p>
+
+            <input type='text'
+                   value='${message.template_content}'
+                   style='margin-right: 10px;
+                   placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'
+                   disabled>
+
+            <button type="button" 
+                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 140px;"
+                    onclick="deleteTemplate(this)">삭제하기</button>
+
+            <div style="margin-left: 20px;"></div>
+        `;
+
+        container.appendChild(div);
+    });
+
+    // "추가하기"와 "반영하기" 버튼을 포함하는 div 추가
+    const actionDiv = document.createElement('div');
+    actionDiv.style.display = 'flex';
+    actionDiv.style.justifyContent = 'flex-end';
+
+    const addButton = document.createElement('span');
+    addButton.className = 'add';
+    addButton.textContent = '추가하기';
+    addButton.onclick = function() {
+        addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
+    };
+
+    const reflectButton = document.createElement('span');
+    reflectButton.className = 'reflect';
+    reflectButton.textContent = '반영하기';
+    // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
+    reflectButton.onclick = function() {
+        // 반영하기 로직 구현
+    };
+
+    actionDiv.appendChild(addButton);
+    actionDiv.appendChild(reflectButton);
+    container.appendChild(actionDiv); // 컨테이너에 추가
 }
 
 // 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
-function addTemplate() {
-    // 새로운 프롬프트 템플릿 생성
-    var newPrompt = document.createElement("div");
-    newPrompt.className = 'promptTemplate';
-    newPrompt.style.display = 'flex';
-    newPrompt.style.alignItems = 'center';
-
-    // 체크박스 추가
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.style.width = "30px";
-    checkbox.style.marginRight = "10px";
-    newPrompt.appendChild(checkbox);
-
-    // 문구 텍스트 추가
-    var text = document.createElement("p");
-    text.style.margin = "0 20px 0 0";
-    text.style.width = "80px";
-    text.textContent = "문구";
-    newPrompt.appendChild(text);
-
-    // 간격을 위한 빈 div 태그 추가
-    var spacerDiv = document.createElement("div");
-    spacerDiv.style.marginLeft = "10px";
-    newPrompt.appendChild(spacerDiv);
-
-    // 입력창 추가
-    var input = document.createElement("input");
-    input.type = 'text';
-    input.placeholder = '자주쓰는 문구에 대한 Text를 불러와야 합니다.';
-    input.style.width = '575px'; // 입력창의 너비를 200픽셀로 설정
-    newPrompt.appendChild(input);
-
-    // '삭제하기' 버튼 추가
-    var deleteButton = document.createElement("button");
-    deleteButton.type = "button";
-    deleteButton.textContent = "삭제하기";
-    deleteButton.style.backgroundColor = "#ffcccc";
-    deleteButton.style.color = "black";
-    deleteButton.style.padding = "5px 10px";
-    deleteButton.style.border = "none";
-    deleteButton.style.borderRadius = "5px";
-    deleteButton.style.marginLeft = "10px";
-    deleteButton.style.width = "120px";
-    deleteButton.onclick = function() { deleteTemplate(this) };
-    newPrompt.appendChild(deleteButton);
-
-    // 버튼 div를 찾고 새로운 템플릿을 그 전에 삽입
-    var buttonDiv = document.querySelector('.content-area .popup3-content .promptTemplate').nextSibling;
-    var contentArea = document.querySelector('.content-area .popup3-content');
-    contentArea.insertBefore(newPrompt, buttonDiv);
+function addFrequentMessage() {
+    document.getElementById("addFrequentMessagePopup").style.display = "flex";
 }
+
+// 자주 쓰는 문구를 추가하는 팝업에서 '추가'를 click했을 떄 호출되는 함수
+function submitFrequentMessage() {
+    // 문구 제목과 내용의 값을 가져옵니다.
+    var title = document.getElementById("messageTitle").value;
+    var content = document.getElementById("messageContent").value;
+
+    // 백엔드에서 구현한 '자주 쓰는 문구 생성'과 연계한다.
+    var addFrequentMessage_URL='http://localhost:8000/main/frequentMessage/create/';
+    axios({
+        method: 'post',
+        url: addFrequentMessage_URL,
+        headers: {
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        },
+        data: {'template_name': title,
+               'template_content': content,
+              },
+    })
+    .then(response => {
+        console.log('성공');
+
+        // '자주 쓰는 문구 생성' 팝업을 종료한다.
+        title='';
+        content='';
+        document.getElementById("addFrequentMessagePopup").style.display = "none";
+        // AI 설정 팝업을 다시 불러온다.
+
+
+    })
+    .catch(error => {
+        console.log('에러');
+        console.log(error);
+
+        title='';
+        content='';
+    });
+}
+
+// 자주 쓰는 문구를 추가하는 팝업에서 '취소'를 click 했을 떄 호출되는 함수
+function closeFrequentMessagePopup() {
+    document.getElementById("addFrequentMessagePopup").style.display = "none";
+}
+
 
 // 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출되는 함수
 function deleteTemplate(button) {
@@ -619,7 +601,102 @@ function deleteTemplate(button) {
     button.parentElement.remove();
 }
 
+// '문의 게시판?'를 클릭하면 Routing 하는 함수
+function goInquiry(){
+    window.location.href='../inquiryBoard_test.html';
+}
+
+// '로그아웃'을 클릭하면 Routing 하는 함수
+function goLogout(){
+    alert('로그아웃을 했습니다.');
+    localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제
+
+    
+    window.location.reload(); // 현재 페이지를 새로고침
+}
 
 
+// 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
+// function initializeTrashIcons() {
+//     document.querySelectorAll('.trash-icon').forEach(function(icon) {
+//         icon.addEventListener('click', function(event) {
+//             console.log('휴지통 버튼');
 
+//             event.stopPropagation(); // 버블링 방지
+//             this.closest('li').remove(); // 가장 가까운 li 요소 삭제
+
+//             clearMainContent(); // Main 화면의 내용을 클리어합니다.
+//         });
+//     });
+// }
+
+
+// 문서 로드 시 초기화 함수 실행
+// document.addEventListener('DOMContentLoaded', 
+//                           initializeTrashIcons);
+
+// const sidebar = document.querySelector("#sidebar");
+// const hide_sidebar = document.querySelector(".hide-sidebar");
+// const new_chat_button = document.querySelector(".new-chat");
+
+/* Hidden */
+// hide_sidebar.addEventListener( "click", function() {
+//     sidebar.classList.toggle( "hidden" );
+// });
+
+// const user_menu = document.querySelector(".user-menu ul");
+// const show_user_menu = document.querySelector(".user-menu button");
+
+// /* 하단 Show Menu 보여주기 */
+// show_user_menu.addEventListener( "click", function() {
+//     if( user_menu.classList.contains("show") ) {
+//         user_menu.classList.toggle( "show" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show-animate" );
+//         }, 200 );
+//     } else {
+//         user_menu.classList.toggle( "show-animate" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show" );
+//         }, 50 );
+//     }
+// } );
+
+// const models = document.querySelectorAll(".model-selector button");
+
+// for( const model of models ) {
+//     model.addEventListener("click", function() {
+//         document.querySelector(".model-selector button.selected")?.classList.remove("selected");
+//         model.classList.add("selected");
+//     });
+// }
+
+// const message_box = document.querySelector("#message");
+
+// message_box.addEventListener("keyup", function() {
+//     message_box.style.height = "auto";
+//     let height = message_box.scrollHeight + 2;
+//     if( height > 200 ) {
+//         height = 200;
+//     }
+//     message_box.style.height = height + "px";
+// });
+
+// function show_view( view_selector ) {
+//     document.querySelectorAll(".view").forEach(view => {
+//         view.style.display = "none";
+//     });
+
+//     document.querySelector(view_selector).style.display = "flex";
+// }
+
+// document.querySelectorAll(".conversation-button").forEach(button => {
+//     button.addEventListener("click", function() {
+//         show_view( ".conversation-view" );
+//     })
+// });
+
+// new_chat_button.addEventListener("click", function() {
+//     show_view( ".new-chat-view" );
+// });
 

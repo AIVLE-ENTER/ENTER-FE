@@ -182,6 +182,8 @@
         </div>
     </main>
 
+    <!-- 기타 -->
+
     <!-- 'AI 설정'을 click하면 나타나는 모달 -->
     <div id="myModal"
          class="modal"
@@ -238,49 +240,7 @@
                     <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
                     <div class="popup3-content"
                          style='display:none'>
-                         <!-- 사용자의 자주 쓰는 문구 가져오기(예시) -->
-                         <div class='promptTemplate'
-                               style="display: flex; align-items: center;">
-                                <p style="margin: 0px 10px 0px 0px; width: 100px;">예시 문구</p>
-
-                                <input type='text' 
-                                        placeholder='ex) KT 기가지니에 전반적인 장점이 무엇이니?'
-                                        disabled>
-                    
-                                <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-                         </div>
-                        
-                        <!-- 사용자의 자주 쓰는 문구 가져오기  -->
-                        <div class='promptTemplate'
-                             style="display: flex; align-items: center;">
-                             <input type="checkbox"
-                                    style="width:30px; margin-right: 10px;"> <!-- 체크박스 추가 -->
-    
-                             <p style="margin: 0px 10px 0px 0px; width: 100px;">문구</p>
-
-                             <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-    
-                             <input type='text' 
-                                    placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'>
-
-                             <button type="button"
-                                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 120px;"
-                                     onclick="deleteTemplate(this)">삭제하기</button>
-                
-                             <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-                        </div>
-  
-                        <!-- 사용자의 자주 쓰는 문구 가져오기 추가 (버튼들을 위한 하나의 div 앞에 배치해야 한다.) -->
-
-
-                        <!-- 버튼들을 위한 하나의 div -->
-                        <div style="display: flex; justify-content: flex-end;">
-                            <span class="add"
-                                onclick="addTemplate()">추가하기</span>
-
-                            <span class="reflect"
-                                onclick="">반영하기</span>
-                        </div>
+                        <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
                 </div>
             </div>
@@ -323,8 +283,33 @@
         </div>
     </div>
 
+    <!-- 자주 쓰는 문구를 추가하려고 할 떄 등장하는 팝업 -->
+    <div id="addFrequentMessagePopup" 
+         style="display:none;">
+        <div class="popup-content">
+            <h2>자주 쓰는 문구 추가</h2>
 
+            <label for="messageTitle">문구 제목:</label>
+            <input type="text"
+                   id="messageTitle"
+                   name="messageTitle">
     
+            <label for="messageContent">문구 내용:</label>
+            <textarea id="messageContent" 
+                     name="messageContent"></textarea>
+
+            <div id="errorMessage"
+                 style="display: none; color: red; margin-top: 10px;">
+                 여기에 오류 메시지가 표시됩니다.
+            </div>
+
+            <div class="button-container"
+                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                <button onclick="submitFrequentMessage()">추가</button>
+                <button onclick="closeFrequentMessagePopup()">취소</button>
+            </div>
+        </div>
+    </div>
 
     <!-- JS와 연계 -->
     <script src="/js/common.js"></script>
