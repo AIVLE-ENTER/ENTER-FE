@@ -223,10 +223,14 @@ function getChatList(token){
 function getHistory(chatRoom){
     console.log('채팅방 정보 : ', chatRoom);
 
+    // url에 userID와 TargetObject(키워드)를 포함해야 한다.
+    // ex. http://127.0.0.1:8002/hist/{user_id}/{keyword명}
+
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
         method: 'get',
-        url: `http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`, //원래는 이거 사용해야 하는데 채팅 기록이 없어서...
+        // url: `http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`, //원래는 이거 사용해야 하는데 채팅 기록이 없어서... 
+        url:`http://127.0.0.1:8002/history/asdf1234/cafe`,
     })
     .then(response => {
         console.log('성공:', response.data.conversation);
@@ -243,8 +247,6 @@ function getHistory(chatRoom){
 
 // 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수
 function displayConversation(conversationData, chatRoom) {
-    console.log('채팅방 정보: ', chatRoom);
-
     const conversationView = document.querySelector('.view.conversation-view');
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
 
@@ -291,41 +293,73 @@ function displayConversation(conversationData, chatRoom) {
     sendButton.onclick = function() {
         sendMessage(chatRoom);
     };
-
-    // 하단 입력창에다 엔터 클릭했을 떄 리스너
-    messageForm.addEventListener("keydown", (e) => {
-        // If Enter key is pressed without Shift key and the window 
-        // width is greater than 800px, handle the chat
-        if(e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage(chatRoom);
-        }
-    });
 }
 
 // 새로운 메시지를 전송하는 함수
 function sendMessage(chatRoom) {
-    console.log('채팅방 정보: ', chatRoom);
+    console.log('ㄴㅁㅇㅁㄴ음ㄴㅇㅁ : ', chatRoom);
 
     // 입력창에 적은 text를 가져온다.
     var textareaElement = document.getElementById('message');  
     var message = textareaElement.value;
-    textareaElement.value='';
 
-    // 질문을 화면에 추가
-    addMessageToConversation('Q: ' + message,
-                            '#ffcccb',
-                             false); // 질문 추가
+    // 입력이 빈칸이었으면 반려한다.
+    if (message.trim() === '') {
+        alert('메시지를 입력해주세요.');
+        return;
+    }
 
-    // 대답을 위한 빈 div 추가
-    const emptyAnswerDiv = addMessageToConversation('A: ',
-                                                    '#dda0dd',
-                                                     true);
-    // 대답을 실시간으로 보여주는 함수
-    generateResponse3(emptyAnswerDiv, message, chatRoom);
+    console.log('질문 데이터 : ', message);
+    
+    // 사용자가 질문을 했을 떄 AI 측에서 구현한 기능과 통신
+    axios({
+        method: 'post',
+        url: 'http://127.0.0.1:8002/answer/asdf1234/cafe/True',
+        data: {
+           'question' : message,
+        }
+    })
+    .then(function (response) {
+        console.log('성공');
+        console.log(response.data);
+
+
+
+        
+        // 질문을 화면에 추가
+        // addMessageToConversation('Q: ' + message,
+        //                         '#ffcccb',
+        //                         false); // 질문 추가
+
+        // // 대답을 위한 빈 div 추가
+        // const emptyAnswerDiv = addMessageToConversation('A: ',
+        //                         '#dda0dd',
+        //                         true); // 대답 영역 준비
+
+
+        // 임시 성격의 대답 모의 데이터
+        // var mockAnswer = "이것은 모의 대답입니다. 한 글자씩 추가됩니다.";
+
+        // 실시간으로 대답을 하는 것 처럼 구현
+        // var index = 0;
+        // var interval = setInterval(function() {
+        // if (index < mockAnswer.length) {
+        //     addCharacterToAnswer(emptyAnswerDiv,
+        //             mockAnswer[index]);
+        //     index++;
+        // } 
+        // else {
+        //    clearInterval(interval);
+        // }
+        // }, 100); // 각 글자가 100ms 간격으로 추가됨
+    })
+    .catch(function (error) {
+        console.log('실패');
+        console.error(error);
+    });
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수
+// 대화에 메시지를 추가하는 함수
 function addMessageToConversation(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
@@ -344,77 +378,12 @@ function addMessageToConversation(message, bgColor, isAnswer) {
     return messageDiv; // 추가된 div 반환
 }
 
-// 대답(A)을 실시간으로 보여주는 함수
-const generateResponse3 = (chatElement, message, chatRoom) => {
-    const API_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
-    const messageElement = chatElement
-    const conversationView = document.querySelector('.view.conversation-view');
-
-    console.log('API_URL : ', API_URL);
-
-    // AI에서 만든 
-    fetch(API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-        body: JSON.stringify({
-           question: message,
-        }),
-       })
-        .then((response) => {
-          console.log(response);
-
-          const reader = response.body.getReader();
-          const decoder = new TextDecoder();
-  
-          const readChunk = () => {
-            //console.log(reader.read().value)
-            return reader.read().then(appendChunks);
-          };
-  
-          const appendChunks = (result) => {
-            console.log('appendchunks')
-            const chunk = decoder.decode(result.value || new Uint8Array(), {
-              stream: !result.done,
-            });
-
-            const parseData = chunk;
-            // 받아오는 data로 할 일
-            console.log(parseData);
-            //if(messageElement.textContent == 'Thinking...'){
-            //    messageElement.textContent='';
-            //}
-            messageElement.textContent = messageElement.textContent + parseData;
-  
-            if (!result.done) {
-              return readChunk();
-            }
-          };
-  
-          return readChunk();
-        })
-        .then(() => {
-          // 종료 시 할 일
-          console.log('end');
-          conversationView.scrollTop = conversationView.scrollHeight;
-        })
-        .catch((e) => {
-            // 에러 처리
-            console.log(e);
-            // messageElement.classList.add("error");
-            //messageElement.textContent = "Oops! Something went wrong. Please try again.";
-           console.log('error');
-        });
-};
-
-
 // 대답에 문자를 추가하는 함수
-// function addCharacterToAnswer(answerDiv, character) {
-//     answerDiv.textContent += character;
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     conversationView.scrollTop = conversationView.scrollHeight; // 최신 질문과 대답을 볼 수 있게끔 스크롤한다.
-// }
+function addCharacterToAnswer(answerDiv, character) {
+    answerDiv.textContent += character;
+    const conversationView = document.querySelector('.view.conversation-view');
+    conversationView.scrollTop = conversationView.scrollHeight; // 최신 질문과 대답을 볼 수 있게끔 스크롤한다.
+}
 
 // context에서 '수정'을 클릭했을 떄 
 function modify(){
@@ -830,3 +799,166 @@ function goLogout(){
     
     window.location.reload(); // 현재 페이지를 새로고침
 }
+
+
+// 기존에 Html 코드로 '채팅방 목록'에 있었을 경우 -> 휴지통 버튼을 누른 경우 
+// function initializeTrashIcons() {
+//     document.querySelectorAll('.trash-icon').forEach(function(icon) {
+//         icon.addEventListener('click', function(event) {
+//             console.log('휴지통 버튼');
+
+//             event.stopPropagation(); // 버블링 방지
+//             this.closest('li').remove(); // 가장 가까운 li 요소 삭제
+
+//             clearMainContent(); // Main 화면의 내용을 클리어합니다.
+//         });
+//     });
+// }
+
+
+// 문서 로드 시 초기화 함수 실행
+// document.addEventListener('DOMContentLoaded', 
+//                           initializeTrashIcons);
+
+// const sidebar = document.querySelector("#sidebar");
+// const hide_sidebar = document.querySelector(".hide-sidebar");
+// const new_chat_button = document.querySelector(".new-chat");
+
+/* Hidden */
+// hide_sidebar.addEventListener( "click", function() {
+//     sidebar.classList.toggle( "hidden" );
+// });
+
+// const user_menu = document.querySelector(".user-menu ul");
+// const show_user_menu = document.querySelector(".user-menu button");
+
+// /* 하단 Show Menu 보여주기 */
+// show_user_menu.addEventListener( "click", function() {
+//     if( user_menu.classList.contains("show") ) {
+//         user_menu.classList.toggle( "show" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show-animate" );
+//         }, 200 );
+//     } else {
+//         user_menu.classList.toggle( "show-animate" );
+//         setTimeout( function() {
+//             user_menu.classList.toggle( "show" );
+//         }, 50 );
+//     }
+// } );
+
+// const models = document.querySelectorAll(".model-selector button");
+
+// for( const model of models ) {
+//     model.addEventListener("click", function() {
+//         document.querySelector(".model-selector button.selected")?.classList.remove("selected");
+//         model.classList.add("selected");
+//     });
+// }
+
+// const message_box = document.querySelector("#message");
+
+// message_box.addEventListener("keyup", function() {
+//     message_box.style.height = "auto";
+//     let height = message_box.scrollHeight + 2;
+//     if( height > 200 ) {
+//         height = 200;
+//     }
+//     message_box.style.height = height + "px";
+// });
+
+// function show_view( view_selector ) {
+//     document.querySelectorAll(".view").forEach(view => {
+//         view.style.display = "none";
+//     });
+
+//     document.querySelector(view_selector).style.display = "flex";
+// }
+
+// document.querySelectorAll(".conversation-button").forEach(button => {
+//     button.addEventListener("click", function() {
+//         show_view( ".conversation-view" );
+//     })
+// });
+
+// new_chat_button.addEventListener("click", function() {
+//     show_view( ".new-chat-view" );
+// });
+
+// 'Prompt-Main'화면을 clear, 입력창을 보이지 않게 하는 함수
+// function clearMainContent() {
+//     const mainContent = document.querySelector('.conversation-view');
+//     const messageForm = document.getElementById('message-form');
+
+//     if (mainContent) {
+//         mainContent.innerHTML = ''; // Main 화면의 내용을 비웁니다.
+//     }
+
+//     if (messageForm) {
+//         messageForm.style.display = 'none'; // 하단 입력창을 숨깁니다.
+//     }
+// }
+
+// '채팅방명'을 click 했을 떄 호출되는 함수
+// function showChats(chatRoomName) {
+//     var messageForm = document.getElementById('message-form'); // 하단 입력 창을 보이게 한다.
+//     messageForm.style.display = 'block'; 
+
+//     var chatData = getChatData(chatRoomName);    // 서버에서 질문(Q)와 대답(R) 관련된 데이터를 가져온다.
+
+//     var conversationView = document.querySelector('.conversation-view');
+//     conversationView.innerHTML = '';
+
+//     chatData.forEach(function(chat) {    // 질문(Q)와 대답(R) 데이터를 화면에 뿌려준다.(JS 코드로 html 설정)
+//         var questionDiv = document.createElement('div');    // 질문(Q)
+//         questionDiv.className = 'chat-container';
+//         var questionElem = document.createElement('p');
+//         questionElem.className = 'question';
+//         questionElem.innerHTML = '<b>Q:</b> ' + chat.question;
+//         questionDiv.appendChild(questionElem);
+//         conversationView.appendChild(questionDiv);
+
+//         var answerDiv = document.createElement('div');     // 대답(R)
+//         answerDiv.className = 'chat-container';
+//         var answerElem = document.createElement('p');
+//         answerElem.className = 'answer';
+//         answerElem.innerHTML = '<b>A:</b> ' + chat.answer;
+//         answerDiv.appendChild(answerElem);
+//         conversationView.appendChild(answerDiv);
+//     });
+
+//     // 채팅 내용이 추가된 후 스크롤을 맨 아래로 이동
+//     conversationView.scrollTop = conversationView.scrollHeight;
+// }
+
+// 서버에서 질문과 대답 형식의 데이터를 가져오거나, 이미 로드된 데이터를 반환하는 함수
+// function getChatData(chatRoomName) {
+//     // 예시 데이터 
+//     return {
+//         'gigagenie': [
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐' },
+//             { question: '질문2', answer: '대답2' },
+//             { question: '질문1', answer: '안녕하세요 저는 그냥 노체랭랭ㄹ앤룽내ㅜㄹㅇ내ㅜ랜우랜ㅇ루ㅐㅇㄴ루ㅐㅇㄴ루ㅐㅇㄴ룽낼앤룬애룽내ㅜㄹㄴ애ㅜ랜울ㅇ내루ㅐㄴㅇ루애눌ㅇ내룽내ㅜㄹ애누랜울애눌앤루앤루ㅐㄴㅇ루ㅐㄴㅇ루ㅐㄴ우랜우랭누랭누랭누래엔루ㅐ후ㅐㅑ후댜ㅐㄱ훋개ㅜ해댜궇ㄱ대햐무랴루ㅑ우랴ㅐㅇ누량누랴앤룽내ㅑㅜㄹㄴ애ㅑ룽냐ㅐ룽내룬애루ㅐㄴㅇ루ㅑㅐㄴ우랴ㅐㄴㅇ루ㅑㅐㅇ누랴ㅐㄴㅇ루ㅐㄴㅇ루앤루ㅑㅐㄴㅇ룽내룬애루앤ㄹㅇ내루ㅐ냐혀휵뎌휵뎌ㅑ휵댜ㅕ휻ㄱㅎdasdasfasfdfdsfsdfhsdfsdfhsdufhdsiufhdsfiuhdsfiudsfisdhfiusdigsdfdifgdufgsdifusdfgdsuifdgsifgsdiufgsdifgdsifgidsfgdisfgisdfgdisfgidsfgidsfgdisufgeuifgfegfguefgwefgewfewuifgufigdufidgsfgdsfgsdifgdsifgdsfisdgfidsgfidsgfidsfgdsifgydwdywfdwydfywfdyufdwyfduydfwywqdfywdfywfqdywqdfwtdwqdfwqdfwqdufqwdtwqdfwtdwqfdytwqfdwqtydfwqytdfqwydfwqydfwqtydfqwtydfwqtydfwqytdfwqytdfwqdfwqudfwqydfwqduwqfyduwqdfwqdufwqdfuwqydufwqydufywqdfwqdfwqdyuwfqduywfdwqydwfqydwqfydadsadasdsadsadsadsdsadsadsdsadsadsadsadsadsad' },
+//             { question: '질문2', answer: '대답2' },
+//             // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+//         ],
+//         'pass' : [
+//             { question: '질문1', answer: '대답1' },
+//             { question: '질문2', answer: '대답2' },
+//             // 여기에 더 많은 질문과 대답을 추가할 수 있습니다.
+//         ],
+//         // 다른 채팅방 데이터도 이와 유사하게 추가
+//     }[chatRoomName];
+// }
+
+// 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출되는 함수
+// function deleteTemplate(button) {
+//     // 버튼이 속한 promptTemplate 요소를 삭제
+//     button.parentElement.remove();
+// }
