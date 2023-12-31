@@ -219,9 +219,9 @@ function getChatList(token){
     });
 }
 
-// 채팅방에 따른 질문과 히스토리를 가져오는 함수
+// AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getHistory(chatRoom){
-    console.log(chatRoom);
+    console.log('채팅방 정보 : ', chatRoom);
 
     // url에 userID와 TargetObject(키워드)를 포함해야 한다.
     // ex. http://127.0.0.1:8002/hist/{user_id}/{keyword명}
@@ -235,7 +235,8 @@ function getHistory(chatRoom){
     .then(response => {
         console.log('성공:', response.data.conversation);
 
-        displayConversation(response.data.conversation); // 화면에 표시하는 함수 호출
+        displayConversation(response.data.conversation, 
+                            chatRoom);   // 화면에 표시하는 함수 호출
     })
     .catch(error => {
         console.error('오류:', error);
@@ -244,12 +245,13 @@ function getHistory(chatRoom){
    
 }
 
-// 화면에 채팅 이력을 가져오는 함수
-function displayConversation(conversationData) {
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수
+function displayConversation(conversationData, chatRoom) {
     const conversationView = document.querySelector('.view.conversation-view');
-    conversationView.innerHTML = ''; // 기존 내용을 지웁니다.
+    conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
 
-    conversationData.forEach(entry => {
+    // 채팅 이력을 그려서 화면에 보여준다.
+    conversationData.forEach(entry => { 
         // 질문 div 생성
         const questionDiv = document.createElement('div');
         questionDiv.style.backgroundColor = '#ffcccb'; // 배경색: 분홍색
@@ -280,10 +282,89 @@ function displayConversation(conversationData) {
     const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
     messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
     
-    // 입력은 항상 빈값 상태로 유지
+    // 입력창에 있는 값은 항상 빈값 상태로 유지
     var textareaElement = document.getElementById('message');
     textareaElement.value='';
+
+    // 하단 입력창에 있는 '전송' 버튼에 대한 참조를 얻음
+    const sendButton = document.querySelector('.send-button');
+
+    // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
+    sendButton.onclick = function() {
+        sendMessage(chatRoom);
+    };
 }
+
+// 새로운 메시지를 전송하는 함수
+function sendMessage(chatRoom) {
+    console.log('ㄴㅁㅇㅁㄴ음ㄴㅇㅁ : ', chatRoom);
+
+    // 입력창에 적은 text를 가져온다.
+    var textareaElement = document.getElementById('message');  
+    var message = textareaElement.value;
+
+    // 입력이 빈칸이었으면 반려한다.
+    if (message.trim() === '') {
+        alert('메시지를 입력해주세요.');
+        return;
+    }
+    
+    // AI에서 추가적인 질문과 대답을 보여주는 기능과 통신
+    // 지금은 AI 측으로부터 데이터를 받지 못한 상황이여서 더미 데이터(모의 데이터)로 테스트 해본다.
+
+    // 질문을 화면에 추가
+    addMessageToConversation('Q: ' + message,
+                             '#ffcccb',
+                             false); // 질문 추가
+
+    // 대답을 위한 빈 div 추가
+    const emptyAnswerDiv = addMessageToConversation('A: ',
+                                                    '#dda0dd',
+                                                    true); // 대답 영역 준비
+
+    // 임시 성격의 대답 모의 데이터
+    var mockAnswer = "이것은 모의 대답입니다. 한 글자씩 추가됩니다.";
+
+    // 실시간으로 대답을 하는 것 처럼 구현
+    var index = 0;
+    var interval = setInterval(function() {
+        if (index < mockAnswer.length) {
+            addCharacterToAnswer(emptyAnswerDiv,
+                                 mockAnswer[index]);
+            index++;
+        } else {
+            clearInterval(interval);
+        }
+    }, 100); // 각 글자가 100ms 간격으로 추가됨
+}
+
+// 대화에 메시지를 추가하는 함수
+function addMessageToConversation(message, bgColor, isAnswer) {
+    const conversationView = document.querySelector('.view.conversation-view');
+    const messageDiv = document.createElement('div');
+
+    messageDiv.style.backgroundColor = bgColor;
+    messageDiv.style.color = 'white';
+    messageDiv.style.padding = '10px';
+    messageDiv.style.margin = '10px 0';
+    messageDiv.style.borderRadius = '8px';
+    messageDiv.textContent = message;
+
+    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용함
+    messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
+
+    conversationView.appendChild(messageDiv);
+    return messageDiv; // 추가된 div 반환
+}
+
+// 대답에  문자를 추가하는 함수
+function addCharacterToAnswer(answerDiv, character) {
+    answerDiv.textContent += character;
+    const conversationView = document.querySelector('.view.conversation-view');
+    conversationView.scrollTop = conversationView.scrollHeight; // 최신 질문과 대답을 볼 수 있게끔 스크롤한다.
+}
+
+
 
 // context에서 '수정'을 클릭했을 떄 
 function modify(){
@@ -685,7 +766,6 @@ function checkMessageFormDisplay(templateValue){
         alert('하단에 입력창이 활성화 되어야 적용할 수 있습니다.');
     }
 }
-
 
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
