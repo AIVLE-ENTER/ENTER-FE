@@ -150,7 +150,6 @@ function getChatList(token){
 
        // 채팅방 목록을 화면에 붙이기
        const chat_List = response.data['data']['chat_list']; // 백엔드에서 받은 채팅방 목록
-       //  console.log(`chatList : ${chat_List}`);
 
        const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
        conversationsElement.innerHTML = ''; // 기존 목록 클리어
@@ -289,6 +288,7 @@ function displayConversation(conversationData, chatRoom) {
 
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
+        console.log('클릭');
         sendMessage(chatRoom);
     };
 
@@ -310,6 +310,8 @@ function sendMessage(chatRoom) {
     // 입력창에 적은 text를 가져온다.
     var textareaElement = document.getElementById('message');  
     var message = textareaElement.value;
+
+    // 하단 입력창에 대한 값을 빈값으로 대치한다.
     textareaElement.value='';
 
     // 질문을 화면에 추가
@@ -323,6 +325,10 @@ function sendMessage(chatRoom) {
                                                      true);
     // 대답을 실시간으로 보여주는 함수
     generateResponse3(emptyAnswerDiv, message, chatRoom);
+
+    // 대답을 실시간으로 보여줄 떄는 사용자가 클릭 할 수 없게 '전송'하기 버튼을 비활성화 한다.
+    const sendButton = document.querySelector('.send-button');
+    sendButton.style.display = 'none'; // 버튼 표시
 }
 
 // 대화(Q, A)에 메시지를 추가하는 함수
@@ -380,11 +386,8 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             });
 
             const parseData = chunk;
-            // 받아오는 data로 할 일
             console.log(parseData);
-            //if(messageElement.textContent == 'Thinking...'){
-            //    messageElement.textContent='';
-            //}
+
             messageElement.textContent = messageElement.textContent + parseData;
   
             if (!result.done) {
@@ -395,16 +398,21 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
           return readChunk();
         })
         .then(() => {
-          // 종료 시 할 일
           console.log('end');
-          conversationView.scrollTop = conversationView.scrollHeight;
+          conversationView.scrollTop = conversationView.scrollHeight;  // 최신 질문과 대답을 볼 수 있도록 자동적으로 아래로 스크롤한다.
+
+          // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
+          const sendButton = document.querySelector('.send-button');
+          sendButton.style.display = 'block'; // 버튼 표시
+
         })
         .catch((e) => {
-            // 에러 처리
+            console.log('error');
             console.log(e);
-            // messageElement.classList.add("error");
-            //messageElement.textContent = "Oops! Something went wrong. Please try again.";
-           console.log('error');
+            
+            // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
+            const sendButton = document.querySelector('.send-button');
+            sendButton.style.display = 'block'; // 버튼 표시
         });
 };
 
