@@ -265,7 +265,26 @@ function displayConversation(conversationData, chatRoom) {
         answerDiv.style.padding = '10px';
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+        answerDiv.style.display = 'flex'; // flexbox 사용
+        answerDiv.style.justifyContent = 'space-between'; // 아이템을 양쪽 끝으로 정렬
         answerDiv.textContent = `A: ${entry.answer}`;
+
+        // 대답 div 옆에 '삼자 아이콘(|)'을 배치한다.
+        const span = document.createElement('span');
+        span.className = 'material-icons';
+        span.textContent = 'more_vert'; // Material Icons의 more_vert 아이콘
+        span.style.color = '#808080'; // 진한 회색 적용
+        span.style.marginLeft = '15px';
+        span.style.marginTop = '15px';
+        span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+
+        // 아이콘 클릭 이벤트 리스너
+        span.onclick = function() {
+            showMemoPopup();
+        };
+
+        // 아이콘을 대답 div에 추가
+        answerDiv.appendChild(span);
 
         // 질문과 대답 div를 conversation view에 추가
         conversationView.appendChild(questionDiv);
@@ -295,10 +314,13 @@ function displayConversation(conversationData, chatRoom) {
     // 하단 입력창에다 엔터 클릭했을 떄 리스너
     messageForm.addEventListener("keydown", (e) => {
         // If Enter key is pressed without Shift key and the window 
-        // width is greater than 800px, handle the chat
         if(e.key === "Enter" && !e.shiftKey) {
-            e.preventDefault();
-            sendMessage(chatRoom);
+            // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
+            const sendButton = document.querySelector('.send-button');
+            if (sendButton.style.display !== 'none') {
+                e.preventDefault();
+                sendMessage(chatRoom);
+            }
         }
     });
 }
@@ -350,15 +372,56 @@ function addMessageToConversation(message, bgColor, isAnswer) {
     return messageDiv; // 추가된 div 반환
 }
 
+
+// function addMessageToConversation(message, bgColor, isAnswer) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     const messageDiv = document.createElement('div');
+
+//     messageDiv.style.backgroundColor = bgColor;
+//     messageDiv.style.color = 'white';
+//     messageDiv.style.padding = '10px';
+//     messageDiv.style.borderRadius = '8px';
+
+//     if (isAnswer) {
+//         // 대답인 경우
+//         messageDiv.style.display = 'flex';
+//         messageDiv.style.justifyContent = 'space-between';
+//         messageDiv.style.alignItems = 'center';
+//         messageDiv.style.margin = '10px 0 40px 0'; // 대답에만 마진 적용
+
+//         const answerTextDiv = document.createElement('div');
+//         answerTextDiv.textContent = message;
+//         messageDiv.appendChild(answerTextDiv);
+
+//         const span = document.createElement('span');
+//         span.className = 'material-icons';
+//         span.textContent = 'more_vert';
+//         span.style.color = '#808080';
+//         span.style.cursor = 'pointer';
+
+//         span.onclick = function() {
+//             console.log("아이콘 클릭됨:", message);
+//         };
+
+//         messageDiv.appendChild(span);
+//     } else {
+//         // 질문인 경우
+//         messageDiv.textContent = message;
+//         messageDiv.style.margin = '10px 0'; // 질문에 적용되는 마진
+//     }
+
+//     conversationView.appendChild(messageDiv);
+//     return messageDiv;
+// }
+
+
 // 대답(A)을 실시간으로 보여주는 함수
 const generateResponse3 = (chatElement, message, chatRoom) => {
     const API_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
     const messageElement = chatElement
     const conversationView = document.querySelector('.view.conversation-view');
 
-    console.log('API_URL : ', API_URL);
-
-    // AI에서 만든 
+    // AI에서 만든 대답 데이터를 받아와서 실시간으로 화면에 표시한다.
     fetch(API_URL, {
         method: 'POST',
         headers: {
@@ -398,12 +461,34 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
           return readChunk();
         })
         .then(() => {
-          console.log('end');
-          conversationView.scrollTop = conversationView.scrollHeight;  // 최신 질문과 대답을 볼 수 있도록 자동적으로 아래로 스크롤한다.
+            console.log('end');
+            conversationView.scrollTop = conversationView.scrollHeight;  // 최신 질문과 대답을 볼 수 있도록 자동적으로 아래로 스크롤한다.
 
-          // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
-          const sendButton = document.querySelector('.send-button');
-          sendButton.style.display = 'block'; // 버튼 표시
+            // 대답 텍스트 요소를 찾아서 그 옆에 '삼자 아이콘(|)'를 추가한다.
+            const answerDiv = chatElement; // 이미 addMessageToConversation에서 반환된 div
+            answerDiv.style.display='flex';
+            answerDiv.style.justifyContent='space-between';
+            
+            const iconSpan = document.createElement('span');
+            iconSpan.className = 'material-icons';
+            iconSpan.textContent = 'more_vert';
+            iconSpan.style.color = '#808080'; // 진한 회색
+            iconSpan.style.cursor = 'pointer';
+            iconSpan.style.marginLeft = '15px';
+            iconSpan.style.marginTop = '15px';
+
+            iconSpan.onclick = function() {  // 아이콘을 클릭할 떄 
+                showMemoPopup();
+            };
+
+            // 만약 대답 div에 이미 아이콘이 있으면 새로 추가하지 않습니다.
+            if (!answerDiv.querySelector('.material-icons')) {
+                answerDiv.appendChild(iconSpan);
+            }
+        
+            // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
+            const sendButton = document.querySelector('.send-button');
+            sendButton.style.display = 'block'; // 버튼 표시
 
         })
         .catch((e) => {
@@ -415,6 +500,77 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             sendButton.style.display = 'block'; // 버튼 표시
         });
 };
+
+// 대답(R)에 대한 '삼자 아이콘(|)'을 클릭했을 떄 나오는 팝업을 생성하는 함수 
+function showMemoPopup() {
+    // 오버레이 생성
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // 투명도를 주어 배경이 흐릿하게 보이도록 함
+    overlay.style.zIndex = '999'; // 팝업 바로 아래에 위치하도록 z-index 설정
+
+    // 팝업 컨테이너 생성
+    const popupContainer = document.createElement('div');
+    popupContainer.id = 'memoPopup';
+    popupContainer.style.position = 'fixed';
+    popupContainer.style.left = '50%';
+    popupContainer.style.top = '50%';
+    popupContainer.style.transform = 'translate(-50%, -50%)';
+    popupContainer.style.backgroundColor = 'white';
+    popupContainer.style.padding = '20px';
+    popupContainer.style.borderRadius = '8px';
+    popupContainer.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
+    popupContainer.style.maxWidth = '500px';
+    popupContainer.style.width = '80%';
+    popupContainer.style.boxSizing = 'border-box';
+    popupContainer.style.zIndex = '1000';
+
+    // 팝업 타이틀 생성
+    const popupTitle = document.createElement('h2');
+    popupTitle.textContent = '메모 팝업';
+    popupTitle.style.marginBottom = '20px';
+    popupTitle.style.color = '#333';
+    popupTitle.style.textAlign = 'center';
+
+    // 메모 입력을 위한 textarea 생성
+    const memoInput = document.createElement('textarea');
+    memoInput.style.width = '100%';
+    memoInput.style.height = '150px';
+    memoInput.style.marginBottom = '10px';
+    memoInput.style.boxSizing = 'border-box';
+
+    // 닫기 버튼 생성
+    const closeButton = document.createElement('button');
+    closeButton.textContent = 'Close';
+    closeButton.style.marginTop = '10px';
+    closeButton.onclick = function() {
+        // 팝업 닫기
+        document.body.removeChild(popupContainer);
+        document.body.removeChild(overlay);
+    };
+
+    // 팝업에 타이틀, textarea, 닫기 버튼 순서로 요소 추가
+    popupContainer.appendChild(popupTitle);
+    popupContainer.appendChild(memoInput);
+    popupContainer.appendChild(closeButton);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(overlay);
+    document.body.appendChild(popupContainer);
+
+    // 팝업 외부를 클릭했을 때 팝업 닫기 이벤트 추가
+    window.onclick = function(event) {
+        if (event.target == overlay) {
+            document.body.removeChild(popupContainer);
+            document.body.removeChild(overlay);
+        }
+    };
+}
+
 
 
 // 대답에 문자를 추가하는 함수
