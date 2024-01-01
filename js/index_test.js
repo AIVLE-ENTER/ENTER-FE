@@ -221,11 +221,12 @@ function getChatList(token){
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getHistory(chatRoom){
     console.log('채팅방 정보 : ', chatRoom);
+    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
 
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
         method: 'get',
-        url: `http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`, //원래는 이거 사용해야 하는데 채팅 기록이 없어서...
+        url: getHistory_URL, 
     })
     .then(response => {
         console.log('성공:', response.data.conversation);
@@ -372,57 +373,14 @@ function addMessageToConversation(message, bgColor, isAnswer) {
     return messageDiv; // 추가된 div 반환
 }
 
-
-// function addMessageToConversation(message, bgColor, isAnswer) {
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     const messageDiv = document.createElement('div');
-
-//     messageDiv.style.backgroundColor = bgColor;
-//     messageDiv.style.color = 'white';
-//     messageDiv.style.padding = '10px';
-//     messageDiv.style.borderRadius = '8px';
-
-//     if (isAnswer) {
-//         // 대답인 경우
-//         messageDiv.style.display = 'flex';
-//         messageDiv.style.justifyContent = 'space-between';
-//         messageDiv.style.alignItems = 'center';
-//         messageDiv.style.margin = '10px 0 40px 0'; // 대답에만 마진 적용
-
-//         const answerTextDiv = document.createElement('div');
-//         answerTextDiv.textContent = message;
-//         messageDiv.appendChild(answerTextDiv);
-
-//         const span = document.createElement('span');
-//         span.className = 'material-icons';
-//         span.textContent = 'more_vert';
-//         span.style.color = '#808080';
-//         span.style.cursor = 'pointer';
-
-//         span.onclick = function() {
-//             console.log("아이콘 클릭됨:", message);
-//         };
-
-//         messageDiv.appendChild(span);
-//     } else {
-//         // 질문인 경우
-//         messageDiv.textContent = message;
-//         messageDiv.style.margin = '10px 0'; // 질문에 적용되는 마진
-//     }
-
-//     conversationView.appendChild(messageDiv);
-//     return messageDiv;
-// }
-
-
 // 대답(A)을 실시간으로 보여주는 함수
 const generateResponse3 = (chatElement, message, chatRoom) => {
-    const API_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
+    const answerLiveResponse_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
     const messageElement = chatElement
     const conversationView = document.querySelector('.view.conversation-view');
 
     // AI에서 만든 대답 데이터를 받아와서 실시간으로 화면에 표시한다.
-    fetch(API_URL, {
+    fetch(answerLiveResponse_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -489,7 +447,6 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
-
         })
         .catch((e) => {
             console.log('error');

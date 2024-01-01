@@ -8,6 +8,7 @@ function findId() {
 
     console.log(userData);
 
+    // 백엔드에서 구현한 '아이디 찾기' 기능과 통신한다.
     axios.post(findIdURL, userData)
     .then(response => {
         alert('아이디 찾기에 성공했습니다.');
