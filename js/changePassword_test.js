@@ -147,7 +147,6 @@ function checkAuthNum(){
     result();
 }
 
-
 // '비밀번호 확인' 영역(Area)에서 비밀번호를 비교하는 함수 
 function checkPasswordMatch() {
     console.log('checkPasswordMatch 함수 실행');
