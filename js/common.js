@@ -17,3 +17,17 @@ const getWithExpire = (key) => {
     // 시간이 넘지 않았다면 해당 value를 반환
     return item[key];
 }
+
+
+// CSRF 토큰 가져오기
+const getCsrfToken = function() {
+    let csrfToken = '';
+    token_URL = 'http://localhost:8000/utils/getCsrfToken/';
+    axios.get(token_URL).then(
+        (response) => {
+          csrfToken = response.data.csrf_token;
+          console.log(csrfToken);
+    });
+
+    return csrfToken;
+}
