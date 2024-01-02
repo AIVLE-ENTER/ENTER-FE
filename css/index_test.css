@@ -89,8 +89,7 @@ body {
     padding: 8px;
     flex-shrink: 0; /* 사이드바 기가 줄어들지 않도록 설정 */
     left: 0;
-    background-color: #eeebfa;
-    /* color: #000000; 텍스트 색상을 검정색으로 설정 */
+    background-color: #edccea;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -172,6 +171,7 @@ button:hover {
 
 .new-chat {
     flex: 1;
+    font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
 }
 
 
@@ -201,7 +201,7 @@ button:hover {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    /* 기존의 다른 스타일 속성들 */
+    font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
 }
 
 
@@ -622,20 +622,27 @@ p {
     background: white; 
     padding: 20px; 
     border-radius: 5px;
-
     display: flex;
     flex-direction: column; /* 자식 요소들을 세로로 정렬 */
     align-items: center; /* 가운데 정렬 */
     gap: 10px; /* 요소 사이의 간격 */
 }
 
-/* 팝업 관련 */
-/* .close-btn {
-    float: right; 
-    font-size: 20px; 
-    cursor: pointer;
-} */
+.close-btn {
+    align-self: flex-end; /* 오른쪽에 정렬 */
+    /* ... 기타 스타일 ... */
+}
 
+#new-chat-form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#new-chat-form button {
+    margin-top: auto; /* 위쪽에 자동으로 공간을 만들어 밀어냄 */
+    margin-left: auto; /* 왼쪽에 자동으로 공간을 만들어 오른쪽에 붙임 */
+}
 
 .message-icon {
     font-size: 24px; /* 아이콘 크기 증가 */
@@ -696,6 +703,11 @@ p {
 
 .close-btn:hover {
     background-color: #606060; /* 마우스 오버 시 배경색 변경 */
+}
+
+#update-chat-form button {
+    margin-left: auto; /* 왼쪽 마진을 자동으로 설정하여 오른쪽 정렬 */
+    margin-top: 10px;  /* 버튼과 입력 필드 사이의 간격 */
 }
 
 .promptTemplate {
