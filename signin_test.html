@@ -67,7 +67,8 @@
                         id='input_id'
                         class="form-control"
                         aria-label="Username"
-                        placeholder="아이디를 입력해주세요.">
+                        placeholder="아이디를 입력해주세요."
+                        autocomplete='off'/>
                 </div>
             </div>
 
@@ -76,7 +77,8 @@
                 <input id='input_password'
                     class="userpw"
                     type="password"
-                    placeholder="비밀번호를 입력해주세요.">
+                    placeholder="비밀번호를 입력해주세요."
+                    autocomplete='off'/>
             </div>
 
             <!-- 4. 로그인 버튼 -->
@@ -100,9 +102,9 @@
             <div class="social-group">
                 <h2 class="tit">소셜 로그인</h2>
                 <ul class="social-list">
-                    <li><button class='btn-social-kakao'></button></li>
-                    <li><button class='btn-social-google'></button></li>
-                    <li><button class='btn-social-naver'></button></li>
+                    <li><button class='btn-social-kakao' onclick='socialLogin("kakao");'></button></li>
+                    <li><button class='btn-social-google' onclick='socialLogin("google");'></button></li>
+                    <li><button class='btn-social-naver' onclick='socialLogin("naver");'></button></li>
                 </ul>
             </div>
 
@@ -122,6 +124,47 @@
                 <span><a href="#none">Aivle Corp.</a></span>
             </div>
         
+        </div>
+    </div>
+
+    <!-- 소셜 로그인 모달창 -->
+    <div id="socialModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <div class="modal-screen">
+                <div>
+                    <div class="img-container">
+                        <img src="/assets/img/fail_social.png"/>
+                    </div>
+                    
+                    <div class="modal-btn-group">
+                        <button id="syncAccountBtn" class="btn">기존 회원 연동</button>
+                        <button id="signUpBtn" class="btn">회원 가입</button>
+                    </div>
+
+                    <div class="sync-login" id="syncView">
+                        <div>
+                            <p>연동할 계정으로 로그인 해주세요.</p>
+
+                            <div class="field">
+                                <input type="text"
+                                    id='sync_id'
+                                    placeholder="아이디를 입력해주세요."
+                                    autocomplete='off'/>
+                            </div>
+                
+                            <div class="field">
+                                <input type="password"
+                                    id='sync_password'
+                                    placeholder="비밀번호를 입력해주세요."
+                                    autocomplete='off'/>
+                            </div>
+
+                            <button type="button" class="login-button" onclick="javascript:void(0);">로그인</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

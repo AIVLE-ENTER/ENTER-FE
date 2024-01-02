@@ -1,3 +1,11 @@
+// localStorage에 토큰 적재하기
+const setWithExpire = (key, value, exp) => {
+    let now = new Date(); // 현재 날짜와 시간
+    const item = {[`${key}`]: value, expires: now.getTime() + exp}
+    // item의 형태로 로컬에 저장
+    localStorage.setItem(key, JSON.stringify(item));
+}
+
 // localStorage에서 토큰 가져오기
 const getWithExpire = (key) => {
     // 토큰 불러오기
