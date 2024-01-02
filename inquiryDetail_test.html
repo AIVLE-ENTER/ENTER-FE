@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>문의 상세 페이지</title>
+    <title>상부상조 문의 상세 페이지</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -36,99 +36,127 @@
     <link rel="icon" 
           href="./assets/favicon.ico">
 
-    <!--  CSS 연동 -->
     <link rel="stylesheet"
-          href="/css/inquiryDetail_test.css">
+          href="./css/inquiryDetail.css">
 
-    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <style type="text/css">
+        p { margin-bottom: 0; }
+    </style>
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
-    <!-- Header -->
-    <header>
-        <img src="assets/img/Logo2.png" 
-             alt="로고"
-             id="header-logo">
+    <!-- header -->
+    <nav class="navbar navbar-light bg-light static-top">
+        <div class="container d-flex justify-content-between">
+            <div class="d-flex flex-row align-items-center">
+                <img src="assets/img/Logo2.png" 
+                        alt="로고"
+                        id="headerLogo"> <!-- 이미지 로고-->
 
-        <a href="/mypage_test.html" 
-           class="header-link">
-            <h3>~님 안녕하세요!!</h3>
-       </a>
-    </header>
+                <p class="webpage_title"
+                   style="font-size:3em" 
+                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
+            </div>
+    
+            <div class="d-flex flex-row align-items-center"
+                 style="margin-right: 80px;">
+                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                        id='prompt_sayong'
+                        href="/prompt.html" 
+                        style="color: inherit;
+                               background-color:
+                               transparent; 
+                               border: none;
+                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
+                </div>
 
-   <!-- 사실상 body -->
-   <div class='card'>
-    <div class='card-write'>  
-        <div class='title-w'>        <!-- 문의 유형-->
-            문의유형<input type='text' 
-                            style="width: 200px;"
-                            placeholder='KT 기가지니'
-                            disabled>
+                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                        <a class="btn btn-light"
+                            id='gaseipan'
+                            href="/board" 
+                            style="color: inherit;
+                                   background-color:
+                                   transparent; 
+                                   border: none;
+                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
+                </div>
+
+                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                            id='login_logout'
+                            href="/board2" 
+                            style="color: inherit;
+                                   background-color:
+                                   transparent; 
+                                   border: none;
+                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
+
+                </div>
+
+                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                    id='huiwongaip'
+                    href="/signup.html" 
+                    style="color: inherit;
+                           background-color:
+                           transparent; 
+                           border: none;
+                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
+                </div>
+
+                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
+                    <a class="btn btn-light"
+                        id='huiwongaip'
+                        href="/privacyPolicy.html" 
+                        style="color: inherit;
+                            background-color:
+                            transparent; 
+                            border: none;
+                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
+                </div>
+            </div>
         </div>
+    </nav>
 
-        <div class='title-w'>        <!-- 등록자 -->
-            등록자<input type='text' 
-                            style="width: 200px; margin-left: 25px;"
-                            placeholder='김영*'
-                            disabled>
-        </div>
-        
-        <div class='title-w'>        <!-- 제목 -->
-            제목<input type='text'
-                        style="width: 500px; margin-left: 40px;"
-                        placeholder='KT 기가지니에 대한 질문 입니다.'
-                        disabled>
-        </div>
-
-        <div class='msg'>            <!-- 내용 -->
-            <span style="margin-right: 20px;">내용</span>
-            <textarea placeholder='KT 기가지니를 써보니까 참 안좋아요'
-                        readonly></textarea>
-        </div>
-
-        <div style="height: 20px;"></div> <!-- 높이 간격을 위한 빈 div -->
-
-        <div>                              <!-- 이미지 -->
-            <span style="float: left;">이미지</span>
-            <img src="assets/img/analysis.jpg" 
-                    alt="예제 이미지"
-                    style="float: left; margin-left: 30px;"
-                    width="300"
-                    height="300">
+    <!-- 사실상 body -->
+    <div class="card">
+        <div class="faq">
+            <div class="faqHeader">
+                <p class="faqHeader-type">문의유형</p>
+                <p class="faqHeader-title">제목</p>
+                <p class="faqHeader-writer">작성자</p>    
+            </div>
+            <div class="faqItem-box">
+                <div class="faqItem-header">
+                    <div class="faqItem-info">
+                        <p class="faqItem-type"></p>
+                        <p class="faqItem-title"></p>
+                        <p class="faqItem-writer"></p>
+                    </div>
+                    <p style="margin: 10px;">내용</p>
+                </div>
+                <div class="faqItem-content">
+                </div>
+                <div class="faqItem-image">
+                    <p style="margin: 10px;">파일</p>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class='update-delete-buttons'
+    <div class='button-section'
          style="height:100px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
-         <div class='response'
-              id='write'
-              style="width:100px; height:50px; background-color: #000000;
-                     color: #ffffff; text-align: center; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                <a href='#'
-                   style="color: inherit; text-decoration: none;">답변하기</a>
-        </div>
          
-        <div class='update'
-              id='write'
-              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center;
-                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">수정</a>
-        </div>
-
-        <div class='delete' 
-              id='write'
-              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center; 
-                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right:50px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">삭제</a>
-        </div>
+        <button class="reply-button" onclick="replyButton()">답변하기</button>
+        <button class="edit-button" onclick="editButton()" type="button">수정</button>
+        <button class="delete-button" onclick="deleteButton()" type="button">삭제</button>
    </div>
-</div>
+    
 
     <!-- JS와 연동 -->
-    <script src="/js/common.js"></script>
-    <script src="/js/inquiryDetail_test.js"></script>
+    <script src="js/inquiryDetail_test.js"></script>
 </body>
 </html>
