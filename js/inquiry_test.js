@@ -1,38 +1,66 @@
-const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
-const token = getWithExpire('accessToken'); // 토큰을 받아온다.
+var boardURL= 'http://localhost:8000/board/';
+var boardCreateURL= 'http://localhost:8000/board/create/';
+var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
+var typeURL=`http://localhost:8000/board/questionTypeList/`;
 
-// enter_introduction.html을 불러왔을 떄 로그인 여부를 판별한다.
-window.addEventListener('DOMContentLoaded', (event) => {
-    // 로그인 상태이면?
-    if (token!==null) {
-        // 백엔드 코드를 이용해서 유저 정보 불러오기
-        getUserInfo();
-    } 
-    // 비로그인 상태이면?
-    else {
-       alert('로그인을 해야 합니다.');
-       window.location.href='../index_test.html';
+var token = JSON.parse(localStorage.getItem('accessToken')).accessToken;
+const config = {
+    headers: {
+        'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`})
     }
+}
+
+axios.get(typeURL).then(
+(response) => {
+    const typeData = response.data.type_list;
+    const typeSelect = document.getElementById("exampleSelect");
+
+    typeData.forEach(function (type) {
+        const option = document.createElement("option");
+        option.value = type.question_type_id;
+        option.text = type.question_type_title;
+        typeSelect.appendChild(option);
+    });
 });
 
-// 백엔드에서 유저 정보 불러오기
-function getUserInfo(){
-    // 백엔드 유저 정보 불러오기 
-    axios({
-        method: 'get',
-        url: getUserInfo_URL,
-        headers: { 
-            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
-        }
-    })
-    .then(response => {
-        // 요청이 성공하면 이 부분이 실행됩니다.
-        console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
-        const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
-        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
-    })
-    .catch(error => {
-        window.location.reload(); // 새로 고침한다.
-    });
+var myInfoData;
+axios.get(myInfoURL, config)
+.then((response) => {
+    myInfoData = response;
+})
+.catch((error) => {
+    console.log(error)
+})
+
+function writeBoard() {
+    var formData = new FormData();
+
+    var question_type = document.getElementById("exampleSelect").value;
+    var title = document.getElementById("inputBoardTitle").value;
+    var content = document.getElementById("inputBoardContent").value;
+    var image = document.getElementById("imageFile").files[0];
+
+    formData.append('question_type_id', question_type);
+    formData.append('question_title', title);
+    formData.append('question_content', content);
+    if (image !== null) {
+        formData.append('image', image);
+    } else {
+        formData.append('image', none);
+    }    
+
+    if (title === null || content === null) {
+        alert("글의 제목과 내용 모두 작성해 주세요!")
+    } else {
+        axios.post(boardCreateURL, formData, config)
+        .then((response) => {
+            console.log('success');
+        })
+        .catch((error) => {
+            console.log('error');
+        })
+    }    
+
+    
 }

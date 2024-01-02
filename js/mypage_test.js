@@ -44,7 +44,7 @@ if (myToken === null) {
         console.log(error);
     })
 }
-(window.screen.width / 2) - (popupWidth / 2);
+
 // 2. 비밀번호 변경
 function changePassword(){
     const popupUrl = "changePassword_test.html";

@@ -63,30 +63,25 @@
             <p>문의 유형 선택</p>
             <select id="exampleSelect" 
                     name="example">
-            <option value="option1">옵션 1</option>
-            <option value="option2">옵션 2</option>
-            <option value="option3">옵션 3</option>
-            <option value="option4">옵션 4</option>
-            <option value="option5">옵션 5</option>
             </select>
             <br><br>
 
             <div class='title-w'>    
                 <p>제목</p>
-                <input type='text' placeholder='제목을 입력하세요.'>
+                <input id="inputBoardTitle" type='text' placeholder='제목을 입력하세요.'>
                 
             </div>
             
 
             <div class='msg'>
                 <p>내용</p>
-                <textarea placeholder='내용을 입력하세요.'></textarea>
+                <textarea id="inputBoardContent" placeholder='내용을 입력하세요.'></textarea>
             </div>
             <br>
 
             <div class="file-detach">
                 <p>파일</p>
-                <input type='file' name='' id=''>
+                <input type='file' name='' id='imageFile'>
             </div>
 
                                                              <!-- 파일 다운로드-->
@@ -94,7 +89,7 @@
             <div class='btn-w'                                                                        
                  id='write'
                  style='width:75px; height:50px; float: right;'>
-                 <a href='#'>작성</a>                                      <!-- 작성 -->       
+                 <a href="javascript:void(0);" onclick="writeBoard()">작성</a>                                      <!-- 작성 -->       
             </div>
         </div>
 
