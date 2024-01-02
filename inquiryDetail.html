@@ -51,9 +51,9 @@
     <nav class="navbar navbar-light bg-light static-top">
         <div class="container d-flex justify-content-between">
             <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/aivle-logo.png"
-                     class='navbar-brand'
-                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
+                <img src="assets/img/ENTR_logo.png" 
+                    alt="로고"
+                    id="header-logo"> <!-- 이미지 로고-->
 
                 <p class="webpage_title"
                    style="font-size:3em" 
@@ -141,36 +141,39 @@
                 </div>
                 <div class="faqItem-content">
                 </div>
-            </div>
-        </div>
-
-        <div class='update-delete buttons'
-         style="height:50px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
-            <div class='response'
-                id='write'
-                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
-                    <a href='#'
-                    style="color: inherit; text-decoration: none;">답변하기</a>
-            </div>
-         
-            <div class='update'
-                id='write'
-                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right: 10px;">
-                <a href='#'
-                    style="color: inherit; text-decoration: none;">수정</a>
-            </div>
-
-            <div class='delete' 
-                id='write'
-                style="width:200px; background-color: #000000; color: #ffffff; text-align: center; line-height: 50px; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                <a href='#'
-                    style="color: inherit; text-decoration: none;">삭제</a>
+                <div class="faqItem-image">
+                </div>
             </div>
         </div>
     </div>
 
+    <div class='update-delete-buttons'
+         style="height:100px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+         <div class='response'
+              id='write'
+              style="width:100px; height:50px; background-color: #000000;
+                     color: #ffffff; text-align: center; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+                <a href='#'
+                   style="color: inherit; text-decoration: none;">답변하기</a>
+        </div>
+         
+        <div class='update'
+              id='write'
+              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center;
+                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
+              <a href='#'
+                style="color: inherit; text-decoration: none;">수정</a>
+        </div>
+
+        <div class='delete' 
+              id='write'
+              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center; 
+                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right:50px;">
+              <a href='#'
+                style="color: inherit; text-decoration: none;">삭제</a>
+        </div>
+   </div>
     
-</div>
 
     <!-- JS와 연동 -->
     <script src="js/inquiryDetail.js"></script>
