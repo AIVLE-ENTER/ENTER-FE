@@ -198,7 +198,7 @@ function changePassword(){
         axios.post(changePassword_URL, {
             'user_id': input_id, 
             'email': input_email,
-            'certification_number': input_verifyCode, 
+            'certification_number': parseInt(input_verifyCode), 
             'password': password,
         })
         .then(function (response) {
