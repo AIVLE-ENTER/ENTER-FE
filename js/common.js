@@ -18,16 +18,3 @@ const getWithExpire = (key) => {
     return item[key];
 }
 
-
-// CSRF 토큰 가져오기
-const getCsrfToken = function() {
-    let csrfToken = '';
-    token_URL = 'http://localhost:8000/utils/getCsrfToken/';
-    axios.get(token_URL).then(
-        (response) => {
-          csrfToken = response.data.csrf_token;
-          console.log(csrfToken);
-    });
-
-    return csrfToken;
-}
