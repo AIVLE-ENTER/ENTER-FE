@@ -231,7 +231,7 @@ function getChatQaHistory(chatRoom){
         console.log('질문&대답 데이터 :', response.data.conversation);
 
         displayChatQaHistory(response.data.conversation, 
-                                  chatRoom);   // 화면에 표시하는 함수 호출
+                             chatRoom);   // 화면에 표시하는 함수 호출
     })
     .catch(error => {
         console.error('오류:', error);
@@ -253,7 +253,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         questionDiv.style.padding = '10px';
         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-        questionDiv.innerHTML = '질문' +  '<br><br>' + QaData.question;
+        questionDiv.innerHTML = '질문' + '<br><br>' + QaData.question;
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
