@@ -220,7 +220,6 @@ function getChatList(token){
 
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getHistory(chatRoom){
-    console.log('채팅방 정보 : ', chatRoom);
     const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
 
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
@@ -229,7 +228,7 @@ function getHistory(chatRoom){
         url: getHistory_URL, 
     })
     .then(response => {
-        console.log('성공:', response.data.conversation);
+        console.log('질문&대답 데이터 :', response.data.conversation);
 
         displayConversation(response.data.conversation, 
                             chatRoom);   // 화면에 표시하는 함수 호출
@@ -238,13 +237,10 @@ function getHistory(chatRoom){
         console.error('오류:', error);
         alert('채팅 기록을 가져오지 못했습니다.');
     });
-   
 }
 
 // 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수
 function displayConversation(conversationData, chatRoom) {
-    console.log('채팅방 정보: ', chatRoom);
-
     const conversationView = document.querySelector('.view.conversation-view');
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
 
@@ -281,7 +277,7 @@ function displayConversation(conversationData, chatRoom) {
 
         // 아이콘 클릭 이벤트 리스너
         span.onclick = function() {
-            showMemoPopup();
+            checkMemo(entry);
         };
 
         // 아이콘을 대답 div에 추가
@@ -309,7 +305,7 @@ function displayConversation(conversationData, chatRoom) {
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
         console.log('클릭');
-        sendMessage(chatRoom);
+        sendMessage(chatRoom, conversationData);
     };
 
     // 하단 입력창에다 엔터 클릭했을 떄 리스너
@@ -320,16 +316,14 @@ function displayConversation(conversationData, chatRoom) {
             const sendButton = document.querySelector('.send-button');
             if (sendButton.style.display !== 'none') {
                 e.preventDefault();
-                sendMessage(chatRoom);
+                sendMessage(chatRoom, conversationData);
             }
         }
     });
 }
 
 // 새로운 메시지를 전송하는 함수
-function sendMessage(chatRoom) {
-    console.log('채팅방 정보: ', chatRoom);
-
+function sendMessage(chatRoom, conversationData) {
     // 입력창에 적은 text를 가져온다.
     var textareaElement = document.getElementById('message');  
     var message = textareaElement.value;
@@ -347,7 +341,7 @@ function sendMessage(chatRoom) {
                                                     '#dda0dd',
                                                      true);
     // 대답을 실시간으로 보여주는 함수
-    generateResponse3(emptyAnswerDiv, message, chatRoom);
+    generateResponse3(emptyAnswerDiv, message, chatRoom, conversationData);
 
     // 대답을 실시간으로 보여줄 떄는 사용자가 클릭 할 수 없게 '전송'하기 버튼을 비활성화 한다.
     const sendButton = document.querySelector('.send-button');
@@ -374,10 +368,11 @@ function addMessageToConversation(message, bgColor, isAnswer) {
 }
 
 // 대답(A)을 실시간으로 보여주는 함수
-const generateResponse3 = (chatElement, message, chatRoom) => {
+const generateResponse3 = (chatElement, message, chatRoom, conversationData) => {
     const answerLiveResponse_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
     const messageElement = chatElement
     const conversationView = document.querySelector('.view.conversation-view');
+
 
     // AI에서 만든 대답 데이터를 받아와서 실시간으로 화면에 표시한다.
     fetch(answerLiveResponse_URL, {
@@ -436,7 +431,8 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             iconSpan.style.marginTop = '15px';
 
             iconSpan.onclick = function() {  // 아이콘을 클릭할 떄 
-                showMemoPopup();
+                console.log('질문&대답 데이터 : ', conversationData);
+                checkMemo(conversationData);
             };
 
             // 만약 대답 div에 이미 아이콘이 있으면 새로 추가하지 않습니다.
@@ -447,6 +443,9 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
+ 
+            // 채팅 이력을 다시 불러온다.
+            getHistory(chatRoom);
         })
         .catch((e) => {
             console.log('error');
@@ -455,20 +454,60 @@ const generateResponse3 = (chatElement, message, chatRoom) => {
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
+
+            // 채팅 이력을 다시 불러온다.
+            getHistory(chatRoom);
         });
 };
 
-// 대답(R)에 대한 '삼자 아이콘(|)'을 클릭했을 떄 나오는 팝업을 생성하는 함수 
-function showMemoPopup() {
+// 대답(R)에 대한 '삼자 아이콘(|)'을 클릭했을 떄 메모가 있는지 확인하는 함수
+function checkMemo(entry) {
+    console.log('메모를 켰을 떄 entry : ', entry);
+
+    const getMemo_URL= `http://localhost:8000/main/memo/detail/?memo_id=${entry.history_id}`; // 백엔드 소통 URL
+
+    // 백엔드에서 구현한 '메모 불러오기' 기능과 소통한다.
+    axios({
+        method: 'get',
+        url: getMemo_URL, 
+        headers: { 
+            'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+        },
+    })
+    .then(response => {
+        console.log('성공:', response);
+        
+        // Case 1. 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
+        if(response.data.data.is_memo===true){
+            console.log('true');
+
+            showMemoPopup(entry, true, response.data.data.memo.memo_content);
+        }
+        // Case 2.) 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
+        else{
+            console.log('false');
+           
+            showMemoPopup(entry, false);
+        }
+    })
+    .catch(error => {
+        console.log('에러 : ', error);
+       
+    });
+}
+
+// 메모를 보여주는 함수
+function showMemoPopup(entry, flag, txt=''){
     // 오버레이 생성
     const overlay = document.createElement('div');
+    overlay.id = 'overlay'; // 오버레이에 고유한 ID 부여
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
     overlay.style.width = '100%';
     overlay.style.height = '100%';
-    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // 투명도를 주어 배경이 흐릿하게 보이도록 함
-    overlay.style.zIndex = '999'; // 팝업 바로 아래에 위치하도록 z-index 설정
+    overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+    overlay.style.zIndex = '999';
 
     // 팝업 컨테이너 생성
     const popupContainer = document.createElement('div');
@@ -500,35 +539,170 @@ function showMemoPopup() {
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
 
-    // 닫기 버튼 생성
-    const closeButton = document.createElement('button');
-    closeButton.textContent = 'Close';
-    closeButton.style.marginTop = '10px';
-    closeButton.onclick = function() {
-        // 팝업 닫기
-        document.body.removeChild(popupContainer);
-        document.body.removeChild(overlay);
-    };
+    // 버튼 컨테이너 생성 및 스타일 설정
+    const buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end'; // 버튼을 오른쪽 정렬
+    buttonContainer.style.marginTop = '10px';
 
-    // 팝업에 타이틀, textarea, 닫기 버튼 순서로 요소 추가
+    // 메모가 있을 경우
+    if (flag) {
+        memoInput.value = txt; // 기존 메모 내용
+
+        // 수정하기 버튼 생성 및 추가
+        const editButton = document.createElement('button');
+        editButton.textContent = '수정';
+        editButton.style.marginLeft = '10px';
+        editButton.onclick = function() {
+            // 메모 수정 로직
+            const updatedMemo = memoInput.value;
+            updateMemo(entry, updatedMemo);
+        };
+
+        // 삭제하기 버튼 생성 및 추가
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '삭제';
+        deleteButton.style.marginLeft = '10px';
+        deleteButton.onclick = function() {
+            // 메모 삭제 로직
+            deleteMemo(entry);
+        };
+
+        buttonContainer.appendChild(editButton);
+        buttonContainer.appendChild(deleteButton);
+    }
+    // 메모가 없을 경우
+    else {
+        // 저장하기 버튼 생성 및 추가
+        const saveButton = document.createElement('button');
+        saveButton.textContent = '저장';
+        saveButton.onclick = function() {
+            // 메모가 빈값인지 아닌지 확인한다.
+            const memoContent = memoInput.value;
+            if(memoContent === ''){
+                alert('메모 내용을 입력해야 합니다.');
+            }
+            else {
+                saveMemo(entry, memoContent);
+            }
+        };
+
+        buttonContainer.appendChild(saveButton);
+    }
+
+    // 팝업에 타이틀, textarea, 버튼 컨테이너 추가
     popupContainer.appendChild(popupTitle);
     popupContainer.appendChild(memoInput);
-    popupContainer.appendChild(closeButton);
+    popupContainer.appendChild(buttonContainer);
 
     // 팝업을 body에 추가
     document.body.appendChild(overlay);
     document.body.appendChild(popupContainer);
 
-    // 팝업 외부를 클릭했을 때 팝업 닫기 이벤트 추가
+    // 팝업 외부 클릭 시 닫기 이벤트 처리
     window.onclick = function(event) {
         if (event.target == overlay) {
             document.body.removeChild(popupContainer);
             document.body.removeChild(overlay);
         }
-    };
+    }
+}
+
+// 메모를 저장하는 함수
+function saveMemo(entry, memoContent){
+    // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
+    const writeMemo_URL=`http://localhost:8000/main/memo/create/`;
+    axios({
+        method: 'post',
+        url: writeMemo_URL, 
+        headers: { 
+            'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+        },
+        data : {'memo_id': entry.history_id, 
+                'memo_content': memoContent},
+        
+    })
+    .then(response => {
+        console.log('성공:', response);
+
+        // 메모 팝업을 없앤다.
+        closeMemoPopup();
+    })
+    .catch(error => {
+        console.log('에러 에러 : ', error);
+        alert('에러');
+    });
+}
+
+// 메모를 수정하는 함수
+function updateMemo(entry, memoContent){
+    // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
+    const updateMemo_URL=`http://localhost:8000/main/memo/update/`;
+
+    if(memoContent==''){
+        alert('빈값을 입력하셨습니다.');
+    }
+    else{
+        console.log('memoContent : ', memoContent);
+        axios({
+            method: 'post',
+            url: updateMemo_URL, 
+            headers: { 
+                'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+            },
+            data : {'memo_id': entry.history_id, 
+                    'memo_content': memoContent},
+        })
+        .then(response => {
+            console.log('성공:', response);
+    
+            // 메모 팝업을 없앤다.
+            closeMemoPopup();
+        })
+        .catch(error => {
+            console.log('에러 에러 : ', error);
+            alert('에러');
+        });
+    }
+}
+
+// 메모를 삭제하는 함수
+function deleteMemo(entry){
+    // 백엔드에서 구현한 '메모 삭제하기' 기능과 소통한다.
+    const deleteMemo_URL=`http://localhost:8000/main/memo/delete/`;
+
+    axios({
+        method: 'post',
+        url: deleteMemo_URL, 
+        headers: { 
+            'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+        },
+        data : {'memo_id': entry.history_id}
+    })
+    .then(response => {
+        console.log('성공:', response);
+
+        // 메모 팝업을 없앤다.
+        closeMemoPopup();
+    })
+    .catch(error => {
+        console.log('에러 에러 : ', error);
+        alert('에러');
+    });
 }
 
 
+// 메모 팝업을 닫는 함수
+function closeMemoPopup() {
+    const overlay = document.getElementById('overlay');
+    const popupContainer = document.getElementById('memoPopup');
+    if (overlay) {
+        document.body.removeChild(overlay); // 오버레이 제거
+    }
+    if (popupContainer) {
+        document.body.removeChild(popupContainer); // 팝업 컨테이너 제거
+    }
+}
 
 // 대답에 문자를 추가하는 함수
 // function addCharacterToAnswer(answerDiv, character) {

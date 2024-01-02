@@ -107,6 +107,8 @@ function requestVerificationCode(){
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
       console.log('유효한 이메일 주소입니다.');
 
+      alert('인증 번호를 전송했습니다.');
+
       // 3. 백엔드와 소통하는 로직을 여기에 추가
       const result=function(){
           axios.post(requestVerifyCode_URL, {'email':input_email, 'purpose':'signup'})

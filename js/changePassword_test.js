@@ -14,13 +14,15 @@ function requestVerificationCode(){
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
     console.log('유효한 이메일 주소입니다.');
 
+     // 4. 타이머 5분 호출 
+    alert('인증 메일이 발송되었습니다.');
+
     // 3. 백엔드와 소통하는 로직을 여기에 추가
     const result=function(){
         axios.post(requestVerifyCode_URL, {'email':input_email, 'purpose':'findPW'})
                 .then(function (response) {
                 console.log(response);
 
-                // 4. 타이머 5분 호출 
                 document.querySelector('.timer-container').style.display = 'inline-block';                  // 타이머를 보이게 함
                 document.querySelector('#timer').style.display='inline-block';                              // 타이머를 보이게함
                 document.getElementById('input_email').disabled=true;                                       // '이메일 입력' 칸 비활성화
@@ -97,7 +99,7 @@ function checkAuthNum(){
     var timer = document.querySelector('#timer');                                                                                                                           // 타이머
     var signUpBtn = document.getElementById('signUpBtn');                                                                                                                   // 가입하기 버튼 
 
-    const checkAuthNum_URL=`http://localhost:8000/utils/checkCertificationNumber/?email=${input_email_value}&certification_number=${verifyCodeInputValue}&purpose=findID`;  // 백엔드 통신 URL
+    const checkAuthNum_URL=`http://localhost:8000/utils/checkCertificationNumber/?email=${input_email_value}&certification_number=${verifyCodeInputValue}&purpose=findPW`;  // 백엔드 통신 URL
 
     // 2. 백엔드가 마련해둔 '인증번호 확인' 코드와 연계
     const result = function() {                     
