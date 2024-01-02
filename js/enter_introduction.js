@@ -1,5 +1,5 @@
-const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
-const token = localStorage.getItem('accessToken');                      // 사용자의 토큰을 얻어옴 
+const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL 
+const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
 // enter_introduction.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -33,7 +33,6 @@ function getUserInfo(){
         document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
     })
     .catch(error => {
-        // 오류가 발생하면 이 부분이 실행됩니다.
-        alert('유저 정보 불러오기 오류');
+        window.location.reload(); // 새로 고침한다.
     });
 }

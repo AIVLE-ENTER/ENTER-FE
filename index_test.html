@@ -27,6 +27,11 @@
     <link rel="stylesheet"
           href="/css/index_test.css" />
 
+    <!-- 구글 아이콘-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+          rel="stylesheet">
+
+
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
           integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
@@ -75,6 +80,10 @@
                         <input type="text"
                                id="chatroom-name"
                                name="chatroom"><br>
+
+                        <div id="error-message" 
+                             style="display: none; color: red; margin:10px;">
+                        </div>   <!-- 오류 메시지를 위한 요소 추가 -->
 
                         <button type="submit"
                                 onclick='generateChat(event)'>생성하기</button>
@@ -153,13 +162,12 @@
         </div>
 
         <div class="view conversation-view"
-             style="flex-grow: 1;  height: auto; overflow-y: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
-            <!-- 질문과 대답의 반복 (History) -->
-
+             style="flex-grow: 1; height: auto; overflow-y: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
+            <!-- 질문과 대답의 반복 (History) 동적 데이터-->
         </div>
  
         <div id="message-form"
-             style='display:none; margin-bottom:30px;'>                <!-- 하단 -->
+             style='display:none; margin-bottom:30px;'>                <!-- 하단 입력창 -->
             <div class="message-wrapper">
                 <textarea id="message"
                           rows="1"
@@ -172,6 +180,8 @@
             <div class="disclaimer">This is a ENTER UI for personal use and educational purposes only.</div>
         </div>
     </main>
+
+    <!-- 기타 -->
 
     <!-- 'AI 설정'을 click하면 나타나는 모달 -->
     <div id="myModal"
@@ -229,51 +239,99 @@
                     <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
                     <div class="popup3-content"
                          style='display:none'>
-                         <!-- 사용자의 자주 쓰는 문구 가져오기(예시) -->
-                         <div class='promptTemplate'
-                               style="display: flex; align-items: center;">
-                                <p style="margin: 0px 10px 0px 0px; width: 100px;">예시 문구</p>
-
-                                <input type='text' 
-                                        placeholder='ex) KT 기가지니에 전반적인 장점이 무엇이니?'
-                                        disabled>
-                    
-                                <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-                         </div>
-                        
-                        <!-- 사용자의 자주 쓰는 문구 가져오기  -->
-                        <div class='promptTemplate'
-                             style="display: flex; align-items: center;">
-                             <input type="checkbox"
-                                    style="width:30px; margin-right: 10px;"> <!-- 체크박스 추가 -->
-    
-                             <p style="margin: 0px 10px 0px 0px; width: 100px;">문구</p>
-
-                             <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-    
-                             <input type='text' 
-                                    placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'>
-
-                             <button type="button"
-                                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 120px;"
-                                     onclick="deleteTemplate(this)">삭제하기</button>
-                
-                             <div style="margin-left: 20px;"></div>  <!-- 간격 -->    
-                        </div>
-  
-                        <!-- 사용자의 자주 쓰는 문구 가져오기 추가 (버튼들을 위한 하나의 div 앞에 배치해야 한다.) -->
-
-
-                        <!-- 버튼들을 위한 하나의 div -->
-                        <div style="display: flex; justify-content: flex-end;">
-                            <span class="add"
-                                onclick="addTemplate()">추가하기</span>
-
-                            <span class="reflect"
-                                onclick="">반영하기</span>
-                        </div>
+                        <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- context 메뉴 -->
+    <div id="contextMenu"
+         class="context-menu"
+         style="display:none;">
+        <ul>
+            <li onclick="modify()">수정</li>
+            <li onclick="deleteChatRoom()">삭제</li>
+        </ul>
+    </div>
+
+    <!-- 채팅방명 수정 팝업 (채팅방명을 수정하려 할 떄 나타남)--> 
+    <div id="update-popup"
+          class="popup"
+          style="display: none;">
+
+        <div class="popup-content">
+            <span class="close-btn"
+                onclick="closePopup()">&times;</span>
+            <h3>채팅방명 변경 </h3>
+
+            <form id="update-chat-form">
+                <label for="chatroom-name">채팅방명:</label>
+                <input type="text"
+                    id="chatroom-name"
+                    name="chatroom"><br>
+
+                <div id="error-message" 
+                    style="display: none; color: red; margin:10px;">
+                </div>   <!-- 오류 메시지를 위한 요소 추가 -->
+
+                <button type="submit"
+                        onclick='editChatRoom()'>변경하기</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 자주 쓰는 문구를 추가하려고 할 떄 등장하는 팝업 -->
+    <div id="addFrequentMessagePopup" 
+         style="display:none;">
+        <div class="popup-content">
+            <h2>자주 쓰는 문구 추가</h2>
+
+            <label for="messageTitle">문구 제목:</label>
+            <input type="text"
+                   id="messageTitle"
+                   name="messageTitle">
+    
+            <label for="messageContent">문구 내용:</label>
+            <textarea id="messageContent" 
+                     name="messageContent"></textarea>
+
+            <div id="errorMessage"
+                 style="display: none; color: red; margin-top: 10px;">
+                 여기에 오류 메시지가 표시됩니다.
+            </div>
+
+            <div class="button-container"
+                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                <button onclick="submitFrequentMessage()">추가</button>
+                <button onclick="closeFrequentMessagePopup()">취소</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 자주 쓰는 문구를 수정할 때 등장하는 팝업 -->
+    <div id="editFrequentMessagePopup"
+         style="display:none;">
+        <div class="popup-content">
+            <h2>자주 쓰는 문구 수정</h2>
+
+            <label for="editMessageTitle">문구 제목:</label>
+            <input type="text" 
+                   id="editMessageTitle"
+                   name="editMessageTitle">
+
+            <label for="editMessageContent">문구 내용:</label>
+            <textarea id="editMessageContent"
+                      name="editMessageContent"></textarea>
+
+            <div class="button-container"
+                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                <button onclick="submitEditFrequentMessage()"
+                        data-template-id=""
+                        id="editSubmitButton">수정하기</button>
+
+                <button onclick="closeEditFrequentMessagePopup()">취소하기</button>
             </div>
         </div>
     </div>

@@ -17,6 +17,8 @@ function signin() {
         }
         setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
 
+        console.log(response.data);
+
         // index_test.html로 Routing 한다.
         alert('로그인 완료!');
         window.location.href = '../index_test.html';

@@ -1,5 +1,6 @@
 // 0. 토큰(로그인 여부) 확인
-const myToken = localStorage.getItem('accessToken')
+const myToken = getWithExpire('accessToken'); // 토큰을 받아온다.
+
 if (myToken === null) {
     alert('로그인이 필요합니다.')
     window.location.href = '../index_test.html';
