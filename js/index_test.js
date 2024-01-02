@@ -19,7 +19,7 @@ function checkLoginStatusAndUpdateUI() {
         getUserInfo();
 
         // 백엔드 코드를 이용해서 채팅방 목록 보여오기
-        getChatList();
+        getChatRoomList();
 
     } 
     // 비로그인 상태이면?
@@ -134,7 +134,7 @@ function closePopup() {
 }
 
 // 백엔드에서 채팅방 목록 가져오기
-function getChatList(){
+function getChatRoomList(){
     const getChatList_URL=`http://localhost:8000/main/`;
 
     axios({
