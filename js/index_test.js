@@ -186,7 +186,7 @@ function getChatRoomList(){
             span.style.marginLeft = '15px';
             span.style.marginTop = '15px';
 
-            // '|' 아이콘 클릭 시 이벤트 리스너 추가
+            // 삼자 아이콘('|') 아이콘 클릭 시 이벤트 리스너 추가
             span.onclick = function() {         
                 event.stopPropagation(); // 이벤트 버블링 방지
                    
@@ -239,7 +239,102 @@ function getChatQaHistory(chatRoom){
     });
 }
 
-// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수 (제 1안)
+// function displayChatQaHistory(QaDatas, chatRoom) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+
+//     // 채팅 이력을 그려서 화면에 보여준다.
+//     QaDatas.forEach(QaData => { 
+//         // 질문 div 생성
+//         const questionDiv = document.createElement('div');
+//         questionDiv.style.backgroundColor = '#ffaaaa'; // 배경색: 분홍색
+//         questionDiv.style.color = 'white'; // 텍스트 색: 흰색
+//         questionDiv.style.padding = '10px';
+//         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+//         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+//         questionDiv.innerHTML = '질문' + '<br><br>' + QaData.question;
+
+//         // 대답 div 생성
+//         const answerDiv = document.createElement('div');
+//         answerDiv.style.backgroundColor = '#d280d2'; // 배경색: 보라색
+//         answerDiv.style.color = 'white'; // 텍스트 색: 흰색
+//         answerDiv.style.padding = '10px';
+//         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
+//         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+//         answerDiv.style.display = 'flex'; // flexbox 사용
+//         answerDiv.style.justifyContent = 'space-between'; // 아이템을 양쪽 끝으로 정렬
+//         answerDiv.innerHTML = 'ENTER' + '<br><br>' + QaData.answer;
+
+//         // 대답 div 옆에 'edit Icon'을 배치한다.
+//         const span = document.createElement('span');
+//         span.className = 'material-icons';
+//         span.textContent = 'edit'; // Material Icons의 edit 아이콘
+//         span.style.color = '#808080'; // 진한 회색 적용
+//         span.style.marginLeft = '15px';
+//         span.style.marginTop = '15px';
+//         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+
+//         // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
+//         span.onclick = function() {
+//             checkMemo(QaData.history_id); // 메모를 확인한다.
+//         };
+
+//         // 아이콘을 대답 div에 추가
+//         answerDiv.appendChild(span);
+
+//         // 질문과 대답 div를 conversation view에 추가
+//         conversationView.appendChild(questionDiv);
+//         conversationView.appendChild(answerDiv);
+//     });
+
+//     // 최신 채팅이 먼저 보이게끔 적용한다.
+//     conversationView.scrollTop = conversationView.scrollHeight;
+
+//     // 입력창도 보이게 해야 한다.
+//     const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
+//     messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
+    
+//     // 입력창에 있는 값은 항상 빈값 상태로 유지
+//     var textareaElement = document.getElementById('message');
+//     textareaElement.value='';
+
+//     // 하단 입력창에 있는 '전송' 버튼에 대한 참조를 얻음
+//     const sendButton = document.querySelector('.send-button');
+
+    // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
+    // sendButton.onclick = function() {
+    //     // 입력한 값이 빈값인지 확인한다.
+    //     if(document.getElementById('message').value==''){
+    //         alert('빈 값 입니다.');
+    //     }
+    //     else{
+    //         console.log('클릭');
+    //         sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+    //     }
+    // };
+
+    // 하단 입력창에 엔터 클릭했을 떄 리스너
+    // messageForm.addEventListener("keydown", (e) => {
+    //     // If Enter key is pressed without Shift key and the window 
+    //     if(e.key === "Enter" && !e.shiftKey) {
+    //         // 입력한 값이 빈값인 경우
+    //         if(document.getElementById('message').value==''){
+    //             alert('빈 값 입니다.');
+    //         }
+    //         else {
+    //             // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
+    //             const sendButton = document.querySelector('.send-button');
+    //             if (sendButton.style.display !== 'none') {
+    //                 e.preventDefault();
+    //                 sendQuestion(chatRoom);
+    //             }
+    //         }
+    //     }
+    // });
+// }
+
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 보여주는 함수 (제 2안)
 function displayChatQaHistory(QaDatas, chatRoom) {
     const conversationView = document.querySelector('.view.conversation-view');
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
@@ -253,7 +348,20 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         questionDiv.style.padding = '10px';
         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-        questionDiv.innerHTML = '질문' + '<br><br>' + QaData.question;
+
+        // '사람' 아이콘 추가
+        const userIcon = document.createElement('i');
+        userIcon.className = 'material-icons'; // Material Icons 클래스
+        userIcon.textContent = 'person'; // 사용자 아이콘
+        userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
+        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+        questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+        // 질문 텍스트 추가
+        const questionText = document.createElement('span');
+        questionText.innerHTML = '<br>' + QaData.question;
+        questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
@@ -263,27 +371,43 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
         answerDiv.style.display = 'flex'; // flexbox 사용
-        answerDiv.style.justifyContent = 'space-between'; // 아이템을 양쪽 끝으로 정렬
-        answerDiv.innerHTML = 'ENTER' + '<br><br>' + QaData.answer;
+        answerDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
+        answerDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
 
-        // 대답 div 옆에 'edit Icon'을 배치한다.
+        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        const enterImage = document.createElement('img');
+        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+        enterImage.style.height = '24px'; // 이미지 높이 조절
+
+        // 대답 텍스트 추가
+        const answerText = document.createElement('span');
+        answerText.innerHTML = '<br>' + QaData.answer;
+        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+
+        // 'edit Icon'을 배치한 div 생성
+        const editIconDiv = document.createElement('div');
+        editIconDiv.style.marginTop = '10px'; // edit 아이콘 위쪽 마진 추가
+        editIconDiv.style.marginLeft = 'auto'; // 오른쪽 정렬
+
+        // 'edit Icon' 추가
         const span = document.createElement('span');
         span.className = 'material-icons';
         span.textContent = 'edit'; // Material Icons의 edit 아이콘
         span.style.color = '#808080'; // 진한 회색 적용
-        span.style.marginLeft = '15px';
-        span.style.marginTop = '15px';
         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
 
-        // 아이콘 클릭 이벤트 리스너
+        // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
         span.onclick = function() {
-            checkMemo(QaData.history_id);
+            checkMemo(QaData.history_id); // 메모를 확인한다.
         };
 
-        // 아이콘을 대답 div에 추가
-        answerDiv.appendChild(span);
+        editIconDiv.appendChild(span); // 아이콘을 div에 추가
 
-        // 질문과 대답 div를 conversation view에 추가
+        answerDiv.appendChild(enterImage); // 이미지를 div에 추가
+        answerDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+        answerDiv.appendChild(editIconDiv); // edit 아이콘을 div에 추가
+
+        // 질문, 아이콘 및 대답 div를 conversation view에 추가
         conversationView.appendChild(questionDiv);
         conversationView.appendChild(answerDiv);
     });
@@ -304,19 +428,31 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
-        console.log('클릭');
-        sendQuestion(chatRoom);
+        // 입력한 값이 빈값인지 확인한다.
+        if(document.getElementById('message').value==''){
+            alert('빈 값 입니다.');
+        }
+        else{
+            console.log('클릭');
+            sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+        }
     };
 
-    // 하단 입력창에다 엔터 클릭했을 떄 리스너
+    // 하단 입력창에 엔터 클릭했을 떄 리스너
     messageForm.addEventListener("keydown", (e) => {
         // If Enter key is pressed without Shift key and the window 
         if(e.key === "Enter" && !e.shiftKey) {
-            // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
-            const sendButton = document.querySelector('.send-button');
-            if (sendButton.style.display !== 'none') {
-                e.preventDefault();
-                sendQuestion(chatRoom);
+            // 입력한 값이 빈값인 경우
+            if(document.getElementById('message').value==''){
+                alert('빈 값 입니다.');
+            }
+            else {
+                // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
+                const sendButton = document.querySelector('.send-button');
+                if (sendButton.style.display !== 'none') {
+                    e.preventDefault();
+                    sendQuestion(chatRoom);
+                }
             }
         }
     });
@@ -349,8 +485,30 @@ function sendQuestion(chatRoom) {
     sendButton.style.display = 'none'; // 버튼 표시
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수
-function addQA(question, bgColor, isAnswer) {
+// 대화(Q, A)에 메시지를 추가하는 함수 (제 1안)
+// function addQA(question, bgColor, isAnswer) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     const messageDiv = document.createElement('div');
+
+//     messageDiv.style.backgroundColor = bgColor;
+//     messageDiv.style.color = 'white';
+//     messageDiv.style.padding = '10px';
+//     messageDiv.style.margin = '10px 0';
+//     messageDiv.style.borderRadius = '8px';
+
+//     // 질문과 대답에 따라 텍스트를 보여주는 것을 다르게 한다.
+//     messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
+
+//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
+//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
+
+//     conversationView.appendChild(messageDiv);
+//     return messageDiv; // 추가된 div 반환
+// }
+
+
+// 대화(Q, A)에 메시지를 추가하는 함수(제 2안)
+function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
 
@@ -360,9 +518,42 @@ function addQA(question, bgColor, isAnswer) {
     messageDiv.style.margin = '10px 0';
     messageDiv.style.borderRadius = '8px';
 
-    messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
+    if (isAnswer) {
+        // 대답인 경우
+        messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
 
-    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용함
+        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        const enterImage = document.createElement('img');
+        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+        enterImage.style.height = '24px'; // 이미지 높이 조절
+
+        // 대답 텍스트 추가
+        const answerText = document.createElement('span');
+        answerText.innerHTML = '<br>';
+        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+
+        messageDiv.appendChild(enterImage); // 이미지를 div에 추가
+        messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+    } 
+    // 질문인 경우
+    else {
+        messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+
+        // '사람' 아이콘 추가
+        const userIcon = document.createElement('i');
+        userIcon.className = 'material-icons'; // Material Icons 클래스
+        userIcon.textContent = 'person'; // 사용자 아이콘
+        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+        messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+        // 질문 텍스트 추가
+        const questionText = document.createElement('span');
+        questionText.innerHTML = '<br>' + message;
+        messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+    }
+
+    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
@@ -375,7 +566,7 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
     const messageElement = emptyAnswerDiv
     const conversationView = document.querySelector('.view.conversation-view');
 
-    // AI에서 만든 대답 데이터를 받아와서 실시간으로 화면에 표시한다.
+    // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 실시간으로 화면에 표시한다.
     fetch(answerLiveResponse_URL, {
         method: 'POST',
         headers: {
@@ -420,9 +611,13 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
- 
-            // 채팅 이력을 다시 불러온다.
-            getChatQaHistory(chatRoom);
+
+            // 1초 (1000 밀리초) 후에 실행할 코드 또는 함수
+            setTimeout(function() {
+                 // 채팅 이력을 다시 불러온다.
+                 getChatQaHistory(chatRoom);
+            }, 1000);
+           
         })
         .catch((e) => {
             console.log('error');
@@ -432,8 +627,12 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
 
-            // 채팅 이력을 다시 불러온다.
-            getChatQaHistory(chatRoom);
+            // 1초 (1000 밀리초) 후에 실행할 코드 또는 함수
+            setTimeout(function() {
+                // 채팅 이력을 다시 불러온다.
+                getChatQaHistory(chatRoom);
+            }, 1000);
+
         });
 };
 
@@ -453,13 +652,13 @@ function checkMemo(history_id) {
     .then(response => {
         console.log('성공:', response);
         
-        // Case 1. 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
         if(response.data.data.is_memo===true){
             showMemo(history_id,
                           true,
                           response.data.data.memo.memo_content);
         }
-        // Case 2.) 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
         else{
             showMemo(history_id, 
                           false);
@@ -614,7 +813,7 @@ function updateMemo(history_id, memoContent){
     // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
     const updateMemo_URL=`http://localhost:8000/main/memo/update/`;
 
-    if(memoContent==''){
+    if(memoContent==''){  // 메모 내용이 빈값인 경우
         alert('빈값을 입력하셨습니다.');
     }
     else{
