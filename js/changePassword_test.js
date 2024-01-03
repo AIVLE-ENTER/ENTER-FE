@@ -14,13 +14,15 @@ function requestVerificationCode(){
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
     console.log('유효한 이메일 주소입니다.');
 
+     // 4. 타이머 5분 호출 
+    alert('인증 메일이 발송되었습니다.');
+
     // 3. 백엔드와 소통하는 로직을 여기에 추가
     const result=function(){
         axios.post(requestVerifyCode_URL, {'email':input_email, 'purpose':'findPW'})
                 .then(function (response) {
                 console.log(response);
 
-                // 4. 타이머 5분 호출 
                 document.querySelector('.timer-container').style.display = 'inline-block';                  // 타이머를 보이게 함
                 document.querySelector('#timer').style.display='inline-block';                              // 타이머를 보이게함
                 document.getElementById('input_email').disabled=true;                                       // '이메일 입력' 칸 비활성화
@@ -95,9 +97,9 @@ function checkAuthNum(){
     var verifyCodeInputValue=document.getElementById('verifyCodeInput').value;                                                                                              // 인증번호 입력값
     var checkAuthNumBtn=document.getElementById('checkAuthNum');                                                                                                            // 인증번호 확인 버튼
     var timer = document.querySelector('#timer');                                                                                                                           // 타이머
-    var signUpBtn = document.getElementById('signUpBtn');                                                                                                                   // 가입하기 버튼 
+    var changePasswordBtn = document.getElementById('changePasswordBtn');                                                                                                                   // 비밀번호 변경 버튼 
 
-    const checkAuthNum_URL=`http://localhost:8000/utils/checkCertificationNumber/?email=${input_email_value}&certification_number=${verifyCodeInputValue}&purpose=findID`;  // 백엔드 통신 URL
+    const checkAuthNum_URL=`http://localhost:8000/utils/checkCertificationNumber/?email=${input_email_value}&certification_number=${verifyCodeInputValue}&purpose=findPW`;  // 백엔드 통신 URL
 
     // 2. 백엔드가 마련해둔 '인증번호 확인' 코드와 연계
     const result = function() {                     
@@ -122,7 +124,7 @@ function checkAuthNum(){
 
             checkAuthNumBtn.style.display='none';                                                // 인증번호 확인 버튼 Hidden
 
-            signUpBtn.disabled=false;                                                            // 가입하기 버튼 활성화
+            changePasswordBtn.disabled=false;                                                            // 가입하기 버튼 활성화
         }
         else{  
             alert("인증확인이 실패했습니다. 다시 시도하세요");                                      // alert     
@@ -168,6 +170,50 @@ function checkPasswordMatch() {
 
 // '비밀번호 변경' 버튼 click 했을 떄 호출되는 함수
 function changePassword(){
-    console.log('비밀번호 변경');
+    // 1. setting
+    const input_id=document.getElementById('input_id').value;                                     // 아이디 입력칸    
+    const password=document.getElementById('password').value;                                     // 비밀번호 value
+    const confirmPassword=document.getElementById('confirm_password').value;                      // 확인 비밀번호 value
 
+    const input_email=document.getElementById('input_email').value;                               // 이메일 입력칸  
+    const input_verifyCode=document.getElementById('verifyCodeInput').value;                      // 인증번호 입력칸
+
+    const changePassword_URL=`http://localhost:8000/account/auth/changePassword/`; 
+    
+
+    // 1. 아이디가 빈값인 경우
+    if(input_id==''){
+        alert('아이디를 입력해주세요');
+    }
+    // 2. 비밀번호가 빈값인 경우
+    else if(password=='' || confirmPassword==''){
+        alert('비밀번호를 입력해주세요');
+    }
+    // 3. 비밀번호가 다른 경우
+    else if(password !=confirmPassword){
+        alert('비밀번호가 다릅니다.');
+    }
+    // 4. 검증 통과
+    else{
+        axios.post(changePassword_URL, {
+            'user_id': input_id, 
+            'email': input_email,
+            'certification_number': parseInt(input_verifyCode), 
+            'password': password,
+        })
+        .then(function (response) {
+            console.log(response.data); // 성공적인 응답 처리
+
+            alert('비밀번호가 변경되었습니다.') // alert
+
+            window.location.href='../index_test.html'; // 라우팅
+        })
+        .catch(function (error) {
+            console.error(error); // 에러 처리
+
+            alert('비밀번호 변경이 실패했습니다.'); // alert
+
+            // window.location.reload(); // 새로고침
+        });
+    }
 }

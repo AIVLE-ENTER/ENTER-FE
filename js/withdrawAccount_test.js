@@ -137,6 +137,9 @@ function confirmPassword() {
         axios({
             method: 'post',
             url: signOut_URL,
+            headers: { 
+                'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+            },
             data: {'user_id': user_id, 'password': password} 
         })
         .then(response => {

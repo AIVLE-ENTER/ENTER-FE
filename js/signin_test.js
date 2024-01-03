@@ -11,12 +11,6 @@ function signin() {
     .then(response => {
         // localStroage에 토큰(Token)을 적재한다.
         const accessToken = response['data']['data']['token'];
-        const setWithExpire = (key, value, exp) => {
-            let now = new Date(); // 현재 날짜와 시간
-            const item = {[`${key}`]: value, expires: now.getTime() + exp}
-            // item의 형태로 로컬에 저장
-            localStorage.setItem(key, JSON.stringify(item));
-        }
         setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
 
         console.log(response.data);
@@ -30,3 +24,44 @@ function signin() {
         alert('로그인에 실패하였습니다.')
     });
 }
+
+var closeModalBtn = document.getElementById('closeModalBtn');
+var syncBtn = document.getElementById('syncAccountBtn');
+var signUpBtn = document.getElementById('signUpBtn');
+var modal = document.getElementById('socialModal');
+var syncView = document.getElementById('syncView');
+
+// 모달 닫기 버튼 클릭 시 이벤트 처리
+closeModalBtn.addEventListener('click', function () {
+    modal.style.display = 'none';
+    syncView.style.display = 'none';
+});
+
+// 모달 바깥 영역 클릭 시 모달 닫기
+window.addEventListener('click', function (event) {
+    if (event.target === modal) {
+        modal.style.display = 'none';
+        syncView.style.display = 'none';
+    }
+}); 
+
+// 기존 회원 연동 버튼 클릭시
+syncBtn.addEventListener('click', function () {
+    syncView.style.display = 'flex';
+})
+
+function socialLogin(type) {
+    // 1. 각 소셜 로그인 연결 및 인가코드 받아오기
+
+    // 2. 백엔드로 인가코드 전송
+
+    // 3-1. 로그인 성공 (로그인 후 프롬포트로 이동)
+
+    // 3-2. 로그인 실패 (모달 보여주기)
+    modal.style.display = 'block';
+}
+
+// 소셜 로그인 모달창 관련 함수
+// 1. 회원 가입
+
+// 2. 로그인

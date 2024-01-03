@@ -86,7 +86,7 @@
                         </div>   <!-- 오류 메시지를 위한 요소 추가 -->
 
                         <button type="submit"
-                                onclick='generateChat(event)'>생성하기</button>
+                                onclick='generateChat(event)'>생성</button>
                     </form>
                 </div>
             </div>
@@ -123,7 +123,6 @@
             <div class="menu1"
                  style='padding:10px;'
                  onclick='question_enter();'>
-                <i class="fa-solid fa-question"></i>
                 <span>엔터란?</span>
             </div>
 
@@ -131,7 +130,6 @@
             <div class="menu2"
                  style='padding:10px;'
                  onclick='toggleModal()'>
-                 <i class="fa-solid fa-gear"></i>
                 <span>AI 설정</span>
             </div>
 
@@ -139,7 +137,7 @@
             <div class="menu3"
                  style='padding:10px;'
                  onclick='goInquiry();'>
-                 <i class="fa-solid fa-question"></i>
+                
                 <span>문의 게시판</span>
             </div>
 
@@ -277,7 +275,7 @@
                 </div>   <!-- 오류 메시지를 위한 요소 추가 -->
 
                 <button type="submit"
-                        onclick='editChatRoom()'>변경하기</button>
+                        onclick='editChatRoom()'>변경</button>
             </form>
         </div>
     </div>
@@ -305,7 +303,7 @@
             <div class="button-container"
                  style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
                 <button onclick="submitFrequentMessage()">추가</button>
-                <button onclick="closeFrequentMessagePopup()">취소</button>
+                <button onclick="closeFrequentMessage()">취소</button>
             </div>
         </div>
     </div>
@@ -331,7 +329,7 @@
                         data-template-id=""
                         id="editSubmitButton">수정하기</button>
 
-                <button onclick="closeEditFrequentMessagePopup()">취소하기</button>
+                <button onclick="closeEditFrequentMessage()">취소하기</button>
             </div>
         </div>
     </div>
