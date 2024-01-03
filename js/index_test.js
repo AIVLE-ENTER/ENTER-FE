@@ -163,6 +163,8 @@ function getChatRoomList(){
             li.style.marginTop = '150px'; // 위치를 아래로 조정
             li.style.fontSize = '1.6em'; // 텍스트 크기 키우기
             conversationsElement.appendChild(li);
+
+            document.querySelector('.logo').textContent=''; // 채팅 History를 보여주는 상단에 빈 값으로 보여줌
        }
        // 채팅방이 있을 떄 
        else{
@@ -220,8 +222,9 @@ function getChatRoomList(){
 
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getChatQaHistory(chatRoom){
-    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
+    document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
 
+    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
         method: 'get',
@@ -1080,11 +1083,11 @@ function renderFrequentMessages(messageList){
 
             <button type="button"
                     style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="editFrequentMessage('${message.template_id}')">수정하기</button>
+                    onclick="editFrequentMessage('${message.template_id}')">수정</button>
 
             <button type="button" 
                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="deleteFrequentMessage('${message.template_id}')">삭제하기</button>
+                    onclick="deleteFrequentMessage('${message.template_id}')">삭제</button>
 
             <div style="margin-left: 20px;"></div>
         `;
@@ -1099,14 +1102,14 @@ function renderFrequentMessages(messageList){
 
     const addButton = document.createElement('span');
     addButton.className = 'add';
-    addButton.textContent = '추가하기';
+    addButton.textContent = '추가';
     addButton.onclick = function() {
         addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
     };
 
     const reflectButton = document.createElement('span');
     reflectButton.className = 'reflect';
-    reflectButton.textContent = '반영하기';
+    reflectButton.textContent = '반영';
     // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
     reflectButton.onclick = function() {
         reflectFrequentMessage();
