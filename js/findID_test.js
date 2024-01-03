@@ -52,3 +52,13 @@ function maskUserId(userId) {
         return userId.substring(0, 1) + maskedPart + userId.substring(userId.length - 1, userId.length);
     }
 }
+
+// '아이디 찾기' button mouseOver 했을 떄 실행되는 함수
+function changeButtonStyle(button) {
+    button.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 0.5)'; // 마우스 오버 시 그림자 추가
+  }
+  
+// '로그인' button  mouseOut 했을 떄 실행되는 함수 
+function resetButtonStyle(button) {
+    button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
+}

@@ -1,3 +1,4 @@
+// '회원가입' 하기 버튼을 click 했을 떄 호출되는 함수
 function goToSignUp(){
     console.log('goToSignUp 함수 실행');
 
