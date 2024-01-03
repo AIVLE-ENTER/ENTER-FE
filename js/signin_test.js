@@ -11,7 +11,8 @@ function signin() {
     
     const userData = {
         user_id: document.getElementById('input_id').value,
-        password: document.getElementById('input_password').value
+        password: document.getElementById('input_password').value,
+        type: "",
     };
 
     axios.post(loginURL, userData)
@@ -45,10 +46,8 @@ function resetButtonStyle(button) {
 //calllback으로 받은 인가코드
 const code = new URL(window.location.href).searchParams.get('code');
 const type = new URL(window.location.href).searchParams.get('type');
-console.log(code); // 없으면 null
-console.log(type);
 
-// 액세스 토큰 얻기
+// (카카오) 액세스 토큰 얻기
 const KAKAO_CLIENT_ID = "e9e3fd4510c8fd8fd6562ccf5b0d7d32";
 const KAKAO_CLIENT_SECRET = "dHIzOggDqbEEPAH5KyJru0Itnl7HpIsm";
 const KAKAO_REDIRECT_URI = "http://localhost:5500/signin_test.html";
@@ -73,6 +72,7 @@ const getAccessToken = async () => {
     });
 };
 
+// (카카오) 백엔드로 토큰 전송
 const sendToken = async () => {
     await axios({
         url: "http://localhost:8000/account/kakaoLogin/", 
@@ -109,10 +109,16 @@ const sendToken = async () => {
     });
 };
 
+// 카카오 로그인
 const kakaoLogin = async () => {
     await getAccessToken(); // 1. 액세스 토큰 받기
     await sendToken(); // 2. 백엔드로 보내기
 }
+
+// 네이버 로그인
+
+// 구글 로그인
+
 
 // code가 있으면?
 if (code) {
@@ -145,7 +151,26 @@ syncBtn.addEventListener('click', function () {
     syncView.style.display = 'flex';
 })
 
-// 모달창 관련 함수
-// 1. 회원 가입
+// 소셜 연동 로그인
+function syncLogin() {
+    userData = {
+        type: document.getElementById("socialType").value,
+        social_id: document.getElementById("socialId").value,
+        user_id: document.getElementById("syncId").value,
+        password: document.getElementById("syncPassword").value,
+    }
 
-// 2. 로그인
+    axios.post(loginURL, userData)
+    .then(response => {
+        // localStroage에 토큰(Token)을 적재한다.
+        const accessToken = response['data']['data']['token'];
+        setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
+        alert('로그인 완료!');
+        window.location.href = '../index_test.html';
+    })
+    .catch(error => {
+        console.log(error);
+        alert('로그인에 실패하였습니다.')
+    });
+
+}
