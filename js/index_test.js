@@ -979,22 +979,18 @@ function question_enter(){
 }
 
 // 'AI 설정'을 click하면 호출되는 함수
-function toggleModal() {
+function AIconfig() {
     var modal = document.getElementById("myModal");  // 모달창 
     var isModalOpen = modal.style.display === "block";
 
-    var popup1_content = document.querySelector(".popup1-content"); // '크롤러 설정'에 대한 content
-    var popup2_content = document.querySelector(".popup2-content"); // '템플릿'에 대한 content
-    var popup3_content = document.querySelector(".popup3-content"); // '자주 쓰는 문구'에 대한 content
-
-    if (isModalOpen) {     // modal.style.display==='block'일 떄 (즉 Model 화면을 나가려고 할 떄 )
+    // modal.style.display==='block'일 떄 (즉 Model 화면을 나가려고 할 떄 )
+    if (isModalOpen) {     
         modal.style.display="none";
         removeBlurFromElements();
-    } else {               // modal.style.display==='none'일 떄  (즉 Model 화면으로 들어왔을 떄 )
+    } 
+    // modal.style.display==='none'일 떄  (즉 Model 화면으로 들어왔을 떄 )
+    else {                
         modal.style.display = "block";
-
-        popup3_content.style.display='none';
-
         applyBlurToElements();
     }
 }
@@ -1016,20 +1012,447 @@ function removeBlurFromElements() {
 }
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
-function handleCrawlerClick(){
-    
+function handleCrawlerClick() {
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none';    // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.innerHTML = '';
+    popup1_content.style.display = 'flex';
+    popup1_content.style.flexDirection = 'column';
+    popup1_content.style.justifyContent = 'center';
+    popup1_content.style.alignItems = 'center';
+
+    // 버튼 스타일
+    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;';
+
+    // '대상 설정' 버튼 생성 및 스타일링
+    var targetSettingButton = document.createElement('button');
+    targetSettingButton.textContent = '대상 설정';
+    targetSettingButton.style.cssText = buttonStyle;
+    targetSettingButton.onclick = function() { 
+        targetSetting(); // '대상 설정'에 대한 팝업을 띄운다.
+    };
+    popup1_content.appendChild(targetSettingButton);
+
+    // '수집 현황' 버튼 생성 및 스타일링
+    var collectionStatusButton = document.createElement('button');
+    collectionStatusButton.textContent = '수집 현황';
+    collectionStatusButton.style.cssText = buttonStyle;
+    collectionStatusButton.onclick = function() { 
+        collectStatus(); // '수집 현황'에 대한 팝업을 띄운다.
+     };
+    popup1_content.appendChild(collectionStatusButton);
+
+    // '크롤러 템플릿 설정' 버튼 생성 및 스타일링
+    var crawlerTemplateSettingButton = document.createElement('button');
+    crawlerTemplateSettingButton.textContent = '크롤러 템플릿 설정';
+    crawlerTemplateSettingButton.style.cssText = buttonStyle;
+    crawlerTemplateSettingButton.onclick = function() {
+        crawlerTemplateSetting();  // '크롤러 템플릿 설정'에 대한 팝업을 띄운다.
+    };
+    popup1_content.appendChild(crawlerTemplateSettingButton);
 }
 
-// 모달 창에서 '템플릿'을 click 했을 떄 호출되는 함수
-function handleTemplateClick(){
+// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수
+function targetSetting() {
+    // 팝업 div 생성
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-around';
+    // popup.style.alignItems = 'center';
 
+    // '수집 대상' 텍스트
+    var collectionTargetText = document.createElement('h3');
+    collectionTargetText.textContent = '수집 대상';
+    popup.appendChild(collectionTargetText);
+
+    // 드롭다운 메뉴
+    var dropdown = document.createElement('select');
+    dropdown.style.width = '80%'; // 드롭다운 가로 크기 확장
+    var option1 = document.createElement('option');
+    option1.textContent = '옵션 1';
+    dropdown.appendChild(option1);
+    var option2 = document.createElement('option');
+    option2.textContent = '옵션 2';
+    dropdown.appendChild(option2);
+    popup.appendChild(dropdown);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end'; // 오른쪽 정렬
+    buttonContainer.style.alignItems = 'flex-end'; // 하단 정렬
+    buttonContainer.style.width = '100%';
+
+    // '수집시작' 버튼
+    var startButton = document.createElement('button');
+    startButton.textContent = '수집시작';
+    startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
+    startButton.onclick = function() {
+        console.log('수집 시작');
+    };
+    buttonContainer.appendChild(startButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수
+function collectStatus() {
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-around';
+    // popup.style.alignItems = 'center';
+
+
+    // 첫 번째 드롭다운과 텍스트
+    var firstDropdownText = document.createElement('h4');
+    firstDropdownText.textContent = '수집된 대상 선정';
+    popup.appendChild(firstDropdownText);
+
+    var firstDropdown = document.createElement('select');
+    firstDropdown.style.width = '80%';
+    // 예시 옵션 추가
+    // 실제 적용시 백엔드에서 데이터를 가져오는 로직으로 변경 필요
+    var firstOption1 = document.createElement('option');
+    firstOption1.textContent = '옵션 1';
+    firstDropdown.appendChild(firstOption1);
+    popup.appendChild(firstDropdown);
+
+    // 두 번째 드롭다운과 텍스트
+    var secondDropdownText = document.createElement('h4');
+    secondDropdownText.textContent = '데이터 선택';
+    popup.appendChild(secondDropdownText);
+
+    var secondDropdown = document.createElement('select');
+    secondDropdown.style.width = '80%';
+    // 예시 옵션 추가
+    // 실제 적용시 백엔드에서 데이터를 가져오는 로직으로 변경 필요
+    var secondOption1 = document.createElement('option');
+    secondOption1.textContent = '옵션 A';
+    secondDropdown.appendChild(secondOption1);
+    popup.appendChild(secondDropdown);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.alignItems = 'flex-end';
+    buttonContainer.style.width = '100%';
+    buttonContainer.style.marginTop = '20px'; // 드롭다운과의 간격을 위해 마진 추가
+
+    // 버튼 스타일
+    var buttonStyle = 'background-color: #FFFFFF; color: #000000; padding: 10px 20px; border: 1px solid black; cursor: pointer;';
+
+    // '조회' 버튼
+    var queryButton = document.createElement('button');
+    queryButton.textContent = '조회';
+    queryButton.style.cssText = buttonStyle;
+    queryButton.onclick = function() {
+        
+    };
+    buttonContainer.appendChild(queryButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.style.cssText = buttonStyle;
+    exitButton.style.marginLeft = '10px'; // 버튼 사이의 간격
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
+function crawlerTemplateSetting() {
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-between';
+
+    // '회사 정보 설정' 텍스트
+    var companyInfoText = document.createElement('h4');
+    companyInfoText.textContent = '회사 정보 설정';
+    popup.appendChild(companyInfoText);
+
+    // 회사 정보 입력칸
+    var companyInfoInput = document.createElement('input');
+    companyInfoInput.type = 'text';
+    companyInfoInput.style.width = '100%';
+    companyInfoInput.style.height = '50px';
+    popup.appendChild(companyInfoInput);
+
+    // '타켓 정보 설정' 텍스트
+    var targetInfoText = document.createElement('h4');
+    targetInfoText.textContent = '타켓 정보 설정';
+    popup.appendChild(targetInfoText);
+
+    // 타켓 정보 입력칸
+    var targetInfoInput = document.createElement('input');
+    targetInfoInput.type = 'text';
+    targetInfoInput.style.width = '100%';
+    targetInfoInput.style.height = '50px';
+    popup.appendChild(targetInfoInput);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.width = '100%';
+    buttonContainer.style.marginTop = '10px';
+
+    // '적용' 버튼
+    var applyButton = document.createElement('button');
+    applyButton.textContent = '적용';
+    applyButton.style.marginRight = '10px';
+    applyButton.onclick = function() {
+        console.log('적용 버튼 클릭');
+        // 여기에 적용 로직 추가
+    };
+    buttonContainer.appendChild(applyButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수
+function handlePromptClick(){
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup2_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+
+    var displayCount=2;
+    for (var i = 0; i < displayCount; i++) {
+        // '작성하는 대상 이름' 텍스트
+        var targetNameText = document.createElement('h4');
+        targetNameText.textContent = '작성하는 대상 이름';
+        targetNameText.style.marginLeft='60px';
+        popup2_content.appendChild(targetNameText);
+
+        // 입력 칸
+        var targetNameInput = document.createElement('input');
+        targetNameInput.type = 'text';
+        targetNameInput.style.width = '80%';
+        targetNameInput.style.height = '100px';
+        
+        targetNameInput.style.margin = '0 auto'; // 가운데 정렬
+        targetNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        popup2_content.appendChild(targetNameInput);
+
+        // '작성 안내 텍스트' 텍스트
+        var promptInfoText = document.createElement('h4');
+        promptInfoText.textContent = '작성 안내 텍스트';
+        promptInfoText.style.marginLeft='60px';
+        popup2_content.appendChild(promptInfoText);
+
+        // 텍스트 입력 공간
+        var promptInfoInput = document.createElement('textarea');
+        promptInfoInput.style.width = '80%';
+        promptInfoInput.style.height = '50px';
+        promptInfoInput.style.margin = '0 auto'; // 가운데 정렬
+        promptInfoInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        popup2_content.appendChild(promptInfoInput);
+    }
+
+    // 버튼 컨테이너 및 버튼들
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.marginTop = '20px';
+
+    // '적용' 버튼
+    var applyButton = document.createElement('button');
+    applyButton.textContent = '적용';
+    applyButton.style.marginRight = '10px';
+    applyButton.onclick = function() {
+        console.log('적용 버튼 클릭');
+    };
+    buttonContainer.appendChild(applyButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        popup2_content.style.display = 'none';
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup2_content.appendChild(buttonContainer);
+}
+
+// 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수
+function handleReportClick(){
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+
+    // 템플릿 텍스트
+    var templateText = document.createElement('h4');
+    templateText.textContent = '템플릿';
+    templateText.style.marginLeft = '60px';
+    popup3_content.appendChild(templateText);
+
+    // 템플릿 TextArea
+    var templateTextArea = document.createElement('textarea');
+    templateTextArea.style.width = '80%';
+    templateTextArea.style.height = '100px';
+    templateTextArea.style.marginLeft = '60px';
+    popup3_content.appendChild(templateTextArea);
+
+    // 작성 안내 텍스트
+    var instructionText = document.createElement('h4');
+    instructionText.textContent = '작성 안내';
+    instructionText.style.marginLeft = '60px';
+    popup3_content.appendChild(instructionText);
+
+    // 작성 안내 TextArea
+    var instructionTextArea = document.createElement('textarea');
+    instructionTextArea.style.width = '80%';
+    instructionTextArea.style.height = '100px';
+    instructionTextArea.style.marginLeft = '60px';
+    popup3_content.appendChild(instructionTextArea);
+
+    // 템플릿 저장 버튼 컨테이너
+    var saveButtonContainer = document.createElement('div');
+    saveButtonContainer.style.display = 'flex';
+    saveButtonContainer.style.justifyContent = 'flex-end';
+    saveButtonContainer.style.marginTop = '10px';
+
+    // 템플릿 저장 버튼
+    var saveTemplateButton = document.createElement('button');
+    saveTemplateButton.textContent = '템플릿 저장';
+    saveTemplateButton.onclick = function() {
+        console.log('템플릿 저장 버튼 클릭');
+    };
+    saveButtonContainer.appendChild(saveTemplateButton);
+    popup3_content.appendChild(saveButtonContainer);
+
+
+    // 밑줄 선
+    var underline = document.createElement('hr');
+    popup3_content.appendChild(underline);
+
+    // 레포트 만들기 버튼 컨테이너
+    var createButtonContainer = document.createElement('div');
+    createButtonContainer.style.display = 'flex';
+    createButtonContainer.style.justifyContent = 'flex-end';
+    createButtonContainer.style.marginTop = '10px';
+
+    // 레포트 만들기 버튼
+    var createReportButton = document.createElement('button');
+    createReportButton.textContent = '레포트 만들기';
+    createReportButton.onclick = function() {
+        console.log('레포트 만들기 버튼 클릭');
+    };
+    createButtonContainer.appendChild(createReportButton);
+    popup3_content.appendChild(createButtonContainer);
 }
 
 // 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
 function handleUseClick(){
-    // '메인 창'을 block으로 보이게끔 한다.
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
+
     var popup3_content = document.querySelector(".popup3-content");
-    popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup4_content.style.display = 'block'; // 팝업 내용을 표시합니다.
 
     // 백엔드에서 구현한 '자주 쓰는 문구 리스트 불러오기'를 구현한다.
     var frequentMessage_URL='http://localhost:8000/main/frequentMessage/';
@@ -1056,7 +1479,7 @@ function handleUseClick(){
 
 // 모달 창에서 자주 쓰는 문구를 목록으로 보여주는 함수
 function renderFrequentMessages(messageList){
-    const container = document.querySelector('.popup3-content'); // 문구를 표시할 컨테이너 선택
+    const container = document.querySelector('.popup4-content'); // 문구를 표시할 컨테이너 선택
     container.innerHTML = ''; // 기존 내용 클리어
 
     // 하나씩 자주 쓰는 문구를 화면에 그린다.

@@ -129,7 +129,7 @@
             <!-- AI 설정 -->
             <div class="menu2"
                  style='padding:10px;'
-                 onclick='toggleModal()'>
+                 onclick='AIconfig()'>
                 <span>AI 설정</span>
             </div>
 
@@ -186,12 +186,13 @@
         <!-- 모달 내용 -->
         <div class="modal-content">
             <span class="close"
-                    onclick='toggleModal()'>&times;</span>
+                    onclick='AIconfig()'>&times;</span>
 
             <h2>AI 설정</h2>
 
             <div style='height:20px'></div>
 
+            <!-- Modal Body -->
             <div class="modal-body">
                 <!-- SideBar-->
                 <div class="sidebar-area">
@@ -199,41 +200,53 @@
                     <div class="section" 
                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
                          onclick="handleCrawlerClick()">
-                        <!-- <img src="assets/img/web-crawler.png" 
-                             alt="크롤러 설정" 
-                             style="width: 25px; height: 25px; margin-right: 10px;"> -->
                         <p style='font-size:15px; margin: 0;'>크롤러 설정</p>
                     </div>
 
-                    <!-- 템플릿 섹션 -->
+                    <!-- 프롬프트 설정 섹션  -->
                     <div class="section" 
                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
-                         onclick="handleTemplateClick()">
-                        <!-- <img src="assets/img/template.png" 
-                             alt="템플릿" 
-                             style="width: 25px; height: 25px; margin-right: 10px;"> -->
-                        <p style='font-size:15px; margin: 0;'>템플릿</p>
+                         onclick="handlePromptClick()">
+                        <p style='font-size:15px; margin: 0;'>프롬프트 설정</p>
+                    </div>
+
+                     <!-- 리포트 설정 섹션  -->
+                     <div class="section" 
+                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                          onclick="handleReportClick()">
+                          <p style='font-size:15px; margin: 0;'>리포트 설정</p>
                     </div>
 
                     <!-- 자주 쓰는 문구 섹션 -->
                     <div class="section" 
                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
                          onclick='handleUseClick()'>
-                        <!-- <img src="assets/img/template.png" 
-                             alt="자주 쓰는 문구" 
-                             style="width: 25px; height: 25px; margin-right: 10px;"> -->
                         <p style='font-size:15px; margin: 0;'>자주 쓰는 문구</p>
                     </div>
                 </div>
 
-                <!-- Content -->
+                <!-- 내부 Content -->
                 <div class="content-area">
                     <!-- '크롤러 설정 click 했을 떄 나옴(일단 class 이름을 popup1-content로 표현)'-->
+                    <div class='popup1-content'
+                         style='display:none'>
+                         <!-- 동적으로 '대상 설정', '수집 현황', '크롤러 템플릿 설정' 버튼이 나온다.-->
+                    </div>
 
-                    <!-- '템플릿 click 했을 떄 나옴(일단 class 이름을 popup2-content로 표현)'-->
+                    <!-- '프롬프트 설정 click 했을 떄 나옴(일단 class 이름을 popup2-content로 표현)'-->
+                    <div class='popup2-content'
+                        style='display:none'>
+                        <!-- 동적으로 프롬프트 설정하는 내용이 짜여진다.-->
+                    </div>
+                    
+                    <!-- '리포트 설정 click 했을 떄 나옴(일단 class 이름을 popup3-content로 표현)'-->
+                    <div class='popup3-content'
+                         style='display:none'>
+                        <!-- 동적으로 리포트 설정하는 내용이 짜여진다.-->
+                    </div>
 
                     <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
-                    <div class="popup3-content"
+                    <div class="popup4-content"
                          style='display:none'>
                         <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
@@ -247,7 +260,6 @@
          class="context-menu"
          style="display:none;">
         <ul>
-            <li onClick="">크롤러 설정</li>
             <li onclick="modify()">수정</li>
             <li onclick="deleteChatRoom()">삭제</li>
         </ul>
