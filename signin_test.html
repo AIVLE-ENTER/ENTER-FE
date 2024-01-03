@@ -84,10 +84,12 @@
 
                 <!-- 4. 로그인 버튼 -->
                 <input type="submit"
-                    value="로그인"
-                    style="background-color: #808080; color: white; border-radius:5px;"
-                    class="login-button"
-                    onclick="signin();">
+                        value="로그인"
+                        style="background-color: #808080; color: white; border-radius:5px;"
+                        class="login-button"
+                        onMouseOver="changeButtonStyle(this)"
+                        onMouseOut="resetButtonStyle(this)"
+                        onclick="signin();">
             </form>
 
             <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->

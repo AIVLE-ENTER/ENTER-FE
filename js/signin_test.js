@@ -7,6 +7,8 @@ const syncView = document.getElementById('syncView');
 
 // '로그인' 버튼 클릭했을 떄 호출되는 함수 (일반 로그인)
 function signin() {
+    console.log('로그인 버튼 클릭');
+    
     const userData = {
         user_id: document.getElementById('input_id').value,
         password: document.getElementById('input_password').value
@@ -28,6 +30,16 @@ function signin() {
         console.log(error);
         alert('로그인에 실패하였습니다.')
     });
+}
+
+// '로그인' button mouseOver 했을 떄 실행되는 함수
+function changeButtonStyle(button) {
+    button.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 0.5)'; // 마우스 오버 시 그림자 추가
+  }
+  
+// '로그인' button  mouseOut 했을 떄 실행되는 함수 
+function resetButtonStyle(button) {
+    button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
 }
 
 //calllback으로 받은 인가코드
