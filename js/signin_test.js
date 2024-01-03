@@ -1,5 +1,4 @@
 const loginURL=`http://127.0.0.1:8000/account/auth/signIn/`;
-const csrfURL = `http://127.0.0.1:8000/utils/getCsrfToken/`;
 
 function signin() {
     const userData = {
@@ -7,10 +6,6 @@ function signin() {
         password: document.getElementById('input_password').value
     };
 
-    // axios.get(csrfURL)
-    // .then((response) => {
-    //     console.log(response);
-    // })
 
     axios.post(loginURL, userData)
     .then(response => {
