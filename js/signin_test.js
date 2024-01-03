@@ -1,5 +1,6 @@
 const loginURL=`http://127.0.0.1:8000/account/auth/signIn/`;
 
+// '로그인' 버튼 클릭했을 떄 호출되는 함수 
 function signin() {
     const userData = {
         user_id: document.getElementById('input_id').value,
