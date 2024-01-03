@@ -59,34 +59,36 @@
             <!-- <img class="logo" 
                 src="./assets/img/Logo2.png"> -->
             <h1 class="logo">로그인</h1>
+            
+            <form>
+                <!-- 2. 아이디 -->
+                <div class="field">
+                    <div class="input-group mb-3">
+                        <input type="text"
+                            id='input_id'
+                            class="form-control"
+                            aria-label="Username"
+                            placeholder="아이디를 입력해주세요."
+                            autocomplete='off'/>
+                    </div>
+                </div>
 
-            <!-- 2. 아이디 -->
-            <div class="field">
-                <div class="input-group mb-3">
-                    <input type="text"
-                        id='input_id'
-                        class="form-control"
-                        aria-label="Username"
-                        placeholder="아이디를 입력해주세요."
+                <!-- 3. 비밀번호 -->
+                <div class="field">
+                    <input id='input_password'
+                        class="userpw"
+                        type="password"
+                        placeholder="비밀번호를 입력해주세요."
                         autocomplete='off'/>
                 </div>
-            </div>
 
-            <!-- 3. 비밀번호 -->
-            <div class="field">
-                <input id='input_password'
-                    class="userpw"
-                    type="password"
-                    placeholder="비밀번호를 입력해주세요."
-                    autocomplete='off'/>
-            </div>
-
-            <!-- 4. 로그인 버튼 -->
-            <input type="submit"
-                value="로그인"
-                style="background-color: #808080; color: white; border-radius:5px;"
-                class="login-button"
-                onclick="signin();">
+                <!-- 4. 로그인 버튼 -->
+                <input type="submit"
+                    value="로그인"
+                    style="background-color: #808080; color: white; border-radius:5px;"
+                    class="login-button"
+                    onclick="signin();">
+            </form>
 
             <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->
 
@@ -102,9 +104,9 @@
             <div class="social-group">
                 <h2 class="tit">소셜 로그인</h2>
                 <ul class="social-list">
-                    <li><button class='btn-social-kakao' onclick='socialLogin("kakao");'></button></li>
-                    <li><button class='btn-social-google' onclick='socialLogin("google");'></button></li>
-                    <li><button class='btn-social-naver' onclick='socialLogin("naver");'></button></li>
+                    <li><button class='btn-social-kakao' onclick='location.href="https://kauth.kakao.com/oauth/authorize?client_id=a778e71aaad74d0df17241951f45338f&redirect_uri=http://localhost:5500/signin_test.html?type=kakao&response_type=code"'></button></li>
+                    <li><button class='btn-social-google'></button></li>
+                    <li><button class='btn-social-naver'></button></li>
                 </ul>
             </div>
 
@@ -145,22 +147,25 @@
                     <div class="sync-login" id="syncView">
                         <div>
                             <p>연동할 계정으로 로그인 해주세요.</p>
+                            <form>
+                                <input type="hidden" id="socialType" value="" />
+                                <input type="hidden" id="socialId" value="" />
 
-                            <div class="field">
-                                <input type="text"
-                                    id='sync_id'
-                                    placeholder="아이디를 입력해주세요."
-                                    autocomplete='off'/>
-                            </div>
-                
-                            <div class="field">
-                                <input type="password"
-                                    id='sync_password'
-                                    placeholder="비밀번호를 입력해주세요."
-                                    autocomplete='off'/>
-                            </div>
-
-                            <button type="button" class="login-button" onclick="javascript:void(0);">로그인</button>
+                                <div class="field">
+                                    <input type="text"
+                                        id='syncId'
+                                        placeholder="아이디를 입력해주세요."
+                                        autocomplete='off'/>
+                                </div>
+                    
+                                <div class="field">
+                                    <input type="password"
+                                        id='syncPassword'
+                                        placeholder="비밀번호를 입력해주세요."
+                                        autocomplete='off'/>
+                                </div>
+                                <button type="button" class="login-button" onclick="javascript:void(0);">로그인</button>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -169,6 +174,12 @@
     </div>
 
     <!-- JS와 연동 -->
+    <script src="/js/common.js"></script>
     <script src="/js/signin_test.js"></script>
+    <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.6.0/kakao.min.js"
+        integrity="sha384-6MFdIr0zOira1CHQkedUqJVql0YtcZA1P0nbPrQYJXVJZUkTk/oX4U9GhUIs3/z8" crossorigin="anonymous"></script>
+    <script>
+        Kakao.init('e9e3fd4510c8fd8fd6562ccf5b0d7d32'); // 사용하려는 앱의 JavaScript 키 입력
+    </script>
 </body>
 </html>
