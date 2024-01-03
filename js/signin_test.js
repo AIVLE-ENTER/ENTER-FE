@@ -5,12 +5,13 @@ const signUpBtn = document.getElementById('signUpBtn');
 const modal = document.getElementById('socialModal');
 const syncView = document.getElementById('syncView');
 
-// 일반 로그인
+// '로그인' 버튼 클릭했을 떄 호출되는 함수 (일반 로그인)
 function signin() {
     const userData = {
         user_id: document.getElementById('input_id').value,
         password: document.getElementById('input_password').value
     };
+
 
     axios.post(loginURL, userData)
     .then(response => {

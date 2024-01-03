@@ -292,14 +292,6 @@ function signUp(){
       alert('회원가입 실패 - 이름을 입력하지 않았기 떄문');
     }
     else {
-      // console.log('user_id : ' + input_id.value);
-      // console.log('password : ' + password);
-      // console.log('user_email : ' + input_email.value);
-      // console.log('certification_number : ' + input_verifyCode.value);
-      // console.log('user_name : ' + name);
-      // console.log('company_id : ' + getSelectedCompanyValue());
-
-
       // 3. 백엔드와 마련한 '회원가입' 코드와 연계한다.
       const result=function(){
           axios.post(signup_URL, 
