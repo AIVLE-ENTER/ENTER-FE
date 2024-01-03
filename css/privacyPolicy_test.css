@@ -1,7 +1,7 @@
 /* header에 대한 css 적용 */
 header {
     width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
-    height:70px;
+    height:80px;
     margin: 0; /* 상하 마진 제거 */
     background-color: white; /* 흰색 배경 */
     position: fixed;
