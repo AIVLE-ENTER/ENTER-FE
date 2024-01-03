@@ -1,6 +1,8 @@
 const currentId = window.location.search.substring(4);
-var boardDetaildUrl = 'http://127.0.0.1:8000/board/' + currentId + '/';
+var boardDetaildUrl = `http://127.0.0.1:8000/board/` + currentId + `/`;
 var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
+var editBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/post_update_get/`;
+var deleteBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/delete/`;
 
 const token = JSON.parse(localStorage.getItem('accessToken')).accessToken;
 const config = {
@@ -12,7 +14,7 @@ const config = {
 axios.get(boardDetaildUrl)
 .then((response) => {
     var inquiryData = response.data;
-    console.log(inquiryData)
+    
     var faqItemType = document.querySelector('.faqItem-type');
     var faqItemTitle = document.querySelector('.faqItem-title');
     var faqItemWriter = document.querySelector('.faqItem-writer');
@@ -35,27 +37,16 @@ axios.get(boardDetaildUrl)
     console.log(`error: ${error}`);
 })
 
-
-function editButton() {    
-    var userId;
+function replyButton() {
+    
     axios.get(myInfoURL, config)
     .then((response) => {
-        userId = response['data']['data']['user_id'];
-    })
-    .catch((error) => {
-        console.log('Id Error.');
-        console.log(error);
-    })
-
-    axios.get(boardDetaildUrl)
-    .then((response) => {
-        var inquiryData = response.data
-        console.log(inquiryData);
-        console.log(userId)
-        if (inquiryData['user_id'] !== userId) {  // board 작성자 user_id 필요해 보임
+        var user_role = response.data.data.role;
+        console.log(user_role);
+        if (user_role == 'user') {
             alert('권한이 없습니다.');
         } else {
-            const popupUrl = "changeBoard_test.html";
+            const popupUrl = "inquiry_test.html";
             const popupName = "게시글 수정";
         
             var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
@@ -67,8 +58,59 @@ function editButton() {
             window.open(popupUrl, popupName, popupOption);
         }
     })
-    
 }
 
+function editButton() {   
+    console.log(config);
+    axios.get(editBoardURL, config)
+    .then((response) => {
+        const popupUrl = "inquiry_test.html";
+        const popupName = "게시글 수정";
+    
+        var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
+        var popHeight = (window.screen.height / 2) - (600 / 2);
+    
+        const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
+        console.log(popupOption);
 
+        window.open(popupUrl, popupName, popupOption);
+    })
+    .catch((error) => {
+        console.log('error');
+    })
 
+    // axios.get(boardDetaildUrl)
+    // .then((response) => {
+    //     var inquiryData = response.data
+    //     console.log()
+    //     if (inquiryData['user_name'] !== userName) {
+    //         alert('권한이 없습니다.');
+    //     } else {
+    //         const popupUrl = "changeBoard_test.html";
+    //         const popupName = "게시글 수정";
+        
+    //         var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
+    //         var popHeight = (window.screen.height / 2) - (600 / 2);
+        
+    //         const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
+    //         console.log(popupOption);
+
+    //         window.open(popupUrl, popupName, popupOption);
+    //     }
+    // })    
+}
+
+function deleteButton() {
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+        axios.post(deleteBoardURL, {}, config)
+        .then((response) => {
+            alert('삭제가 완료되었습니다.');
+            window.location.href = '../inquiryBoard_test.html';   
+        })
+        .catch((error) => {
+            console.log('error')
+        })
+    } else {
+        alert('취소되었습니다.')
+    }
+}

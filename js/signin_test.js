@@ -7,6 +7,7 @@ function signin() {
         password: document.getElementById('input_password').value
     };
 
+
     axios.post(loginURL, userData)
     .then(response => {
         // localStroage에 토큰(Token)을 적재한다.
