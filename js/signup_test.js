@@ -265,6 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+//calllback으로 받은 소셜 로그인 정보
+const type = new URL(window.location.href).searchParams.get('type');
+const socialId = new URL(window.location.href).searchParams.get('socialId');
+
 // '가입하기' 버튼 click했을 떄 이를 수행하는 함수 
 function signUp(){
     // 1. setting
@@ -302,6 +306,8 @@ function signUp(){
                     'user_name':name,
                     'company_id':companySelect.value,
                     'privacy_agreement':true,
+                    'type': type,
+                    'social_id': socialId,
                     })
                 .then(function (response) {
                   console.log(response);

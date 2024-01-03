@@ -1,4 +1,5 @@
 const loginURL=`http://127.0.0.1:8000/account/auth/signIn/`;
+const signUpURL = `http://localhost:5500/signup_test.html`;
 const closeModalBtn = document.getElementById('closeModalBtn');
 const syncBtn = document.getElementById('syncAccountBtn');
 const signUpBtn = document.getElementById('signUpBtn');
@@ -101,7 +102,8 @@ const sendToken = async () => {
         // 2-2. 로그인 실패 (모달창 띄우기)
             modal.style.display = 'block';
             document.getElementById("socialType").value = "kakao";
-            document.getElementById("socialId").value = response.data.data.id;   
+            document.getElementById("socialId").value = response.data.data.id;
+            document.getElementById("signUpBtn").setAttribute("onclick", `location.href='${signUpURL}?type=kakao&socialId=${response.data.data.id}'`);
         }
     })
     .catch(error => {
