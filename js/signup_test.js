@@ -312,9 +312,25 @@ function signUp(){
                 .then(function (response) {
                   console.log(response);
 
-                  // 4. 회원 가입 완료 하면 Home 페이지(index.html)로 Routing 한다.
-                  alert('회원 가입 완료!!');
-                  window.location.href = '../index_test.html';
+                  // 4. user_id를 받아와서 AI 측에 보낸다. (이거 정확히 뭔지는 모르겠는데)
+                  axios({
+                    method: 'get',
+                    url: `http://localhost:8002/new_chat/${input_id.value}`,
+                    })
+                    .then(response => {
+                        console.log('성공');
+  
+                        // 5. 회원 가입 완료 하면 Home 페이지(index.html)로 Routing 한다.
+                        alert('회원 가입 완료!!');
+                        window.location.href = '../index_test.html';
+                    })
+                    .catch(error => {
+                        console.error('Error :', error);
+
+                        const errorMessageDiv = document.getElementById('error-message');
+                        errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
+                        errorMessageDiv.textContent=error.response.data.message; // 오류 메시지 설정
+                    });            
                 })
                 .catch(function (error) {
                   alert('에러');
@@ -322,8 +338,7 @@ function signUp(){
                 });
         }
 
-        result();  // result 함수 호출 
-          
+        result();  // result 함수 호출
     }
 }
 
