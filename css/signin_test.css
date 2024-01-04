@@ -298,7 +298,7 @@ button {
     background-color: rgba(0, 0, 0, 0.5);
     z-index: 200;
 }
-  .modal-content {
+.modal-content {
     background-color: #fff;
     margin: 10vh auto;
     padding: 20px;
@@ -306,49 +306,50 @@ button {
     width: 80%;
     height: 80vh;
     border-radius: 10px;
-  }
-  .modal-screen {
+}
+.modal-screen {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-  }
-  .close {
+}
+.close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  .close:hover,
-  .close:focus {
+}
+.close:hover,
+.close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-  }
-  .modal .img-container {
+}
+.modal .img-container {
     text-align: center;
-  }
-  .modal img {
+}
+.modal img {
     width: 60%;
-  }
-  .modal .modal-btn-group {
+}
+.modal .modal-btn-group {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  .modal .btn {
+}
+.modal .btn {
     background-color: #FFF;
-    color: #333;
-    font-weight: bold;
-    border: 2px solid #333;
+    color: black;
+    border: 2px solid black;
     border-radius: 5px;
     padding: 10px;
     width: 30%;
     margin: 5px;
+    font-family: 'scd';
 }
 .modal .btn:hover {
     transition: 0.7s;
-    background-color: #333;
+    background-color: #454997;
+    border-color: #454997;
     color: #FFF;
 }
 
