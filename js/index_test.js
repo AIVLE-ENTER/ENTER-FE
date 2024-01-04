@@ -224,6 +224,18 @@ function getChatRoomList(){
 function getChatQaHistory(chatRoom){
     document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
 
+    // 모든 버튼에서 'active' 클래스 제거 
+    const buttons = document.querySelectorAll('.conversation-button');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // 클릭된 버튼에 'active' 클래스 추가 -> 이 채팅방일 수 있음을 알게끔, 다른 색깔로 화면에 표시한다.
+    const activeButton = document.getElementById(chatRoom.target_object);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+
     const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
@@ -458,8 +470,14 @@ function displayChatQaHistory(QaDatas, chatRoom) {
                 // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
                 const sendButton = document.querySelector('.send-button');
                 if (sendButton.style.display !== 'none') {
-                    e.preventDefault();
-                    sendQuestion(chatRoom);
+                     // 입력한 값이 빈값인지 확인한다.
+                    if(document.getElementById('message').value==''){
+                        alert('빈 값 입니다.');
+                    }
+                    else{
+                        console.log('클릭');
+                        sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+        }
                 }
             }
         }
@@ -481,12 +499,12 @@ function sendQuestion(chatRoom) {
            false); // 질문 추가
 
     // 대답을 위한 빈 div 추가
-    const emptyAnswerDiv = addQA('ENTER',
-                                 '#F2F7FF',
-                                  true);
+    addQA('ENTER',
+          '#F2F7FF',
+           true);
 
     // 대답을 실시간으로 보여주는 함수
-    generateAnswerLive(emptyAnswerDiv, question, chatRoom);
+    generateAnswerLive(question, chatRoom);
 
     // 대답을 실시간으로 보여줄 떄는 사용자가 클릭 할 수 없게 '전송'하기 버튼을 비활성화 한다.
     const sendButton = document.querySelector('.send-button');
@@ -595,9 +613,11 @@ function addQA(message, bgColor, isAnswer) {
 
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
-        answerText.innerHTML = '<br>';
+        answerText.id = 'answer-text'; // ID 설정
+        answerText.innerHTML = '<br>'; // 대답 텍스트 직접 지정
         answerText.style.padding = '10px'; // 패딩 추가
-        answerText.style.marginTop = '10px';
+        answerText.style.display = 'block'; // 블록 레벨 요소로 만들기
+        answerText.style.marginTop = '10px'; // 상단 여백 추가
 
         messageDiv.appendChild(enterImage);
         messageDiv.appendChild(answerText);
@@ -626,14 +646,13 @@ function addQA(message, bgColor, isAnswer) {
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
-    return messageDiv; // 추가된 div 반환
+    // return messageDiv; // 추가된 div 반환
 }
 
-
 // 대답(A)을 실시간으로 보여주는 함수
-const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
+const generateAnswerLive = (question, chatRoom) => {
     const answerLiveResponse_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
-    const messageElement = emptyAnswerDiv
+    // const messageElement = emptyAnswerDiv
     const conversationView = document.querySelector('.view.conversation-view');
 
     // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 실시간으로 화면에 표시한다.
@@ -666,7 +685,11 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             const parseData = chunk;
             console.log(parseData);
 
-            messageElement.innerHTML +=parseData;
+            // ID를 사용하여 해당 answerText 요소 선택하여 일일히 텍스트를 더한다.
+            const answerTextElement = document.getElementById('answer-text');
+            answerTextElement.innerHTML += parseData;
+
+            // messageElement.innerHTML +=parseData;
   
             if (!result.done) {
               return readChunk();
@@ -686,7 +709,7 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             setTimeout(function() {
                  // 채팅 이력을 다시 불러온다.
                  getChatQaHistory(chatRoom);
-            }, 50000);  // 일단 50초 time.sleep 한다.
+            }, 1000);  // 일단 50초 time.sleep 한다.
            
         })
         .catch((e) => {
@@ -741,10 +764,10 @@ function checkMemo(history_id) {
 }
 
 // 메모를 보여주는 함수
-function showMemo(history_id, flag, txt=''){
+function showMemo(history_id, flag, txt = '') {
     // 오버레이 생성
     const overlay = document.createElement('div');
-    overlay.id = 'overlay'; // 오버레이에 고유한 ID 부여
+    overlay.id = 'overlay';
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
@@ -786,8 +809,16 @@ function showMemo(history_id, flag, txt=''){
     // 버튼 컨테이너 생성 및 스타일 설정
     const buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'flex-end'; // 버튼을 오른쪽 정렬
-    buttonContainer.style.marginTop = '10px';
+    buttonContainer.style.justifyContent = 'flex-end';
+
+    // '나가기' 버튼 생성 및 추가
+    const exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.style.marginLeft = '10px';
+    exitButton.onclick = function() {
+        document.body.removeChild(popupContainer);
+        document.body.removeChild(overlay);
+    };
 
     // 메모가 있을 경우
     if (flag) {
@@ -798,7 +829,6 @@ function showMemo(history_id, flag, txt=''){
         editButton.textContent = '수정';
         editButton.style.marginLeft = '10px';
         editButton.onclick = function() {
-            // 메모 수정 로직
             const updatedMemo = memoInput.value;
             updateMemo(history_id, updatedMemo);
         };
@@ -808,12 +838,12 @@ function showMemo(history_id, flag, txt=''){
         deleteButton.textContent = '삭제';
         deleteButton.style.marginLeft = '10px';
         deleteButton.onclick = function() {
-            // 메모 삭제 로직
             deleteMemo(history_id);
         };
 
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
+        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
     // 메모가 없을 경우
     else {
@@ -821,17 +851,16 @@ function showMemo(history_id, flag, txt=''){
         const saveButton = document.createElement('button');
         saveButton.textContent = '저장';
         saveButton.onclick = function() {
-            // 메모가 빈값인지 아닌지 확인한다.
             const memoContent = memoInput.value;
-            if(memoContent === ''){
+            if (memoContent === '') {
                 alert('메모 내용을 입력해야 합니다.');
-            }
-            else {
+            } else {
                 saveMemo(history_id, memoContent);
             }
         };
 
         buttonContainer.appendChild(saveButton);
+        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
 
     // 팝업에 타이틀, textarea, 버튼 컨테이너 추가
@@ -845,12 +874,13 @@ function showMemo(history_id, flag, txt=''){
 
     // 팝업 외부 클릭 시 닫기 이벤트 처리
     window.onclick = function(event) {
-        if (event.target == overlay) {
+        if (event.target === overlay) {
             document.body.removeChild(popupContainer);
             document.body.removeChild(overlay);
         }
-    }
+    };
 }
+
 
 // 메모를 저장하는 함수
 function saveMemo(history_id, memoContent){
