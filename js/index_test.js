@@ -724,6 +724,7 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.height = '150px';
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
+    memoInput.style.resize = 'none';
 
     // 버튼 컨테이너 생성 및 스타일 설정
     const buttonContainer = document.createElement('div');
@@ -799,7 +800,6 @@ function showMemo(history_id, flag, txt = '') {
         }
     };
 }
-
 
 // 메모를 저장하는 함수
 function saveMemo(history_id, memoContent){
