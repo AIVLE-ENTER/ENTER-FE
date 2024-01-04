@@ -116,6 +116,8 @@ function writeBoard() {
         axios.post(boardCreateURL, formData, config)
         .then((response) => {
             console.log('success');
+            alert('작성이 완료되었습니다.');
+            window.location.href = '../inquiryBoard_test.html';   
         })
         .catch((error) => {
             console.log('error');

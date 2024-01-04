@@ -77,27 +77,8 @@ function editButton() {
     })
     .catch((error) => {
         console.log('error');
-    })
-
-    // axios.get(boardDetaildUrl)
-    // .then((response) => {
-    //     var inquiryData = response.data
-    //     console.log()
-    //     if (inquiryData['user_name'] !== userName) {
-    //         alert('권한이 없습니다.');
-    //     } else {
-    //         const popupUrl = "changeBoard_test.html";
-    //         const popupName = "게시글 수정";
-        
-    //         var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
-    //         var popHeight = (window.screen.height / 2) - (600 / 2);
-        
-    //         const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
-    //         console.log(popupOption);
-
-    //         window.open(popupUrl, popupName, popupOption);
-    //     }
-    // })    
+        alert('권한이 없습니다.')
+    }) 
 }
 
 function deleteButton() {
