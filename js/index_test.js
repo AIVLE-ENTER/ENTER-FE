@@ -224,6 +224,18 @@ function getChatRoomList(){
 function getChatQaHistory(chatRoom){
     document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
 
+    // 모든 버튼에서 'active' 클래스 제거 
+    const buttons = document.querySelectorAll('.conversation-button');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // 클릭된 버튼에 'active' 클래스 추가 -> 이 채팅방일 수 있음을 알게끔, 다른 색깔로 화면에 표시한다.
+    const activeButton = document.getElementById(chatRoom.target_object);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+
     const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
@@ -391,6 +403,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         answerText.innerHTML = '<br>' + QaData.answer;
         answerText.style.padding = '10px'; // 패딩 추가
         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+        answerText.style.whiteSpace = 'pre-wrap';  // 대답 줄 바꿈
 
         // 'edit Icon'을 배치한 div 생성
         const editIconDiv = document.createElement('div');
@@ -437,7 +450,9 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
         // 입력한 값이 빈값인지 확인한다.
-        if(document.getElementById('message').value==''){
+        if(document.getElementById('message').value===''){
+            document.getElementById('message').value='';  // 그래도 혹시 모르니 빈 값으로 설정 
+            document.getElementById('message').placeholder = '질문을 입력하고 ENTER만 치세요!'; // placeholder로 보여준다.
             alert('빈 값 입니다.');
         }
         else{
@@ -446,24 +461,25 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         }
     };
 
-    // 하단 입력창에 엔터 클릭했을 떄 리스너
+    // 하단 입력창에 엔터 클릭했을 때 리스너
     messageForm.addEventListener("keydown", (e) => {
-        // If Enter key is pressed without Shift key and the window 
-        if(e.key === "Enter" && !e.shiftKey) {
-            // 입력한 값이 빈값인 경우
-            if(document.getElementById('message').value==''){
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // 폼의 기본 제출 이벤트 방지
+            const messageInput = document.getElementById('message');
+            
+            if (messageInput.value.trim() === '') {
+                // 입력 필드를 빈 문자열로 설정하고 placeholder 추가
+                messageInput.value = '';
+                messageInput.placeholder = '질문을 입력하고 ENTER만 치세요!';
                 alert('빈 값 입니다.');
-            }
+            } 
             else {
-                // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
-                const sendButton = document.querySelector('.send-button');
-                if (sendButton.style.display !== 'none') {
-                    e.preventDefault();
-                    sendQuestion(chatRoom);
-                }
+                // 입력 필드에 값이 있으면 질문과 대답을 처리
+                sendQuestion(chatRoom);
             }
         }
     });
+
 }
 
 // 새로운 메시지를 전송하는 함수
@@ -481,97 +497,19 @@ function sendQuestion(chatRoom) {
            false); // 질문 추가
 
     // 대답을 위한 빈 div 추가
-    const emptyAnswerDiv = addQA('ENTER',
-                                 '#F2F7FF',
-                                  true);
+    addQA('ENTER',
+          '#F2F7FF',
+           true);
 
     // 대답을 실시간으로 보여주는 함수
-    generateAnswerLive(emptyAnswerDiv, question, chatRoom);
+    generateAnswerLive(question, chatRoom);
 
     // 대답을 실시간으로 보여줄 떄는 사용자가 클릭 할 수 없게 '전송'하기 버튼을 비활성화 한다.
     const sendButton = document.querySelector('.send-button');
     sendButton.style.display = 'none'; // 버튼 표시
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수 (제 1안)
-// function addQA(question, bgColor, isAnswer) {
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     const messageDiv = document.createElement('div');
-
-//     messageDiv.style.backgroundColor = bgColor;
-//     messageDiv.style.color = 'white';
-//     messageDiv.style.padding = '10px';
-//     messageDiv.style.margin = '10px 0';
-//     messageDiv.style.borderRadius = '8px';
-
-//     // 질문과 대답에 따라 텍스트를 보여주는 것을 다르게 한다.
-//     messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
-
-//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
-//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
-
-//     conversationView.appendChild(messageDiv);
-//     return messageDiv; // 추가된 div 반환
-// }
-
-
-// 대화(Q, A)에 메시지를 추가하는 함수(제 2안)
-// function addQA(message, bgColor, isAnswer) {
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     const messageDiv = document.createElement('div');
-
-//     messageDiv.style.backgroundColor = bgColor;
-//     messageDiv.style.padding = '10px';
-//     messageDiv.style.margin = '10px 0';
-//     messageDiv.style.borderRadius = '8px';
-
-//     // 대답인 경우
-//     if (isAnswer) {
-//         messageDiv.style.color = 'black';         // 대답 텍스트 색깔
-
-//         messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
-
-//         // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
-//         const enterImage = document.createElement('img');
-//         enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
-//         enterImage.style.height = '24px'; // 이미지 높이 조절
-
-//         // 대답 텍스트 추가
-//         const answerText = document.createElement('span');
-//         answerText.innerHTML = '<br>';
-//         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
-
-//         messageDiv.appendChild(enterImage); // 이미지를 div에 추가
-//         messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
-//     } 
-//     // 질문인 경우
-//     else {
-//         messageDiv.style.color = '#515563';         // 질문 텍스트 색깔
-
-//         messageDiv.style.margin = '10px 0 0 0';     // 위쪽 마진
-
-//         // '사람' 아이콘 추가
-//         const userIcon = document.createElement('i');
-//         userIcon.className = 'material-icons'; // Material Icons 클래스
-//         userIcon.textContent = 'person'; // 사용자 아이콘
-//         userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
-
-//         messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
-
-//         // 질문 텍스트 추가
-//         const questionText = document.createElement('span');
-//         questionText.innerHTML = '<br>' + message;
-//         messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
-//     }
-
-//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
-//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
-
-//     conversationView.appendChild(messageDiv);
-//     return messageDiv; // 추가된 div 반환
-// }
-
-// 대화(Q, A)에 메시지를 추가하는 함수(제 3안)
+// 대화(Q, A)에 메시지를 추가하는 함수
 function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
@@ -595,9 +533,12 @@ function addQA(message, bgColor, isAnswer) {
 
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
-        answerText.innerHTML = '<br>';
+        answerText.id = 'answer-text'; // ID 설정
+        answerText.innerHTML = '<br>'; // 대답 텍스트 직접 지정
         answerText.style.padding = '10px'; // 패딩 추가
-        answerText.style.marginTop = '10px';
+        answerText.style.display = 'block'; // 블록 레벨 요소로 만들기
+        answerText.style.marginTop = '10px'; // 상단 여백 추가
+        answerText.style.whiteSpace = 'pre-wrap'; // 대답 텍스트 줄바꿈
 
         messageDiv.appendChild(enterImage);
         messageDiv.appendChild(answerText);
@@ -626,14 +567,13 @@ function addQA(message, bgColor, isAnswer) {
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
-    return messageDiv; // 추가된 div 반환
+    // return messageDiv; // 추가된 div 반환
 }
 
-
 // 대답(A)을 실시간으로 보여주는 함수
-const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
+const generateAnswerLive = (question, chatRoom) => {
     const answerLiveResponse_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
-    const messageElement = emptyAnswerDiv
+    // const messageElement = emptyAnswerDiv
     const conversationView = document.querySelector('.view.conversation-view');
 
     // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 실시간으로 화면에 표시한다.
@@ -666,7 +606,9 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             const parseData = chunk;
             console.log(parseData);
 
-            messageElement.innerHTML +=parseData;
+            // ID를 사용하여 해당 answerText 요소 선택하여 일일히 텍스트를 더한다.
+            const answerTextElement = document.getElementById('answer-text');
+            answerTextElement.innerHTML += parseData;
   
             if (!result.done) {
               return readChunk();
@@ -686,7 +628,7 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             setTimeout(function() {
                  // 채팅 이력을 다시 불러온다.
                  getChatQaHistory(chatRoom);
-            }, 50000);  // 일단 50초 time.sleep 한다.
+            }, 1000);  // 일단 50초 time.sleep 한다.
            
         })
         .catch((e) => {
@@ -741,10 +683,10 @@ function checkMemo(history_id) {
 }
 
 // 메모를 보여주는 함수
-function showMemo(history_id, flag, txt=''){
+function showMemo(history_id, flag, txt = '') {
     // 오버레이 생성
     const overlay = document.createElement('div');
-    overlay.id = 'overlay'; // 오버레이에 고유한 ID 부여
+    overlay.id = 'overlay';
     overlay.style.position = 'fixed';
     overlay.style.top = '0';
     overlay.style.left = '0';
@@ -786,8 +728,16 @@ function showMemo(history_id, flag, txt=''){
     // 버튼 컨테이너 생성 및 스타일 설정
     const buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'flex-end'; // 버튼을 오른쪽 정렬
-    buttonContainer.style.marginTop = '10px';
+    buttonContainer.style.justifyContent = 'flex-end';
+
+    // '나가기' 버튼 생성 및 추가
+    const exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.style.marginLeft = '10px';
+    exitButton.onclick = function() {
+        document.body.removeChild(popupContainer);
+        document.body.removeChild(overlay);
+    };
 
     // 메모가 있을 경우
     if (flag) {
@@ -798,7 +748,6 @@ function showMemo(history_id, flag, txt=''){
         editButton.textContent = '수정';
         editButton.style.marginLeft = '10px';
         editButton.onclick = function() {
-            // 메모 수정 로직
             const updatedMemo = memoInput.value;
             updateMemo(history_id, updatedMemo);
         };
@@ -808,12 +757,12 @@ function showMemo(history_id, flag, txt=''){
         deleteButton.textContent = '삭제';
         deleteButton.style.marginLeft = '10px';
         deleteButton.onclick = function() {
-            // 메모 삭제 로직
             deleteMemo(history_id);
         };
 
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
+        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
     // 메모가 없을 경우
     else {
@@ -821,17 +770,16 @@ function showMemo(history_id, flag, txt=''){
         const saveButton = document.createElement('button');
         saveButton.textContent = '저장';
         saveButton.onclick = function() {
-            // 메모가 빈값인지 아닌지 확인한다.
             const memoContent = memoInput.value;
-            if(memoContent === ''){
+            if (memoContent === '') {
                 alert('메모 내용을 입력해야 합니다.');
-            }
-            else {
+            } else {
                 saveMemo(history_id, memoContent);
             }
         };
 
         buttonContainer.appendChild(saveButton);
+        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
 
     // 팝업에 타이틀, textarea, 버튼 컨테이너 추가
@@ -845,12 +793,13 @@ function showMemo(history_id, flag, txt=''){
 
     // 팝업 외부 클릭 시 닫기 이벤트 처리
     window.onclick = function(event) {
-        if (event.target == overlay) {
+        if (event.target === overlay) {
             document.body.removeChild(popupContainer);
             document.body.removeChild(overlay);
         }
-    }
+    };
 }
+
 
 // 메모를 저장하는 함수
 function saveMemo(history_id, memoContent){
@@ -1374,7 +1323,7 @@ function handlePromptClick(){
         // '작성하는 대상 이름' 텍스트
         var targetNameText = document.createElement('h4');
         targetNameText.textContent = '작성하는 대상 이름';
-        targetNameText.style.marginLeft='60px';
+        targetNameText.style.marginLeft='90px';
         popup2_content.appendChild(targetNameText);
 
         // 입력 칸
@@ -1390,7 +1339,7 @@ function handlePromptClick(){
         // '작성 안내 텍스트' 텍스트
         var promptInfoText = document.createElement('h4');
         promptInfoText.textContent = '작성 안내 텍스트';
-        promptInfoText.style.marginLeft='60px';
+        promptInfoText.style.marginLeft='90px';
         popup2_content.appendChild(promptInfoText);
 
         // 고정된 텍스트를 보여주는 영역
