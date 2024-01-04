@@ -88,19 +88,21 @@
                         value="로그인"
                         style="background-color: #808080; color: white; border-radius:5px;"
                         class="login-button"
-                        onMouseOver="changeButtonStyle(this)"
-                        onMouseOut="resetButtonStyle(this)"
                         onclick="signin();">
             </form>
 
-            <div style="margin-top: 20px; margin-bottom: 20px;"></div> <!-- 간격 -->
+            <!-- 간격 -->
+            <div style="margin-top: 20px; margin-bottom: 20px;"></div> 
 
             <!-- 5. 회원가입 하기, 아이디 찾기, 비밀번호 찾기 -->
             <div class="links-container">
-                <a href="/privacyPolicy_test.html">회원가입 하기 </a>
                 <a href="/findId_test.html">아이디 찾기</a>
                 <a href="/changePassword_test.html">비밀번호 변경</a>
             </div>
+
+            <button class="signup-button" onclick="location.href='/privacyPolicy_test.html'">
+                <p>ENTER가 처음이신가요? <span class="navy">가입하기</span></p>
+            </button>
 
 
             <!-- 6. 소셜 로그인 버튼 -->
@@ -126,7 +128,7 @@
                     <a href="#none">회원정보 고객센터</a>
                 </div>
 
-                <span><a href="#none">Aivle Corp.</a></span>
+                <span><a href="#none">ENTER Corp.</a></span>
             </div>
         
         </div>
