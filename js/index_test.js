@@ -451,6 +451,8 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     sendButton.onclick = function() {
         // 입력한 값이 빈값인지 확인한다.
         if(document.getElementById('message').value===''){
+            document.getElementById('message').value='';  // 그래도 혹시 모르니 빈 값으로 설정 
+            document.getElementById('message').placeholder = '질문을 입력하고 ENTER만 치세요!'; // placeholder로 보여준다.
             alert('빈 값 입니다.');
         }
         else{
@@ -459,30 +461,25 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         }
     };
 
-    // 하단 입력창에 엔터 클릭했을 떄 리스너
+    // 하단 입력창에 엔터 클릭했을 때 리스너
     messageForm.addEventListener("keydown", (e) => {
-        // If Enter key is pressed without Shift key and the window 
-        if(e.key === "Enter" && !e.shiftKey) {
-            // 입력한 값이 빈값인 경우
-            if(document.getElementById('message').value==''){
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault(); // 폼의 기본 제출 이벤트 방지
+            const messageInput = document.getElementById('message');
+            
+            if (messageInput.value.trim() === '') {
+                // 입력 필드를 빈 문자열로 설정하고 placeholder 추가
+                messageInput.value = '';
+                messageInput.placeholder = '질문을 입력하고 ENTER만 치세요!';
                 alert('빈 값 입니다.');
-            }
+            } 
             else {
-                // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
-                const sendButton = document.querySelector('.send-button');
-                if (sendButton.style.display !== 'none') {
-                     // 입력한 값이 빈값인지 확인한다.
-                    if(document.getElementById('message').value===''){
-                        alert('빈 값 입니다.');
-                    }
-                    else{
-                        console.log('클릭');
-                        sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
-                    }
-                }
+                // 입력 필드에 값이 있으면 질문과 대답을 처리
+                sendQuestion(chatRoom);
             }
         }
     });
+
 }
 
 // 새로운 메시지를 전송하는 함수
@@ -512,7 +509,7 @@ function sendQuestion(chatRoom) {
     sendButton.style.display = 'none'; // 버튼 표시
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수(제 1안)
+// 대화(Q, A)에 메시지를 추가하는 함수
 function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
@@ -612,8 +609,6 @@ const generateAnswerLive = (question, chatRoom) => {
             // ID를 사용하여 해당 answerText 요소 선택하여 일일히 텍스트를 더한다.
             const answerTextElement = document.getElementById('answer-text');
             answerTextElement.innerHTML += parseData;
-
-            // messageElement.innerHTML +=parseData;
   
             if (!result.done) {
               return readChunk();
@@ -1328,7 +1323,7 @@ function handlePromptClick(){
         // '작성하는 대상 이름' 텍스트
         var targetNameText = document.createElement('h4');
         targetNameText.textContent = '작성하는 대상 이름';
-        targetNameText.style.marginLeft='60px';
+        targetNameText.style.marginLeft='90px';
         popup2_content.appendChild(targetNameText);
 
         // 입력 칸
@@ -1344,7 +1339,7 @@ function handlePromptClick(){
         // '작성 안내 텍스트' 텍스트
         var promptInfoText = document.createElement('h4');
         promptInfoText.textContent = '작성 안내 텍스트';
-        promptInfoText.style.marginLeft='60px';
+        promptInfoText.style.marginLeft='90px';
         popup2_content.appendChild(promptInfoText);
 
         // 고정된 텍스트를 보여주는 영역
