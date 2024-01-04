@@ -91,7 +91,7 @@ body {
     padding: 8px;
     flex-shrink: 0; /* 사이드바 기가 줄어들지 않도록 설정 */
     left: 0;
-    background-color: #edccea;
+    background-color: #e3e8f06e;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
@@ -102,6 +102,7 @@ body {
 .float-top {
     display: flex;
     flex-direction: column;
+    
 }
 
 #sidebar.hidden {

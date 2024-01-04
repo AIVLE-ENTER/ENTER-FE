@@ -346,11 +346,14 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     QaDatas.forEach(QaData => { 
         // 질문 div 생성
         const questionDiv = document.createElement('div');
-        questionDiv.style.backgroundColor = '#ffaaaa'; // 배경색: 분홍색
-        questionDiv.style.color = 'white'; // 텍스트 색: 흰색
-        questionDiv.style.padding = '10px';
+        questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
+        questionDiv.style.color = '#515563'; // 질문 텍스트 색
+        questionDiv.style.padding = '10px';   
         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+        questionDiv.style.display = 'flex'; // flexbox 사용
+        questionDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
+        questionDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
 
         // '사람' 아이콘 추가
         const userIcon = document.createElement('i');
@@ -364,12 +367,13 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         // 질문 텍스트 추가
         const questionText = document.createElement('span');
         questionText.innerHTML = '<br>' + QaData.question;
+        questionText.style.padding = '10px';   // 패딩 추가
         questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
-        answerDiv.style.backgroundColor = '#d280d2'; // 배경색: 보라색
-        answerDiv.style.color = 'white'; // 텍스트 색: 흰색
+        answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
+        answerDiv.style.color = 'black'; // 대답 텍스트 색
         answerDiv.style.padding = '10px';
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -385,6 +389,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
         answerText.innerHTML = '<br>' + QaData.answer;
+        answerText.style.padding = '10px'; // 패딩 추가
         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
 
         // 'edit Icon'을 배치한 div 생성
@@ -395,7 +400,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         // 'edit Icon' 추가
         const span = document.createElement('span');
         span.className = 'material-icons';
-        span.textContent = 'edit'; // Material Icons의 edit 아이콘
+        span.textContent = 'note_alt'; // Material Icons의 memo 아이콘
         span.style.color = '#808080'; // 진한 회색 적용
         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
 
@@ -472,12 +477,12 @@ function sendQuestion(chatRoom) {
 
     // 질문을 화면에 추가
     addQA(question,
-          '#ff7777',
+          '#F7F6FF',
            false); // 질문 추가
 
     // 대답을 위한 빈 div 추가
     const emptyAnswerDiv = addQA('ENTER',
-                                 '#cc55cc',
+                                 '#F2F7FF',
                                   true);
 
     // 대답을 실시간으로 보여주는 함수
@@ -511,57 +516,119 @@ function sendQuestion(chatRoom) {
 
 
 // 대화(Q, A)에 메시지를 추가하는 함수(제 2안)
+// function addQA(message, bgColor, isAnswer) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     const messageDiv = document.createElement('div');
+
+//     messageDiv.style.backgroundColor = bgColor;
+//     messageDiv.style.padding = '10px';
+//     messageDiv.style.margin = '10px 0';
+//     messageDiv.style.borderRadius = '8px';
+
+//     // 대답인 경우
+//     if (isAnswer) {
+//         messageDiv.style.color = 'black';         // 대답 텍스트 색깔
+
+//         messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
+
+//         // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+//         const enterImage = document.createElement('img');
+//         enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+//         enterImage.style.height = '24px'; // 이미지 높이 조절
+
+//         // 대답 텍스트 추가
+//         const answerText = document.createElement('span');
+//         answerText.innerHTML = '<br>';
+//         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+
+//         messageDiv.appendChild(enterImage); // 이미지를 div에 추가
+//         messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+//     } 
+//     // 질문인 경우
+//     else {
+//         messageDiv.style.color = '#515563';         // 질문 텍스트 색깔
+
+//         messageDiv.style.margin = '10px 0 0 0';     // 위쪽 마진
+
+//         // '사람' 아이콘 추가
+//         const userIcon = document.createElement('i');
+//         userIcon.className = 'material-icons'; // Material Icons 클래스
+//         userIcon.textContent = 'person'; // 사용자 아이콘
+//         userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+//         messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+//         // 질문 텍스트 추가
+//         const questionText = document.createElement('span');
+//         questionText.innerHTML = '<br>' + message;
+//         messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+//     }
+
+//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
+//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
+
+//     conversationView.appendChild(messageDiv);
+//     return messageDiv; // 추가된 div 반환
+// }
+
+// 대화(Q, A)에 메시지를 추가하는 함수(제 3안)
 function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
 
     messageDiv.style.backgroundColor = bgColor;
-    messageDiv.style.color = 'white';
-    messageDiv.style.padding = '10px';
-    messageDiv.style.margin = '10px 0';
     messageDiv.style.borderRadius = '8px';
+    messageDiv.style.padding = '10px';
+    messageDiv.style.display = 'flex'; // Flexbox 적용
+    messageDiv.style.flexDirection = 'column'; // 아이템을 수직으로 정렬
+    messageDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
 
+    // 대답인 경우
     if (isAnswer) {
-        // 대답인 경우
+        messageDiv.style.color = 'black';          // 텍스트 색깔 
         messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
 
-        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        // 이미지 추가 (경로 수정 필요)
         const enterImage = document.createElement('img');
-        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
-        enterImage.style.height = '24px'; // 이미지 높이 조절
+        enterImage.src = 'assets/img/ENTR_logo.png';
+        enterImage.style.height = '24px';
 
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
         answerText.innerHTML = '<br>';
-        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+        answerText.style.padding = '10px'; // 패딩 추가
+        answerText.style.marginTop = '10px';
 
-        messageDiv.appendChild(enterImage); // 이미지를 div에 추가
-        messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+        messageDiv.appendChild(enterImage);
+        messageDiv.appendChild(answerText);
     } 
     // 질문인 경우
     else {
-        messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+        messageDiv.style.color = '#515563';     // 텍스트 색깔
+        messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진만 적용
 
         // '사람' 아이콘 추가
         const userIcon = document.createElement('i');
-        userIcon.className = 'material-icons'; // Material Icons 클래스
-        userIcon.textContent = 'person'; // 사용자 아이콘
-        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+        userIcon.className = 'material-icons';
+        userIcon.textContent = 'person';
+        userIcon.style.marginBottom = '10px';
 
-        messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
+        messageDiv.appendChild(userIcon);
 
         // 질문 텍스트 추가
         const questionText = document.createElement('span');
         questionText.innerHTML = '<br>' + message;
-        messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+        questionText.style.padding = '10px'; // 패딩 추가
+        messageDiv.appendChild(questionText);
     }
 
-    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
+    // 질문과 대답에 대한 마진 적용
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
     return messageDiv; // 추가된 div 반환
 }
+
 
 // 대답(A)을 실시간으로 보여주는 함수
 const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
@@ -619,7 +686,7 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             setTimeout(function() {
                  // 채팅 이력을 다시 불러온다.
                  getChatQaHistory(chatRoom);
-            }, 1000);
+            }, 50000);  // 일단 50초 time.sleep 한다.
            
         })
         .catch((e) => {
@@ -1215,8 +1282,8 @@ function collectStatus() {
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
 function crawlerTemplateSetting() {
     var popup = document.createElement('div');
-    popup.style.width = '400px';
-    popup.style.height = '300px';
+    popup.style.width = '800px';
+    popup.style.height = '600px';
     popup.style.backgroundColor = 'white';
     popup.style.position = 'fixed';
     popup.style.top = '50%';
@@ -1239,7 +1306,7 @@ function crawlerTemplateSetting() {
     var companyInfoInput = document.createElement('input');
     companyInfoInput.type = 'text';
     companyInfoInput.style.width = '100%';
-    companyInfoInput.style.height = '50px';
+    companyInfoInput.style.height = '240px';
     popup.appendChild(companyInfoInput);
 
     // '타켓 정보 설정' 텍스트
@@ -1251,7 +1318,7 @@ function crawlerTemplateSetting() {
     var targetInfoInput = document.createElement('input');
     targetInfoInput.type = 'text';
     targetInfoInput.style.width = '100%';
-    targetInfoInput.style.height = '50px';
+    targetInfoInput.style.height = '100px';
     popup.appendChild(targetInfoInput);
 
     // 버튼 컨테이너
@@ -1314,7 +1381,7 @@ function handlePromptClick(){
         var targetNameInput = document.createElement('input');
         targetNameInput.type = 'text';
         targetNameInput.style.width = '80%';
-        targetNameInput.style.height = '100px';
+        targetNameInput.style.height = '400px';
         
         targetNameInput.style.margin = '0 auto'; // 가운데 정렬
         targetNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
@@ -1326,13 +1393,13 @@ function handlePromptClick(){
         promptInfoText.style.marginLeft='60px';
         popup2_content.appendChild(promptInfoText);
 
-        // 텍스트 입력 공간
-        var promptInfoInput = document.createElement('textarea');
-        promptInfoInput.style.width = '80%';
-        promptInfoInput.style.height = '50px';
-        promptInfoInput.style.margin = '0 auto'; // 가운데 정렬
-        promptInfoInput.style.display = 'block'; // 블록 레벨 요소로 만들기
-        popup2_content.appendChild(promptInfoInput);
+        // 고정된 텍스트를 보여주는 영역
+        var promptInfoTextFixed = document.createElement('div');
+        promptInfoTextFixed.textContent = '여기에 고정된 텍스트를 넣습니다.'; // 고정된 텍스트
+        promptInfoTextFixed.style.width = '80%';
+        promptInfoTextFixed.style.margin = '0 auto'; // 가운데 정렬
+        promptInfoTextFixed.style.display = 'block'; // 블록 레벨 요소로 만들기
+        popup2_content.appendChild(promptInfoTextFixed);
     }
 
     // 버튼 컨테이너 및 버튼들
@@ -1386,8 +1453,9 @@ function handleReportClick(){
     // 템플릿 TextArea
     var templateTextArea = document.createElement('textarea');
     templateTextArea.style.width = '80%';
-    templateTextArea.style.height = '100px';
+    templateTextArea.style.height = '300px';
     templateTextArea.style.marginLeft = '60px';
+    templateTextArea.style.resize = 'none'; // 크기 조정 비활성화
     popup3_content.appendChild(templateTextArea);
 
     // 작성 안내 텍스트
@@ -1396,12 +1464,14 @@ function handleReportClick(){
     instructionText.style.marginLeft = '60px';
     popup3_content.appendChild(instructionText);
 
-    // 작성 안내 TextArea
-    var instructionTextArea = document.createElement('textarea');
-    instructionTextArea.style.width = '80%';
-    instructionTextArea.style.height = '100px';
-    instructionTextArea.style.marginLeft = '60px';
-    popup3_content.appendChild(instructionTextArea);
+    // 고정된 텍스트를 보여주는 영역
+    var fixedText = document.createElement('div');
+    fixedText.textContent = '여기에 고정된 텍스트를 적습니다.'; // 고정된 텍스트
+    fixedText.style.width = '80%';
+    fixedText.style.margin = '0 auto 20px 60px'; // 좌측 여백과 하단 여백 설정
+    fixedText.style.display = 'block'; // 블록 레벨 요소로 만들기
+    fixedText.style.wordWrap = 'break-word'; // 긴 텍스트를 자동으로 줄바꿈
+    popup3_content.appendChild(fixedText);
 
     // 템플릿 저장 버튼 컨테이너
     var saveButtonContainer = document.createElement('div');
