@@ -163,6 +163,8 @@ function getChatRoomList(){
             li.style.marginTop = '150px'; // 위치를 아래로 조정
             li.style.fontSize = '1.6em'; // 텍스트 크기 키우기
             conversationsElement.appendChild(li);
+
+            document.querySelector('.logo').textContent=''; // 채팅 History를 보여주는 상단에 빈 값으로 보여줌
        }
        // 채팅방이 있을 떄 
        else{
@@ -186,7 +188,7 @@ function getChatRoomList(){
             span.style.marginLeft = '15px';
             span.style.marginTop = '15px';
 
-            // '|' 아이콘 클릭 시 이벤트 리스너 추가
+            // 삼자 아이콘('|') 아이콘 클릭 시 이벤트 리스너 추가
             span.onclick = function() {         
                 event.stopPropagation(); // 이벤트 버블링 방지
                    
@@ -220,8 +222,9 @@ function getChatRoomList(){
 
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getChatQaHistory(chatRoom){
-    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
+    document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
 
+    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
     axios({
         method: 'get',
@@ -239,7 +242,102 @@ function getChatQaHistory(chatRoom){
     });
 }
 
-// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수 (제 1안)
+// function displayChatQaHistory(QaDatas, chatRoom) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+
+//     // 채팅 이력을 그려서 화면에 보여준다.
+//     QaDatas.forEach(QaData => { 
+//         // 질문 div 생성
+//         const questionDiv = document.createElement('div');
+//         questionDiv.style.backgroundColor = '#ffaaaa'; // 배경색: 분홍색
+//         questionDiv.style.color = 'white'; // 텍스트 색: 흰색
+//         questionDiv.style.padding = '10px';
+//         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+//         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+//         questionDiv.innerHTML = '질문' + '<br><br>' + QaData.question;
+
+//         // 대답 div 생성
+//         const answerDiv = document.createElement('div');
+//         answerDiv.style.backgroundColor = '#d280d2'; // 배경색: 보라색
+//         answerDiv.style.color = 'white'; // 텍스트 색: 흰색
+//         answerDiv.style.padding = '10px';
+//         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
+//         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+//         answerDiv.style.display = 'flex'; // flexbox 사용
+//         answerDiv.style.justifyContent = 'space-between'; // 아이템을 양쪽 끝으로 정렬
+//         answerDiv.innerHTML = 'ENTER' + '<br><br>' + QaData.answer;
+
+//         // 대답 div 옆에 'edit Icon'을 배치한다.
+//         const span = document.createElement('span');
+//         span.className = 'material-icons';
+//         span.textContent = 'edit'; // Material Icons의 edit 아이콘
+//         span.style.color = '#808080'; // 진한 회색 적용
+//         span.style.marginLeft = '15px';
+//         span.style.marginTop = '15px';
+//         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+
+//         // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
+//         span.onclick = function() {
+//             checkMemo(QaData.history_id); // 메모를 확인한다.
+//         };
+
+//         // 아이콘을 대답 div에 추가
+//         answerDiv.appendChild(span);
+
+//         // 질문과 대답 div를 conversation view에 추가
+//         conversationView.appendChild(questionDiv);
+//         conversationView.appendChild(answerDiv);
+//     });
+
+//     // 최신 채팅이 먼저 보이게끔 적용한다.
+//     conversationView.scrollTop = conversationView.scrollHeight;
+
+//     // 입력창도 보이게 해야 한다.
+//     const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
+//     messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
+    
+//     // 입력창에 있는 값은 항상 빈값 상태로 유지
+//     var textareaElement = document.getElementById('message');
+//     textareaElement.value='';
+
+//     // 하단 입력창에 있는 '전송' 버튼에 대한 참조를 얻음
+//     const sendButton = document.querySelector('.send-button');
+
+    // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
+    // sendButton.onclick = function() {
+    //     // 입력한 값이 빈값인지 확인한다.
+    //     if(document.getElementById('message').value==''){
+    //         alert('빈 값 입니다.');
+    //     }
+    //     else{
+    //         console.log('클릭');
+    //         sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+    //     }
+    // };
+
+    // 하단 입력창에 엔터 클릭했을 떄 리스너
+    // messageForm.addEventListener("keydown", (e) => {
+    //     // If Enter key is pressed without Shift key and the window 
+    //     if(e.key === "Enter" && !e.shiftKey) {
+    //         // 입력한 값이 빈값인 경우
+    //         if(document.getElementById('message').value==''){
+    //             alert('빈 값 입니다.');
+    //         }
+    //         else {
+    //             // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
+    //             const sendButton = document.querySelector('.send-button');
+    //             if (sendButton.style.display !== 'none') {
+    //                 e.preventDefault();
+    //                 sendQuestion(chatRoom);
+    //             }
+    //         }
+    //     }
+    // });
+// }
+
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 보여주는 함수 (제 2안)
 function displayChatQaHistory(QaDatas, chatRoom) {
     const conversationView = document.querySelector('.view.conversation-view');
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
@@ -253,7 +351,20 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         questionDiv.style.padding = '10px';
         questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-        questionDiv.innerHTML = '질문' + '<br><br>' + QaData.question;
+
+        // '사람' 아이콘 추가
+        const userIcon = document.createElement('i');
+        userIcon.className = 'material-icons'; // Material Icons 클래스
+        userIcon.textContent = 'person'; // 사용자 아이콘
+        userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
+        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+        questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+        // 질문 텍스트 추가
+        const questionText = document.createElement('span');
+        questionText.innerHTML = '<br>' + QaData.question;
+        questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
@@ -263,27 +374,43 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
         answerDiv.style.display = 'flex'; // flexbox 사용
-        answerDiv.style.justifyContent = 'space-between'; // 아이템을 양쪽 끝으로 정렬
-        answerDiv.innerHTML = 'ENTER' + '<br><br>' + QaData.answer;
+        answerDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
+        answerDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
 
-        // 대답 div 옆에 'edit Icon'을 배치한다.
+        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        const enterImage = document.createElement('img');
+        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+        enterImage.style.height = '24px'; // 이미지 높이 조절
+
+        // 대답 텍스트 추가
+        const answerText = document.createElement('span');
+        answerText.innerHTML = '<br>' + QaData.answer;
+        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+
+        // 'edit Icon'을 배치한 div 생성
+        const editIconDiv = document.createElement('div');
+        editIconDiv.style.marginTop = '10px'; // edit 아이콘 위쪽 마진 추가
+        editIconDiv.style.marginLeft = 'auto'; // 오른쪽 정렬
+
+        // 'edit Icon' 추가
         const span = document.createElement('span');
         span.className = 'material-icons';
         span.textContent = 'edit'; // Material Icons의 edit 아이콘
         span.style.color = '#808080'; // 진한 회색 적용
-        span.style.marginLeft = '15px';
-        span.style.marginTop = '15px';
         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
 
-        // 아이콘 클릭 이벤트 리스너
+        // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
         span.onclick = function() {
-            checkMemo(QaData.history_id);
+            checkMemo(QaData.history_id); // 메모를 확인한다.
         };
 
-        // 아이콘을 대답 div에 추가
-        answerDiv.appendChild(span);
+        editIconDiv.appendChild(span); // 아이콘을 div에 추가
 
-        // 질문과 대답 div를 conversation view에 추가
+        answerDiv.appendChild(enterImage); // 이미지를 div에 추가
+        answerDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+        answerDiv.appendChild(editIconDiv); // edit 아이콘을 div에 추가
+
+        // 질문, 아이콘 및 대답 div를 conversation view에 추가
         conversationView.appendChild(questionDiv);
         conversationView.appendChild(answerDiv);
     });
@@ -304,19 +431,31 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
-        console.log('클릭');
-        sendQuestion(chatRoom);
+        // 입력한 값이 빈값인지 확인한다.
+        if(document.getElementById('message').value==''){
+            alert('빈 값 입니다.');
+        }
+        else{
+            console.log('클릭');
+            sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+        }
     };
 
-    // 하단 입력창에다 엔터 클릭했을 떄 리스너
+    // 하단 입력창에 엔터 클릭했을 떄 리스너
     messageForm.addEventListener("keydown", (e) => {
         // If Enter key is pressed without Shift key and the window 
         if(e.key === "Enter" && !e.shiftKey) {
-            // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
-            const sendButton = document.querySelector('.send-button');
-            if (sendButton.style.display !== 'none') {
-                e.preventDefault();
-                sendQuestion(chatRoom);
+            // 입력한 값이 빈값인 경우
+            if(document.getElementById('message').value==''){
+                alert('빈 값 입니다.');
+            }
+            else {
+                // 하단 입력창에 '전송' 버튼이 보일 떄에만 이 if문을 적용
+                const sendButton = document.querySelector('.send-button');
+                if (sendButton.style.display !== 'none') {
+                    e.preventDefault();
+                    sendQuestion(chatRoom);
+                }
             }
         }
     });
@@ -349,8 +488,30 @@ function sendQuestion(chatRoom) {
     sendButton.style.display = 'none'; // 버튼 표시
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수
-function addQA(question, bgColor, isAnswer) {
+// 대화(Q, A)에 메시지를 추가하는 함수 (제 1안)
+// function addQA(question, bgColor, isAnswer) {
+//     const conversationView = document.querySelector('.view.conversation-view');
+//     const messageDiv = document.createElement('div');
+
+//     messageDiv.style.backgroundColor = bgColor;
+//     messageDiv.style.color = 'white';
+//     messageDiv.style.padding = '10px';
+//     messageDiv.style.margin = '10px 0';
+//     messageDiv.style.borderRadius = '8px';
+
+//     // 질문과 대답에 따라 텍스트를 보여주는 것을 다르게 한다.
+//     messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
+
+//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
+//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
+
+//     conversationView.appendChild(messageDiv);
+//     return messageDiv; // 추가된 div 반환
+// }
+
+
+// 대화(Q, A)에 메시지를 추가하는 함수(제 2안)
+function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
 
@@ -360,9 +521,42 @@ function addQA(question, bgColor, isAnswer) {
     messageDiv.style.margin = '10px 0';
     messageDiv.style.borderRadius = '8px';
 
-    messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
+    if (isAnswer) {
+        // 대답인 경우
+        messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
 
-    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용함
+        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        const enterImage = document.createElement('img');
+        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+        enterImage.style.height = '24px'; // 이미지 높이 조절
+
+        // 대답 텍스트 추가
+        const answerText = document.createElement('span');
+        answerText.innerHTML = '<br>';
+        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+
+        messageDiv.appendChild(enterImage); // 이미지를 div에 추가
+        messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+    } 
+    // 질문인 경우
+    else {
+        messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+
+        // '사람' 아이콘 추가
+        const userIcon = document.createElement('i');
+        userIcon.className = 'material-icons'; // Material Icons 클래스
+        userIcon.textContent = 'person'; // 사용자 아이콘
+        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+        messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+        // 질문 텍스트 추가
+        const questionText = document.createElement('span');
+        questionText.innerHTML = '<br>' + message;
+        messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+    }
+
+    // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
@@ -375,7 +569,7 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
     const messageElement = emptyAnswerDiv
     const conversationView = document.querySelector('.view.conversation-view');
 
-    // AI에서 만든 대답 데이터를 받아와서 실시간으로 화면에 표시한다.
+    // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 실시간으로 화면에 표시한다.
     fetch(answerLiveResponse_URL, {
         method: 'POST',
         headers: {
@@ -420,9 +614,13 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
- 
-            // 채팅 이력을 다시 불러온다.
-            getChatQaHistory(chatRoom);
+
+            // 1초 (1000 밀리초) 후에 실행할 코드 또는 함수
+            setTimeout(function() {
+                 // 채팅 이력을 다시 불러온다.
+                 getChatQaHistory(chatRoom);
+            }, 1000);
+           
         })
         .catch((e) => {
             console.log('error');
@@ -432,8 +630,12 @@ const generateAnswerLive = (emptyAnswerDiv, question, chatRoom) => {
             const sendButton = document.querySelector('.send-button');
             sendButton.style.display = 'block'; // 버튼 표시
 
-            // 채팅 이력을 다시 불러온다.
-            getChatQaHistory(chatRoom);
+            // 1초 (1000 밀리초) 후에 실행할 코드 또는 함수
+            setTimeout(function() {
+                // 채팅 이력을 다시 불러온다.
+                getChatQaHistory(chatRoom);
+            }, 1000);
+
         });
 };
 
@@ -453,13 +655,13 @@ function checkMemo(history_id) {
     .then(response => {
         console.log('성공:', response);
         
-        // Case 1. 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
         if(response.data.data.is_memo===true){
             showMemo(history_id,
                           true,
                           response.data.data.memo.memo_content);
         }
-        // Case 2.) 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
         else{
             showMemo(history_id, 
                           false);
@@ -614,7 +816,7 @@ function updateMemo(history_id, memoContent){
     // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
     const updateMemo_URL=`http://localhost:8000/main/memo/update/`;
 
-    if(memoContent==''){
+    if(memoContent==''){  // 메모 내용이 빈값인 경우
         alert('빈값을 입력하셨습니다.');
     }
     else{
@@ -777,22 +979,18 @@ function question_enter(){
 }
 
 // 'AI 설정'을 click하면 호출되는 함수
-function toggleModal() {
+function AIconfig() {
     var modal = document.getElementById("myModal");  // 모달창 
     var isModalOpen = modal.style.display === "block";
 
-    var popup1_content = document.querySelector(".popup1-content"); // '크롤러 설정'에 대한 content
-    var popup2_content = document.querySelector(".popup2-content"); // '템플릿'에 대한 content
-    var popup3_content = document.querySelector(".popup3-content"); // '자주 쓰는 문구'에 대한 content
-
-    if (isModalOpen) {     // modal.style.display==='block'일 떄 (즉 Model 화면을 나가려고 할 떄 )
+    // modal.style.display==='block'일 떄 (즉 Model 화면을 나가려고 할 떄 )
+    if (isModalOpen) {     
         modal.style.display="none";
         removeBlurFromElements();
-    } else {               // modal.style.display==='none'일 떄  (즉 Model 화면으로 들어왔을 떄 )
+    } 
+    // modal.style.display==='none'일 떄  (즉 Model 화면으로 들어왔을 떄 )
+    else {                
         modal.style.display = "block";
-
-        popup3_content.style.display='none';
-
         applyBlurToElements();
     }
 }
@@ -814,20 +1012,447 @@ function removeBlurFromElements() {
 }
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
-function handleCrawlerClick(){
-    
+function handleCrawlerClick() {
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none';    // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.innerHTML = '';
+    popup1_content.style.display = 'flex';
+    popup1_content.style.flexDirection = 'column';
+    popup1_content.style.justifyContent = 'center';
+    popup1_content.style.alignItems = 'center';
+
+    // 버튼 스타일
+    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;';
+
+    // '대상 설정' 버튼 생성 및 스타일링
+    var targetSettingButton = document.createElement('button');
+    targetSettingButton.textContent = '대상 설정';
+    targetSettingButton.style.cssText = buttonStyle;
+    targetSettingButton.onclick = function() { 
+        targetSetting(); // '대상 설정'에 대한 팝업을 띄운다.
+    };
+    popup1_content.appendChild(targetSettingButton);
+
+    // '수집 현황' 버튼 생성 및 스타일링
+    var collectionStatusButton = document.createElement('button');
+    collectionStatusButton.textContent = '수집 현황';
+    collectionStatusButton.style.cssText = buttonStyle;
+    collectionStatusButton.onclick = function() { 
+        collectStatus(); // '수집 현황'에 대한 팝업을 띄운다.
+     };
+    popup1_content.appendChild(collectionStatusButton);
+
+    // '크롤러 템플릿 설정' 버튼 생성 및 스타일링
+    var crawlerTemplateSettingButton = document.createElement('button');
+    crawlerTemplateSettingButton.textContent = '크롤러 템플릿 설정';
+    crawlerTemplateSettingButton.style.cssText = buttonStyle;
+    crawlerTemplateSettingButton.onclick = function() {
+        crawlerTemplateSetting();  // '크롤러 템플릿 설정'에 대한 팝업을 띄운다.
+    };
+    popup1_content.appendChild(crawlerTemplateSettingButton);
 }
 
-// 모달 창에서 '템플릿'을 click 했을 떄 호출되는 함수
-function handleTemplateClick(){
+// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수
+function targetSetting() {
+    // 팝업 div 생성
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-around';
+    // popup.style.alignItems = 'center';
 
+    // '수집 대상' 텍스트
+    var collectionTargetText = document.createElement('h3');
+    collectionTargetText.textContent = '수집 대상';
+    popup.appendChild(collectionTargetText);
+
+    // 드롭다운 메뉴
+    var dropdown = document.createElement('select');
+    dropdown.style.width = '80%'; // 드롭다운 가로 크기 확장
+    var option1 = document.createElement('option');
+    option1.textContent = '옵션 1';
+    dropdown.appendChild(option1);
+    var option2 = document.createElement('option');
+    option2.textContent = '옵션 2';
+    dropdown.appendChild(option2);
+    popup.appendChild(dropdown);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end'; // 오른쪽 정렬
+    buttonContainer.style.alignItems = 'flex-end'; // 하단 정렬
+    buttonContainer.style.width = '100%';
+
+    // '수집시작' 버튼
+    var startButton = document.createElement('button');
+    startButton.textContent = '수집시작';
+    startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
+    startButton.onclick = function() {
+        console.log('수집 시작');
+    };
+    buttonContainer.appendChild(startButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수
+function collectStatus() {
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-around';
+    // popup.style.alignItems = 'center';
+
+
+    // 첫 번째 드롭다운과 텍스트
+    var firstDropdownText = document.createElement('h4');
+    firstDropdownText.textContent = '수집된 대상 선정';
+    popup.appendChild(firstDropdownText);
+
+    var firstDropdown = document.createElement('select');
+    firstDropdown.style.width = '80%';
+    // 예시 옵션 추가
+    // 실제 적용시 백엔드에서 데이터를 가져오는 로직으로 변경 필요
+    var firstOption1 = document.createElement('option');
+    firstOption1.textContent = '옵션 1';
+    firstDropdown.appendChild(firstOption1);
+    popup.appendChild(firstDropdown);
+
+    // 두 번째 드롭다운과 텍스트
+    var secondDropdownText = document.createElement('h4');
+    secondDropdownText.textContent = '데이터 선택';
+    popup.appendChild(secondDropdownText);
+
+    var secondDropdown = document.createElement('select');
+    secondDropdown.style.width = '80%';
+    // 예시 옵션 추가
+    // 실제 적용시 백엔드에서 데이터를 가져오는 로직으로 변경 필요
+    var secondOption1 = document.createElement('option');
+    secondOption1.textContent = '옵션 A';
+    secondDropdown.appendChild(secondOption1);
+    popup.appendChild(secondDropdown);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.alignItems = 'flex-end';
+    buttonContainer.style.width = '100%';
+    buttonContainer.style.marginTop = '20px'; // 드롭다운과의 간격을 위해 마진 추가
+
+    // 버튼 스타일
+    var buttonStyle = 'background-color: #FFFFFF; color: #000000; padding: 10px 20px; border: 1px solid black; cursor: pointer;';
+
+    // '조회' 버튼
+    var queryButton = document.createElement('button');
+    queryButton.textContent = '조회';
+    queryButton.style.cssText = buttonStyle;
+    queryButton.onclick = function() {
+        
+    };
+    buttonContainer.appendChild(queryButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.style.cssText = buttonStyle;
+    exitButton.style.marginLeft = '10px'; // 버튼 사이의 간격
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
+function crawlerTemplateSetting() {
+    var popup = document.createElement('div');
+    popup.style.width = '400px';
+    popup.style.height = '300px';
+    popup.style.backgroundColor = 'white';
+    popup.style.position = 'fixed';
+    popup.style.top = '50%';
+    popup.style.left = '50%';
+    popup.style.transform = 'translate(-50%, -50%)';
+    popup.style.border = '1px solid black';
+    popup.style.padding = '20px';
+    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+    popup.style.zIndex = 1000;
+    popup.style.display = 'flex';
+    popup.style.flexDirection = 'column';
+    popup.style.justifyContent = 'space-between';
+
+    // '회사 정보 설정' 텍스트
+    var companyInfoText = document.createElement('h4');
+    companyInfoText.textContent = '회사 정보 설정';
+    popup.appendChild(companyInfoText);
+
+    // 회사 정보 입력칸
+    var companyInfoInput = document.createElement('input');
+    companyInfoInput.type = 'text';
+    companyInfoInput.style.width = '100%';
+    companyInfoInput.style.height = '50px';
+    popup.appendChild(companyInfoInput);
+
+    // '타켓 정보 설정' 텍스트
+    var targetInfoText = document.createElement('h4');
+    targetInfoText.textContent = '타켓 정보 설정';
+    popup.appendChild(targetInfoText);
+
+    // 타켓 정보 입력칸
+    var targetInfoInput = document.createElement('input');
+    targetInfoInput.type = 'text';
+    targetInfoInput.style.width = '100%';
+    targetInfoInput.style.height = '50px';
+    popup.appendChild(targetInfoInput);
+
+    // 버튼 컨테이너
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.alignItems = 'center';
+    buttonContainer.style.width = '100%';
+    buttonContainer.style.marginTop = '10px';
+
+    // '적용' 버튼
+    var applyButton = document.createElement('button');
+    applyButton.textContent = '적용';
+    applyButton.style.marginRight = '10px';
+    applyButton.onclick = function() {
+        console.log('적용 버튼 클릭');
+        // 여기에 적용 로직 추가
+    };
+    buttonContainer.appendChild(applyButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        document.body.removeChild(popup);
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup.appendChild(buttonContainer);
+
+    // 팝업을 body에 추가
+    document.body.appendChild(popup);
+}
+
+// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수
+function handlePromptClick(){
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup2_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+
+    var displayCount=2;
+    for (var i = 0; i < displayCount; i++) {
+        // '작성하는 대상 이름' 텍스트
+        var targetNameText = document.createElement('h4');
+        targetNameText.textContent = '작성하는 대상 이름';
+        targetNameText.style.marginLeft='60px';
+        popup2_content.appendChild(targetNameText);
+
+        // 입력 칸
+        var targetNameInput = document.createElement('input');
+        targetNameInput.type = 'text';
+        targetNameInput.style.width = '80%';
+        targetNameInput.style.height = '100px';
+        
+        targetNameInput.style.margin = '0 auto'; // 가운데 정렬
+        targetNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        popup2_content.appendChild(targetNameInput);
+
+        // '작성 안내 텍스트' 텍스트
+        var promptInfoText = document.createElement('h4');
+        promptInfoText.textContent = '작성 안내 텍스트';
+        promptInfoText.style.marginLeft='60px';
+        popup2_content.appendChild(promptInfoText);
+
+        // 텍스트 입력 공간
+        var promptInfoInput = document.createElement('textarea');
+        promptInfoInput.style.width = '80%';
+        promptInfoInput.style.height = '50px';
+        promptInfoInput.style.margin = '0 auto'; // 가운데 정렬
+        promptInfoInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        popup2_content.appendChild(promptInfoInput);
+    }
+
+    // 버튼 컨테이너 및 버튼들
+    var buttonContainer = document.createElement('div');
+    buttonContainer.style.display = 'flex';
+    buttonContainer.style.justifyContent = 'flex-end';
+    buttonContainer.style.marginTop = '20px';
+
+    // '적용' 버튼
+    var applyButton = document.createElement('button');
+    applyButton.textContent = '적용';
+    applyButton.style.marginRight = '10px';
+    applyButton.onclick = function() {
+        console.log('적용 버튼 클릭');
+    };
+    buttonContainer.appendChild(applyButton);
+
+    // '나가기' 버튼
+    var exitButton = document.createElement('button');
+    exitButton.textContent = '나가기';
+    exitButton.onclick = function() {
+        popup2_content.style.display = 'none';
+    };
+    buttonContainer.appendChild(exitButton);
+
+    // 버튼 컨테이너를 팝업에 추가
+    popup2_content.appendChild(buttonContainer);
+}
+
+// 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수
+function handleReportClick(){
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup3_content = document.querySelector(".popup3-content");
+    popup3_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+
+    // 템플릿 텍스트
+    var templateText = document.createElement('h4');
+    templateText.textContent = '템플릿';
+    templateText.style.marginLeft = '60px';
+    popup3_content.appendChild(templateText);
+
+    // 템플릿 TextArea
+    var templateTextArea = document.createElement('textarea');
+    templateTextArea.style.width = '80%';
+    templateTextArea.style.height = '100px';
+    templateTextArea.style.marginLeft = '60px';
+    popup3_content.appendChild(templateTextArea);
+
+    // 작성 안내 텍스트
+    var instructionText = document.createElement('h4');
+    instructionText.textContent = '작성 안내';
+    instructionText.style.marginLeft = '60px';
+    popup3_content.appendChild(instructionText);
+
+    // 작성 안내 TextArea
+    var instructionTextArea = document.createElement('textarea');
+    instructionTextArea.style.width = '80%';
+    instructionTextArea.style.height = '100px';
+    instructionTextArea.style.marginLeft = '60px';
+    popup3_content.appendChild(instructionTextArea);
+
+    // 템플릿 저장 버튼 컨테이너
+    var saveButtonContainer = document.createElement('div');
+    saveButtonContainer.style.display = 'flex';
+    saveButtonContainer.style.justifyContent = 'flex-end';
+    saveButtonContainer.style.marginTop = '10px';
+
+    // 템플릿 저장 버튼
+    var saveTemplateButton = document.createElement('button');
+    saveTemplateButton.textContent = '템플릿 저장';
+    saveTemplateButton.onclick = function() {
+        console.log('템플릿 저장 버튼 클릭');
+    };
+    saveButtonContainer.appendChild(saveTemplateButton);
+    popup3_content.appendChild(saveButtonContainer);
+
+
+    // 밑줄 선
+    var underline = document.createElement('hr');
+    popup3_content.appendChild(underline);
+
+    // 레포트 만들기 버튼 컨테이너
+    var createButtonContainer = document.createElement('div');
+    createButtonContainer.style.display = 'flex';
+    createButtonContainer.style.justifyContent = 'flex-end';
+    createButtonContainer.style.marginTop = '10px';
+
+    // 레포트 만들기 버튼
+    var createReportButton = document.createElement('button');
+    createReportButton.textContent = '레포트 만들기';
+    createReportButton.onclick = function() {
+        console.log('레포트 만들기 버튼 클릭');
+    };
+    createButtonContainer.appendChild(createReportButton);
+    popup3_content.appendChild(createButtonContainer);
 }
 
 // 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
 function handleUseClick(){
-    // '메인 창'을 block으로 보이게끔 한다.
+    var popup1_content = document.querySelector(".popup1-content");
+    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+
+    var popup2_content = document.querySelector(".popup2-content");
+    popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
+
     var popup3_content = document.querySelector(".popup3-content");
-    popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+
+    var popup4_content = document.querySelector(".popup4-content");
+    popup4_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    popup4_content.style.display = 'block'; // 팝업 내용을 표시합니다.
 
     // 백엔드에서 구현한 '자주 쓰는 문구 리스트 불러오기'를 구현한다.
     var frequentMessage_URL='http://localhost:8000/main/frequentMessage/';
@@ -854,7 +1479,7 @@ function handleUseClick(){
 
 // 모달 창에서 자주 쓰는 문구를 목록으로 보여주는 함수
 function renderFrequentMessages(messageList){
-    const container = document.querySelector('.popup3-content'); // 문구를 표시할 컨테이너 선택
+    const container = document.querySelector('.popup4-content'); // 문구를 표시할 컨테이너 선택
     container.innerHTML = ''; // 기존 내용 클리어
 
     // 하나씩 자주 쓰는 문구를 화면에 그린다.
@@ -881,11 +1506,11 @@ function renderFrequentMessages(messageList){
 
             <button type="button"
                     style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="editFrequentMessage('${message.template_id}')">수정하기</button>
+                    onclick="editFrequentMessage('${message.template_id}')">수정</button>
 
             <button type="button" 
                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
-                    onclick="deleteFrequentMessage('${message.template_id}')">삭제하기</button>
+                    onclick="deleteFrequentMessage('${message.template_id}')">삭제</button>
 
             <div style="margin-left: 20px;"></div>
         `;
@@ -900,14 +1525,14 @@ function renderFrequentMessages(messageList){
 
     const addButton = document.createElement('span');
     addButton.className = 'add';
-    addButton.textContent = '추가하기';
+    addButton.textContent = '추가';
     addButton.onclick = function() {
         addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
     };
 
     const reflectButton = document.createElement('span');
     reflectButton.className = 'reflect';
-    reflectButton.textContent = '반영하기';
+    reflectButton.textContent = '반영';
     // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
     reflectButton.onclick = function() {
         reflectFrequentMessage();

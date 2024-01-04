@@ -265,6 +265,10 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+//calllback으로 받은 소셜 로그인 정보
+const type = new URL(window.location.href).searchParams.get('type');
+const socialId = new URL(window.location.href).searchParams.get('socialId');
+
 // '가입하기' 버튼 click했을 떄 이를 수행하는 함수 
 function signUp(){
     // 1. setting
@@ -292,14 +296,6 @@ function signUp(){
       alert('회원가입 실패 - 이름을 입력하지 않았기 떄문');
     }
     else {
-      // console.log('user_id : ' + input_id.value);
-      // console.log('password : ' + password);
-      // console.log('user_email : ' + input_email.value);
-      // console.log('certification_number : ' + input_verifyCode.value);
-      // console.log('user_name : ' + name);
-      // console.log('company_id : ' + getSelectedCompanyValue());
-
-
       // 3. 백엔드와 마련한 '회원가입' 코드와 연계한다.
       const result=function(){
           axios.post(signup_URL, 
@@ -310,6 +306,8 @@ function signUp(){
                     'user_name':name,
                     'company_id':companySelect.value,
                     'privacy_agreement':true,
+                    'type': type,
+                    'social_id': socialId,
                     })
                 .then(function (response) {
                   console.log(response);
@@ -329,4 +327,13 @@ function signUp(){
     }
 }
 
-  
+
+// '인증번호 받기, 인증번호 확인, 가입하기' button mouseOver 했을 떄 실행되는 함수
+function changeButtonStyle(button) {
+  button.style.boxShadow = '5px 5px 10px rgba(0, 0, 0, 0.5)'; // 마우스 오버 시 그림자 추가
+}
+
+// '인증번호 받기, 인증번호 확인, 가입하기' button  mouseOut 했을 떄 실행되는 함수 
+function resetButtonStyle(button) {
+  button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
+}

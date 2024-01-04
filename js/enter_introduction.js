@@ -36,3 +36,13 @@ function getUserInfo(){
         window.location.reload(); // 새로 고침한다.
     });
 }
+
+// '프롬프트 사용하기' 버튼 클릭 시 이벤트 처리
+document.getElementById('promptButton').addEventListener('click', () => {
+    window.location.href='../index_test.html';
+});
+
+// 하단에 '프롬프트 사용하기' 버튼 클릭 시 이벤트 처리
+document.getElementById('belowPromptButton').addEventListener('click', () => {
+    window.location.href='../index_test.html';
+});

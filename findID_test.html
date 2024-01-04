@@ -14,7 +14,7 @@
         <meta name="author"
               content="" />
 
-        <title>아이디 찾기 페이지</title>
+        <title>ENTER 아이디 찾기</title>
 
         <!-- 글꼴 (구글 폰트 적용 ) -->
         <link rel="preconnect"
@@ -64,7 +64,7 @@
     <body>
        <!-- Header -->
        <header>
-        <img src="assets/img/Logo2.png" 
+        <img src="assets/img/ENTR_logo.png" 
              alt="로고"
              id="header-logo">
       </header>
@@ -103,6 +103,8 @@
         <input type="submit"
                value="아이디 찾기"
                style="background-color: #808080; color: white;"
+               onMouseOver="changeButtonStyle(this)"
+               onMouseOut="resetButtonStyle(this)"
                onclick="findId()">
 
 

@@ -1,3 +1,65 @@
+// 3 ~ 58줄 추가좀 했습니다
+
+// inquiryBoard_test.html을 불러왔을 떄 로그인 여부를 판별한다.
+window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('새로고침');
+
+    checkLoginStatusAndUpdateUI();
+});
+
+// 로그인 여부를 판별하는 함수
+function checkLoginStatusAndUpdateUI() {
+    const token = getWithExpire('accessToken'); // 토큰을 받아온다.
+
+    // 로그인 상태이면?
+    if (token!==null) {
+        // 백엔드 코드를 이용해서 유저 정보 불러오기
+        getUserInfo(token);
+    } 
+    // 비로그인 상태이면?
+    else {
+          // sidebar에 '로그인을 해야 사용 가능 합니다' 문구를 보여준다.
+          document.getElementById('sidebar').innerHTML = `
+          <div style="text-align:center; padding:20px;">
+              <h2>로그인을 해야 사용 가능합니다</h2>
+              <a href="../signin_test.html" style="text-decoration: none; color: black;">
+                  로그인
+              </a>
+          </div>
+      `;
+
+      // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
+      document.querySelector('header .header-link').style.display='none';
+    }
+}
+
+// 백엔드에서 유저 정보 불러오기
+function getUserInfo(token){
+    const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
+
+    // 백엔드 유저 정보 불러오기 
+    axios({
+        method: 'get',
+        url: getUserInfo_URL,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        }
+    })
+    .then(response => {
+        // 요청이 성공하면 이 부분이 실행됩니다.
+        // console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+
+        user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
+        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
+    })
+    .catch(error => {
+        window.location.reload(); // 새로 고침한다.
+    });
+}
+
+
+
+
 const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL 
 const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
