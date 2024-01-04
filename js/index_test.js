@@ -403,6 +403,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         answerText.innerHTML = '<br>' + QaData.answer;
         answerText.style.padding = '10px'; // 패딩 추가
         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+        answerText.style.whiteSpace = 'pre-wrap';  // 대답 줄 바꿈
 
         // 'edit Icon'을 배치한 div 생성
         const editIconDiv = document.createElement('div');
@@ -449,7 +450,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     // 하단 입력창에 있는 '전송' 버튼을 click 했을 떄 
     sendButton.onclick = function() {
         // 입력한 값이 빈값인지 확인한다.
-        if(document.getElementById('message').value==''){
+        if(document.getElementById('message').value===''){
             alert('빈 값 입니다.');
         }
         else{
@@ -471,13 +472,13 @@ function displayChatQaHistory(QaDatas, chatRoom) {
                 const sendButton = document.querySelector('.send-button');
                 if (sendButton.style.display !== 'none') {
                      // 입력한 값이 빈값인지 확인한다.
-                    if(document.getElementById('message').value==''){
+                    if(document.getElementById('message').value===''){
                         alert('빈 값 입니다.');
                     }
                     else{
                         console.log('클릭');
                         sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
-        }
+                    }
                 }
             }
         }
@@ -511,85 +512,7 @@ function sendQuestion(chatRoom) {
     sendButton.style.display = 'none'; // 버튼 표시
 }
 
-// 대화(Q, A)에 메시지를 추가하는 함수 (제 1안)
-// function addQA(question, bgColor, isAnswer) {
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     const messageDiv = document.createElement('div');
-
-//     messageDiv.style.backgroundColor = bgColor;
-//     messageDiv.style.color = 'white';
-//     messageDiv.style.padding = '10px';
-//     messageDiv.style.margin = '10px 0';
-//     messageDiv.style.borderRadius = '8px';
-
-//     // 질문과 대답에 따라 텍스트를 보여주는 것을 다르게 한다.
-//     messageDiv.innerHTML = isAnswer ? 'ENTER' + '<br><br>' : '질문' + '<br><br>' + question;
-
-//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
-//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
-
-//     conversationView.appendChild(messageDiv);
-//     return messageDiv; // 추가된 div 반환
-// }
-
-
-// 대화(Q, A)에 메시지를 추가하는 함수(제 2안)
-// function addQA(message, bgColor, isAnswer) {
-//     const conversationView = document.querySelector('.view.conversation-view');
-//     const messageDiv = document.createElement('div');
-
-//     messageDiv.style.backgroundColor = bgColor;
-//     messageDiv.style.padding = '10px';
-//     messageDiv.style.margin = '10px 0';
-//     messageDiv.style.borderRadius = '8px';
-
-//     // 대답인 경우
-//     if (isAnswer) {
-//         messageDiv.style.color = 'black';         // 대답 텍스트 색깔
-
-//         messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
-
-//         // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
-//         const enterImage = document.createElement('img');
-//         enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
-//         enterImage.style.height = '24px'; // 이미지 높이 조절
-
-//         // 대답 텍스트 추가
-//         const answerText = document.createElement('span');
-//         answerText.innerHTML = '<br>';
-//         answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
-
-//         messageDiv.appendChild(enterImage); // 이미지를 div에 추가
-//         messageDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
-//     } 
-//     // 질문인 경우
-//     else {
-//         messageDiv.style.color = '#515563';         // 질문 텍스트 색깔
-
-//         messageDiv.style.margin = '10px 0 0 0';     // 위쪽 마진
-
-//         // '사람' 아이콘 추가
-//         const userIcon = document.createElement('i');
-//         userIcon.className = 'material-icons'; // Material Icons 클래스
-//         userIcon.textContent = 'person'; // 사용자 아이콘
-//         userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
-
-//         messageDiv.appendChild(userIcon); // 아이콘을 div에 추가
-
-//         // 질문 텍스트 추가
-//         const questionText = document.createElement('span');
-//         questionText.innerHTML = '<br>' + message;
-//         messageDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
-//     }
-
-//     // 질문에만 마진을 적용하지 않고, 대답에는 마진을 적용한다.
-//     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
-
-//     conversationView.appendChild(messageDiv);
-//     return messageDiv; // 추가된 div 반환
-// }
-
-// 대화(Q, A)에 메시지를 추가하는 함수(제 3안)
+// 대화(Q, A)에 메시지를 추가하는 함수(제 1안)
 function addQA(message, bgColor, isAnswer) {
     const conversationView = document.querySelector('.view.conversation-view');
     const messageDiv = document.createElement('div');
@@ -618,6 +541,7 @@ function addQA(message, bgColor, isAnswer) {
         answerText.style.padding = '10px'; // 패딩 추가
         answerText.style.display = 'block'; // 블록 레벨 요소로 만들기
         answerText.style.marginTop = '10px'; // 상단 여백 추가
+        answerText.style.whiteSpace = 'pre-wrap'; // 대답 텍스트 줄바꿈
 
         messageDiv.appendChild(enterImage);
         messageDiv.appendChild(answerText);
