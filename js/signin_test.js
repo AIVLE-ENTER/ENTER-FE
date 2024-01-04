@@ -35,14 +35,14 @@ function signin() {
 }
 
 // '로그인' button mouseOver 했을 떄 실행되는 함수
-function changeButtonStyle(button) {
-    button.style.boxShadow = '3px 3px 8px rgba(0, 0, 0, 0.5)'; // 마우스 오버 시 그림자 추가
-}
+// function changeButtonStyle(button) {
+//     button.style.boxShadow = '3px 3px 8px rgba(0, 0, 0, 0)'; // 마우스 오버 시 그림자 추가
+// }
   
 // '로그인' button  mouseOut 했을 떄 실행되는 함수 
-function resetButtonStyle(button) {
-    button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
-}
+// function resetButtonStyle(button) {
+//     button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
+// }
 
 //calllback으로 받은 인가코드
 const code = new URL(window.location.href).searchParams.get('code');
