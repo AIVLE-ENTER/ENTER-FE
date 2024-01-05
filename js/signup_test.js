@@ -1,25 +1,28 @@
 // 전역적으로 관리되는 변수
 var interval;   // Timer를 시작하고 종료하는데 큰 공헌을 하는 변수
+const errorId = document.getElementById("error-id");
+const errorPw = document.getElementById("error-pw");
+const errorName = document.getElementById("error-name");
+const errorEmail = document.getElementById("error-email");
+const errorCerti = document.getElementById("error-certi");
+var regIdPw = /^[a-zA-Z0-9]{4,12}$/; 
 
 // '중복 확인'을 click 했을 떄 '중복 확인'을 확인하는 함수 
 function checkDuplicateID() {
-   // 1. setting
-   var input_id=document.getElementById(`input_id`).value;                                      // 사용자가 입력한 아이디를 가져옴 
-   var regIdPw = /^[a-zA-Z0-9]{4,12}$/;                                                         // 아이디 정규표현식 
-   const duplicateID_URL=`http://localhost:8000/account/signUp/checkId/?id=${input_id}`;       // '중복 확인'을 체크해주는 백엔드 URL
+    // 1. setting
+    var input_id=document.getElementById(`input_id`).value;                                      // 사용자가 입력한 아이디를 가져옴                                                     // 아이디 정규표현식 
+    const duplicateID_URL=`http://localhost:8000/account/signUp/checkId/?id=${input_id}`;       // '중복 확인'을 체크해주는 백엔드 URL
 
-   console.log(`url : ${duplicateID_URL}`);
-
-   // 2. 사용자가 어떤 아이디를 입력했는가에 따라 서로 다른 로직 구현
-   if(input_id==""){                                       // 사용자가 입력한 것이 빈칸일 경우 
-        alert("아이디를 입력하세요.")
-        uid.focus();
+    // 2. 사용자가 어떤 아이디를 입력했는가에 따라 서로 다른 로직 구현
+    if(input_id==""){                                       // 사용자가 입력한 것이 빈칸일 경우 
+        errorId.style.display = 'inline-block';
+        errorId.textContent = '아이디를 입력해주세요.';
         return false;
     }
    
-    else if(!regIdPw.test(input_id)){                     // 사용자가 입력했으나 유효성 검사가 맞지 않은 경우
-        alert(`4~12자 영문 대소문자, 숫자만 입력하세요.`);
-        uid.focus();
+    else if(!regIdPw.test(input_id)){  
+        errorId.style.display = 'inline-block';
+        errorId.textContent = '4~12자 영문 대소문자, 숫자만 입력하세요.';                   // 사용자가 입력했으나 유효성 검사가 맞지 않은 경우
         return false;
     }
     else{                                                // 사용자가 입력한 것이 최종적으로 유효성 검사가 통과된 경우
@@ -32,7 +35,12 @@ function checkDuplicateID() {
                 // 3. 사용자가 입력한 아이디가 '중복 확인' 됐는지 여부에 따라 서로 다른 로직 구현 
                 const is_available = response.data.is_available;
                 if (is_available) {  // 사용 가능할 때 처리할 이벤트 (아이디 중복 X)
-                  alert('아이디 설정 완료!!');
+                  errorId.style.display = 'none';
+                  Toast.fire({
+                    width: 400,
+                    icon: 'success',
+                    title: '아이디 설정이 완료되었습니다.'
+                  });
                 
                   // 3-1. '중복 확인' 버튼  숨기기(Hidden)
                   const duplicate_btn = document.getElementById('check-duplicate');
@@ -46,7 +54,8 @@ function checkDuplicateID() {
                   document.getElementById('input_id').disabled = true;
                 }
                 else {             // 사용 불가할 때 처리할 이벤트 (아이디 중복)
-                  alert(`중복된 아이디가 있습니다.`);
+                  errorId.style.display = 'inline-block';
+                  errorId.textContent = '중복된 아이디가 있습니다. 다시 입력해주세요.';
 
                   // 1. 입력했던 아이디를 빈칸으로 재설정한다.
                   document.getElementById('input_id').value = '';
@@ -105,9 +114,13 @@ function requestVerificationCode(){
 
     // 2. 이메일 유효성 검사
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
-      console.log('유효한 이메일 주소입니다.');
-
-      alert('인증 번호를 전송했습니다.');
+      errorEmail.style.display = 'none';
+      Toast.fire({
+        width: 400,
+        icon: 'success',
+        title: '인증 번호를 전송했습니다.'
+      });
+      document.getElementById('receiveVerificationCodeBtn').disabled=true;
 
       // 3. 백엔드와 소통하는 로직을 여기에 추가
       const result=function(){
@@ -119,7 +132,6 @@ function requestVerificationCode(){
                   document.querySelector('.timer-container').style.display = 'inline-block';                  // 타이머를 보이게 함
                   document.querySelector('#timer').style.display='inline-block';                              // 타이머를 보이게함
                   document.getElementById('input_email').disabled=true;                                       // '이메일 입력' 칸 비활성화
-                  document.getElementById('receiveVerificationCodeBtn').disabled=true;                        // '인증번호 받기' 칸 비활성화
                   document.getElementById('verifyCodeInput').disabled=false;                                  // '인증번호 입력' 칸 활성화
                   document.getElementById('checkAuthNum').style.display = 'inline-block';                     // '인증번호 확인' 버튼 보이기
                                                                                       
@@ -127,13 +139,19 @@ function requestVerificationCode(){
                 })
                 .catch(function (error) {
                   console.log(error);
+                  Toast.fire({
+                    width: 400,
+                    icon: 'error',
+                    title: '에러가 발생했습니다. 다시 시도해주세요.'
+                  });
                 });
       }
 
       result();  // result 함수 호출 
     } 
     else {
-        alert('유효하지 않은 이메일 주소입니다.');
+        errorEmail.style.display = 'inline-block';
+        errorEmail.textContent = input_email==''? '이메일을 입력해주세요.':'유효하지 않은 이메일 주소입니다.';
 
         document.getElementById('input_email').value = '';    // 입력했던 아이디를 빈칸으로 재설정한다.
     }
@@ -141,7 +159,7 @@ function requestVerificationCode(){
 
 // 타이머 작동 함수 1
 function timer1() {
-  var oneMinute = 60,
+  var oneMinute = 180,
       display = document.querySelector('#timer'),
       emailInput = document.querySelector('#input_email');                                    // 이메일 입력 필드 선택
       verfiyCodeInput=document.querySelector('#verifyCodeInput');                             // 인증번호 입력 필드 선택
@@ -162,7 +180,11 @@ function timer2(duration, display, emailInput, verfiyCodeInput) {
       display.textContent = minutes + ":" + seconds;
 
       if (--timer < 0) {
-          alert("인증 시간이 지났습니다. 다시 시도하세요");                                       // alert
+          Toast.fire({
+            width: 400,
+            icon: 'error',
+            title: '인증 시간이 지났습니다. 다시 시도해주세요.'
+          });                                    
 
           clearInterval(interval);                                                              // 타이머 종료
           display.style.display = 'none';                                                       // 타이머 숨기기
@@ -203,8 +225,13 @@ function checkAuthNum(){
     
           // 3. success 속성에 따라 서로 다른 로직 부여
           if(is_success==true){
-            alert('인증 확인이 성공하였습니다. 회원가입 버튼이 활성화 되었습니다.');                // alert
-                                                                                                
+            errorCerti.style.display = 'none';
+            Toast.fire({
+              width: 400,
+              icon: 'success',
+              title: '인증이 완료되었습니다.\n회원가입을 이어서 진행해주세요.'
+            }); 
+            
             clearInterval(interval);                                                             // 타이머 중지
             document.querySelector('.timer-container').style.display = 'none';                   // 타이머를 안보이게 한다.
             timer.style.display='none';                                                          // 타이머 중지      
@@ -219,8 +246,9 @@ function checkAuthNum(){
 
             signUpBtn.disabled=false;                                                            // 가입하기 버튼 활성화
           }
-          else{  
-              alert("인증확인이 실패했습니다. 다시 시도하세요");                                      // alert     
+          else{
+              errorCerti.style.display = 'inline-block';
+              errorCerti.textContent = '인증번호가 올바르지 않습니다. 인증 받기를 다시 시도해주세요.';
               
               clearInterval(interval);                                                             // 타이머 중지
               document.querySelector('.timer-container').style.display = 'none';                   // 타이머를 안보이게 한다.
@@ -283,19 +311,57 @@ function signUp(){
     var signup_URL=`http://localhost:8000/account/signUp/`;                               // 백엔드 '회원가입' URL
 
     // 2. 유효성 검사
-    if(input_id.disabled==false){                                                          // 아이디 입력칸이 활성화 됐을 떄 
-      alert('회원 가입 실패 - 아이디 입력칸 활성화 때문');
-    } 
-    else if(password==''){                                                                 // 비밀번호가 빈칸일 떄 
-      alert('회원가입 실패 - 비밀번호 빈칸 떄문');
+    var is_error = false;
+    console.log(input_id);
+    if(input_id.value=="") {
+      errorId.style.display = 'inline-block';
+      errorId.textContent = '아이디를 입력해주세요.';
+    } else if(input_id.disabled==false){                                                       // 아이디 입력칸이 활성화 됐을 떄 
+      errorId.style.display = 'inline-block';
+      errorId.textContent = '아이디 중복 확인을 진행해주세요.';
+      is_error = true;
+    } else {
+      errorId.style.display = 'none';
     }
-    else if(password!=confirmPassword) {                                                   // 비밀번호와 확인 비밀번호가 다를 떄 
-      alert('회원가입 실패 - 비밀번호와 확인 비밀번호가 다르기 떄문');
+
+    console.log(password);
+    if(password==''){                                                                 // 비밀번호가 빈칸일 떄 
+      errorPw.style.display = 'inline-block';
+      errorPw.textContent = '비밀번호를 입력해주세요.';
+      is_error = true;
+    } else if(!regIdPw.test(password)){                                               // 사용자가 입력했으나 유효성 검사가 맞지 않은 경우
+      errorPw.style.display = 'inline-block';
+      errorPw.textContent = '4~12자 영문 대소문자, 숫자만 입력하세요.';    
+      is_error = true;               
+    } else if(password!=confirmPassword) {                                                   // 비밀번호와 확인 비밀번호가 다를 떄 
+      errorPw.style.display = 'inline-block';
+      errorPw.textContent = '비밀번호와 비밀번호 재확인이 일치하지 않습니다.';
+      is_error = true;
+    } else {
+      errorPw.style.display = 'none';
     }
-    else if(name==''){                                                                     // 이름을 입력하지 않았을 떄 
-      alert('회원가입 실패 - 이름을 입력하지 않았기 떄문');
+    
+    if(name==''){                                                                     // 이름을 입력하지 않았을 떄 
+      errorName.style.display = 'inline-block';
+      errorName.textContent = '이름을 입력해주세요.';
+      is_error = true;
+    } else {
+      errorName.style.display = 'none';
     }
-    else {
+
+    if(input_email.value=='') {
+      errorEmail.style.display = 'inline-block';
+      errorEmail.textContent = '이메일을 입력해주세요.';
+      is_error = true;
+    } else if(input_email.disabled==false) {
+      errorEmail.style.display = 'inline-block';
+      errorEmail.textContent = '이메일 인증을 진행해주세요.';
+      is_error = true;
+    } else {
+      errorEmail.style.display = 'none';
+    }
+
+    if (is_error == false){
       // 3. 백엔드와 마련한 '회원가입' 코드와 연계한다.
       const result=function(){
           axios.post(signup_URL, 
@@ -311,8 +377,10 @@ function signUp(){
                     })
                 .then(function (response) {
                   console.log(response);
+                  // window.location.href = '../signin_test.html';
 
                   // 4. user_id를 받아와서 AI 측에 보낸다. (이거 정확히 뭔지는 모르겠는데)
+                  // AI 연동 안한경우 이 부분 주석 처리해서 테스트 해야함!!
                   axios({
                     method: 'get',
                     url: `http://localhost:8002/new_chat/${input_id.value}`,
@@ -320,12 +388,11 @@ function signUp(){
                     .then(response => {
                         console.log('성공');
   
-                        // 5. 회원 가입 완료 하면 Home 페이지(index.html)로 Routing 한다.
-                        alert('회원 가입 완료!!');
-                        window.location.href = '../index_test.html';
+                        // 5. 회원 가입 완료 하면 로그인 페이지(signin.html)로 Routing 한다.
+                        window.location.href = '../signin_test.html';
                     })
                     .catch(error => {
-                        console.error('Error :', error);
+                        console.log('Error :', error);
 
                         const errorMessageDiv = document.getElementById('error-message');
                         errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
@@ -333,7 +400,11 @@ function signUp(){
                     });            
                 })
                 .catch(function (error) {
-                  alert('에러');
+                  Toast.fire({
+                    width: 400,
+                    icon: 'error',
+                    title: '에러가 발생했습니다. 다시 시도해주세요.'
+                  }); 
                   console.log(error);
                 });
         }

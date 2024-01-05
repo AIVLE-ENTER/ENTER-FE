@@ -1,13 +1,18 @@
+@font-face {
+    font-family: 'scd';
+    src: url('../assets/fonts/SCDream5.otf') format('truetype');
+}
+
+
 /* header에 대한 css 적용 */
 header {
     width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
-    height:100px;
+    height:50px;
     margin: 0; /* 상하 마진 제거 */
     background-color: white; /* 흰색 배경 */
-    position: fixed;
-    padding: 10px 0; /* 상하 패딩 */
+    padding: 7.5px 0; /* 상하 패딩 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    position: fixed; /* 상단에 고정 */
+    position: relative; /* 상단에 고정 */
     top: 0; /* 상단에 위치 */
     left: 0; /* 왼쪽에 위치 */
     z-index: 100;
@@ -16,10 +21,16 @@ header {
     display: flex; /* 가로 정렬 */
 }
 
+header a {
+    height: 35px;
+}
+
+
 #header-logo {
-    width: 100px; /* 로고 이미지의 너비를 비율에 맞게 자동 조정 */
-    height: 50px; /* 로고 이미지의 높이 */
+    /* width: 100px; 로고 이미지의 너비를 비율에 맞게 자동 조정 */
+    height: 35px; /* 로고 이미지의 높이 */
     margin-left:20px;
+    cursor: pointer;
 }
 
 .header-link {
@@ -47,7 +58,7 @@ header {
 }
 
 body{
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'scd', sans-serif;
     font-size:14px;
     background-color: #f5f6f7;
     line-height: 1.5em;
@@ -60,23 +71,37 @@ a{
     color: #222;
 }
 
-/*member sign in*/
+.btn {
+    cursor: pointer;
+}
+
+/*member sign up*/
+.inner {
+    width: 100%;
+}
+
 .member{
-    width: 400px;
+    width: 440px;
     /* border: 1px solid #000; */
     margin: auto; /*중앙 정렬*/
-    padding: 0 20px;
-    margin-bottom: 20px;
+    padding: 50px 20px;
+    min-height: calc(100vh - 50px); /* header 높이 만큼 빼준다. */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .member .logo{
     /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
     display: block;
-    margin :50px auto;
+    margin : 0 auto 40px auto;
+    text-align: center;
 }
 
 .member .field{
     margin :5px 0; /*상하로 좀 띄워주기*/
+    width: 100%;
 }
 
 .member b{
@@ -90,17 +115,19 @@ a{
     border: 1px solid #dadada;
     padding: 15px;
     width: 100%;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-family: 'scd' !important;
 }
 
 .member input[type=button],
 .member input[type=submit]{
-background-color: #2db400;
+background-color: #454997 ;
 color:#fff
 }
 
 .member input:focus, .member select:focus{
-    border: 1px solid #2db400;
+    border: 1px solid red;
 }
 
 .field.birth div{ /*field 이면서 birth*/
@@ -112,8 +139,25 @@ color:#fff
     flex:1;
 } */
 
-.field.tel-number div {
+/* .field.tel-number div {
     display: flex;
+} */
+
+.member .code_wrap {
+    position: relative;
+    width: 100%;
+}
+.member .code_wrap .timer-container {
+    position: absolute;
+    top:42%;
+    right: 13px;
+    font-size: 13px;
+    color: red;
+    transform: translate(0,-50%);
+}
+.member .code_wrap input {
+    width: 100%;
+    padding-right: 50px;
 }
 
 .field.tel-number div input:nth-child(1){
@@ -149,15 +193,37 @@ color:#fff
     background-color: #fff;
 }
 
+.btn-custom {
+    background-color: #454997 ; 
+    color: white; 
+    padding: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    font-family: 'scd' !important; 
+    border: none;
+}
+
+.error-message {
+    margin-bottom: 10px;
+    display: none;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -.5px;
+    color: #ff003e;
+    vertical-align: middle;
+}
+
 .member-footer {
     text-align: center;
-    font-size: 12px;
+    font-size: 10.5px;
     margin-top: 20px;
 }
 
 .member-footer div a:hover{
     text-decoration: underline;
-    color:#2db400
+    color:#454997;
+    text-decoration: none;
 }
 
 .member-footer div a:after{
