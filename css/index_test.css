@@ -567,7 +567,8 @@ p.secondary {
     right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    background: var(--color-gpt3);
+    /* background: var(--color-gpt3); */
+    background-color: white !important;
     border-radius: 5px;
     display: inline-block;
     font-size: 1em;
@@ -579,7 +580,7 @@ p.secondary {
 
 button.send-button:hover {
     border: none;
-    background: var(--color-gpt3);
+    /* background: var(--color-gpt3); */
     color: var(--color-white);
 }
 
@@ -847,10 +848,11 @@ p {
     display: none;
     position: absolute;
     z-index: 1000;
-    min-width: 150px; /* 메뉴 너비 */
+    min-width: 75px; /* 메뉴 너비 */
     background-color: black; /* 배경색 */
     border: 1px solid #ddd; /* 경계선 */
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* 그림자 효과 */
+    text-align: center;
 }
 
 .context-menu ul {

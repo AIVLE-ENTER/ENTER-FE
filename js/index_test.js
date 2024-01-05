@@ -320,9 +320,15 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
         // 'edit Icon' 추가
         const span = document.createElement('span');
-        span.className = 'material-icons';
-        span.textContent = 'note_alt'; // Material Icons의 memo 아이콘
-        span.style.color = '#808080'; // 진한 회색 적용
+        
+        // 이미지 태그 생성
+        const img = document.createElement('img');
+        img.src = 'assets/img/memo_icon.png'; // 이미지의 URL을 설정하세요.
+        img.alt = '메모 아이콘'; // 이미지에 대한 대체 텍스트를 설정하세요.
+        img.width = 22; // 너비를 22px로 설정
+        img.height = 22; // 높이를 22px로 설정                       
+                        
+        span.appendChild(img); // span 요소에 이미지를 추가합니다.
         span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
 
         // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
