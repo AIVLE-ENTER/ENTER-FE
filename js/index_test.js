@@ -265,6 +265,9 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
 
+    if(QaDatas.length==0){
+        alert('채팅 히스토리 데이터가 없습니다.');
+    }
 
     // 채팅 이력을 그려서 화면에 보여준다.
     QaDatas.forEach(QaData => { 
@@ -985,7 +988,7 @@ function handleCrawlerClick() {
     popup1_content.style.alignItems = 'center';
 
     // 버튼 스타일
-    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;';
+    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: Noto Sans KR, sans-serif';
 
     // '대상 설정' 버튼 생성 및 스타일링
     var targetSettingButton = document.createElement('button');
@@ -1219,6 +1222,14 @@ function collectStatus(chatRoomList) {
     queryButton.style.padding = '10px 20px';
     queryButton.style.border = '1px solid black';
     queryButton.style.cursor = 'pointer';
+    queryButton.onmouseover = function() {
+        this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
+        this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+    };
+    queryButton.onmouseout = function() {
+        this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
+        this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+    };
     queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
 
         // 1. '조회' 버튼을 클릭했을 떄 필요한 정보들이 잘 넘어가는지 확인 
@@ -1248,6 +1259,14 @@ function collectStatus(chatRoomList) {
     exitButton.style.border = '1px solid black';
     exitButton.style.cursor = 'pointer';
     exitButton.style.marginLeft = '10px';
+    exitButton.onmouseover = function() {
+        this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
+        this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+    };
+    exitButton.onmouseout = function() {
+        this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
+        this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+    };
     exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
         document.body.removeChild(popup);
     };
@@ -1813,8 +1832,14 @@ function handleModelClick() {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
                 modelButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: default;';
-                modelButton.onmouseover = function() { this.style.backgroundColor = 'black'; this.style.color = 'white'; };
-                modelButton.onmouseout = function() { this.style.backgroundColor = 'white'; this.style.color = 'black'; };
+                modelButton.onmouseover = function() {
+                    this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
+                    this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+                };
+                modelButton.onmouseout = function() { 
+                    this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
+                    this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+                };
                 section.appendChild(modelButton);
             }
 
@@ -1836,8 +1861,14 @@ function handleModelClick() {
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
-        exitButton.onmouseover = function() { this.style.backgroundColor = 'black'; this.style.color = 'white'; };
-        exitButton.onmouseout = function() { this.style.backgroundColor = 'white'; this.style.color = 'black'; };
+        exitButton.onmouseover = function() { 
+            this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
+            this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+        };
+        exitButton.onmouseout = function() { 
+            this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
+            this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+        };
         exitButton.onclick = function() {
             // 팝업 닫기 로직
             popup5_content.style.display = 'none';
@@ -1883,11 +1914,11 @@ function renderFrequentMessages(messageList){
                    disabled>
 
             <button type="button"
-                    style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
+                    style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'Noto Sans KR', sans-serif;"
                     onclick="editFrequentMessage('${message.template_id}')">수정</button>
 
             <button type="button" 
-                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px;"
+                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'Noto Sans KR', sans-serif;"
                     onclick="deleteFrequentMessage('${message.template_id}')">삭제</button>
 
             <div style="margin-left: 20px;"></div>
