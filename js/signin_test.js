@@ -5,32 +5,49 @@ const syncBtn = document.getElementById('syncAccountBtn');
 const signUpBtn = document.getElementById('signUpBtn');
 const modal = document.getElementById('socialModal');
 const syncView = document.getElementById('syncView');
+const errorLogin = document.getElementById("error");
+const errorModal = document.getElementById("error-modal");
 
 // '로그인' 버튼 클릭했을 떄 호출되는 함수 (일반 로그인)
 function signin() {
-    console.log('로그인 버튼 클릭');
-    
     const userData = {
         user_id: document.getElementById('input_id').value,
         password: document.getElementById('input_password').value,
         type: "",
     };
 
+    if (userData.user_id == "" | userData.password == "") {
+        errorLogin.style.display = 'inline-block';
+    
+        if (userData.user_id == "") {
+            errorLogin.textContent = '아이디를 입력해주세요.';
+        } else if (userData.password == "") {
+            errorLogin.textContent = '비밀번호를 입력해주세요.';
+        }
+        return;
+    }
+      
     axios.post(loginURL, userData)
     .then(response => {
-        // localStroage에 토큰(Token)을 적재한다.
-        const accessToken = response['data']['data']['token'];
-        setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
+        if (response.data.success) {
+            // localStroage에 토큰(Token)을 적재한다.
+            const accessToken = response['data']['data']['token'];
+            setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
 
-        console.log(response.data);
+            console.log(response.data);
 
-        // index_test.html로 Routing 한다.
-        alert('로그인 완료!');
-        window.location.href = '../index_test.html';
+            // index_test.html로 Routing 한다.
+            window.location.href = '../index_test.html';
+        } else {
+            errorLogin.style.display = 'inline-block';
+            errorLogin.textContent = '아이디 또는 비밀번호를 잘못 입력했습니다.';
+        }
+        
     })
     .catch(error => {
         console.log(error);
-        alert('로그인에 실패하였습니다.')
+        errorLogin.style.display = 'inline-block';
+        errorLogin.textContent = '로그인에 실패했습니다. 다시 시도해주세요.';
     });
 }
 
@@ -60,13 +77,11 @@ const socialLogin = async(type) => {
 
         // 2-1. 로그인 성공 (로그인 후 프롬프트 페이지로 이동)
         if (response.data.message == "exists") {
-            console.log("로그인 성공");
             // localStroage에 토큰(Token)을 적재한다.
             const accessToken = response.data.data.token;
             setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
 
             // index_test.html로 Routing 한다.
-            alert('로그인 완료!');
             window.location.href = '../index_test.html';
         } else {
             // 2-2. 로그인 실패 (모달창 띄우기)
@@ -77,7 +92,9 @@ const socialLogin = async(type) => {
         }
     })
     .catch(error => {
-        console.log('실패', error);
+        console.log(error);
+        errorLogin.style.display = 'inline-block';
+        errorLogin.textContent = '로그인에 실패했습니다. 다시 시도해주세요.';
     });
 }
 
@@ -89,15 +106,17 @@ if (code) {
 // 모달창 이벤트 처리
 // 모달 닫기 버튼 클릭 시 이벤트 처리
 closeModalBtn.addEventListener('click', function () {
-    modal.style.display = 'none';
-    syncView.style.display = 'none';
+    // modal.style.display = 'none';
+    // syncView.style.display = 'none';
+    location.href = '../signin_test.html';
 });
 
 // 모달 바깥 영역 클릭 시 모달 닫기
 window.addEventListener('click', function (event) {
     if (event.target === modal) {
-        modal.style.display = 'none';
-        syncView.style.display = 'none';
+        // modal.style.display = 'none';
+        // syncView.style.display = 'none';
+        location.href = '../signin_test.html';
     }
 }); 
 
@@ -115,17 +134,34 @@ function syncLogin() {
         password: document.getElementById("syncPassword").value,
     }
 
+    if (userData.user_id == "" | userData.password == "") {
+        error.style.display = 'inline-block';
+    
+        if (userData.user_id == "") {
+            errorModal.textContent = '아이디를 입력해주세요.';
+        } else if (userData.password == "") {
+            errorModal.textContent = '비밀번호를 입력해주세요.';
+        }
+        return;
+    }
+
     axios.post(loginURL, userData)
     .then(response => {
-        // localStroage에 토큰(Token)을 적재한다.
-        const accessToken = response['data']['data']['token'];
-        setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
-        alert('로그인 완료!');
-        window.location.href = '../index_test.html';
+        if (response.data.success & response.data.message == "exists") {
+            // localStroage에 토큰(Token)을 적재한다.
+            const accessToken = response['data']['data']['token'];
+            setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간
+            window.location.href = '../index_test.html';
+        } else {
+            errorModal.style.display = 'inline-block';
+            errorModal.textContent = '아이디 또는 비밀번호를 잘못 입력했습니다.';
+        }
+        
     })
     .catch(error => {
         console.log(error);
-        alert('로그인에 실패하였습니다.')
+        errorModal.style.display = 'inline-block';
+        errorModal.textContent = '로그인에 실패했습니다. 다시 시도해주세요.';
     });
 
 }
