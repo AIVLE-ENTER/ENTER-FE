@@ -54,7 +54,10 @@
     <link href="/css/privacyPolicy_test.css"
           rel="stylesheet"
           type="text/css">
-
+      
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     
 </head>
 <body>
@@ -72,8 +75,7 @@
 
                 <div style="height: 20px;"></div>
 
-                <div class="text">
-                - 필수 항목은 서비스 제공을 위해 필요한 항목으로, 동의를 거부하시는 경우 서비스 이용에 제한이 있을 수 있습니다.
+                <div class="text">- 필수 항목은 서비스 제공을 위해 필요한 항목으로, 동의를 거부하시는 경우 서비스 이용에 제한이 있을 수 있습니다.
 
                 (필수) 개인정보 수집 및 이용 동의
             
@@ -81,17 +83,15 @@
                 목적 : ENTER플랫폼 일반 회원가입 및 서비스의 이용,유지,종료
                 항목 : 회원가입 신청인의 성명(국문 및 영문), 아이디, 이메일, 비밀번호, 회사코드(기업고객에 한함)
                 보유기간 : ENTER플랫폼 제공 서비스 이용기간 동안, 분쟁 대비를 위해 서비스
-
-                
                 </div>
 
-                <div style="text-align: right;">
-                <p><label><input type="checkbox" 
-                            id="termsCheckbox"
-                            required> 약관에 동의<label></p>
-                <button type="button" 
-                            class="btn btn-secondary"
-                            onclick="goToSignUp();">회원가입 하기</button>                   
+                <div class="display-flex">
+                  <p><label><input type="checkbox" 
+                              id="termsCheckbox"
+                              required> 약관에 동의<label></p>
+                  <button type="button" 
+                              class="btn btn-secondary"
+                              onclick="goToSignUp();">회원가입 하기</button>                   
                 </div>
 
             </form>
@@ -99,6 +99,7 @@
     </main>
     
     <!-- JS와 연동 -->
+    <script src="/js/common.js"></script>
     <script src="/js/privacyPolicy_test.js"></script>
 </body>
 </html>

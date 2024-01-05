@@ -1,3 +1,12 @@
+//calllback으로 받은 아이디
+const selectId = new URL(window.location.href).searchParams.get('id'); // 아이디 찾기에서 넘어온 경우
+
+// 아이디 찾기에서 넘어온 경우
+if (selectId) {
+    document.getElementById('input_id').value = selectId;
+}
+
+
 // 전역적으로 관리되는 변수
 var interval;   // Timer를 시작하고 종료하는데 큰 공헌을 하는 변수
  
