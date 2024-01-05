@@ -1235,8 +1235,6 @@ function collectStatus(chatRoomList) {
 
 
 
-
-
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
 function crawlerTemplateSetting() {
     // AI 측으로부터 크롤러 템플릿 설정 정보를 가져온다.
