@@ -921,7 +921,8 @@ function AIconfig() {
         document.querySelector(".popup2-content").style.display='none';
         document.querySelector(".popup3-content").style.display='none';
         document.querySelector(".popup4-content").style.display='none';
-
+        document.querySelector(".popup5-content").style.display='none';
+        
         applyBlurToElements();
     }
 }
@@ -958,6 +959,9 @@ function handleCrawlerClick() {
 
     var popup4_content = document.querySelector(".popup4-content");
     popup4_content.style.display = 'none';    // '자주 쓰는 문구' 콘텐츠는 display None
+
+    var popup5_content = document.querySelector(".popup5-content");
+    popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
 
     var popup1_content = document.querySelector(".popup1-content");
     popup1_content.innerHTML = '';
@@ -1095,7 +1099,7 @@ function targetSetting(chatRoomList) {
 function collectStatus(chatRoomList) {
     var popup = document.createElement('div');
     popup.style.width = '400px';
-    popup.style.height = '300px';
+    popup.style.height = 'auto'; // 높이 자동 조절
     popup.style.backgroundColor = 'white';
     popup.style.position = 'fixed';
     popup.style.top = '50%';
@@ -1108,77 +1112,116 @@ function collectStatus(chatRoomList) {
     popup.style.display = 'flex';
     popup.style.flexDirection = 'column';
     popup.style.justifyContent = 'space-around';
-    // popup.style.alignItems = 'center';
 
 
-    // 첫 번쨰 드롭다운 텍스트
+
+    // 첫 번째 드롭다운 설정
     var firstDropdownText = document.createElement('h4');
     firstDropdownText.textContent = '수집된 대상 설정';
     popup.appendChild(firstDropdownText);
 
-    // 동적으로 생성한 첫 번쨰 드롭다운 메뉴
     var firstDropdown = document.createElement('select');
     firstDropdown.style.width = '80%';
     firstDropdown.style.height = '25px';
     firstDropdown.style.border = '1px solid #000000';
-
-    // chatRoomList 길이가 0이면?
-    if (chatRoomList.length === 0) {
+    
+    if (chatRoomList.length === 0) { // 채팅방이 없으면 수집하는 alert 문구를 띄우고 더이상 진행하지 못하게 한다.
         alert("채팅방을 만들어야 수집할 수 있습니다.");
-        return; 
+        return;
     }
 
-    // chatRoomList를 이용하여 드롭다운 옵션을 동적으로 생성
     chatRoomList.forEach(chatRoom => {
         var option = document.createElement('option');
-        option.value = chatRoom.target_object; // 예: 각 채팅방의 고유 ID
-        option.textContent = chatRoom.target_object + ' | ' + chatRoom.title; // 예: 각 채팅방의 이름
+        option.value = chatRoom.target_object;
+        option.title = chatRoom.title;
+        option.textContent = chatRoom.target_object + ' | ' + chatRoom.title;
         firstDropdown.appendChild(option);
     });
 
     popup.appendChild(firstDropdown);
 
-    // 두 번쨰 드롭다운 텍스트
+
+
+    // 두 번째 드롭다운 설정
     var secondDropdownText = document.createElement('h4');
     secondDropdownText.textContent = '데이터 선택';
     popup.appendChild(secondDropdownText);
 
-    // 동적으로 생성한 두 번째 드롭다운
     var secondDropdown = document.createElement('select');
     secondDropdown.style.width = '80%';
     secondDropdown.style.border = '1px solid #000000';
-
-    var secondOption1 = document.createElement('option');
-    secondOption1.textContent = '옵션 A';
-    secondDropdown.appendChild(secondOption1);
+    
     popup.appendChild(secondDropdown);
 
-    // 버튼 컨테이너
+
+    // 처음에 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게끔 함수 호출
+    updateSecondDropdown(firstDropdown.options[firstDropdown.selectedIndex].value,
+                         firstDropdown.options[firstDropdown.selectedIndex].title,
+                         secondDropdown);
+
+    // 첫 번째 드롭다운의 선택 변경 이벤트 처리
+    firstDropdown.onchange = function() {
+        var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
+        console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
+        console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
+
+        updateSecondDropdown(selectionOption.value, 
+                             selectedOption.title, 
+                             econdDropdown);
+    };
+
+
+    // '조회 결과' 표시 영역
+    var resultTitle = document.createElement('h4');
+    resultTitle.textContent = '조회 결과';
+    resultTitle.style.display = 'none';
+    resultTitle.style.marginTop = '20px';
+    popup.appendChild(resultTitle);
+
+    var resultContainer = document.createElement('div');
+    resultContainer.style.display = 'none';
+    resultContainer.style.marginTop = '5px';
+    resultContainer.style.border = '1px solid #000000';
+    resultContainer.style.padding = '10px';
+    resultContainer.style.wordWrap = 'break-word'; // 긴 텍스트가 넘칠 때 자동으로 줄바꿈
+    popup.appendChild(resultContainer);
+
+
+
+    // '조회' 버튼과 '나가기' 버튼을 담는 컨테이너 설정
     var buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
     buttonContainer.style.justifyContent = 'flex-end';
-    buttonContainer.style.alignItems = 'flex-end';
+    buttonContainer.style.alignItems = 'center';
     buttonContainer.style.width = '100%';
-    buttonContainer.style.marginTop = '20px'; // 드롭다운과의 간격을 위해 마진 추가
-
-    // 버튼 스타일
-    var buttonStyle = 'background-color: #FFFFFF; color: #000000; padding: 10px 20px; border: 1px solid black; cursor: pointer;';
+    buttonContainer.style.marginTop = '20px';
 
     // '조회' 버튼
     var queryButton = document.createElement('button');
     queryButton.textContent = '조회';
-    queryButton.style.cssText = buttonStyle;
-    queryButton.onclick = function() {
-        
+    queryButton.style.background = '#FFFFFF';
+    queryButton.style.color = '#000000';
+    queryButton.style.padding = '10px 20px';
+    queryButton.style.border = '1px solid black';
+    queryButton.style.cursor = 'pointer';
+    queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
+        resultTitle.style.display = 'block';
+        resultContainer.style.display = 'block';
+    
+        resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
     };
     buttonContainer.appendChild(queryButton);
 
     // '나가기' 버튼
     var exitButton = document.createElement('button');
     exitButton.textContent = '나가기';
-    exitButton.style.cssText = buttonStyle;
-    exitButton.style.marginLeft = '10px'; // 버튼 사이의 간격
-    exitButton.onclick = function() {
+    exitButton.style.background = '#FFFFFF';
+    exitButton.style.color = '#000000';
+    exitButton.style.padding = '10px 20px';
+    exitButton.style.border = '1px solid black';
+    exitButton.style.cursor = 'pointer';
+    exitButton.style.marginLeft = '10px';
+    exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
         document.body.removeChild(popup);
     };
     buttonContainer.appendChild(exitButton);
@@ -1189,6 +1232,10 @@ function collectStatus(chatRoomList) {
     // 팝업을 body에 추가
     document.body.appendChild(popup);
 }
+
+
+
+
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
 function crawlerTemplateSetting() {
@@ -1337,6 +1384,10 @@ function handlePromptClick(){
 
         var popup4_content = document.querySelector(".popup4-content");
         popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+
+        var popup5_content = document.querySelector(".popup5-content");
+        popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
+
 
         var popup2_content = document.querySelector(".popup2-content");
         popup2_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
@@ -1507,6 +1558,9 @@ function handleReportClick(){
         var popup4_content = document.querySelector(".popup4-content");
         popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
 
+        var popup5_content = document.querySelector(".popup5-content");
+        popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
+
         var popup3_content = document.querySelector(".popup3-content");
         popup3_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
         popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
@@ -1649,6 +1703,9 @@ function handleUseClick(){
     var popup3_content = document.querySelector(".popup3-content");
     popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
 
+    var popup5_content = document.querySelector(".popup5-content");
+    popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
+
     var popup4_content = document.querySelector(".popup4-content");
     popup4_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
     popup4_content.style.display = 'block'; // 팝업 내용을 표시합니다.
@@ -1673,6 +1730,89 @@ function handleUseClick(){
         // console.log('에러');
         // console.error(error); // 오류 처리
         alert('자주 쓰는 문구를 불러오는데 오류가 발생했습니다.');
+    });
+}
+
+// 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수
+function handleModelClick() {
+    axios({
+        method: 'get',
+        url: '', // 백엔드 URL
+    })
+    .then(response => {
+        // 기존 팝업 내용 숨기기
+        var popup1_content = document.querySelector(".popup1-content");
+        popup1_content.style.display = 'none';
+
+        var popup2_content = document.querySelector(".popup2-content");
+        popup2_content.style.display = 'none';
+
+        var popup3_content = document.querySelector(".popup3-content");
+        popup3_content.style.display = 'none';
+
+        var popup4_content = document.querySelector(".popup4-content");
+        popup4_content.style.display = 'none';
+
+        // 모델 설정 팝업 내용 설정
+        var popup5_content = document.querySelector(".popup5-content");
+        popup5_content.innerHTML = '';
+        popup5_content.style.display = 'block';
+        popup5_content.style.padding = '20px';
+
+        // 모델 섹션 생성
+        const models = ['ChatGPT 3.5', 'ChatGPT 4'];
+        models.forEach(modelName => {
+            var section = document.createElement('div');
+            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border: 1px solid black; padding: 10px;';
+
+            var modelText = document.createElement('span');
+            modelText.textContent = modelName;
+            section.appendChild(modelText);
+
+            // 현재 모델 확인
+            if (modelName=='ChatGPT 4') {
+                var modelButton = document.createElement('button');
+                modelButton.textContent = '선택';
+                modelButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: default;';
+                modelButton.onmouseover = function() { this.style.backgroundColor = 'black'; this.style.color = 'white'; };
+                modelButton.onmouseout = function() { this.style.backgroundColor = 'white'; this.style.color = 'black'; };
+                section.appendChild(modelButton);
+            }
+
+            popup5_content.appendChild(section);
+        });
+
+        // 현재 사용 중인 모델 표시
+        var currentModelText = document.createElement('p');
+        currentModelText.textContent = `현재 사용모델: 안양역`;
+        currentModelText.style.marginTop = '20px'; // 마진 상단 추가
+        currentModelText.style.fontSize = '14px'; // 폰트 사이즈 줄이기
+        popup5_content.appendChild(currentModelText);
+
+        // '나가기' 버튼을 포함하는 컨테이너
+        var exitButtonContainer = document.createElement('div');
+        exitButtonContainer.style.cssText = 'display: flex; justify-content: flex-end;'; // 오른쪽 정렬을 위한 스타일
+
+        // '나가기' 버튼 추가
+        var exitButton = document.createElement('button');
+        exitButton.textContent = '나가기';
+        exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
+        exitButton.onmouseover = function() { this.style.backgroundColor = 'black'; this.style.color = 'white'; };
+        exitButton.onmouseout = function() { this.style.backgroundColor = 'white'; this.style.color = 'black'; };
+        exitButton.onclick = function() {
+            // 팝업 닫기 로직
+            popup5_content.style.display = 'none';
+        };
+
+        // 컨테이너에 '나가기' 버튼 추가
+        exitButtonContainer.appendChild(exitButton);
+
+        // 팝업에 컨테이너 추가
+        popup5_content.appendChild(exitButtonContainer);
+    })
+    .catch(error => {
+        alert('오류가 발생했습니다.');
+        console.error(error);
     });
 }
 
