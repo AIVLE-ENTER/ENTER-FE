@@ -225,7 +225,7 @@ function getChatRoomList(){
 
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getChatQaHistory(chatRoom){
-    document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
+    // document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
 
     // 모든 버튼에서 'active' 클래스 제거 
     const buttons = document.querySelectorAll('.conversation-button');
@@ -260,12 +260,17 @@ function getChatQaHistory(chatRoom){
 // 채팅방에 대한 질문과 대답에 대한 히스토리를 보여주는 함수 (제 2안)
 function displayChatQaHistory(QaDatas, chatRoom) {
     const conversationView = document.querySelector('.view.conversation-view');
+    
+    conversationView.style.display = 'flex';  // display 'flex'
+    conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+
 
     // 채팅 이력을 그려서 화면에 보여준다.
     QaDatas.forEach(QaData => { 
         // 질문 div 생성
         const questionDiv = document.createElement('div');
+        questionDiv.style.width = '80%'; // 질문 div width
         questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
         questionDiv.style.color = '#515563'; // 질문 텍스트 색
         questionDiv.style.padding = '10px';   
@@ -292,6 +297,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
+        answerDiv.style.width = '80%'; // 대답 영역 width
         answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
         answerDiv.style.color = 'black'; // 대답 텍스트 색
         answerDiv.style.padding = '10px';
@@ -429,6 +435,7 @@ function addQA(message, bgColor, isAnswer) {
     const messageDiv = document.createElement('div');
 
     messageDiv.style.backgroundColor = bgColor;
+    messageDiv.style.width='80%';
     messageDiv.style.borderRadius = '8px';
     messageDiv.style.padding = '10px';
     messageDiv.style.display = 'flex'; // Flexbox 적용
@@ -466,6 +473,7 @@ function addQA(message, bgColor, isAnswer) {
         const userIcon = document.createElement('i');
         userIcon.className = 'material-icons';
         userIcon.textContent = 'person';
+        userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
         userIcon.style.marginBottom = '10px';
 
         messageDiv.appendChild(userIcon);
@@ -1066,7 +1074,8 @@ function targetSetting(chatRoomList) {
     startButton.textContent = '수집시작';
     startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
     startButton.onclick = function() {
-        // 대상 설정 - 수집 시작 버튼을 클릭했을 떄...
+
+        // 1. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
         // axios({
         //     method: '',
         //     url: ``,
@@ -1165,15 +1174,15 @@ function collectStatus(chatRoomList) {
                          firstDropdown.options[firstDropdown.selectedIndex].title,
                          secondDropdown);
 
-    // 첫 번째 드롭다운의 선택 변경 이벤트 처리
+    // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
     firstDropdown.onchange = function() {
         var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
         console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
         console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
 
-        updateSecondDropdown(selectionOption.value, 
+        updateSecondDropdown(selectedOption.value,    // 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게 함수 호출 
                              selectedOption.title, 
-                             econdDropdown);
+                             secondDropdown);
     };
 
 
@@ -1211,10 +1220,22 @@ function collectStatus(chatRoomList) {
     queryButton.style.border = '1px solid black';
     queryButton.style.cursor = 'pointer';
     queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
-        resultTitle.style.display = 'block';
-        resultContainer.style.display = 'block';
+
+        // 1. '조회' 버튼을 클릭했을 떄 필요한 정보들이 잘 넘어가는지 확인 
+        console.log('1번쨰 드롭다운 target_object : ', firstDropdown.options[firstDropdown.selectedIndex].value);
+        console.log('1번쨰 드롭다운 title : ', firstDropdown.options[firstDropdown.selectedIndex].title);
+        console.log('2번쨰 드롭다운 target_object : ',  secondDropdown.options[secondDropdown.selectedIndex].value);
+        console.log('2번쨰 드롭다운 title : ',  secondDropdown.options[secondDropdown.selectedIndex].title);
+
+
+        // 2. axios로 AI측과 백엔드 연동 
+
+ 
+        // 3. 조회 결과에 화면으로 확인
+        // resultTitle.style.display = 'block';
+        // resultContainer.style.display = 'block';
     
-        resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
+        // resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
     };
     buttonContainer.appendChild(queryButton);
 
@@ -1239,7 +1260,21 @@ function collectStatus(chatRoomList) {
     document.body.appendChild(popup);
 }
 
+// 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
+function updateSecondDropdown(target_object, title, secondDropdown) {
+    // 두 번째 드롭다운의 기존 내용을 초기화
+    secondDropdown.innerHTML = '';
 
+    // 첫 번째 드롭다운에서 선택된 값과 타이틀을 사용하여 두 번째 드롭다운에 옵션을 생성
+    var option = document.createElement('option');
+    option.value = target_object;
+    option.title = title;
+    option.textContent = title;
+    secondDropdown.appendChild(option);
+
+
+    // axios로 AI측과 연동하여 데이터를 받아온다.
+}
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
 function crawlerTemplateSetting() {
