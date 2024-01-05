@@ -105,10 +105,10 @@ main {
 }
 
 .btn-secondary {
-    background-color: black; /* 배경을 검정색으로 설정 */
+    background-color: #454997;
     color: white; /* 텍스트를 흰색으로 설정 */
     padding: 10px 20px; /* 상하 10px, 좌우 20px의 패딩을 추가하여 높이와 너비를 조정 */
-    border: 2px solid white; /* 흰색의 2px 두께 외곽선 적용 */
+    border: none;
     border-radius: 5px; /* 외곽선의 모서리를 약간 둥글게 */
     font-family: 'scd'
 }

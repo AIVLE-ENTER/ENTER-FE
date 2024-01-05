@@ -287,6 +287,8 @@ button {
     vertical-align: top;
     background-repeat: no-repeat;
     background-size: contain;
+    border-radius: 50%;
+    border: 1px solid #DADADA;
 }
 .btn-social-kakao {
     background-image: url("../assets/img/icon-cir-kakao.png");
