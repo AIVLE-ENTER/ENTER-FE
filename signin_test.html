@@ -42,14 +42,18 @@
 
     <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <header>
-        <img src="assets/img/ENTR_logo.png" 
+        <a href="/index_test.html"><img src="assets/img/ENTR_logo.png" 
              alt="로고"
-             id="header-logo">
+             id="header-logo"></a>
     </header>
 
     <!-- 본 body-->
@@ -83,13 +87,14 @@
                 </div>
             </form>
 
-                <!-- 4. 로그인 버튼 -->
-                <input type="submit"
-                        value="로그인"
-                        style="background-color: #808080; color: white; border-radius:5px;"
-                        class="login-button"
-                        onclick="signin();">
-            </form>
+            <div class="error-message" id="error"></div>
+
+            <!-- 4. 로그인 버튼 -->
+            <input type="submit"
+                    value="로그인"
+                    style="background-color: #808080; color: white; border-radius:5px;"
+                    class="login-button"
+                    onclick="signin();">
 
             <!-- 간격 -->
             <div style="margin-top: 20px; margin-bottom: 20px;"></div> 
@@ -169,6 +174,7 @@
                                         placeholder="비밀번호를 입력해주세요."
                                         autocomplete='off'/>
                                 </div>
+                                <div class="error-message" id="error-modal"></div>
                                 <button type="button" class="login-button" onclick="syncLogin();">로그인</button>
                             </form>
                         </div>
