@@ -1,7 +1,6 @@
 const errorName = document.getElementById("error-name");
 const errorEmail = document.getElementById("error-email");
 const userModal = document.getElementById("userIdModal");
-const selectId = document.querySelector("input[name='selct-id']:checked");
 
 // 아이디 찾는 함수 
 function findId() {
@@ -98,7 +97,8 @@ function maskUserId(userId) {
 
 // 모달창 - 로그인 함수
 function signIn() {
-    if (selectId) {
+    const selectId = document.querySelector("input[name='selct-id']:checked")
+    if (selectId != null) {
         location.href = `../signin_test.html?id=${selectId.value}`;
     } else {
         Toast.fire({
@@ -112,7 +112,8 @@ function signIn() {
 
 // 모달창 - 비밀번호 변경 함수
 function changePassword() {
-    if (selectId) {
+    const selectId = document.querySelector("input[name='selct-id']:checked")
+    if (selectId != null) {
         location.href = `../changePassword_test.html?id=${selectId.value}`;
     } else {
         Toast.fire({
