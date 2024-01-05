@@ -54,7 +54,10 @@
     <link href="/css/privacyPolicy_test.css"
           rel="stylesheet"
           type="text/css">
-
+      
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     
 </head>
 <body>
@@ -85,13 +88,13 @@
                 
                 </div>
 
-                <div style="text-align: right;">
-                <p><label><input type="checkbox" 
-                            id="termsCheckbox"
-                            required> 약관에 동의<label></p>
-                <button type="button" 
-                            class="btn btn-secondary"
-                            onclick="goToSignUp();">회원가입 하기</button>                   
+                <div class="display-flex">
+                  <p><label><input type="checkbox" 
+                              id="termsCheckbox"
+                              required> 약관에 동의<label></p>
+                  <button type="button" 
+                              class="btn btn-secondary"
+                              onclick="goToSignUp();">회원가입 하기</button>                   
                 </div>
 
             </form>
@@ -99,6 +102,7 @@
     </main>
     
     <!-- JS와 연동 -->
+    <script src="/js/common.js"></script>
     <script src="/js/privacyPolicy_test.js"></script>
 </body>
 </html>
