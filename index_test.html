@@ -65,9 +65,6 @@
                  style="display: none;">
 
                 <div class="popup-content">
-                    <span class="close-btn"
-                          onclick="closePopup()">&times;</span>
-
                     <h3>새 채팅방 생성</h3>
 
                     <form id="new-chat-form">
@@ -84,10 +81,16 @@
                         <div id="error-message" 
                              style="display: none; color: red; margin:10px;">
                         </div>   <!-- 오류 메시지를 위한 요소 추가 -->
-
-                        <button type="submit"
-                                onclick='generateChat(event)'>생성</button>
                     </form>
+
+                    <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
+                    <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
+                        <button type="submit" onclick='generateChat(event)'>생성</button>
+
+                        <div style='margin-left:10px;'></div>
+
+                        <button type="button" onclick='closePopup()'>나가기</button>
+                    </div>
                 </div>
             </div>
 
@@ -269,8 +272,6 @@
           style="display: none;">
 
         <div class="popup-content">
-            <span class="close-btn"
-                onclick="closePopup()">&times;</span>
             <h3>채팅방명 변경 </h3>
 
             <form id="update-chat-form">
@@ -282,10 +283,17 @@
                 <div id="error-message" 
                     style="display: none; color: red; margin:10px;">
                 </div>   <!-- 오류 메시지를 위한 요소 추가 -->
-
-                <button type="submit"
-                        onclick='editChatRoom()'>변경</button>
             </form>
+
+            <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
+            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px;">
+                <button type="submit" onclick='editChatRoom()'>변경</button>
+
+                <div style='margin-left:10px;'></div>
+
+                <button type="button"
+                        onclick='closePopup()'>나가기</button>
+            </div>
         </div>
     </div>
 
