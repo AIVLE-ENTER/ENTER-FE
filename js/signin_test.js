@@ -61,9 +61,15 @@ function signin() {
 //     button.style.boxShadow = 'none'; // 마우스 아웃 시 그림자 제거
 // }
 
-//calllback으로 받은 인가코드
+//calllback으로 받은 인가코드 및 아이디
 const code = new URL(window.location.href).searchParams.get('code');
 const type = new URL(window.location.href).searchParams.get('type');
+const selectId = new URL(window.location.href).searchParams.get('id'); // 아이디 찾기에서 넘어온 경우
+
+// 아이디 찾기에서 넘어온 경우
+if (selectId) {
+    document.getElementById('input_id').value = selectId;
+}
 
 // 소셜 로그인
 const socialLogin = async(type) => {

@@ -1,3 +1,7 @@
+const errorName = document.getElementById("error-name");
+const errorEmail = document.getElementById("error-email");
+const userModal = document.getElementById("userIdModal");
+
 // 아이디 찾는 함수 
 function findId() {
     const findIdURL=`http://127.0.0.1:8000/account/auth/findID/`;
@@ -5,40 +9,78 @@ function findId() {
         user_name: document.getElementById('name').value,
         email: document.getElementById('input_email').value
     };
+    var is_error = false;
 
-    console.log(userData);
+    if (userData.user_name == "") {
+        errorName.style.display = 'inline-block';
+        errorName.textContent = '이름을 입력해주세요.';
+        is_error = true;
+    } else {
+        errorName.style.display = 'none';
+    }
+
+    if (userData.email == "") {
+        errorEmail.style.display = 'inline-block';
+        errorEmail.textContent = '이메일을 입력해주세요.';
+        is_error = true;
+    } else {
+        errorEmail.style.display = 'none';
+    }
+
+    if (is_error) {
+        return;
+    }
 
     // 백엔드에서 구현한 '아이디 찾기' 기능과 통신한다.
     axios.post(findIdURL, userData)
     .then(response => {
-        alert('아이디 찾기에 성공했습니다.');
-
-        console.log(response.data.id_list);
-
-        showUserIdPopup(response.data.id_list); // 찾은 아이디를 팝업으로 보여주는 함수를 실행한다.
+        if(response.data.success) {
+            showUserIdPopup(response.data.id_list); // 찾은 아이디를 모달창으로 보여주는 함수를 실행한다.
+        } else {
+            Toast.fire({
+                width: '420px',
+                padding: '20px',    
+                icon: 'error',
+                title: response.data.message
+            });
+        }
+        
     })
     .catch(error => {
         console.log(error);
-        alert('아이디 찾기에 실패하였습니다.')
+        Toast.fire({
+            width: '420px',
+            padding: '20px',
+            icon: 'error',
+            title: '오류가 발생했습니다. 다시 시도해주세요.'
+        });
     });
 }
 
-// 찾은 아이디를 팝업 형태로 보여주는 함수 
+// 찾은 아이디를 모달창 형태로 보여주는 함수 
 function showUserIdPopup(userIdList) {
-    const userIdElements = userIdList.map(id => {
-        const maskedId = maskUserId(id);
-        return `<li>회원님의 아이디는 ${maskedId} 입니다.</li>`;
+    const maxLength = Math.max(...userIdList.map(user => user.id.length));
+    const userIdElements = userIdList.map(user => {
+        const space = "&nbsp;".repeat(maxLength - user.id.length +2);
+        const maskedId = maskUserId(user.id) + space;
+        return `<p><label><input type='radio' name="selct-id" value="${user.id}"/> ${maskedId} [가입일: ${user.register_date}]</label></p>`;
     });
 
-    document.getElementById("userIdList").innerHTML = `<ul>${userIdElements.join("")}</ul>`;
-    document.getElementById("userIdModal").style.display = "block";
+    document.getElementById("userIdList").innerHTML = `<div>${userIdElements.join("")}</div>`;
+    userIdModal.style.display = "block";
 }
 
-// 팝업 나가기 함수
+// 모달창 나가기 함수
 function closeUserIdPopup() {
-    document.getElementById("userIdModal").style.display = "none";
+    userIdModal.style.display = "none";
 }
 
+// 모달 바깥 영역 클릭 시 모달 닫기
+window.addEventListener('click', function (event) {
+    if (event.target === userIdModal) {
+        userIdModal.style.display = "none";
+    }
+}); 
 
 // 마스킹 적용 함수
 function maskUserId(userId) {
@@ -52,6 +94,19 @@ function maskUserId(userId) {
         return userId.substring(0, 1) + maskedPart + userId.substring(userId.length - 1, userId.length);
     }
 }
+
+// 모달창 - 로그인 함수
+function signIn() {
+    const selectId = document.querySelector(`input[name="selct-id"]:checked`).value;
+    location.href = `../signin_test.html?id=${selectId}`;
+}
+
+// 모달창 - 비밀번호 변경 함수
+function changePassword() {
+    const selectId = document.querySelector(`input[name="selct-id"]:checked`).value;
+    location.href = `../changePassword_test.html?id=${selectId}`;
+}
+
 
 // '아이디 찾기' button mouseOver 했을 떄 실행되는 함수
 function changeButtonStyle(button) {
