@@ -85,7 +85,7 @@ main {
 
 .contract .text {
     height: 230px; 
-    border: 1px solid black;
+    /* border: 1px solid #808080; */
     background-color: white;
     white-space: pre-line;
     overflow-y: scroll;
