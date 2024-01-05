@@ -145,7 +145,7 @@ button > span {
 
 
 button:hover {
-    background: var(--color-button-hover);
+    background: #454997;
     color:white;
 }
 
