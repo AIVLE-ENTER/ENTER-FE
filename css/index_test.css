@@ -79,8 +79,8 @@ header {
 	
 
 body {
-    font-family: 'Noto Sans KR', sans-serif; /* 폰트 패밀리 지정 */
-    padding-top: 5rem;
+    font-family: 'Noto Sans KR', sans-serif; /* 폰트 패밀리 지정 */ 
+    padding-top: 2.5rem;
     /* background: var(--color-main); */
     background-color: white; /* 전체 배경색을 흰색으로 설정 */
     display: flex;
