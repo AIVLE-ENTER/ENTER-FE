@@ -37,7 +37,7 @@ html, body {
 
 header {
     width:100%; /* 헤더의 너비를 전체 폭으로 설정 */
-    height:80px;
+    height:30px;
     margin: 0; /* 상하 마진 제거 */
     background-color: white; /* 흰색 배경 */
     position: fixed;
@@ -45,7 +45,7 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     position: fixed; /* 상단에 고정 */
     top: 0; /* 상단에 위치 */
-    left: 0; /* 왼쪽에 위치 *
+    left: 0; /* 왼쪽에 위치 */
     z-index: 100;
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
@@ -53,9 +53,9 @@ header {
 }
 
 #header-logo {
-    width: 100px; /* 로고 이미지의 너비를 비율에 맞게 자동 조정 */
-    height: 50px; /* 로고 이미지의 높이 */
-    margin-top:15px;
+    /* width: 100px; 로고 이미지의 너비를 비율에 맞게 자동 조정 */
+    height: 35px; /* 로고 이미지의 높이 */
+    /* margin-top:15px; */
     margin-left:20px;
     /* padding:20px; */
 }
@@ -63,12 +63,14 @@ header {
 .header-link {
     text-decoration: none; /* 밑줄 제거 */
     color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
+    margin-bottom:15px;
 }
 
 
 .header-link h3 {
     margin-right: 30px;
     transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
+    font-size: 1em;
 }
 
 .header-link:hover h3 {
@@ -88,6 +90,7 @@ body {
 #sidebar {
     /* position: relative; */
     width: 300px;
+    height: 130%; /* 추가된 부분 */
     padding: 8px;
     flex-shrink: 0; /* 사이드바 기가 줄어들지 않도록 설정 */
     left: 0;
