@@ -38,8 +38,11 @@ function checkLoginStatusAndUpdateUI() {
             </div>
         `;
 
+        // Header 창 왼쪽 로고는 보이지 않게 한다.
+        document.querySelectorAll('header .header-link')[0].style.display='none';
+
         // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
-        document.querySelector('header .header-link').style.display='none';
+        document.querySelectorAll('header .header-link')[1].style.display='none';
 
         // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
         const newChatView = document.querySelector('.new-chat-view');
@@ -1268,7 +1271,6 @@ function collectStatus(chatRoomList) {
     popup.style.justifyContent = 'space-around';
 
 
-
     // 첫 번째 드롭다운 설정
     var firstDropdownText = document.createElement('h4');
     firstDropdownText.textContent = '수집된 대상 설정';
@@ -1423,6 +1425,9 @@ function collectStatus(chatRoomList) {
 
 // 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
 function updateSecondDropdown(target_object, title, secondDropdown) {
+    // axios로 AI측과 연동하여 데이터를 받아온다. 데이터를 받아오고 두 번쨰 드롭다운에 표시할 수 있도록 한다.
+
+
     // 두 번째 드롭다운의 기존 내용을 초기화
     secondDropdown.innerHTML = '';
 
@@ -1432,9 +1437,6 @@ function updateSecondDropdown(target_object, title, secondDropdown) {
     option.title = title;
     option.textContent = title;
     secondDropdown.appendChild(option);
-
-
-    // axios로 AI측과 연동하여 데이터를 받아온다.
 }
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
@@ -1604,7 +1606,7 @@ function handlePromptClick(){
         // '프롬프트 설정' 입력 칸 
         var promptNameInput = document.createElement('textarea');
         promptNameInput.type = 'text';
-        promptNameInput.value = response.data.system=='' ? response.data.system_default : response.data.system;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        promptNameInput.value = response.data.system =='' ? response.data.system_default : response.data.system;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
         promptNameInput.style.width = '80%';
         promptNameInput.style.height = '200px';
         
@@ -1981,8 +1983,8 @@ function handleModelClick() {
             modelText.textContent = modelName;
             section.appendChild(modelText);
 
-            // 현재 모델 확인
-            if (modelName=='ChatGPT 4') {
+            // ex) 예를 들어 내가 'ChatGPT 3.5'로 설정되어 있으면 'ChatGPT 4'를 선택할 수 있는 Button을 마련한다.  
+            if (modelName =='ChatGPT 4') {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
                 modelButton.style.fontFamily='scd'; // 글꼴 설정
@@ -1995,6 +1997,14 @@ function handleModelClick() {
                     this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
                     this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
                 };
+                modelButton.onclick = function() { // '선택' 버튼을 click 했을 떄 
+                    console.log('선택 버튼 click');
+
+
+                    // Axios를 이용하여 AI 측과 연동
+
+
+                }
                 section.appendChild(modelButton);
             }
 
@@ -2025,9 +2035,8 @@ function handleModelClick() {
             this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
             this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
         };
-        exitButton.onclick = function() {
-            // 팝업 닫기 로직
-            popup5_content.style.display = 'none';
+        exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄
+            popup5_content.style.display = 'none'; // 나가기
         };
 
         // 컨테이너에 '나가기' 버튼 추가
