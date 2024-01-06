@@ -33,7 +33,7 @@ function getUserInfo(){
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
-        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요!!`; // h3 태그에 보여준다.
+        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요`; // h3 태그에 보여준다.
     })
     .catch(error => {
         window.location.reload(); // 새로 고침한다.
