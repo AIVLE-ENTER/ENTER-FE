@@ -336,24 +336,30 @@
         <div class="popup-content">
             <h2>자주 쓰는 문구 추가</h2>
 
-            <label for="messageTitle">문구 제목:</label>
+            <!--<label for="messageTitle">문구 제목:</label>-->
             <input type="text"
                    id="messageTitle"
-                   name="messageTitle">
+                   name="messageTitle"
+                   placeholder="문구 제목" 
+                   style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
     
-            <label for="messageContent">문구 내용:</label>
+            <!-- <label for="messageContent">문구 내용:</label> --> 
             <textarea id="messageContent" 
-                     name="messageContent"></textarea>
+                      name="messageContent"
+                      placeholder="문구 내용" 
+                      style="width:155px; height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
 
             <div id="errorMessage"
-                 style="display: none; color: red; margin-top: 10px;">
+                 style="display: none; color: red; margin-top: 10px; font-family:scd;">
                  여기에 오류 메시지가 표시됩니다.
             </div>
 
             <div class="button-container"
                  style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
-                <button onclick="submitFrequentMessage()">추가</button>
-                <button onclick="closeFrequentMessage()">취소</button>
+                <button style='font-family:scd;'
+                        onclick="submitFrequentMessage()">추가</button>
+                <button style='font-family:scd;' 
+                        onclick="closeFrequentMessage()">취소</button>
             </div>
         </div>
     </div>
@@ -364,22 +370,28 @@
         <div class="popup-content">
             <h2>자주 쓰는 문구 수정</h2>
 
-            <label for="editMessageTitle">문구 제목:</label>
+            <!-- <label for="editMessageTitle">문구 제목:</label> -->
             <input type="text" 
                    id="editMessageTitle"
-                   name="editMessageTitle">
+                   name="editMessageTitle"
+                   placeholder="문구 제목" 
+                   style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
 
-            <label for="editMessageContent">문구 내용:</label>
+            <!-- <label for="editMessageContent">문구 내용:</label> -->
             <textarea id="editMessageContent"
-                      name="editMessageContent"></textarea>
+                      name="editMessageContent"
+                      placeholder="문구 내용" 
+                      style="width:155px; height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none;"></textarea>
 
             <div class="button-container"
                  style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
                 <button onclick="submitEditFrequentMessage()"
                         data-template-id=""
+                        style='font-family:scd;'
                         id="editSubmitButton">수정하기</button>
 
-                <button onclick="closeEditFrequentMessage()">취소하기</button>
+                <button style='font-family:scd;'
+                        onclick="closeEditFrequentMessage()">취소하기</button>
             </div>
         </div>
     </div>

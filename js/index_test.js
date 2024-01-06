@@ -774,7 +774,9 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
     memoInput.style.border = '1px solid #000000'; 
+    memoInput.style.fontFamily='scd'; // 글꼴 설정
     memoInput.style.resize = 'none';
+
 
     // 버튼 컨테이너 생성 및 스타일 설정
     const buttonContainer = document.createElement('div');
@@ -785,6 +787,7 @@ function showMemo(history_id, flag, txt = '') {
     const exitButton = document.createElement('button');
     exitButton.textContent = '나가기';
     exitButton.style.marginLeft = '10px';
+    exitButton.style.fontFamily='scd'; // 글꼴 설정
     exitButton.onclick = function() {
         document.body.removeChild(popupContainer);
         document.body.removeChild(overlay);
@@ -798,6 +801,7 @@ function showMemo(history_id, flag, txt = '') {
         const editButton = document.createElement('button');
         editButton.textContent = '수정';
         editButton.style.marginLeft = '10px';
+        editButton.style.fontFamily='scd'; // 글꼴 설정
         editButton.onclick = function() {
             const updatedMemo = memoInput.value;
             updateMemo(history_id, updatedMemo);
@@ -807,6 +811,7 @@ function showMemo(history_id, flag, txt = '') {
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '삭제';
         deleteButton.style.marginLeft = '10px';
+        deleteButton.style.fontFamily='scd'; // 글꼴 설정
         deleteButton.onclick = function() {
             deleteMemo(history_id);
         };
@@ -820,6 +825,7 @@ function showMemo(history_id, flag, txt = '') {
         // 저장하기 버튼 생성 및 추가
         const saveButton = document.createElement('button');
         saveButton.textContent = '저장';
+        saveButton.style.fontFamily='scd'; // 글꼴 설정
         saveButton.onclick = function() {
             const memoContent = memoInput.value;
             if (memoContent === '') {
@@ -1113,7 +1119,7 @@ function handleCrawlerClick() {
     popup1_content.style.alignItems = 'center';
 
     // 버튼 스타일
-    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: Noto Sans KR, sans-serif';
+    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: scd';
 
     // '대상 설정' 버튼 생성 및 스타일링
     var targetSettingButton = document.createElement('button');
@@ -1173,6 +1179,8 @@ function targetSetting(chatRoomList) {
     dropdown.style.width = '80%';
     dropdown.style.height = '25px';
     dropdown.style.border = '1px solid #000000';
+    dropdown.style.fontFamily = 'scd'; // font-family 스타일 추가
+
 
     // chatRoomList 길이가 0이면?
     if (chatRoomList.length === 0) {
@@ -1192,15 +1200,17 @@ function targetSetting(chatRoomList) {
 
     // 버튼 컨테이너
     var buttonContainer = document.createElement('div');
+    buttonContainer.style.width = '100%';
     buttonContainer.style.display = 'flex';
     buttonContainer.style.justifyContent = 'flex-end'; // 오른쪽 정렬
     buttonContainer.style.alignItems = 'flex-end'; // 하단 정렬
-    buttonContainer.style.width = '100%';
+    
 
     // '수집시작' 버튼
     var startButton = document.createElement('button');
     startButton.textContent = '수집시작';
     startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
+    startButton.style.fontFamily='scd';  // 글꼴 설정
     startButton.onclick = function() {
 
         // 1. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
@@ -1226,6 +1236,7 @@ function targetSetting(chatRoomList) {
     // '나가기' 버튼
     var exitButton = document.createElement('button');
     exitButton.textContent = '나가기';
+    exitButton.style.fontFamily='scd';  // 글꼴 설정
     exitButton.onclick = function() {
         document.body.removeChild(popup);
     };
@@ -1267,6 +1278,7 @@ function collectStatus(chatRoomList) {
     firstDropdown.style.width = '80%';
     firstDropdown.style.height = '25px';
     firstDropdown.style.border = '1px solid #000000';
+    firstDropdown.style.fontFamily='scd';  // 글꼴 설정
     
     if (chatRoomList.length === 0) { // 채팅방이 없으면 수집하는 alert 문구를 띄우고 더이상 진행하지 못하게 한다.
         alert("채팅방을 만들어야 수집할 수 있습니다.");
@@ -1293,6 +1305,7 @@ function collectStatus(chatRoomList) {
     var secondDropdown = document.createElement('select');
     secondDropdown.style.width = '80%';
     secondDropdown.style.border = '1px solid #000000';
+    secondDropdown.style.fontFamily='scd';  // 글꼴 설정
     
     popup.appendChild(secondDropdown);
 
@@ -1319,6 +1332,7 @@ function collectStatus(chatRoomList) {
     resultTitle.textContent = '조회 결과';
     resultTitle.style.display = 'none';
     resultTitle.style.marginTop = '20px';
+    resultTitle.style.fontFamily='scd';  // 글꼴 설정
     popup.appendChild(resultTitle);
 
     var resultContainer = document.createElement('div');
@@ -1327,6 +1341,7 @@ function collectStatus(chatRoomList) {
     resultContainer.style.border = '1px solid #000000';
     resultContainer.style.padding = '10px';
     resultContainer.style.wordWrap = 'break-word'; // 긴 텍스트가 넘칠 때 자동으로 줄바꿈
+    resultContainer.style.fontFamily='scd';  // 글꼴 설정
     popup.appendChild(resultContainer);
 
 
@@ -1347,6 +1362,7 @@ function collectStatus(chatRoomList) {
     queryButton.style.padding = '10px 20px';
     queryButton.style.border = '1px solid black';
     queryButton.style.cursor = 'pointer';
+    queryButton.style.fontFamily='scd';  // 글꼴 설정
     queryButton.onmouseover = function() {
         this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
         this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
@@ -1384,6 +1400,7 @@ function collectStatus(chatRoomList) {
     exitButton.style.border = '1px solid black';
     exitButton.style.cursor = 'pointer';
     exitButton.style.marginLeft = '10px';
+    exitButton.style.fontFamily='scd';  // 글꼴 설정
     exitButton.onmouseover = function() {
         this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
         this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
@@ -1460,7 +1477,7 @@ function crawlerTemplateSetting() {
         companyInfoInput.style.width = '100%';
         companyInfoInput.style.height = '120px';
         companyInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
-        companyInfoInput.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        companyInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(companyInfoInput);
 
         // '타켓 정보 설정' 텍스트
@@ -1475,7 +1492,7 @@ function crawlerTemplateSetting() {
         targetInfoInput.style.width = '100%';
         targetInfoInput.style.height = '240px';
         targetInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
-        targetInfoInput.style.fontFamily = 'Noto Sans KR', 'sans-serif';
+        targetInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(targetInfoInput);
 
         // 버튼 컨테이너
@@ -1490,6 +1507,7 @@ function crawlerTemplateSetting() {
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
+        resetButton.style.fontFamily='scd';  // 글꼴 설정
         resetButton.onclick = function() {
             // 입력란의 값을 기본값으로 재설정합니다.
             companyInfoInput.value = response.data.company_info_default;
@@ -1501,6 +1519,7 @@ function crawlerTemplateSetting() {
         var applyButton = document.createElement('button');
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
+        applyButton.style.fontFamily='scd';  // 글꼴 설정
         applyButton.onclick = function() {
             // AI 측에 크롤러 템플릿을 적용한다.
             const templateEdit_URL=`http://localhost:8002/edit_template/${user_id}/llama/crawl`;
@@ -1532,6 +1551,7 @@ function crawlerTemplateSetting() {
         // '나가기' 버튼
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
+        exitButton.style.fontFamily='scd';  // 글꼴 설정
         exitButton.onclick = function() {
             document.body.removeChild(popup);
         };
@@ -1571,7 +1591,6 @@ function handlePromptClick(){
         var popup5_content = document.querySelector(".popup5-content");
         popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
 
-
         var popup2_content = document.querySelector(".popup2-content");
         popup2_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
         popup2_content.style.display = 'block'; // 팝업 내용을 표시합니다.
@@ -1592,7 +1611,7 @@ function handlePromptClick(){
         promptNameInput.style.margin = '0 auto'; // 가운데 정렬
         promptNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
         promptNameInput.style.resize='none';
-        promptNameInput.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        promptNameInput.style.fontFamily = 'scd'; // 글꼴 설정
 
         popup2_content.appendChild(promptNameInput);
 
@@ -1620,7 +1639,7 @@ function handlePromptClick(){
         condenseNameInput.style.margin = '0 auto'; // 가운데 정렬
         condenseNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
         condenseNameInput.style.resize='none';
-        condenseNameInput.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        condenseNameInput.style.fontFamily = 'scd'; // 글꼴 설정
 
         popup2_content.appendChild(condenseNameInput);
 
@@ -1649,7 +1668,7 @@ function handlePromptClick(){
         metaDataNameInput.style.margin = '0 auto'; // 가운데 정렬
         metaDataNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
         metaDataNameInput.style.resize='none';
-        metaDataNameInput.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        metaDataNameInput.style.fontFamily = 'scd'; // 글꼴 설정
         
         popup2_content.appendChild(metaDataNameInput);
 
@@ -1663,6 +1682,7 @@ function handlePromptClick(){
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
+        resetButton.style.fontFamily='scd';  // 글꼴 설정
         resetButton.onclick = function() {
             // 입력란의 값을 기본값으로 재설정합니다.
             promptNameInput.value = response.data.system_default;
@@ -1675,6 +1695,7 @@ function handlePromptClick(){
         var applyButton = document.createElement('button');
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
+        applyButton.style.fontFamily='scd';  // 글꼴 설정
         applyButton.onclick = function() {
             console.log('적용 버튼 클릭');
 
@@ -1707,6 +1728,7 @@ function handlePromptClick(){
         // '나가기' 버튼
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
+        exitButton.style.fontFamily='scd';  // 글꼴 설정
         exitButton.onclick = function() {
             popup2_content.style.display = 'none';
         };
@@ -1752,6 +1774,7 @@ function handleReportClick(){
         var templateText = document.createElement('h4');
         templateText.textContent = '리포트 템플릿';
         templateText.style.marginLeft = '60px';
+
         popup3_content.appendChild(templateText);
 
         // '리포트 템플릿' TextArea
@@ -1761,7 +1784,8 @@ function handleReportClick(){
         templateTextArea.style.height = '300px';
         templateTextArea.style.marginLeft = '60px';
         templateTextArea.style.resize = 'none'; // 크기 조정 비활성화
-        templateTextArea.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        templateTextArea.style.fontFamily = 'scd'; // 글꼴 설정
+
         popup3_content.appendChild(templateTextArea);
 
         // 구분선
@@ -1769,6 +1793,7 @@ function handleReportClick(){
         divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
+
         popup3_content.appendChild(divider);
 
         // 'Document 템플릿'
@@ -1784,7 +1809,7 @@ function handleReportClick(){
         DocumentTextArea.style.height = '150px';
         DocumentTextArea.style.marginLeft = '60px';
         DocumentTextArea.style.resize = 'none'; // 크기 조정 비활성화
-        DocumentTextArea.style.fontFamily = 'Noto Sans KR', 'sans-serif'; // 글꼴 설정
+        DocumentTextArea.style.fontFamily = 'scd'; // 글꼴 설정
         popup3_content.appendChild(DocumentTextArea);
 
         // 템플릿 저장 버튼 컨테이너
@@ -1798,6 +1823,7 @@ function handleReportClick(){
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px'; // 오른쪽 마진 적용
+        resetButton.style.fontFamily='scd';  // 글꼴 설정
         resetButton.onclick = function() {
             templateTextArea.value = response.data.prompt_default;
             DocumentTextArea.value = response.data.document_default;
@@ -1808,6 +1834,7 @@ function handleReportClick(){
         var saveTemplateButton = document.createElement('button');
         saveTemplateButton.textContent = '템플릿 저장';
         saveTemplateButton.style.marginRight = '10px'; // 오른쪽 마진 적용
+        saveTemplateButton.style.fontFamily='scd';  // 글꼴 설정
         saveTemplateButton.onclick = function() {
             // AI 측에 템플릿 저장 설정을 적용한다.
             axios({
@@ -1836,6 +1863,7 @@ function handleReportClick(){
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.marginRight = '10px'; // 오른쪽 마진 적용
+        exitButton.style.fontFamily='scd';  // 글꼴 설정
         exitButton.onclick = function() {
             // 나가기 버튼 클릭 시 팝업을 닫습니다.
             popup3_content.style.display = 'none';
@@ -1862,6 +1890,7 @@ function handleReportClick(){
         // 레포트 만들기 버튼
         var createReportButton = document.createElement('button');
         createReportButton.textContent = '레포트 만들기';
+        createReportButton.style.fontFamily='scd';  // 글꼴 설정
         createReportButton.onclick = function() {
             console.log('레포트 만들기 버튼 클릭');
         };
@@ -1956,7 +1985,8 @@ function handleModelClick() {
             if (modelName=='ChatGPT 4') {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
-                modelButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: default;';
+                modelButton.style.fontFamily='scd'; // 글꼴 설정
+                // modelButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: default;';
                 modelButton.onmouseover = function() {
                     this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
                     this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
@@ -1985,7 +2015,8 @@ function handleModelClick() {
         // '나가기' 버튼 추가
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
-        exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
+        exitButton.style.fontFamily='scd';
+        // exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
         exitButton.onmouseover = function() { 
             this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
             this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
@@ -2030,20 +2061,20 @@ function renderFrequentMessages(messageList){
                     style="width:30px; 
                     margin-right: 10px;">
                   
-            <p style="margin: 0px 10px 0px 0px; width: 300px;">${message.template_name}</p>
+            <p style="margin: 0px 10px 0px 0px; width: 300px; font-family: 'scd';">${message.template_name}</p>
 
             <input type='text'
                    value='${message.template_content}'
-                   style='margin-right: 10px;
+                   style="margin-right: 10px; font-family: 'scd';"
                    placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'
                    disabled>
 
             <button type="button"
-                    style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'Noto Sans KR', sans-serif;"
+                    style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'scd';"
                     onclick="editFrequentMessage('${message.template_id}')">수정</button>
 
             <button type="button" 
-                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'Noto Sans KR', sans-serif;"
+                    style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'scd';"
                     onclick="deleteFrequentMessage('${message.template_id}')">삭제</button>
 
             <div style="margin-left: 20px;"></div>
@@ -2060,6 +2091,7 @@ function renderFrequentMessages(messageList){
     const addButton = document.createElement('span');
     addButton.className = 'add';
     addButton.textContent = '추가';
+    addButton.style.fontFamily='scd'; // 글꼴 설정
     addButton.onclick = function() {
         addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
     };
@@ -2067,6 +2099,7 @@ function renderFrequentMessages(messageList){
     const reflectButton = document.createElement('span');
     reflectButton.className = 'reflect';
     reflectButton.textContent = '반영';
+    reflectButton.style.fontFamily='scd'; // 글꼴 설정
     // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
     reflectButton.onclick = function() {
         reflectFrequentMessage();
