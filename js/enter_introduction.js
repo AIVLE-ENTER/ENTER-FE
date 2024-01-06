@@ -10,8 +10,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
     } 
     // 비로그인 상태이면?
     else {
-       alert('로그인을 해야 합니다.');
-       window.location.href='../index_test.html';
+      //  alert('로그인을 해야 합니다.');
+      //  window.location.href='../index_test.html';
+
+      // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
+      document.querySelector('header .header-link').style.display='none';
     }
 });
 

@@ -25,14 +25,27 @@ function checkLoginStatusAndUpdateUI() {
     // 비로그인 상태이면?
     else {
           // sidebar에 '로그인을 해야 사용 가능 합니다' 문구를 보여준다.
-          document.getElementById('sidebar').innerHTML = `
-          <div style="text-align:center; padding:20px;">
-              <h2>로그인을 해야 사용 가능합니다</h2>
-              <a href="../signin_test.html" style="text-decoration: none; color: black;">
-                  로그인
-              </a>
-          </div>
-      `;
+        //   document.getElementById('sidebar').innerHTML = `
+    //       <div style="text-align:center; padding:20px;">
+    //           <h2>로그인을 해야 사용 가능합니다</h2>
+    //           <a href="../signin_test.html" style="text-decoration: none; color: black;">
+    //               로그인
+    //           </a>
+    //       </div>
+    //   `;
+
+      document.getElementById('sidebar').innerHTML = `
+        <div style="height: 100%; padding:10px; display: flex; flex-direction: column; justify-content: center;">
+            <h2 style='text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
+    
+            <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
+
+            <div style='margin-top:20px;'>
+                <a href="../enter_introduction.html" style="text-decoration: none; color: black; display: block; margin-bottom: 20px;">엔터란?</a>
+                <a href="../signin_test.html" style="text-decoration: none; color: black; display: block;">로그인</a>
+            </div>
+        </div>
+    `;
 
       // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
       document.querySelector('header .header-link').style.display='none';
@@ -649,6 +662,7 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.height = '150px';
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
+    memoInput.style.border = '1px solid #000000'; 
     memoInput.style.resize = 'none';
 
     // 버튼 컨테이너 생성 및 스타일 설정
