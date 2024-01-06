@@ -185,6 +185,8 @@ button:hover {
 .new-chat {
     flex: 1;
     font-family:'scd';
+    background-color: #454997;
+    
     /* font-family: 'Noto Sans KR', sans-serif;  /* 글꼴 적용 */
 }
 
