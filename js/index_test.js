@@ -24,31 +24,142 @@ function checkLoginStatusAndUpdateUI() {
     } 
     // 비로그인 상태이면?
     else {
-          // sidebar에 '로그인을 해야 사용 가능 합니다' 문구를 보여준다.
-        //   document.getElementById('sidebar').innerHTML = `
-    //       <div style="text-align:center; padding:20px;">
-    //           <h2>로그인을 해야 사용 가능합니다</h2>
-    //           <a href="../signin_test.html" style="text-decoration: none; color: black;">
-    //               로그인
-    //           </a>
-    //       </div>
-    //   `;
+        // 'sidebar'에는 이렇게 화면을 그려준다.
+        document.getElementById('sidebar').innerHTML = `
+            <div style="height: 100%; padding:10px; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style='text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
+        
+                <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
 
-      document.getElementById('sidebar').innerHTML = `
-        <div style="height: 100%; padding:10px; display: flex; flex-direction: column; justify-content: center;">
-            <h2 style='text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
-    
-            <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
-
-            <div style='margin-top:20px;'>
-                <a href="../enter_introduction.html" style="text-decoration: none; color: black; display: block; margin-bottom: 20px;">엔터란?</a>
-                <a href="../signin_test.html" style="text-decoration: none; color: black; display: block;">로그인</a>
+                <div style='margin-top:20px;'>
+                    <a href="../enter_introduction.html" style="text-decoration: none; color: black; display: block; margin-bottom: 20px;">엔터란?</a>
+                    <a href="../signin_test.html" style="text-decoration: none; color: black; display: block;">로그인</a>
+                </div>
             </div>
-        </div>
-    `;
+        `;
 
-      // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
-      document.querySelector('header .header-link').style.display='none';
+        // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
+        document.querySelector('header .header-link').style.display='none';
+
+        // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
+        const newChatView = document.querySelector('.new-chat-view');
+        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center;'>간단하고 손쉬운 프롬프트 사용으로 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
+
+        // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
+        const conversationView = document.querySelector('.view.conversation-view');
+        conversationView.style.display = 'flex';  // display 'flex'
+        conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
+
+        // 질문과 대답 데이터 5쌍
+        const questionsAndAnswers = [
+            {
+                question: "KT 인터넷에 대해서 어떻게 생각하니?",
+                answer: '전반적으로 KT 인터넷에 대한 의견은 긍정적인 경향을 보입니다. 가격, 서비스 품질, 평가 등 다양한 측면에서 KT 인터넷이 좋다는 의견이 많이 나타났습니다. 그러나 일부 지역에 따라 3통신사 인터넷의 차이가 있을 수 있다는 의견도 있습니다. 따라서 전체적으로 KT 인터넷이 양호하다고 평가되지만, 개별적인 지역에 따라 상이할 수 있다는 점을 고려해야 합니다.',
+            },
+            {
+                question: "카페달에 대한 긍정적 댓글은 무엇이 있을까?",
+                answer: '또한, 댓글들은 카페의 아늑한 분위기와 포근함을 강조하고 있으며, 카이막과 커피의 맛을 함께 즐기는 것을 추천하고 있습니다. 이러한 긍정적인 평가와 추천은 해당 카페가 고객들에게 만족스러운 경험을 제공하고 있음을 시사합니다. 따라서, 해당 카페는 카이막과 커피의 맛으로 인해 사람들에게 인기가 있고, 아늑한 분위기와 좋은 서비스로 인해 계속해서 방문하고자 하는 고객들의 관심을 얻고 있을 것으로 예상됩니다.',
+            },
+            {
+                question: "kt인터넷에서 기술지원부족에 대한 이야기를 어떤 리뷰를 하고 있는 리뷰를 모두 보여줘",
+                answer: 'kt인터넷에서 기술지원부족에 대한 이야기를 다음과 같은 리뷰들이 있습니다: 1. 내용: 인터넷은 kt인듯, 날짜: 2023-10-02 18:29 2. 내용: 인터넷 문제 맞았네 나도 kt 쓰는데 kt가 문제가 많은건가..?, 날짜: 2023-08-12 22:05 3. 내용: Kt인터넷문제..?, 날짜: 2023-08-06 04:30 4. 내용: 요즘 kt 인터넷이 문제 많다는 소리 때문에 상대적 올려치기인듯, 날짜: 2023-11-08 13:00 이 리뷰들은 kt인터넷의 기술지원이 부족하다는 내용을 언급하고 있습니다.',
+            },
+            {
+                question: "kt인터넷에 가지고 있는 불만중 가격 문제에 대한 불평을 자세하게 확인한 후 알려줘.",
+                answer: '제가 확인한 내용을 바탕으로 말씀드리면, 주어진 내용들 중에서 kt인터넷의 가격에 대한 불만을 자세히 확인할 수 있는 내용은 지금 KT 인터넷이랑 결합돼있어서 요금제를 알뜰로 못가는게 ㄹㅇ ㅠㅠㅠㅠ라는 내용입니다. 이 사용자는 KT 인터넷과 결합되어 있어서 다른 요금제를 선택할 수 없다는 점에 대해 실망을 표현하고 있습니다. 하지만 다른 내용들은 KT 인터넷의 가격에 대한 직접적인 언급을 포함하고 있지 않으므로, 더 자세한 내용을 확인하기 어렵습니다.',
+            },
+            {
+                question: "카페달에 대한 좋은 댓글 대표적으로 3개만 알려줘라",
+                answer: '카페달은 아늑하고 포근한 분위기로 손님들을 맞이하고 있습니다. 커피와 카이막이 맛있는 것으로 알려져 있으며, 카이막과 함께 먹으면 천국이라고 합니다. 방문자들은 카페의 분위기와 맛에 매우 만족하며, 다시 방문하고 싶다는 긍정적인 반응을 보여주고 있습니다. 가격도 합리적이며, 서비스도 친절하다는 평가를 받고 있습니다. 따라서 카페달은 아늑하고 맛있는 카이막과 함께 편안한 분위기에서 휴식을 즐기기에 좋은 선택지로 손님들에게 추천되고 있습니다.',
+            },
+        ];
+
+        // 질문과 대답 데이터 5쌍을 이용하여 질문 div와 대답 div를 생성한다.
+        for(let i = 0; i < questionsAndAnswers.length; i++){
+            // 질문 div 생성
+            const questionDiv = document.createElement('div');
+            questionDiv.style.width = '80%'; // 질문 div width
+            questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
+            questionDiv.style.color = '#515563'; // 질문 텍스트 색
+            questionDiv.style.padding = '10px';   
+            questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+            questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+            questionDiv.style.display = 'flex'; // flexbox 사용
+            questionDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
+            questionDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+
+            // '사람' 아이콘 추가
+            const userIcon = document.createElement('i');
+            userIcon.className = 'material-icons'; // Material Icons 클래스
+            userIcon.textContent = 'person'; // 사용자 아이콘
+            userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
+            userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+
+            questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
+
+            // 질문 텍스트 추가
+            const questionText = document.createElement('span');
+            questionText.innerHTML = '<br>' + questionsAndAnswers[i].question;
+            questionText.style.padding = '10px';   // 패딩 추가
+            questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+
+            // 대답 div 생성
+            const answerDiv = document.createElement('div');
+            answerDiv.style.width = '80%'; // 대답 영역 width
+            answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
+            answerDiv.style.color = 'black'; // 대답 텍스트 색
+            answerDiv.style.padding = '10px';
+            answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
+            answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
+            answerDiv.style.display = 'flex'; // flexbox 사용
+            answerDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
+            answerDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+
+            // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+            const enterImage = document.createElement('img');
+            enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
+            enterImage.style.height = '24px'; // 이미지 높이 조절
+
+            // 대답 텍스트 추가
+            const answerText = document.createElement('span');
+            answerText.innerHTML = '<br>' + questionsAndAnswers[i].answer;
+            answerText.style.padding = '10px'; // 패딩 추가
+            answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
+            answerText.style.whiteSpace = 'pre-wrap';  // 대답 줄 바꿈
+
+            // 'edit Icon'을 배치한 div 생성
+            const editIconDiv = document.createElement('div');
+            editIconDiv.style.marginTop = '10px'; // edit 아이콘 위쪽 마진 추가
+            editIconDiv.style.marginLeft = 'auto'; // 오른쪽 정렬
+
+            // 'edit Icon' 추가
+            const span = document.createElement('span');
+            
+            // 이미지 태그 생성
+            const img = document.createElement('img');
+            img.src = 'assets/img/memo_icon.png'; // 이미지의 URL을 설정하세요.
+            img.alt = '메모 아이콘'; // 이미지에 대한 대체 텍스트를 설정하세요.
+            img.width = 22; // 너비를 22px로 설정
+            img.height = 22; // 높이를 22px로 설정                       
+                            
+            span.appendChild(img); // span 요소에 이미지를 추가합니다.
+            span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+
+            // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
+            span.onclick = function() {
+                // 보기 용도이므로 굳이 이벤트가 발생할 필요가 없다.
+            };
+
+            editIconDiv.appendChild(span); // 아이콘을 div에 추가
+
+            answerDiv.appendChild(enterImage); // 이미지를 div에 추가
+            answerDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
+            answerDiv.appendChild(editIconDiv); // edit 아이콘을 div에 추가
+
+            // 질문, 아이콘 및 대답 div를 conversation view에 추가
+            conversationView.appendChild(questionDiv);
+            conversationView.appendChild(answerDiv);
+        }
     }
 }
 
