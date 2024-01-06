@@ -289,12 +289,11 @@ function getChatRoomList(){
             // 채팅방 목록이 비어 있을 때
             const li = document.createElement('li');
             li.textContent = '채팅방이 없습니다';
+            li.style.padding='30px';
             li.style.textAlign = 'center';
-            li.style.marginTop = '150px'; // 위치를 아래로 조정
+            li.style.marginTop = '125px'; // 위치를 아래로 조정
             li.style.fontSize = '1.6em'; // 텍스트 크기 키우기
             conversationsElement.appendChild(li);
-
-            document.querySelector('.logo').textContent=''; // 채팅 History를 보여주는 상단에 빈 값으로 보여줌
        }
        // 채팅방이 있을 떄 
        else{
