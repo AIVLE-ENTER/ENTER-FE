@@ -69,31 +69,41 @@
                  style="display: none;">
 
                 <div class="popup-content">
-                    <h3>새 채팅방 생성</h3>
+
+                    <h3 style='font-family:scd;'>새 채팅방 생성</h3>
 
                     <form id="new-chat-form">
-                        <label for="topic">주제:</label>
+                        <!-- <label for="topic">주제:</label> -->
                         <input type="text" 
-                               id="topic"
-                               name="topic"><br>
+                                id="topic"
+                                name="topic"
+                                placeholder="주제" 
+                                style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                                        
 
-                        <label for="chatroom-name">채팅방명:</label>
+                        <!-- <label for="chatroom-name">채팅방명:</label> -->
                         <input type="text"
                                id="chatroom-name"
-                               name="chatroom"><br>
+                               name="chatroom"
+                               placeholder="채팅방명" 
+                               style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                         <div id="error-message" 
-                             style="display: none; color: red; margin:10px;">
+                             style="display: none; color: red; margin:10px; font-family:scd;">
                         </div>   <!-- 오류 메시지를 위한 요소 추가 -->
                     </form>
 
                     <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
                     <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
-                        <button type="submit" onclick='generateChat(event)'>생성</button>
+                        <button type="submit" 
+                                style="font-family:scd;"
+                                onclick='generateChat(event)'>생성</button>
 
                         <div style='margin-left:10px;'></div>
 
-                        <button type="button" onclick='closePopup()'>나가기</button>
+                        <button type="button"
+                                style="font-family:scd;" 
+                                onclick='closePopup()'>나가기</button>
                     </div>
                 </div>
             </div>
@@ -160,7 +170,7 @@
     <!-- Prompt Main 화면 -->
     <main>
         <div class="view new-chat-view">  <!-- 상단 -->
-            <div class="logo"></div>
+            <!-- <div class="logo"></div> -->
         </div>
 
         <div class="view conversation-view"
@@ -290,26 +300,31 @@
           style="display: none;">
 
         <div class="popup-content">
-            <h3>채팅방명 변경 </h3>
+            <h3 style="font-family:scd;">채팅방명 변경 </h3>
 
             <form id="update-chat-form">
-                <label for="chatroom-name">채팅방명:</label>
+                <!-- <label for="chatroom-name">채팅방명:</label> -->
                 <input type="text"
                     id="chatroom-name"
-                    name="chatroom"><br>
+                    name="chatroom"
+                    placeholder="변경할 채팅방명" 
+                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                 <div id="error-message" 
-                    style="display: none; color: red; margin:10px;">
+                    style="display: none; color: red; margin:10px; font-family:scd;">
                 </div>   <!-- 오류 메시지를 위한 요소 추가 -->
             </form>
 
             <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
             <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px;">
-                <button type="submit" onclick='editChatRoom()'>변경</button>
+                <button type="submit"
+                        style="font-family:scd;"
+                        onclick='editChatRoom()'>변경</button>
 
                 <div style='margin-left:10px;'></div>
 
                 <button type="button"
+                        style="font-family:scd;"
                         onclick='closePopup()'>나가기</button>
             </div>
         </div>
