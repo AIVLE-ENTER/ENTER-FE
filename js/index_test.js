@@ -2071,12 +2071,13 @@ function renderFrequentMessages(messageList){
                     margin-right: 10px;">
                   
             <p style="margin: 0px 10px 0px 0px; width: 300px; font-family: 'scd';">${message.template_name}</p>
-
-            <input type='text'
-                   value='${message.template_content}'
-                   style="margin-right: 10px; font-family: 'scd';"
-                   placeholder='자주쓰는 문구에 대한 Text를 불러와야 합니다.'
-                   disabled>
+ 
+            <textarea style="width:60%; text-align: left; font-family: 'scd'; resize: none;" 
+                      placeholder='자주 쓰는 문구에 대한 Text를 불러와야 합니다.'
+                      disabled>
+                        ${message.template_content}
+            </textarea>
+            
 
             <button type="button"
                     style="background-color: #ccccff; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'scd';"
