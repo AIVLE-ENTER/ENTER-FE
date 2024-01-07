@@ -113,7 +113,7 @@
                 </div>
 
                 <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
-                <div style="height: 30px;"></div>
+                <div style="height: 10px;"></div>
                 
                 <!-- New Chat -->
                 <div class="sidebar-controls">
@@ -125,13 +125,10 @@
                     </button>
                     <!-- <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button> -->
                 </div>
-            
-                <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
-                <div style="height: 30px;"></div>
 
                 <!-- 채팅방명-->
-                <p class='topic'  
-                style="color: black; font-weight: bold;"></p>
+                <!-- <p class='topic'  
+                style="color: black; font-weight: bold;"></p> -->
                 <ul class="conversations"> <!-- 채팅방명 목록 -->
                     <!-- 채팅방 목록이 JS 코드로 동적으로 생성됩니다.-->
                 </ul>
@@ -139,7 +136,7 @@
 
             <!-- User Menu-->
             <div class="user-menu"
-                style='margin-bottom:120px;'>
+                style='margin-bottom:20px;'>
                 <!-- 엔터란? -->
                 <div class="menu1" 
                     style='padding:10px;'
@@ -158,31 +155,32 @@
                      <span>AI 설정</span>
                 </div>
 
-            <!-- 문의 게시판 -->
-            <div class="menu3"
-                 style='padding:10px;'
-                 onclick='goInquiry();'>
-                 <img src="assets/img/board.png" 
-                      style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
-                <span>문의 게시판</span>
+                <!-- 문의 게시판 -->
+                <div class="menu3"
+                    style='padding:10px;'
+                    onclick='goInquiry();'>
+                    <img src="assets/img/board.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+                    <span>문의 게시판</span>
+                </div>
+
+                <!-- 로그인/로그아웃 -->
+                <div class="menu4"
+                    style='padding:10px;'
+                    onclick='goLogout();'>
+                    <img src="assets/img/login_out.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+                <span>로그아웃</span>
+                </div>
             </div>
 
-            <!-- 로그인/로그아웃 -->
-            <div class="menu4"
-                style='padding:10px;'
-                onclick='goLogout();'>
-                <img src="assets/img/login_out.png" 
-                     style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
-               <span>로그아웃</span>
-            </div>
-        </div>
-    </nav>
+        </nav>
  
-    <!-- Prompt Main 화면 -->
-    <main>
-        <div class="view new-chat-view">  <!-- 상단 -->
-            <!-- <div class="logo"></div> -->
-        </div>
+        <!-- Prompt Main 화면 -->
+        <main>
+            <div class="view new-chat-view">  <!-- 상단 -->
+                <!-- <div class="logo"></div> -->
+            </div>
 
             <div class="view conversation-view"
                 style="flex-grow: 1; height: auto; overflow-y: auto; margin: 0px; padding:40px; height: calc(100vh - 150px)">   <!-- 중간 -->

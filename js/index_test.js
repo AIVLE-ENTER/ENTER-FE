@@ -54,7 +54,7 @@ function checkLoginStatusAndUpdateUI() {
 
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
-        conversationView.style.overflow = 'scroll';
+        conversationView.style.overflowY = 'scroll';
         conversationView.style.display = 'flex';  // display 'flex'
         conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
 

@@ -217,12 +217,6 @@ button:hover {
     flex: 1;
 }
 
-.conversations {
-    width: calc( 100% + 8px );
-    min-height: 400px; 
-    overflow-y: scroll;
-}
-
 .conversation-button {
     overflow: hidden;
     white-space: nowrap;
@@ -344,6 +338,8 @@ i.user-icon {
 .user-menu {
     position: relative;
     border-top: 1px solid var(--color-border1);
+    margin: 10px 0;
+    padding-top: 10px;
 }
 
 .user-menu i, .user-menu span {
@@ -411,7 +407,7 @@ i.user-icon {
     border-bottom-right-radius: 5px;
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
     width: 9px;
 }
 
@@ -431,7 +427,7 @@ i.user-icon {
 ::-webkit-scrollbar-thumb:hover {
     background-color: var(--color-text);
     border-radius: 5px;
-}
+} */
 
 main {
     width: calc(100vw - 300px);
@@ -539,17 +535,17 @@ p.secondary {
 }
 
 #message-form {
-    width: 74%;
-    margin: 0 auto;
+    width: 100%;
     /* box-sizing: border-box; */
     min-width: 270px;
     text-align: center;
-    padding: 0px 45px 0 45px;
+    padding: 0px 58.2px 0px 40px;
     /* box-shadow: var(--color-main) 0 0 50px; */
 }
 
 .message-wrapper {
     position: relative;
+    width: 100%;
 }
 
 #message-form .message-wrapper textarea {
@@ -564,7 +560,7 @@ p.secondary {
     /* background: var(--color-user-menu-hover); */
     background-color: white;
     border-radius: 13px;
-    width: 100%;
+    width: 80%;
     box-sizing: border-box;
     border: 1px solid var(--color-user-message-border);
     resize: none;
@@ -584,7 +580,7 @@ p.secondary {
 
 .send-button {
     position: absolute;
-    right: 15px;
+    right: 11%;
     top: 50%;
     transform: translateY(-50%);
     /* background: var(--color-gpt3); */
@@ -626,8 +622,10 @@ p {
 }
 
 .conversations {
-    max-height: 200px; /* 최대 높이 설정 */
     overflow-y: auto; /* 세로 스크롤바 설정 */
+    width: calc( 100% + 8px );
+    height: 55vh; 
+    overflow-y: scroll;
 }
 
 #chat-list {
