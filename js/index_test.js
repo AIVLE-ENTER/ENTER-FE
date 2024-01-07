@@ -27,7 +27,7 @@ function checkLoginStatusAndUpdateUI() {
         // 'sidebar'에는 이렇게 화면을 그려준다.
         document.getElementById('sidebar').innerHTML = `
             <div style="height: calc(100vh - 50px); padding:10px; display: flex; flex-direction: column; justify-content: center;">
-                <h2 style='font-weight: 100; text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
+                <h2 style='font-weight: 100; text-align:center;'>로그인 후 <span style="color: #454997; font-weight: bold;">ENTER</span>를<span style='display:inline-block;margin-top:7px;'>마음껏 활용하세요</span></h2>
         
                 <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
 
@@ -50,7 +50,7 @@ function checkLoginStatusAndUpdateUI() {
 
         // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
         const newChatView = document.querySelector('.new-chat-view');
-        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center; height:20.5px; font-size:20px; font-weight:bold;'>간단하고 손쉬운 프롬프트 사용으로<br>손쉽게 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
+        newChatView.innerHTML = "<p style='margin-top:40px; text-align: center; height:40.5px; font-size:20px; font-weight:bold;'><span style='display:inline-block;margin-bottom:8px;'>간단하고 손쉬운 프롬프트 사용으로</span><br><span>손쉽게<span style='color: #454997;'> 경쟁력</span>을 키워보세요</</p>";
 
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
