@@ -1,11 +1,17 @@
+/* 1. 폰트를 임포트 한다. */
+@font-face {
+  font-family: 'scd';
+  src: url('../assets/fonts/SCDream5.otf') format('truetype');
+}
+
 /* header에 대한 css 적용 */
 header {
     width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
-    height:80px;
+    height:40px;
     margin: 0; /* 상하 마진 제거 */
     background-color: white; /* 흰색 배경 */
     position: fixed;
-    padding: 10px 0; /* 상하 패딩 */
+    padding: 7.5px 0; /* 상하 패딩 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
     top: 0; /* 상단에 위치 */
     left: 0; /* 왼쪽에 위치 */
@@ -16,12 +22,13 @@ header {
 }
 
 body {
-  font-family: 'Noto Sans KR';
+  font-family: 'scd';
+  margin: 0;
 }
 
 #header-logo {
-    width: 100px; /* 로고 이미지의 너비를 비율에 맞게 자동 조정 */
-    height: 50px; /* 로고 이미지의 높이 */
+    height: 35px; /* 로고 이미지의 높이 */
+    margin-bottom:15px;
     margin-left:20px;
 }
 
@@ -34,12 +41,10 @@ body {
 .header-link h3 {
     margin-right: 30px;
     transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
-    font-size:20px;
+    font-size:0.8em;
+    margin-bottom: 30px;
 }
 
-.header-link:hover h3 {
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
-}
 	
 
 /* Body 영역에 대한 CSS */
@@ -99,10 +104,10 @@ body {
 .content-header {
   display: flex;
   width: 100%;
-  height: 400px;
+  height: 250px;
   align-items: center;
   text-align: center;
-  background-color: #2e316d;
+  background-color: #454997;
 }
 
 .content-header-mypage {
@@ -116,8 +121,8 @@ body {
 .content-header-mypage-info {
   display: flex;
   width: 1000px;
-  margin-top: 250px;
-  margin-left: 150px;
+  margin-top: 150px;
+  margin-left: 200px;
   align-items: center;
 }
 
@@ -137,7 +142,7 @@ body {
 }
 
 .content-header-usertype {
-  width: 300px;
+  width: 150px;
   margin-top: 40px;
   text-align: right;
   font-size: 20px;
@@ -145,8 +150,8 @@ body {
 }
 
 .content-body {
-  width: 100%;
-  padding: 200px;
+  width: 80%;
+  padding: 100px;
   margin-left: 100px;
   margin-right: 100px;
 }
@@ -185,7 +190,7 @@ body {
 }
 
 .content-button-section {
-  width: 1200px;
+  width: 91%;
   text-align: right;
 }
 
@@ -194,7 +199,7 @@ button.edit-password-button {
   outline: none;
   font-size: 16px;
   margin: 20px;
-  background: #2e316d;
+  background: #454997;
   color: white;
   padding: 10px;
   cursor: pointer;
@@ -206,7 +211,7 @@ button.withdraw-button {
   outline: none;
   font-size: 16px;
   margin: 20px;
-  background: #2e316d;
+  background: #454997;
   color: white;
   padding: 10px;
   cursor: pointer;
