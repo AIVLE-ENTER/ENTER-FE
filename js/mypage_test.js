@@ -2,7 +2,6 @@
 const myToken = getWithExpire('accessToken'); // 토큰을 받아온다.
 
 if (myToken === null) {
-    alert('로그인이 필요합니다.')
     window.location.href = '../index_test.html';
 } else {
     // 1. 페이지 라우팅
@@ -19,16 +18,17 @@ if (myToken === null) {
         console.log(response);
         mypageInfo = response['data'];
         
-        mypageUserHeader1 = document.querySelector('.header-link h3')
-        mypageUserHeader2 = document.querySelector('.content-header-username')
-        mypageId = document.querySelector('.content-body-item-body1')
-        mypagePw = document.querySelector('.content-body-item-body2')
-        mypageName = document.querySelector('.content-body-item-body3')
-        mypageEmail = document.querySelector('.content-body-item-body4')
-        mypageRole = document.querySelector('.content-header-usertype')
+        mypageUserHeader1 = document.querySelector('.header-link h3');
+        mypageUserHeader2 = document.querySelector('.content-header-username');
+        mypageId = document.querySelector('.content-body-item-body1');
+        mypagePw = document.querySelector('.content-body-item-body2');
+        mypageName = document.querySelector('.content-body-item-body3');
+        mypageEmail = document.querySelector('.content-body-item-body4');
+        mypageRole = document.querySelector('.content-header-usertype');
 
-        mypageUserHeader1.append(mypageInfo['user_name'] + '님 안녕하세요')
-        mypageUserHeader2.append(mypageInfo['user_name'])
+        mypageUserHeader1.append(mypageInfo['user_name'] + '님 안녕하세요');
+        document.querySelector('header .logout').style.display = 'block';
+        mypageUserHeader2.append(mypageInfo['user_name']);
         mypageId.append(mypageInfo['user_id']);
         mypagePw.append(mypageInfo['password']);
         mypageName.append(mypageInfo['user_name']);

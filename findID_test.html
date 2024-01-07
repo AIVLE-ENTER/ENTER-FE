@@ -69,9 +69,18 @@
     <body>
         <!-- Header -->
         <header>
-            <a href="/index_test.html"><img src="assets/img/ENTR_logo.png" 
-                alt="로고"
-                id="header-logo"></a>
+            <div style="height: 35px;">
+                <a href="/index_test.html" class="header-logo-link">
+                    <img src="assets/img/ENTR_logo.png" 
+                    alt="로고"
+                    id="header-logo">
+                </a>
+            </div>
+
+            <div style="display: flex; align-items: center;">
+                <button class='login' onclick='goLogin();'><img src="assets/img/login_out.png" 
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+            </div>
         </header>
 
 

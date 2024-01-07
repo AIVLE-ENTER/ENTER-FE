@@ -48,9 +48,21 @@ body {
 
 
 .header-link h3 {
-    margin-right: 20px;
+    /* margin-right: 20px; */
     transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
-    font-size:0.8em;
+    font-size: 13px;
+}
+
+header .logout {
+  background-color: transparent;
+  display: none;
+  border: none;
+  margin-right: 20px;
+  cursor: pointer;
+  padding: 13px;
+}
+header .logout:hover {
+  background-color: transparent;
 }
 
 	

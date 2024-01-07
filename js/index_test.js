@@ -24,6 +24,7 @@ function checkLoginStatusAndUpdateUI() {
     } 
     // 비로그인 상태이면?
     else {
+        document.querySelector('header .login').style.display = 'block';
         // 'sidebar'에는 이렇게 화면을 그려준다.
         document.getElementById('sidebar').innerHTML = `
             <div style="height: calc(100vh - 50px); padding:10px; display: flex; flex-direction: column; justify-content: center;">
@@ -204,7 +205,8 @@ function getUserInfo(){
     })
     .then(response => {
         user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
-        document.querySelector('.header-myinfo-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
+        document.querySelector('.header-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
+        document.querySelector('header .logout').style.display = 'block';
     })
     .catch(error => {
         console.log(error);
@@ -2425,13 +2427,4 @@ function checkMessageFormDisplay(templateValue){
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
     window.location.href='../inquiryBoard_test.html';
-}
-
-// '로그아웃'을 클릭하면 Routing 하는 함수
-function goLogout(){
-    alert('로그아웃을 했습니다.');
-    localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제
-
-    
-    window.location.reload(); // 현재 페이지를 새로고침
 }

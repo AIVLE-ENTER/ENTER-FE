@@ -87,6 +87,23 @@
   box-sizing: border-box;
 }
 
+@font-face {
+  font-family: 'scd';
+  src: url('../assets/fonts/SCDream5.otf') format('truetype');
+}
+
+*{
+  box-sizing: border-box; /*전체에 박스사이징*/
+  outline: none; /*focus 했을때 테두리 나오게 */
+  font-family: 'scd';
+}
+
+body {
+  font-family: 'scd';
+  margin: 0;
+  overflow: auto;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -95,7 +112,7 @@
 
 body {
   margin: 0;
-  font-family: var(--bs-body-font-family);
+  /* font-family: var(--bs-body-font-family); */
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -4178,7 +4195,7 @@ textarea.form-control-lg {
   word-wrap: break-word;
   background-color: var(--bs-card-bg);
   background-clip: border-box;
-  border: var(--bs-card-border-width) solid var(--bs-card-border-color);
+  /* border: var(--bs-card-border-width) solid var(--bs-card-border-color); */
   border-radius: var(--bs-card-border-radius);
 }
 .card > hr {
@@ -11224,3 +11241,60 @@ textarea:disabled {
   min-height: 300px;
   background-color: #f1f1f1;
 }
+
+/* Header 영역에 대한 css */
+header {
+  width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
+  height:50px;
+  margin: 0; /* 상하 마진 제거 */
+  background-color: white; /* 흰색 배경 */
+  position: relative;
+  padding: 7.5px 0; /* 상하 패딩 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  top: 0; /* 상단에 위치 */
+  left: 0; /* 왼쪽에 위치 */
+  z-index: 100;
+  align-items: center; /* 수직 중앙 정렬 */
+  justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
+  display: flex; /* 가로 정렬 */
+}
+
+#header-logo {
+  height: 35px; /* 로고 이미지의 높이 */
+  margin-left:20px;
+}
+
+.header-logo-link {
+  height: 35px;
+}
+
+.header-link {
+  text-decoration: none; /* 밑줄 제거 */
+  color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
+}
+
+.header-link h3 {
+  /* margin-right: 20px; */
+  transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
+  font-size:13px;
+  margin: 0;
+}
+
+header .logout, header .login {
+  background-color: transparent;
+  display: none;
+  border: none;
+  margin-right: 20px;
+  cursor: pointer;
+  padding: 13px;
+  box-shadow: none;
+}
+header .logout:hover, header .login:hover {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* 마우스 오버 시 그림자 효과 */
+/* .header-link:hover h3 {
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
+} */

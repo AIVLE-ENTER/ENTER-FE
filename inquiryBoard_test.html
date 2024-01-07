@@ -56,19 +56,34 @@
            
     <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <header>
-        <img src="assets/img/ENTR_logo.png" 
-             alt="로고"
-             id="header-logo">
+        <div style="height: 35px;">
+            <a href="/index_test.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
+        </div>
 
-        <a href="/mypage_test.html" 
-           class="header-link">
-            <h3>~님 안녕하세요!!</h3>
-       </a>
+        <div style="display: flex; align-items: center;">
+            <a href="/mypage_test.html"  class="header-link">
+                <h3></h3>
+            </a>
+            <button class='logout' onclick='goLogout();'>
+                <img src="assets/img/login_out.png" 
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+            <button class='login' onclick='goLogin();'><img src="assets/img/login_out.png" 
+                style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+        </div>
     </header>
 
     <!-- 간격 -->

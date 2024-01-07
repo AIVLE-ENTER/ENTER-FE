@@ -48,6 +48,19 @@ header a {
 .header-link:hover h3 {
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
 }
+
+header .login {
+    background-color: transparent;
+    border: none;
+    margin-right: 20px;
+    cursor: pointer;
+    padding: 13px;
+    box-shadow: none;
+  }
+header .login:hover {
+    background-color: transparent;
+    box-shadow: none;
+}
 	
 /* Body에 따른 CSS 스타일 적용 */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');  /* Google web font CDN*/

@@ -38,3 +38,40 @@ const Toast = Swal.mixin({
         toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 });
+
+// '로그아웃'을 클릭하면 Routing 하는 함수
+function goLogout(){
+    Swal.fire({
+        text: "로그아웃 하시겠습니까?",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '예',
+        cancelButtonText: '아니오'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제    
+            window.location.reload(); // 현재 페이지를 새로고침
+        }
+    });   
+}
+
+// '로그인'을 클릭하면 Routing 하는 함수
+function goLogin(){
+    Swal.fire({
+        text: "로그인 하시겠습니까?",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '예',
+        cancelButtonText: '아니오'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            window.location.href = '../signin_test.html';
+        }
+    });   
+}

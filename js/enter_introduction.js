@@ -12,6 +12,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     else {
       // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
       document.querySelector('header .header-link').style.display='none';
+      document.querySelector('header .login').style.display = 'block';
     }
 });
 
@@ -31,6 +32,7 @@ function getUserInfo(){
 
         const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
         document.querySelector('.header-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
+        document.querySelector('header .logout').style.display = 'block';
     })
     .catch(error => {
         window.location.reload(); // 새로 고침한다.

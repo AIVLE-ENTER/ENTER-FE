@@ -36,15 +36,17 @@ header a {
     color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
 }
 
-
-.header-link h3 {
-    margin-right: 30px;
-    transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
-    font-size:20px;
+header .login {
+  background-color: transparent;
+  border: none;
+  margin-right: 20px;
+  cursor: pointer;
+  padding: 13px;
+  box-shadow: none;
 }
-
-.header-link:hover h3 {
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
+header .login:hover {
+  background-color: transparent;
+  box-shadow: none;
 }
 	
 

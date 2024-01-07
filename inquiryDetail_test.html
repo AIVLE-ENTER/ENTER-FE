@@ -44,82 +44,35 @@
     </style>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between">
-            <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/Logo2.png" 
-                        alt="로고"
-                        id="headerLogo"> <!-- 이미지 로고-->
-
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-    
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/board" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/board2" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                    id='huiwongaip'
-                    href="/signup.html" 
-                    style="color: inherit;
-                           background-color:
-                           transparent; 
-                           border: none;
-                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/privacyPolicy.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-            </div>
+    <!-- Header -->
+    <header>
+        <div style="height: 35px;">
+            <a href="/index_test.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
         </div>
-    </nav>
+
+        <div style="display: flex; align-items: center;">
+            <a href="/mypage_test.html"  class="header-link">
+                <h3></h3>
+            </a>
+            <button class='logout' onclick='goLogout();'>
+                <img src="assets/img/login_out.png" 
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+            <button class='login' onclick='goLogin();'><img src="assets/img/login_out.png" 
+                style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+        </div>
+    </header>
 
     <!-- 사실상 body -->
     <div class="card">
@@ -157,6 +110,7 @@
     
 
     <!-- JS와 연동 -->
+    <script src="js/common.js"></script>
     <script src="js/inquiryDetail_test.js"></script>
 </body>
 </html>
