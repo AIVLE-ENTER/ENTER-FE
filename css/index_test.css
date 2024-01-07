@@ -940,3 +940,26 @@ p {
     justify-content: center;
     align-items: center;
 }
+
+#to-top, #to-bottom {
+    display: none;
+    transform: translate(0px, 0px);
+    width: 42px;
+    height: 42px;
+    background-color: #333;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 40.5px;
+    z-index: 9;
+}
+#to-top {
+    right: 70px;
+}
+#to-bottom {
+    right: 25px;
+}

@@ -423,8 +423,12 @@ function getChatQaHistory(chatRoom){
 
         if (response.data.conversation.length > 0) {
             conversationView.style.padding = '40px 40px 0';
+            document.getElementById("to-top").style.display = 'flex';
+            document.getElementById("to-bottom").style.display = 'flex';
         } else {
             conversationView.style.padding = '40px';
+            document.getElementById("to-top").style.display = 'none';
+            document.getElementById("to-bottom").style.display = 'none';
         }
 
         displayChatQaHistory(response.data.conversation, 
@@ -2436,4 +2440,15 @@ function checkMessageFormDisplay(templateValue){
 // '문의 게시판?'를 클릭하면 Routing 하는 함수
 function goInquiry(){
     window.location.href='../inquiryBoard_test.html';
+}
+
+// toTop 함수
+function toTop() {
+    document.querySelector(".conversation-view").scrollTo(0,0);
+}
+
+function toBottom() {
+    var converView = document.querySelector(".conversation-view")
+    console.log(converView.body)
+    converView.scrollTo(0,converView.scrollHeight);
 }
