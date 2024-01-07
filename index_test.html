@@ -50,14 +50,12 @@
 <body>
     <!-- Header -->
     <header>
-        <div style="align-items: center;">
-            <a href="/index_test.html" 
-                class="header-link">
-                <img src="assets/img/ENTR_logo.png" 
-                alt="로고"
-                id="header-logo">
-            </a>
-        </div>
+        <a href="/index_test.html" 
+            class="header-link">
+            <img src="assets/img/ENTR_logo.png" 
+            alt="로고"
+            id="header-logo">
+        </a>
 
         <a href="/mypage_test.html" 
            class="header-link">
@@ -65,138 +63,141 @@
        </a>
     </header>
     
-    <!-- Prompt Sidebar-->
-    <nav id="sidebar">
-        <div class="float-top">
-            <!-- 팝업 레이아웃 (New Chat을 클릭할 떄 나타남)--> 
-            <div id="new-chat-popup"
-                 class="popup"
-                 style="display: none;">
+    <div class="screen">
+        <!-- Prompt Sidebar-->
+        <nav id="sidebar">
+            <div class="float-top">
+                <!-- 팝업 레이아웃 (New Chat을 클릭할 떄 나타남)--> 
+                <div id="new-chat-popup"
+                    class="popup"
+                    style="display: none;">
 
-                <div class="popup-content">
+                    <div class="popup-content">
 
-                    <h3 style='font-family:scd;'>새 채팅방 생성</h3>
+                        <h3 style='font-family:scd;'>새 채팅방 생성</h3>
 
-                    <form id="new-chat-form">
-                        <!-- <label for="topic">주제:</label> -->
-                        <input type="text" 
-                                id="topic"
-                                name="topic"
-                                placeholder="주제" 
+                        <form id="new-chat-form">
+                            <!-- <label for="topic">주제:</label> -->
+                            <input type="text" 
+                                    id="topic"
+                                    name="topic"
+                                    placeholder="주제" 
+                                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                                            
+
+                            <!-- <label for="chatroom-name">채팅방명:</label> -->
+                            <input type="text"
+                                id="chatroom-name"
+                                name="chatroom"
+                                placeholder="채팅방명" 
                                 style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
-                                                        
 
-                        <!-- <label for="chatroom-name">채팅방명:</label> -->
-                        <input type="text"
-                               id="chatroom-name"
-                               name="chatroom"
-                               placeholder="채팅방명" 
-                               style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                            <div id="error-message" 
+                                style="display: none; color: red; margin:10px; font-family:scd;">
+                            </div>   <!-- 오류 메시지를 위한 요소 추가 -->
+                        </form>
 
-                        <div id="error-message" 
-                             style="display: none; color: red; margin:10px; font-family:scd;">
-                        </div>   <!-- 오류 메시지를 위한 요소 추가 -->
-                    </form>
+                        <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
+                        <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
+                            <button type="submit" 
+                                    style="font-family:scd;"
+                                    onclick='generateChat(event)'>생성</button>
 
-                    <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
-                    <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
-                        <button type="submit" 
-                                style="font-family:scd;"
-                                onclick='generateChat(event)'>생성</button>
+                            <div style='margin-left:10px;'></div>
 
-                        <div style='margin-left:10px;'></div>
-
-                        <button type="button"
-                                style="font-family:scd;" 
-                                onclick='closePopup()'>나가기</button>
+                            <button type="button"
+                                    style="font-family:scd;" 
+                                    onclick='closePopup()'>나가기</button>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
-            <div style="height: 30px;"></div>
-            
-            <!-- New Chat -->
-            <div class="sidebar-controls">
-                <button class="new-chat"
-                        style='color:black'
-                        onclick="openPopup()">
-                        <i class="fa fa-plus" style="margin-right: 10px; color: white"></i>
-                        <span style="color: white">New Chat</span>
-                </button>
-                <!-- <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button> -->
-            </div>
-           
-            <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
-            <div style="height: 30px;"></div>
-
-            <!-- 채팅방명-->
-            <p class='topic'  
-               style="color: black; font-weight: bold;"></p>
-            <ul class="conversations"> <!-- 채팅방명 목록 -->
-                <!-- 채팅방 목록이 JS 코드로 동적으로 생성됩니다.-->
-            </ul>
-        </div>
-
-        <!-- User Menu-->
-        <div class="user-menu"
-             style='margin-bottom:120px;'>
-            <!-- 엔터란? -->
-            <div class="menu1"
-                 style='padding:10px;'
-                 onclick='question_enter();'>
-                <span>엔터란?</span>
-            </div>
-
-            <!-- AI 설정 -->
-            <div class="menu2"
-                 style='padding:10px;'
-                 onclick='AIconfig()'>
-                <span>AI 설정</span>
-            </div>
-
-            <!-- 문의 게시판 -->
-            <div class="menu3"
-                 style='padding:10px;'
-                 onclick='goInquiry();'>
+                <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+                <div style="height: 30px;"></div>
                 
-                <span>문의 게시판</span>
+                <!-- New Chat -->
+                <div class="sidebar-controls">
+                    <button class="new-chat"
+                            style='color:black'
+                            onclick="openPopup()">
+                            <i class="fa fa-plus" style="margin-right: 10px; color: white"></i>
+                            <span style="color: white">New Chat</span>
+                    </button>
+                    <!-- <button class="hide-sidebar"><i class="fa fa-chevron-left"></i></button> -->
+                </div>
+            
+                <!-- 다른 요소들 사이에 높이 간격을 주기 위한 빈 div -->
+                <div style="height: 30px;"></div>
+
+                <!-- 채팅방명-->
+                <p class='topic'  
+                style="color: black; font-weight: bold;"></p>
+                <ul class="conversations"> <!-- 채팅방명 목록 -->
+                    <!-- 채팅방 목록이 JS 코드로 동적으로 생성됩니다.-->
+                </ul>
             </div>
 
-            <!-- 로그인/로그아웃 -->
-            <div class="menu4"
-                style='padding:10px;'
-                onclick='goLogout();'>
-               <span>로그아웃</span>
-            </div>
-        </div>
-    </nav>
- 
-    <!-- Prompt Main 화면 -->
-    <main>
-        <div class="view new-chat-view">  <!-- 상단 -->
-            <!-- <div class="logo"></div> -->
-        </div>
+            <!-- User Menu-->
+            <div class="user-menu"
+                style='margin-bottom:120px;'>
+                <!-- 엔터란? -->
+                <div class="menu1"
+                    style='padding:10px;'
+                    onclick='question_enter();'>
+                    <span>엔터란?</span>
+                </div>
 
-        <div class="view conversation-view"
-             style="flex-grow: 1; height: auto; min-height:700px; overflow-y: auto; margin: 10px; padding:40px;">   <!-- 중간 -->
-            <!-- 질문과 대답의 반복 (History) 동적 데이터-->
-        </div>
- 
-        <div id="message-form"
-             style='display:none; margin-bottom:30px;'>                <!-- 하단 입력창 -->
-            <div class="message-wrapper">
-                <textarea id="message"
-                          rows="1"
-                          placeholder="질문을 입력하고 ENTER만 치세요!"></textarea>
-                <button class="send-button">
-                    <img src="assets/img/enter_icon.png"
-                         width="32" height="32"
-                         alt="아이콘">
-                </button>
+                <!-- AI 설정 -->
+                <div class="menu2"
+                    style='padding:10px;'
+                    onclick='AIconfig()'>
+                    <span>AI 설정</span>
+                </div>
+
+                <!-- 문의 게시판 -->
+                <div class="menu3"
+                    style='padding:10px;'
+                    onclick='goInquiry();'>
+                    
+                    <span>문의 게시판</span>
+                </div>
+
+                <!-- 로그인/로그아웃 -->
+                <div class="menu4"
+                    style='padding:10px;'
+                    onclick='goLogout();'>
+                <span>로그아웃</span>
+                </div>
             </div>
-        </div>
-    </main>
+        </nav>
+
+        <!-- Prompt Main 화면 -->
+        <main>
+            <div class="view new-chat-view">  <!-- 상단 -->
+                <!-- <div class="logo"></div> -->
+            </div>
+
+            <div class="view conversation-view"
+                style="flex-grow: 1; height: auto; overflow-y: auto; margin: 0px; padding:40px; height: calc(100vh - 150px)">   <!-- 중간 -->
+                <!-- 질문과 대답의 반복 (History) 동적 데이터-->
+            </div>
+
+            <div id="message-form"
+                style='display:none; margin-bottom:30px;'>                <!-- 하단 입력창 -->
+                <div class="message-wrapper">
+                    <textarea id="message"
+                            rows="1"
+                            placeholder="질문을 입력하고 ENTER만 치세요!"></textarea>
+                    <button class="send-button">
+                        <img src="assets/img/enter_icon.png"
+                            width="32" height="32"
+                            alt="아이콘">
+                    </button>
+                </div>
+            </div>
+        </main>
+
+    </div>
 
     <!-- 기타 -->
 
