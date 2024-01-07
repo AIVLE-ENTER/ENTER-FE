@@ -37,7 +37,7 @@ function checkDuplicateID() {
                 if (is_available) {  // 사용 가능할 때 처리할 이벤트 (아이디 중복 X)
                   errorId.style.display = 'none';
                   Toast.fire({
-                    width: 400,
+                    width: '420px',
                     icon: 'success',
                     title: '아이디 설정이 완료되었습니다.'
                   });
@@ -116,7 +116,7 @@ function requestVerificationCode(){
     if (regMail.test(input_email)) {       // 이메일 형식이 맞으면?
       errorEmail.style.display = 'none';
       Toast.fire({
-        width: 400,
+        width: '420px',
         icon: 'success',
         title: '인증 번호를 전송했습니다.'
       });
@@ -128,7 +128,7 @@ function requestVerificationCode(){
                 .then(function (response) {
                   console.log(response);
 
-                  // 4. 타이머 5분 호출 
+                  // 4. 타이머 3분 호출 
                   document.querySelector('.timer-container').style.display = 'inline-block';                  // 타이머를 보이게 함
                   document.querySelector('#timer').style.display='inline-block';                              // 타이머를 보이게함
                   document.getElementById('input_email').disabled=true;                                       // '이메일 입력' 칸 비활성화
@@ -140,7 +140,7 @@ function requestVerificationCode(){
                 .catch(function (error) {
                   console.log(error);
                   Toast.fire({
-                    width: 400,
+                    width: '420px',
                     icon: 'error',
                     title: '에러가 발생했습니다. 다시 시도해주세요.'
                   });
@@ -181,7 +181,7 @@ function timer2(duration, display, emailInput, verfiyCodeInput) {
 
       if (--timer < 0) {
           Toast.fire({
-            width: 400,
+            width: '420px',
             icon: 'error',
             title: '인증 시간이 지났습니다. 다시 시도해주세요.'
           });                                    
@@ -227,7 +227,7 @@ function checkAuthNum(){
           if(is_success==true){
             errorCerti.style.display = 'none';
             Toast.fire({
-              width: 400,
+              width: '420px',
               icon: 'success',
               title: '인증이 완료되었습니다.\n회원가입을 이어서 진행해주세요.'
             }); 
@@ -312,7 +312,6 @@ function signUp(){
 
     // 2. 유효성 검사
     var is_error = false;
-    console.log(input_id);
     if(input_id.value=="") {
       errorId.style.display = 'inline-block';
       errorId.textContent = '아이디를 입력해주세요.';
@@ -401,7 +400,7 @@ function signUp(){
                 })
                 .catch(function (error) {
                   Toast.fire({
-                    width: 400,
+                    width: '420px',
                     icon: 'error',
                     title: '에러가 발생했습니다. 다시 시도해주세요.'
                   }); 
