@@ -97,7 +97,8 @@ body {
 #sidebar {
     /* position: relative; */
     width: 300px;
-    height: 130%; /* 추가된 부분 */
+    height: 135%; /* 추가된 부분 */
+    /* height: calc(100vh - 50px); /* 전체 높이에서 헤더 높이를 뺌 */
     padding: 8px;
     flex-shrink: 0; /* 사이드바 기가 줄어들지 않도록 설정 */
     left: 0;
@@ -119,8 +120,6 @@ body {
     left: -260px;
     margin-right: -260px;
 }
-
-
 
 
 #sidebar.hidden .hide-sidebar {
@@ -530,10 +529,10 @@ p.secondary {
 }
 
 #message-form {
-    width: 100%;
+    width: 74%;
     margin: 0 auto;
     /* box-sizing: border-box; */
-    max-width: 850px;
+    min-width: 270px;
     text-align: center;
     padding: 0px 45px 0 45px;
     /* box-shadow: var(--color-main) 0 0 50px; */
