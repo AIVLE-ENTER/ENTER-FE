@@ -185,14 +185,11 @@ function getUserInfo(){
         }
     })
     .then(response => {
-        // 요청이 성공하면 이 부분이 실행됩니다.
-        // console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
-
         user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
-        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요`; // h3 태그에 보여준다.
+        document.querySelector('.header-myinfo-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
     })
     .catch(error => {
-        window.location.reload(); // 새로 고침한다.
+        console.log(error);
     });
 }
 
@@ -278,7 +275,6 @@ function getChatRoomList(){
         }
     })
     .then(response => {
-        // 요청이 성공하면 이 부분이 실행됩니다.
         console.log('채팅방 불러오기 성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
@@ -381,8 +377,6 @@ function getChatRoomList(){
 
 // AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
 function getChatQaHistory(chatRoom){
-    // document.querySelector('.logo').textContent = chatRoom.title; // 채팅 History를 보여주는 상단에 title을 붙인다.
-
     // 모든 버튼에서 'active' 클래스 제거 
     const buttons = document.querySelectorAll('.conversation-button');
     buttons.forEach(button => {
