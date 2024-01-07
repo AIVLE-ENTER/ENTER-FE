@@ -19,7 +19,7 @@ if (myToken === null) {
         console.log(response);
         mypageInfo = response['data'];
         
-        mypageUserHeader1 = document.querySelector('.header-link-value')
+        mypageUserHeader1 = document.querySelector('.header-link h3')
         mypageUserHeader2 = document.querySelector('.content-header-username')
         mypageId = document.querySelector('.content-body-item-body1')
         mypagePw = document.querySelector('.content-body-item-body2')
@@ -28,13 +28,13 @@ if (myToken === null) {
         mypageRole = document.querySelector('.content-header-usertype')
 
         mypageUserHeader1.append(mypageInfo['user_name'] + '님 안녕하세요')
-        mypageUserHeader2.append(mypageInfo['user_id'])
+        mypageUserHeader2.append(mypageInfo['user_name'])
         mypageId.append(mypageInfo['user_id']);
         mypagePw.append(mypageInfo['password']);
         mypageName.append(mypageInfo['user_name']);
         mypageEmail.append(mypageInfo['user_email']);
         if (mypageInfo['role'] === 'user') {
-            mypageRole.append('사용자');
+            // mypageRole.append('사용자');
         } else {
             mypageRole.append('관리자');
         }

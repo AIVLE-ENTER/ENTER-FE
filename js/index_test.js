@@ -998,26 +998,41 @@ function updateMemo(history_id, memoContent){
 
 // 메모를 삭제하는 함수
 function deleteMemo(history_id){
-    // 백엔드에서 구현한 '메모 삭제하기' 기능과 소통한다.
-    const deleteMemo_URL=`http://localhost:8000/main/memo/delete/`;
+    // 정말 삭제할건지 묻기
+    Swal.fire({
+        title: '정말 삭제하시겠습니까?',
+        text: "삭제한 데이터는 복구할 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            // 백엔드에서 구현한 '메모 삭제하기' 기능과 소통한다.
+            const deleteMemo_URL=`http://localhost:8000/main/memo/delete/`;
 
-    axios({
-        method: 'post',
-        url: deleteMemo_URL, 
-        headers: { 
-            'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
-        },
-        data : {'memo_id': history_id}
-    })
-    .then(response => {
-        console.log('성공:', response);
+            axios({
+                method: 'post',
+                url: deleteMemo_URL, 
+                headers: { 
+                    'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`}),
+                },
+                data : {'memo_id': history_id}
+            })
+            .then(response => {
+                console.log('성공:', response);
 
-        // 메모 팝업을 없앤다.
-        closeMemo();
-    })
-    .catch(error => {
-        console.log('에러 에러 : ', error);
-        alert('에러');
+                // 메모 팝업을 없앤다.
+                closeMemo();
+            })
+            .catch(error => {
+                console.log('에러 에러 : ', error);
+                alert('에러');
+            });
+        }
     });
 }
 
@@ -1101,28 +1116,43 @@ function editChatRoom(){
 
 // 채팅방을 삭제할 떄 함수
 function deleteChatRoom(){
-    var contextMenu=document.getElementById("contextMenu");
-    var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
-    const deleteChatRoom_URL='http://localhost:8000/main/chatWindow/delete/'; // 백엔드 소통 URL
+    // 정말 삭제할건지 묻기
+    Swal.fire({
+        title: '정말 삭제하시겠습니까?',
+        text: "삭제한 데이터는 복구할 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            var contextMenu=document.getElementById("contextMenu");
+            var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
+            const deleteChatRoom_URL='http://localhost:8000/main/chatWindow/delete/'; // 백엔드 소통 URL
 
-    // 백엔드에서 구현한 '채팅방 삭제' 기능을 통신한다.
-    axios({
-        method: 'post',
-        url: deleteChatRoom_URL,
-        headers: { 
-            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
-        },
-        data: {
-           'chat_window_id': chatWindowId,
+            // 백엔드에서 구현한 '채팅방 삭제' 기능을 통신한다.
+            axios({
+                method: 'post',
+                url: deleteChatRoom_URL,
+                headers: { 
+                    'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+                },
+                data: {
+                'chat_window_id': chatWindowId,
+                }
+            })
+            .then(response => {
+                console.log('성공!!');
+
+                window.location.reload(); // 새로 고침
+            })
+            .catch(error => {
+                console.log(`에러 : ${error.response.data.message}`);
+            });
         }
-    })
-    .then(response => {
-        console.log('성공!!');
-
-        window.location.reload(); // 새로 고침
-    })
-    .catch(error => {
-        console.log(`에러 : ${error.response.data.message}`);
     });
 }
 
@@ -2268,25 +2298,39 @@ function closeEditFrequentMessage(){
 
 // 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출하는 함수
 function deleteFrequentMessage(template_id){
-    // 백엔드에서 구현한 '자주 쓰는 문구 삭제하기' 기능과 통신한다.
-    const deleteFrequentMessage_URL='http://localhost:8000/main/frequentMessage/delete/';
-    axios({
-        method: 'post',
-        url: deleteFrequentMessage_URL,
-        headers: {
-            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
-        },
-        data:{'template_id': template_id},
-    })
-    .then(response => {
-        // AI 설정 팝업을 다시 불러온다
-        handleUseClick();
-    })
-    .catch(error => {
-        console.log('에러');
-        console.log(error);
+    // 정말 삭제할건지 묻기
+    Swal.fire({
+        title: '정말 삭제하시겠습니까?',
+        text: "삭제한 데이터는 복구할 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            // 백엔드에서 구현한 '자주 쓰는 문구 삭제하기' 기능과 통신한다.
+            const deleteFrequentMessage_URL='http://localhost:8000/main/frequentMessage/delete/';
+            axios({
+                method: 'post',
+                url: deleteFrequentMessage_URL,
+                headers: {
+                    'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+                },
+                data:{'template_id': template_id},
+            })
+            .then(response => {
+                // AI 설정 팝업을 다시 불러온다
+                handleUseClick();
+            })
+            .catch(error => {
+                console.log('에러');
+                console.log(error);
+            });
+        }
     });
-   
 }
 
 // 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
