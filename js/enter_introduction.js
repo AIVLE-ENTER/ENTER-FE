@@ -10,9 +10,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     } 
     // 비로그인 상태이면?
     else {
-      // Header 창 Logo 보여주지 않도록 한다.
-      document.getElementById('header-logo').style.display='none';
-
       // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
       document.querySelector('header .header-link').style.display='none';
     }
@@ -33,7 +30,7 @@ function getUserInfo(){
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
-        document.querySelector('.header-link h3').textContent = `${user_id}님 안녕하세요`; // h3 태그에 보여준다.
+        document.querySelector('.header-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
     })
     .catch(error => {
         window.location.reload(); // 새로 고침한다.

@@ -73,24 +73,23 @@
                     style="display: none;">
 
                     <div class="popup-content">
+                        <span class="close-button" 
+                              onclick="closePopup()">&times;</span>
 
-                        <h3 style='font-family:scd;'>새 채팅방 생성</h3>
+                        <h3 style='font-size:25px; font-family:scd; font-weight:bold'>새 채팅 시작</h3>
 
                         <form id="new-chat-form">
-                            <!-- <label for="topic">주제:</label> -->
                             <input type="text" 
                                     id="topic"
                                     name="topic"
                                     placeholder="주제" 
-                                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
                                                             
-
-                            <!-- <label for="chatroom-name">채팅방명:</label> -->
                             <input type="text"
-                                id="chatroom-name"
-                                name="chatroom"
-                                placeholder="채팅방명" 
-                                style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                    id="chatroom-name"
+                                    name="chatroom"
+                                    placeholder="채팅방명" 
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                             <div id="error-message" 
                                 style="display: none; color: red; margin:10px; font-family:scd;">
@@ -98,16 +97,16 @@
                         </form>
 
                         <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
-                        <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
+                        <div style="width:200px; display: flex; justify-content: flex-end; margin-right:21px;">
                             <button type="submit" 
                                     style="font-family:scd;"
                                     onclick='generateChat(event)'>생성</button>
 
-                            <div style='margin-left:10px;'></div>
+                            <!-- <div style='margin-left:10px;'></div> -->
 
-                            <button type="button"
+                            <!-- <button type="button"
                                     style="font-family:scd;" 
-                                    onclick='closePopup()'>나가기</button>
+                                    onclick='closePopup()'>나가기</button> -->
                         </div>
                     </div>
                 </div>
@@ -316,15 +315,17 @@
           style="display: none;">
 
         <div class="popup-content">
-            <h3 style="font-family:scd;">채팅방명 변경 </h3>
+            <span class="close-button" 
+                  onclick="closePopup()">&times;</span>
+ 
+            <h3 style='font-size:25px; font-family:scd; font-weight:bold'>채팅방명 변경 </h3>
 
             <form id="update-chat-form">
-                <!-- <label for="chatroom-name">채팅방명:</label> -->
                 <input type="text"
                     id="chatroom-name"
                     name="chatroom"
                     placeholder="변경할 채팅방명" 
-                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                    style="width:200px; height: 35px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                 <div id="error-message" 
                     style="display: none; color: red; margin:10px; font-family:scd;">
@@ -332,16 +333,10 @@
             </form>
 
             <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
-            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px;">
+            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px; margin-right:25px;">
                 <button type="submit"
                         style="font-family:scd;"
                         onclick='editChatRoom()'>변경</button>
-
-                <div style='margin-left:10px;'></div>
-
-                <button type="button"
-                        style="font-family:scd;"
-                        onclick='closePopup()'>나가기</button>
             </div>
         </div>
     </div>
@@ -350,20 +345,23 @@
     <div id="addFrequentMessagePopup" 
          style="display:none;">
         <div class="popup-content">
-            <h2>자주 쓰는 문구 추가</h2>
+            <span class="close-button" 
+                  onclick="closeFrequentMessage()">&times;</span>
 
-            <!--<label for="messageTitle">문구 제목:</label>-->
+            <h2 style='font-size:25px; font-family:scd; font-weight:bold'>자주 쓰는 문구 추가</h2>
+
             <input type="text"
                    id="messageTitle"
                    name="messageTitle"
                    placeholder="문구 제목" 
-                   style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+                   style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
     
-            <!-- <label for="messageContent">문구 내용:</label> --> 
-            <textarea id="messageContent" 
-                      name="messageContent"
-                      placeholder="문구 내용" 
-                      style="width:155px; height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
+            
+            <input type="text"
+                    id="messageContent"
+                    name="messageContent"
+                    placeholder="문구 내용" 
+                    style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;">
 
             <div id="errorMessage"
                  style="display: none; color: red; margin-top: 10px; font-family:scd;">
@@ -371,11 +369,9 @@
             </div>
 
             <div class="button-container"
-                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-right:70px;'>
                 <button style='font-family:scd;'
                         onclick="submitFrequentMessage()">추가</button>
-                <button style='font-family:scd;' 
-                        onclick="closeFrequentMessage()">취소</button>
             </div>
         </div>
     </div>
@@ -384,30 +380,30 @@
     <div id="editFrequentMessagePopup"
          style="display:none;">
         <div class="popup-content">
-            <h2>자주 쓰는 문구 수정</h2>
+            <span class="close-button" 
+                  onclick="closeEditFrequentMessage()">&times;</span>
 
-            <!-- <label for="editMessageTitle">문구 제목:</label> -->
+            <h2>자주 쓰는 문구 수정</h2>
+        
             <input type="text" 
                    id="editMessageTitle"
                    name="editMessageTitle"
                    placeholder="문구 제목" 
-                   style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+                   style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
 
-            <!-- <label for="editMessageContent">문구 내용:</label> -->
-            <textarea id="editMessageContent"
-                      name="editMessageContent"
-                      placeholder="문구 내용" 
-                      style="width:155px; height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap"></textarea>
+            <input type="text" 
+                    id="editMessageContent"
+                    name="editMessageContent"
+                    placeholder="문구 내용" 
+                    style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+
 
             <div class="button-container"
-                 style='display: flex; flex-direction: row; justify-content: center; gap: 10px;'>
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-right:70px;'>
                 <button onclick="submitEditFrequentMessage()"
                         data-template-id=""
                         style='font-family:scd;'
-                        id="editSubmitButton">수정하기</button>
-
-                <button style='font-family:scd;'
-                        onclick="closeEditFrequentMessage()">취소하기</button>
+                        id="editSubmitButton">수정</button>
             </div>
         </div>
     </div>
