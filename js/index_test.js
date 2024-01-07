@@ -50,7 +50,7 @@ function checkLoginStatusAndUpdateUI() {
 
         // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
         const newChatView = document.querySelector('.new-chat-view');
-        newChatView.innerHTML = "<p style='margin-top:40px; text-align: center; height:40.5px; font-size:20px; font-weight:bold;'><span style='display:inline-block;margin-bottom:8px;'>간단하고 손쉬운 프롬프트 사용으로</span><br><span>손쉽게<span style='color: #454997;'> 경쟁력</span>을 키워보세요</</p>";
+        newChatView.innerHTML = "<p style='margin-top:80px; text-align: center; height:40.5px; font-size:20px; font-weight:bold;'><span style='display:inline-block;margin-bottom:8px;'>간단하고 손쉬운 프롬프트 사용으로</span><br><span>손쉽게<span style='color: #454997;'> 경쟁력</span>을 키워보세요</</p>";
 
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
@@ -61,24 +61,42 @@ function checkLoginStatusAndUpdateUI() {
         // 질문과 대답 데이터 5쌍
         const questionsAndAnswers = [
             {
-                question: "KT 인터넷에 대한 사용자들의 평가는 어떤지 알려줘!",
+                question: "KT 인터넷에 대한 사용자들의 평가는 어떤지 알려줘 !",
                 answer: '전반적으로 KT 인터넷에 대한 의견은 긍정적인 경향을 보입니다. 가격, 서비스 품질, 평가 등 다양한 측면에서 KT 인터넷이 좋다는 의견이 많이 나타났습니다. 그러나 일부 지역에 따라 3통신사 인터넷의 차이가 있을 수 있다는 의견도 있습니다. 따라서 전체적으로 KT 인터넷이 양호하다고 평가되지만, 개별적인 지역에 따라 상이할 수 있다는 점을 고려해야 합니다.',
             },
             {
-                question: "카페달에 대한 긍정적 댓글은 무엇이 있을까?",
-                answer: '또한, 댓글들은 카페의 아늑한 분위기와 포근함을 강조하고 있으며, 카이막과 커피의 맛을 함께 즐기는 것을 추천하고 있습니다. 이러한 긍정적인 평가와 추천은 해당 카페가 고객들에게 만족스러운 경험을 제공하고 있음을 시사합니다. 따라서, 해당 카페는 카이막과 커피의 맛으로 인해 사람들에게 인기가 있고, 아늑한 분위기와 좋은 서비스로 인해 계속해서 방문하고자 하는 고객들의 관심을 얻고 있을 것으로 예상됩니다.',
+                question: "kt 기가지니에 대한 긍정적인 댓글 3개를 보여줘 !",
+                answer: `
+"KT 기가지니는 집 안에서 편리하게 일상을 관리할 수 있게 해주는 최고의 스마트 가전 제품 중 하나에요. 음악 재생부터 일정 관리까지 다양한 기능을 한 곳에서 간편하게 사용할 수 있어 정말 편리해요!"
+                
+"기가지니의 음성인식 기술이 정말 뛰어나서, 명령을 내리면 바로 반응해주는 점이 정말 인상적입니다. 이렇게 편리한 가전 제품을 사용하니 일상 생활이 훨씬 더 효율적으로 되는 것 같아요."
+                
+"KT 기가지니의 AI 기술은 계속 발전하고 있어서, 사용할 때마다 새로운 기능과 업데이트로 더 많은 편의성을 느낄 수 있어요. 미래를 대비해서 이런 스마트한 기기를 도입한 건 정말 좋은 선택이었습니다!"`,
             },
             {
-                question: "kt인터넷에서 기술지원부족에 대한 이야기를 어떤 리뷰를 하고 있는 리뷰를 모두 보여줘",
-                answer: 'kt인터넷에서 기술지원부족에 대한 이야기를 다음과 같은 리뷰들이 있습니다: 1. 내용: 인터넷은 kt인듯, 날짜: 2023-10-02 18:29 2. 내용: 인터넷 문제 맞았네 나도 kt 쓰는데 kt가 문제가 많은건가..?, 날짜: 2023-08-12 22:05 3. 내용: Kt인터넷문제..?, 날짜: 2023-08-06 04:30 4. 내용: 요즘 kt 인터넷이 문제 많다는 소리 때문에 상대적 올려치기인듯, 날짜: 2023-11-08 13:00 이 리뷰들은 kt인터넷의 기술지원이 부족하다는 내용을 언급하고 있습니다.',
+                question: "kt 인터넷과 관련하여 ‘기술 지원 부족’에 대해 어떤 리뷰들이 있는지 보여줘 !",
+                answer: `
+kt인터넷에서 기술지원부족에 대한 이야기를 다음과 같은 리뷰들이 있습니다.
+
+1. 내용: 인터넷은 kt인듯, 날짜: 2023-10-02 18:29 
+2. 내용: 인터넷 문제 맞았네 나도 kt 쓰는데 kt가 문제가 많은건가..?, 날짜: 2023-08-12 22:05 
+3. 내용: Kt인터넷문제..?, 날짜: 2023-08-06 04:30
+4. 내용: 요즘 kt 인터넷이 문제 많다는 소리 때문에 상대적 올려치기인듯, 날짜: 2023-11-08 13:00
+
+이 리뷰들은 kt인터넷의 기술지원이 부족하다는 내용을 언급하고 있습니다.`,
             },
             {
-                question: "kt인터넷에 가지고 있는 불만중 가격 문제에 대한 불평을 자세하게 확인한 후 알려줘.",
-                answer: '제가 확인한 내용을 바탕으로 말씀드리면, 주어진 내용들 중에서 kt인터넷의 가격에 대한 불만을 자세히 확인할 수 있는 내용은 지금 KT 인터넷이랑 결합돼있어서 요금제를 알뜰로 못가는게 ㄹㅇ ㅠㅠㅠㅠ라는 내용입니다. 이 사용자는 KT 인터넷과 결합되어 있어서 다른 요금제를 선택할 수 없다는 점에 대해 실망을 표현하고 있습니다. 하지만 다른 내용들은 KT 인터넷의 가격에 대한 직접적인 언급을 포함하고 있지 않으므로, 더 자세한 내용을 확인하기 어렵습니다.',
+                question: "'카페달'에 대한 긍정적인 평가에 대해 알려줘 !",
+                answer: '카페달에 대한 긍정적인 댓글들은 대부분 카페의 아늑한 분위기와 포근함을 강조하고 있으며, 카이막과 커피의 맛을 함께 즐기는 것을 추천하고 있습니다. 이러한 긍정적인 평가와 추천은 해당 카페가 고객들에게 만족스러운 경험을 제공하고 있음을 시사합니다. 따라서, 해당 카페는 카이막과 커피의 맛으로 인해 사람들에게 인기가 있고, 아늑한 분위기와 좋은 서비스로 인해 계속해서 방문하고자 하는 고객들의 관심을 얻고 있을 것으로 예상됩니다.',
             },
             {
-                question: "카페달에 대한 좋은 댓글 대표적으로 3개만 알려줘라",
-                answer: '카페달은 아늑하고 포근한 분위기로 손님들을 맞이하고 있습니다. 커피와 카이막이 맛있는 것으로 알려져 있으며, 카이막과 함께 먹으면 천국이라고 합니다. 방문자들은 카페의 분위기와 맛에 매우 만족하며, 다시 방문하고 싶다는 긍정적인 반응을 보여주고 있습니다. 가격도 합리적이며, 서비스도 친절하다는 평가를 받고 있습니다. 따라서 카페달은 아늑하고 맛있는 카이막과 함께 편안한 분위기에서 휴식을 즐기기에 좋은 선택지로 손님들에게 추천되고 있습니다.',
+                question: "'카페달'에 대한 개선점과 관련된 리뷰를 3개 보여줘 !",
+                answer: `
+"서비스 속도가 아직 개선이 필요해요. 주문 후 음료를 받는 데 시간이 조금 걸리는 편이에요. 바쁜 시간대에는 손님들이 기다리는 동안 조금 불편해하는 모습이 보였어요. 음료 제조나 서빙 속도를 높이기 위한 프로세스 개선이 필요해 보입니다."
+
+"메뉴 다양성이 부족해요. 카페 메뉴가 다소 한정적으로 느껴졌어요. 특히 비건이나 다양한 식이 제약이 있는 손님들을 위한 옵션이 부족한 편이었습니다. 다양성 있는 메뉴 개발로 더 많은 고객들을 유치할 수 있을 것 같아요."
+
+"인테리어 개선이 필요해 보입니다. 카페 분위기는 좋았지만, 좀 더 현대적이고 트렌디한 인테리어로 업데이트할 필요가 있어 보였어요. 고객들이 편안하게 머무르고 즐길 수 있는 분위기 조성이 중요할 것 같아요."`,
             },
         ];
 
@@ -88,7 +106,7 @@ function checkLoginStatusAndUpdateUI() {
             const questionDiv = document.createElement('div');
             questionDiv.style.width = '80%'; // 질문 div width
             questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
-            questionDiv.style.color = '#515563'; // 질문 텍스트 색
+            questionDiv.style.color = '#3B3F4E'; // 질문 텍스트 색
             questionDiv.style.padding = '10px';   
             questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
             questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -116,7 +134,7 @@ function checkLoginStatusAndUpdateUI() {
             const answerDiv = document.createElement('div');
             answerDiv.style.width = '80%'; // 대답 영역 width
             answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
-            answerDiv.style.color = 'black'; // 대답 텍스트 색
+            answerDiv.style.color = '#3B3F4E'; // 대답 텍스트 색
             answerDiv.style.padding = '10px';
             answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
             answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
