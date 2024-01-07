@@ -26,8 +26,8 @@ function checkLoginStatusAndUpdateUI() {
     else {
         // 'sidebar'에는 이렇게 화면을 그려준다.
         document.getElementById('sidebar').innerHTML = `
-            <div style="height: 100%; padding:10px; display: flex; flex-direction: column; justify-content: center;">
-                <h2 style='font-weight: 100; text-align:center;'>로그인 후 <span style="color: #454997; font-weight:bold;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
+            <div style="height: calc(100vh - 50px); padding:10px; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style='font-weight: 100; text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
         
                 <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
 
@@ -48,15 +48,13 @@ function checkLoginStatusAndUpdateUI() {
             </div>
         `;
 
-        // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
-        document.querySelectorAll('header .header-link')[1].style.display='none';
-
         // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
         const newChatView = document.querySelector('.new-chat-view');
-        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center; font-size:20px; font-weight:bold;'>간단하고 손쉬운 프롬프트 사용으로<br>손쉽게 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
+        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center; height:20.5px; font-size:20px; font-weight:bold;'>간단하고 손쉬운 프롬프트 사용으로<br>손쉽게 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
 
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
+        conversationView.style.overflow = 'scroll';
         conversationView.style.display = 'flex';  // display 'flex'
         conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
 
@@ -458,7 +456,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
         questionDiv.style.color = '#515563'; // 질문 텍스트 색
         questionDiv.style.padding = '10px';   
-        questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
+        questionDiv.style.margin = '0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
         questionDiv.style.display = 'flex'; // flexbox 사용
         questionDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
