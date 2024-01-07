@@ -26,27 +26,31 @@ function checkLoginStatusAndUpdateUI() {
     else {
         // 'sidebar'에는 이렇게 화면을 그려준다.
         document.getElementById('sidebar').innerHTML = `
-            <div style="height: calc(100vh - 50px); padding:0 10px; display: flex; flex-direction: column; justify-content: center;">
-                <h2 style='text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
+            <div style="height: calc(100vh - 50px); padding:10px; display: flex; flex-direction: column; justify-content: center;">
+                <h2 style='font-weight: 100; text-align:center;'>로그인 후 <span style="color: #454997;">ENTER</span>를 <br> 마음껏 활용하세요</h2>
         
                 <div style='margin-top: 350px; width: 100%; border-bottom: 1px solid black;'></div>
 
                 <div style='margin-top:20px;'>
-                    <a href="../enter_introduction.html" style="text-decoration: none; color: black; display: block; margin-bottom: 20px;">엔터란?</a>
-                    <a href="../signin_test.html" style="text-decoration: none; color: black; display: block;">로그인</a>
+                    <a href="../enter_introduction.html" 
+                       style="text-decoration: none; color: black; display: block; margin-bottom: 20px;">
+                        <img src="assets/img/what_enter.png" 
+                             style="width: 20px; height: 20px; vertical-align: middle; margin-bottom:3px; margin-right: 5px;">
+                        엔터란?
+                    </a>
+                    <a href="../signin_test.html"
+                       style="text-decoration: none; color: black; display: block;">
+                        <img src="assets/img/login_out.png" 
+                             style="width: 20px; height: 20px; vertical-align: middle; margin-bottom:3px; margin-right: 5px;">
+                        로그인
+                    </a>
                 </div>
             </div>
         `;
 
-        // Header 창 왼쪽 로고는 보이지 않게 한다.
-        // document.querySelectorAll('header .header-link')[0].style.display='none';
-
-        // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
-        // document.querySelectorAll('header .header-link')[1].style.display='none';
-
         // 'main -> new-chat-view'에 이렇게 화면을 그려준다.
         const newChatView = document.querySelector('.new-chat-view');
-        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center; height:20.5px;'>간단하고 손쉬운 프롬프트 사용으로 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
+        newChatView.innerHTML = "<p style='margin-top:60px; text-align: center; height:20.5px; font-size:20px; font-weight:bold;'>간단하고 손쉬운 프롬프트 사용으로<br>손쉽게 <span style='color: #454997;'>경쟁력</span>을 키워보세요</p>";
 
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
@@ -57,7 +61,7 @@ function checkLoginStatusAndUpdateUI() {
         // 질문과 대답 데이터 5쌍
         const questionsAndAnswers = [
             {
-                question: "KT 인터넷에 대해서 어떻게 생각하니?",
+                question: "KT 인터넷에 대한 사용자들의 평가는 어떤지 알려줘!",
                 answer: '전반적으로 KT 인터넷에 대한 의견은 긍정적인 경향을 보입니다. 가격, 서비스 품질, 평가 등 다양한 측면에서 KT 인터넷이 좋다는 의견이 많이 나타났습니다. 그러나 일부 지역에 따라 3통신사 인터넷의 차이가 있을 수 있다는 의견도 있습니다. 따라서 전체적으로 KT 인터넷이 양호하다고 평가되지만, 개별적인 지역에 따라 상이할 수 있다는 점을 고려해야 합니다.',
             },
             {
@@ -98,6 +102,7 @@ function checkLoginStatusAndUpdateUI() {
             userIcon.textContent = 'person'; // 사용자 아이콘
             userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
             userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+            userIcon.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
 
             questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
 
@@ -147,7 +152,7 @@ function checkLoginStatusAndUpdateUI() {
             img.height = 22; // 높이를 22px로 설정                       
                             
             span.appendChild(img); // span 요소에 이미지를 추가합니다.
-            span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+            span.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
 
             // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
             span.onclick = function() {
@@ -284,6 +289,30 @@ function getChatRoomList(){
         // '크롤러 설정' 섹션 요소를 찾고 chatRoomList 데이터를 저장합니다. 다 쓰일 떄가 있으니까 마련한 것이여 ~ 
         const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
         crawlerSettingSection.dataset.chatroomlist = JSON.stringify(chatRoomList); // JSON 문자열로 변환하여 저장
+        
+        // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' imgage를 보여준다.
+        var conversationView = document.querySelector('.view.conversation-view');
+
+        // 중앙 정렬을 위한 컨테이너 div 생성
+        var containerDiv = document.createElement('div');
+        containerDiv.style.display = 'flex'; // Flexbox 레이아웃 사용
+        containerDiv.style.justifyContent = 'center'; // 수평 중앙 정렬
+        containerDiv.style.alignItems = 'center'; // 수직 중앙 정렬
+        containerDiv.style.height = '100%'; // 컨테이너의 높이 설정
+
+        // 새로운 img 요소를 생성
+        var img = document.createElement('img');
+        img.src = 'assets/img/chatting.png'; // 여기에 이미지의 URL을 입력하세요
+        img.alt = '설명'; // 대체 텍스트를 제공합니다
+        img.style.width='400px';  // width를 정한다.
+        img.style.display = 'block'; // 블록 레벨 요소로 설정
+        img.style.margin = 'auto'; // 가로 방향으로 자동 마진 적용
+
+        // 컨테이너 div에 img 요소 추가
+        containerDiv.appendChild(img);
+
+        // 대상 div에 컨테이너 div 추가
+        conversationView.appendChild(containerDiv);
 
        // 채팅방이 없을 떄 
        if(chatRoomList.length==0){
@@ -394,6 +423,29 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
     if(QaDatas.length==0){
         alert('채팅 히스토리 데이터가 없습니다.');
+
+        // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' image를 보여준다.
+        
+        // 중앙 정렬을 위한 컨테이너 div 생성
+        var containerDiv = document.createElement('div');
+        containerDiv.style.display = 'flex'; // Flexbox 레이아웃 사용
+        containerDiv.style.justifyContent = 'center'; // 수평 중앙 정렬
+        containerDiv.style.alignItems = 'center'; // 수직 중앙 정렬
+        containerDiv.style.height = '100%'; // 컨테이너의 높이 설정
+
+        // 새로운 img 요소를 생성
+        var img = document.createElement('img');
+        img.src = 'assets/img/chatting.png'; // 여기에 이미지의 URL을 입력하세요
+        img.alt = '원하는 주제로 채팅을 시작하세요'; // 대체 텍스트를 제공합니다
+        img.style.width='400px';  // width를 정한다.
+        img.style.display = 'block'; // 블록 레벨 요소로 설정
+        img.style.margin = 'auto'; // 가로 방향으로 자동 마진 적용
+
+        // 컨테이너 div에 img 요소 추가
+        containerDiv.appendChild(img);
+
+        // 대상 div에 컨테이너 div 추가
+        conversationView.appendChild(containerDiv);
     }
 
     // 채팅 이력을 그려서 화면에 보여준다.
@@ -416,6 +468,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         userIcon.textContent = 'person'; // 사용자 아이콘
         userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
         userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
+        userIcon.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
 
         questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
 
@@ -507,7 +560,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         }
         else{
             console.log('클릭');
-            sendQuestion(chatRoom);   // 질문과 대답을 추가한다.
+            sendQuestion(chatRoom, QaDatas);   // 질문과 대답을 추가한다.
         }
     };
 
@@ -526,7 +579,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
             } 
             else {
                 // 입력 필드에 값이 있으면 질문과 대답을 처리
-                sendQuestion(chatRoom);
+                sendQuestion(chatRoom, QaDatas);
             }
         }
     });
@@ -534,13 +587,22 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 }
 
 // 새로운 메시지를 전송하는 함수
-function sendQuestion(chatRoom) {
+function sendQuestion(chatRoom, QaDatas) {
     // 입력창에 적은 text를 가져온다.
     var textareaElement = document.getElementById('message');  
     var question = textareaElement.value;
 
     // 하단 입력창에 대한 값을 빈값으로 대치한다.
     textareaElement.value='';
+
+    // 기존에 채팅 이력이 없었다면 "원하는 주제로 채팅을 시작하세요" image 보여줬던 것을 지운다.(Erase)
+    if(QaDatas.length==0){
+        const conversationView = document.querySelector('.view.conversation-view');
+    
+        conversationView.style.display = 'flex';  // display 'flex'
+        conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
+        conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+    }
 
     // 질문을 화면에 추가
     addQA(question,
@@ -1122,6 +1184,7 @@ function handleCrawlerClick() {
     popup1_content.style.justifyContent = 'center';
     popup1_content.style.alignItems = 'center';
 
+
     // 버튼 스타일
     var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: scd';
 
@@ -1218,7 +1281,6 @@ function targetSetting(chatRoomList) {
     startButton.onclick = function() {
         // 1. 첫 번쨰 드롭다운 메뉴에 있는 관련된 정보들이 콘솔에 정상적으로 찍히는지 확인한다.
         console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
-
 
 
         // 2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
@@ -1439,7 +1501,7 @@ function updateSecondDropdown(target_object, title, secondDropdown) {
     // 2. 두 번째 드롭다운의 기존 내용을 초기화
     secondDropdown.innerHTML = '';
 
-    // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 생성한다.
+    // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
     var option = document.createElement('option');
     option.value = target_object;
     option.title = title;

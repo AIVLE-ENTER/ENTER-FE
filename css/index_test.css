@@ -132,8 +132,6 @@ body {
 }
 
 
-
-
 #sidebar.hidden .hide-sidebar {
     left: 60px;
     transform: rotate(180deg);
@@ -540,10 +538,10 @@ p.secondary {
 }
 
 #message-form {
-    width: 100%;
+    width: 74%;
     margin: 0 auto;
     /* box-sizing: border-box; */
-    max-width: 850px;
+    min-width: 270px;
     text-align: center;
     padding: 0px 45px 0 45px;
     /* box-shadow: var(--color-main) 0 0 50px; */
