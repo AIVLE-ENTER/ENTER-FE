@@ -56,15 +56,16 @@ const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
 var contentNumber = 1;
 
-tempUrl = 'http://127.0.0.1:8000/board/'
+tempUrl = 'http://127.0.0.1:8000/board/' // ?page=2 이런식으로 페이지 넣어서 보내야 함
 axios.get(tempUrl)
 .then((response) => {
+    console.log(response);
     console.log('success');
     var board_list = response.data['post_list'];
     
     console.log(Object.keys(board_list).length)
     totalBoardCount = document.querySelector('.aside');
-    totalBoardCount.append('▷ 총 ' + Object.keys(board_list).length + '개의 게시물이 있습니다.');
+    totalBoardCount.append('▷ 총 ' + response.data['tot_post'] + '개의 게시물이 있습니다.');
 
     
     board_list.forEach((content) => {     
