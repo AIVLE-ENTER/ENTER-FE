@@ -27,7 +27,7 @@ if (myToken === null) {
         mypageEmail = document.querySelector('.content-body-item-body4')
         mypageRole = document.querySelector('.content-header-usertype')
 
-        mypageUserHeader1.append(mypageInfo['user_id'] + '님 안녕하세요!!')
+        mypageUserHeader1.append(mypageInfo['user_name'] + '님 안녕하세요')
         mypageUserHeader2.append(mypageInfo['user_id'])
         mypageId.append(mypageInfo['user_id']);
         mypagePw.append(mypageInfo['password']);
