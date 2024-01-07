@@ -2351,7 +2351,7 @@ function checkMessageFormDisplay(templateValue){
     if (style.display==='block') {
         // 하단 입력창에 text 붙이기
         var textareaElement = document.getElementById('message');
-        textareaElement.value=templateValue;
+        textareaElement.value=templateValue.trim();
     }  
     else {
         alert('하단에 입력창이 활성화 되어야 적용할 수 있습니다.');
