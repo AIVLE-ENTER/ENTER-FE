@@ -59,7 +59,7 @@
 
         <a href="/mypage_test.html" 
            class="header-myinfo-link">
-            <h3>~님 안녕하세요!!</h3>
+            <h3></h3>
        </a>
     </header>
     
@@ -73,24 +73,23 @@
                     style="display: none;">
 
                     <div class="popup-content">
+                        <span class="close-button" 
+                              onclick="closePopup()">&times;</span>
 
-                        <h3 style='font-family:scd;'>새 채팅방 생성</h3>
+                        <h3 style='font-size:25px; font-family:scd; font-weight:bold'>새 채팅 시작</h3>
 
                         <form id="new-chat-form">
-                            <!-- <label for="topic">주제:</label> -->
                             <input type="text" 
                                     id="topic"
                                     name="topic"
                                     placeholder="주제" 
-                                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
                                                             
-
-                            <!-- <label for="chatroom-name">채팅방명:</label> -->
                             <input type="text"
-                                id="chatroom-name"
-                                name="chatroom"
-                                placeholder="채팅방명" 
-                                style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                                    id="chatroom-name"
+                                    name="chatroom"
+                                    placeholder="채팅방명" 
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                             <div id="error-message" 
                                 style="display: none; color: red; margin:10px; font-family:scd;">
@@ -98,16 +97,16 @@
                         </form>
 
                         <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
-                        <div style="width:200px; display: flex; justify-content: flex-end; margin-top: 10px;">
+                        <div style="width:200px; display: flex; justify-content: flex-end; margin-right:21px;">
                             <button type="submit" 
                                     style="font-family:scd;"
                                     onclick='generateChat(event)'>생성</button>
 
-                            <div style='margin-left:10px;'></div>
+                            <!-- <div style='margin-left:10px;'></div> -->
 
-                            <button type="button"
+                            <!-- <button type="button"
                                     style="font-family:scd;" 
-                                    onclick='closePopup()'>나가기</button>
+                                    onclick='closePopup()'>나가기</button> -->
                         </div>
                     </div>
                 </div>
@@ -318,15 +317,17 @@
           style="display: none;">
 
         <div class="popup-content">
-            <h3 style="font-family:scd;">채팅방명 변경 </h3>
+            <span class="close-button" 
+                  onclick="closePopup()">&times;</span>
+ 
+            <h3 style='font-size:25px; font-family:scd; font-weight:bold'>채팅방명 변경 </h3>
 
             <form id="update-chat-form">
-                <!-- <label for="chatroom-name">채팅방명:</label> -->
                 <input type="text"
                     id="chatroom-name"
                     name="chatroom"
                     placeholder="변경할 채팅방명" 
-                    style="height: 20px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                    style="width:200px; height: 35px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
 
                 <div id="error-message" 
                     style="display: none; color: red; margin:10px; font-family:scd;">
@@ -334,16 +335,10 @@
             </form>
 
             <!-- 버튼들을 가로로 정렬하기 위한 div 컨테이너 추가 -->
-            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px;">
+            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px; margin-right:25px;">
                 <button type="submit"
                         style="font-family:scd;"
                         onclick='editChatRoom()'>변경</button>
-
-                <div style='margin-left:10px;'></div>
-
-                <button type="button"
-                        style="font-family:scd;"
-                        onclick='closePopup()'>나가기</button>
             </div>
         </div>
     </div>

@@ -415,9 +415,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
     conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
 
-    if(QaDatas.length==0){
-        alert('채팅 히스토리 데이터가 없습니다.');
-
+    if(QaDatas.length==0){ // 채팅 히스토리 이력이 없는 경우
         // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' image를 보여준다.
         
         // 중앙 정렬을 위한 컨테이너 div 생성
@@ -582,13 +580,6 @@ function displayChatQaHistory(QaDatas, chatRoom) {
 
 // 새로운 메시지를 전송하는 함수
 function sendQuestion(chatRoom, QaDatas) {
-    // 입력창에 적은 text를 가져온다.
-    var textareaElement = document.getElementById('message');  
-    var question = textareaElement.value;
-
-    // 하단 입력창에 대한 값을 빈값으로 대치한다.
-    textareaElement.value='';
-
     // 기존에 채팅 이력이 없었다면 "원하는 주제로 채팅을 시작하세요" image 보여줬던 것을 지운다.(Erase)
     if(QaDatas.length==0){
         const conversationView = document.querySelector('.view.conversation-view');
@@ -597,6 +588,13 @@ function sendQuestion(chatRoom, QaDatas) {
         conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
         conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
     }
+
+    // 입력창에 적은 text를 가져온다.
+    var textareaElement = document.getElementById('message');  
+    var question = textareaElement.value;
+
+    // 하단 입력창에 대한 값을 빈값으로 대치한다.
+    textareaElement.value='';
 
     // 질문을 화면에 추가
     addQA(question,
@@ -820,9 +818,25 @@ function showMemo(history_id, flag, txt = '') {
     popupContainer.style.boxSizing = 'border-box';
     popupContainer.style.zIndex = '1000';
 
+    // 닫기 버튼 생성
+    const closeButton = document.createElement('span');
+    closeButton.textContent = '×'; // 'X' 문자
+    closeButton.className = 'close-button';
+    closeButton.style.position = 'absolute';
+    closeButton.style.top = '10px';
+    closeButton.style.right = '10px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.fontSize = '30px'; // 크기 설정
+    closeButton.style.fontWeight = 'bold'; // 굵기 설정
+    // 닫기 버튼 클릭 이벤트
+    closeButton.onclick = function() {
+        document.body.removeChild(popupContainer);
+        document.body.removeChild(overlay);
+    };
+
     // 팝업 타이틀 생성
     const popupTitle = document.createElement('h2');
-    popupTitle.textContent = '메모 팝업';
+    popupTitle.textContent = '메모';
     popupTitle.style.marginBottom = '20px';
     popupTitle.style.color = '#333';
     popupTitle.style.textAlign = 'center';
@@ -836,22 +850,13 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.border = '1px solid #000000'; 
     memoInput.style.fontFamily='scd'; // 글꼴 설정
     memoInput.style.resize = 'none';
+    memoInput.placeholder='메모를 입력해주세요';
 
 
     // 버튼 컨테이너 생성 및 스타일 설정
     const buttonContainer = document.createElement('div');
     buttonContainer.style.display = 'flex';
     buttonContainer.style.justifyContent = 'flex-end';
-
-    // '나가기' 버튼 생성 및 추가
-    const exitButton = document.createElement('button');
-    exitButton.textContent = '나가기';
-    exitButton.style.marginLeft = '10px';
-    exitButton.style.fontFamily='scd'; // 글꼴 설정
-    exitButton.onclick = function() {
-        document.body.removeChild(popupContainer);
-        document.body.removeChild(overlay);
-    };
 
     // 메모가 있을 경우
     if (flag) {
@@ -878,7 +883,6 @@ function showMemo(history_id, flag, txt = '') {
 
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
-        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
     // 메모가 없을 경우
     else {
@@ -896,10 +900,10 @@ function showMemo(history_id, flag, txt = '') {
         };
 
         buttonContainer.appendChild(saveButton);
-        buttonContainer.appendChild(exitButton); // 나가기 버튼 추가
     }
 
-    // 팝업에 타이틀, textarea, 버튼 컨테이너 추가
+    // 팝업에 닫기, 타이틀, textarea, 버튼 컨테이너 추가
+    popupContainer.appendChild(closeButton);
     popupContainer.appendChild(popupTitle);
     popupContainer.appendChild(memoInput);
     popupContainer.appendChild(buttonContainer);
@@ -1081,7 +1085,6 @@ function editChatRoom(){
 function deleteChatRoom(){
     var contextMenu=document.getElementById("contextMenu");
     var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
-
     const deleteChatRoom_URL='http://localhost:8000/main/chatWindow/delete/'; // 백엔드 소통 URL
 
     // 백엔드에서 구현한 '채팅방 삭제' 기능을 통신한다.
