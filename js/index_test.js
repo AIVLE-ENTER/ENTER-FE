@@ -828,7 +828,7 @@ function showMemo(history_id, flag, txt = '') {
     popupContainer.style.top = '50%';
     popupContainer.style.transform = 'translate(-50%, -50%)';
     popupContainer.style.backgroundColor = 'white';
-    popupContainer.style.padding = '20px';
+    popupContainer.style.padding = '30px';
     popupContainer.style.borderRadius = '8px';
     popupContainer.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.1)';
     popupContainer.style.maxWidth = '500px';
@@ -855,7 +855,7 @@ function showMemo(history_id, flag, txt = '') {
     // 팝업 타이틀 생성
     const popupTitle = document.createElement('h2');
     popupTitle.textContent = '메모';
-    popupTitle.style.marginBottom = '20px';
+    popupTitle.style.marginBottom = '30px';
     popupTitle.style.color = '#333';
     popupTitle.style.textAlign = 'center';
 
@@ -865,9 +865,11 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.height = '150px';
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
-    memoInput.style.border = '1px solid #000000'; 
+    memoInput.style.border = '1px solid #333'; 
     memoInput.style.fontFamily='scd'; // 글꼴 설정
     memoInput.style.resize = 'none';
+    memoInput.style.padding = '15px';
+    memoInput.style.borderRadius = '5px';
     memoInput.placeholder='메모를 입력해주세요';
 
 
