@@ -1194,8 +1194,8 @@ function targetSetting(chatRoomList) {
     // chatRoomList를 이용하여 드롭다운 옵션을 동적으로 생성
     chatRoomList.forEach(chatRoom => {
         var option = document.createElement('option');
-        option.value = chatRoom.target_object; // 예: 각 채팅방의 고유 ID
-        option.textContent = chatRoom.target_object + ' | ' + chatRoom.title; // 예: 각 채팅방의 이름
+        option.value = chatRoom.target_object;                                // 채팅방의 고유 ID
+        option.textContent = chatRoom.target_object + ' | ' + chatRoom.title; // 드롭다운에 이렇게 표시한다.
         dropdown.appendChild(option);
     });
 
@@ -1215,8 +1215,12 @@ function targetSetting(chatRoomList) {
     startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
     startButton.style.fontFamily='scd';  // 글꼴 설정
     startButton.onclick = function() {
+        // 1. 첫 번쨰 드롭다운 메뉴에 있는 관련된 정보들이 콘솔에 정상적으로 찍히는지 확인한다.
+        console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
 
-        // 1. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
+
+
+        // 2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
         // axios({
         //     method: '',
         //     url: ``,
@@ -1287,7 +1291,7 @@ function collectStatus(chatRoomList) {
         return;
     }
 
-    chatRoomList.forEach(chatRoom => {
+    chatRoomList.forEach(chatRoom => {  // 드롭다운 메뉴마다 채팅방의 target_object와 title을 저장했다.
         var option = document.createElement('option');
         option.value = chatRoom.target_object;
         option.title = chatRoom.title;
@@ -1329,7 +1333,7 @@ function collectStatus(chatRoomList) {
     };
 
 
-    // '조회 결과' 표시 영역
+    // '조회 결과' 표시 영역 
     var resultTitle = document.createElement('h4');
     resultTitle.textContent = '조회 결과';
     resultTitle.style.display = 'none';
@@ -1375,21 +1379,24 @@ function collectStatus(chatRoomList) {
     };
     queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
 
-        // 1. '조회' 버튼을 클릭했을 떄 필요한 정보들이 잘 넘어가는지 확인 
+        // 1. '조회' 버튼을 클릭했을 떄  첫 번쨰 드롭다운 메뉴와 두 번쨰 드롭다운 메뉴와 관련된
+        //                              필요한 정보들이 잘 넘어가는지 확인 
         console.log('1번쨰 드롭다운 target_object : ', firstDropdown.options[firstDropdown.selectedIndex].value);
         console.log('1번쨰 드롭다운 title : ', firstDropdown.options[firstDropdown.selectedIndex].title);
         console.log('2번쨰 드롭다운 target_object : ',  secondDropdown.options[secondDropdown.selectedIndex].value);
         console.log('2번쨰 드롭다운 title : ',  secondDropdown.options[secondDropdown.selectedIndex].title);
 
 
-        // 2. axios로 AI측과 백엔드 연동 
+        // 2. axios로 AI측과 백엔드 연동  -> 조회 결과 데이터를 가져온다.
+
 
  
-        // 3. 조회 결과에 화면으로 확인
-        // resultTitle.style.display = 'block';
-        // resultContainer.style.display = 'block';
-    
-        // resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
+        // 3. 조회 결과 데이터를 화면에 보여준다.
+
+            // resultTitle.style.display = 'block';
+            // resultContainer.style.display = 'block';
+        
+            // resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
     };
     buttonContainer.appendChild(queryButton);
 
@@ -1412,7 +1419,7 @@ function collectStatus(chatRoomList) {
         this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
     };
     exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
-        document.body.removeChild(popup);
+        document.body.removeChild(popup); // 나가기
     };
     buttonContainer.appendChild(exitButton);
 
@@ -1425,13 +1432,13 @@ function collectStatus(chatRoomList) {
 
 // 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
 function updateSecondDropdown(target_object, title, secondDropdown) {
-    // axios로 AI측과 연동하여 데이터를 받아온다. 데이터를 받아오고 두 번쨰 드롭다운에 표시할 수 있도록 한다.
+    // 1. axios로 AI측과 연동하여 데이터를 받아온다.
 
 
-    // 두 번째 드롭다운의 기존 내용을 초기화
+    // 2. 두 번째 드롭다운의 기존 내용을 초기화
     secondDropdown.innerHTML = '';
 
-    // 첫 번째 드롭다운에서 선택된 값과 타이틀을 사용하여 두 번째 드롭다운에 옵션을 생성
+    // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 생성한다.
     var option = document.createElement('option');
     option.value = target_object;
     option.title = title;
@@ -1895,6 +1902,16 @@ function handleReportClick(){
         createReportButton.style.fontFamily='scd';  // 글꼴 설정
         createReportButton.onclick = function() {
             console.log('레포트 만들기 버튼 클릭');
+
+            // 1. AI측과 '레포트 만들기' 기능을 가지고 소통한다.
+
+
+            // 2. 로컬 컴퓨터에 실제 pdf 파일을 다운로드 받을 수 있도록 한다. (Blob 객체를 활용)
+
+
+            // 3. 나가기 
+
+
         };
         createButtonContainer.appendChild(createReportButton);
         popup3_content.appendChild(createButtonContainer);
@@ -1949,6 +1966,7 @@ function handleUseClick(){
 
 // 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수
 function handleModelClick() {
+    // AI측으로부터 자신의 모델 설정이 현재 어떠한지에 대한 정보를 가져온다.
     axios({
         method: 'get',
         url: '', // 백엔드 URL
