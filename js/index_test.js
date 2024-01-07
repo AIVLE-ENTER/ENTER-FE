@@ -20,7 +20,6 @@ function checkLoginStatusAndUpdateUI() {
 
         // 백엔드 코드를 이용해서 채팅방 목록 보여오기
         getChatRoomList();
-
     } 
     // 비로그인 상태이면?
     else {
@@ -308,6 +307,8 @@ function getChatRoomList(){
         
         // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' imgage를 보여준다.
         var conversationView = document.querySelector('.view.conversation-view');
+        conversationView.style.padding = '40px';
+        conversationView.style.height = 'calc(100vh - 50px)';
 
         // 중앙 정렬을 위한 컨테이너 div 생성
         var containerDiv = document.createElement('div');
@@ -417,6 +418,14 @@ function getChatQaHistory(chatRoom){
     })
     .then(response => {
         console.log('질문&대답 데이터 :', response.data.conversation);
+        var conversationView = document.querySelector('.view.conversation-view');
+        conversationView.style.height = 'calc(100vh - 159.1px)';
+
+        if (response.data.conversation.length > 0) {
+            conversationView.style.padding = '40px 40px 0';
+        } else {
+            conversationView.style.padding = '40px';
+        }
 
         displayChatQaHistory(response.data.conversation, 
                              chatRoom);   // 화면에 표시하는 함수 호출
