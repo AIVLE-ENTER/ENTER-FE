@@ -1626,6 +1626,7 @@ function crawlerTemplateSetting() {
         companyInfoInput.value = response.data.company_info=='' ? response.data.company_info_default : response.data.company_info;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
         companyInfoInput.style.width = '100%';
         companyInfoInput.style.height = '120px';
+        companyInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
         companyInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
         companyInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(companyInfoInput);
@@ -1641,6 +1642,7 @@ function crawlerTemplateSetting() {
         targetInfoInput.value = response.data.product_info=='' ? response.data.product_info_default : response.data.product_info;   // response 받아와서 product_info가 빈값이면 product_info_default 값으로 대치한다. (삼항 연산자를 통해서)
         targetInfoInput.style.width = '100%';
         targetInfoInput.style.height = '240px';
+        targetInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
         targetInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
         targetInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(targetInfoInput);
@@ -2134,9 +2136,9 @@ function handleModelClick() {
 
         // 모델 섹션 생성
         const models = ['ChatGPT 3.5', 'ChatGPT 4'];
-        models.forEach(modelName => {
+        models.forEach((modelName, index) => {
             var section = document.createElement('div');
-            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border: 1px solid black; padding: 10px;';
+            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 10px;';
 
             var modelText = document.createElement('span');
             modelText.textContent = modelName;
@@ -2168,11 +2170,16 @@ function handleModelClick() {
             }
 
             popup5_content.appendChild(section);
+
+            // 모든 섹션 뒤에 구분선 추가
+            var divider = document.createElement('hr');
+            popup5_content.appendChild(divider);
         });
 
         // 현재 사용 중인 모델 표시
         var currentModelText = document.createElement('p');
-        currentModelText.textContent = `현재 사용모델: 안양역`;
+        currentModelText.textContent = `현재 사용모델: chatgpt-3.5`;
+        currentModelText.style.marginLeft = '8px'; // 마진 상단 추가
         currentModelText.style.marginTop = '20px'; // 마진 상단 추가
         currentModelText.style.fontSize = '14px'; // 폰트 사이즈 줄이기
         popup5_content.appendChild(currentModelText);
