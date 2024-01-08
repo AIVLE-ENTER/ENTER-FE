@@ -112,6 +112,12 @@ h2 {
     height: 25px;
 }
 
+#select-button {
+    padding: 3.5px;
+    width: 60px;
+    
+}
+
 table.board-table {
     width: 100%;
     border-spacing: 0;
