@@ -479,7 +479,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         const questionDiv = document.createElement('div');
         questionDiv.style.width = '80%'; // 질문 div width
         questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
-        questionDiv.style.color = '#515563'; // 질문 텍스트 색
+        questionDiv.style.color = '#3B3F4E'; // 질문 텍스트 색
         questionDiv.style.padding = '10px';   
         questionDiv.style.margin = '0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -507,7 +507,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         const answerDiv = document.createElement('div');
         answerDiv.style.width = '80%'; // 대답 영역 width
         answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
-        answerDiv.style.color = 'black'; // 대답 텍스트 색
+        answerDiv.style.color = '#3B3F4E'; // 대답 텍스트 색
         answerDiv.style.padding = '10px';
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -684,7 +684,7 @@ function addQA(message, bgColor, isAnswer) {
     } 
     // 질문인 경우
     else {
-        messageDiv.style.color = '#515563';     // 텍스트 색깔
+        messageDiv.style.color = '#3B3F4E';     // 텍스트 색깔
         messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진만 적용
 
         // '사람' 아이콘 추가
