@@ -1022,7 +1022,7 @@ function deleteMemo(history_id){
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#454997',
         confirmButtonText: '삭제',
         cancelButtonText: '취소'
     }).then((result) => {
@@ -1140,7 +1140,7 @@ function deleteChatRoom(){
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#454997',
         confirmButtonText: '삭제',
         cancelButtonText: '취소'
     }).then((result) => {
@@ -2345,7 +2345,7 @@ function deleteFrequentMessage(template_id){
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#454997',
         confirmButtonText: '삭제',
         cancelButtonText: '취소'
     }).then((result) => {
