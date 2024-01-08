@@ -2008,7 +2008,7 @@ function handleReportClick(){
 
         // 구분선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px 0px 10px'; // 위아래 마진 설정
         popup3_content.appendChild(divider);
