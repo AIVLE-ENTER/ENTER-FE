@@ -1178,8 +1178,22 @@ function question_enter(){
     window.location.href='../enter_introduction.html';
 }
 
+// 버튼
+crawlerBtn = document.getElementById("crawler");
+promptBtn = document.getElementById("prompt");
+reportBtn = document.getElementById("report");
+modelSelectionBtn = document.getElementById("modelSelection");
+frequentUseBtn = document.getElementById("frequentUse");
+
 // 'AI 설정'을 click하면 호출되는 함수
 function AIconfig() {
+    // 버튼 
+    crawlerBtn.classList.remove("active");
+    promptBtn.classList.remove("active");
+    reportBtn.classList.remove("active");
+    modelSelectionBtn.classList.remove("active");
+    frequentUseBtn.classList.remove("active");
+
     var modal = document.getElementById("myModal");  // 모달창 
     var isModalOpen = modal.style.display === "block";
 
@@ -1197,6 +1211,7 @@ function AIconfig() {
         document.querySelector(".popup2-content").style.display='none';
         document.querySelector(".popup3-content").style.display='none';
         document.querySelector(".popup4-content").style.display='none';
+        document.querySelector(".message-btn-group").style.display='none';
         document.querySelector(".popup5-content").style.display='none';
         
         applyBlurToElements();
@@ -1221,6 +1236,13 @@ function removeBlurFromElements() {
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleCrawlerClick() {
+    // 버튼 
+    crawlerBtn.classList.add("active");
+    promptBtn.classList.remove("active");
+    reportBtn.classList.remove("active");
+    modelSelectionBtn.classList.remove("active");
+    frequentUseBtn.classList.remove("active");
+
     // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져옵니다. 다 쓰일떄가 있으니까 가져온거여 ~ 
     const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
     const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); // JSON 문자열을 객체로 변환
@@ -1235,6 +1257,8 @@ function handleCrawlerClick() {
 
     var popup4_content = document.querySelector(".popup4-content");
     popup4_content.style.display = 'none';    // '자주 쓰는 문구' 콘텐츠는 display None
+    var messageBtnGroup = document.querySelector(".message-btn-group");
+    messageBtnGroup.style.display = 'none';
 
     var popup5_content = document.querySelector(".popup5-content");
     popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
@@ -1248,7 +1272,7 @@ function handleCrawlerClick() {
 
 
     // 버튼 스타일
-    var buttonStyle = 'background-color: #000000; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: scd';
+    var buttonStyle = 'background-color: #454997; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: scd';
 
     // '대상 설정' 버튼 생성 및 스타일링
     var targetSettingButton = document.createElement('button');
@@ -1305,10 +1329,11 @@ function targetSetting(chatRoomList) {
 
     // 동적으로 생성한 드롭다운 메뉴
     var dropdown = document.createElement('select');
-    dropdown.style.width = '80%';
-    dropdown.style.height = '25px';
+    dropdown.style.width = '100%';
     dropdown.style.border = '1px solid #000000';
     dropdown.style.fontFamily = 'scd'; // font-family 스타일 추가
+    dropdown.style.padding = '5px'; 
+    dropdown.style.borderRadius = '5px';
 
 
     // chatRoomList 길이가 0이면?
@@ -1496,44 +1521,29 @@ function collectStatus(chatRoomList) {
         secondDropdownText.textContent = '데이터 선택';
         popup.appendChild(secondDropdownText);
 
-        // div 영역 내 두 번째 드롭다운 설정 
-        var secondDropdown = document.createElement('select');
-        secondDropdown.style.width = '80%';
-        secondDropdown.style.border = '1px solid #000000';
-        secondDropdown.style.fontFamily='scd';  // 글꼴 설정
+    var secondDropdown = document.createElement('select');
+    secondDropdown.style.width = '80%';
+    secondDropdown.style.border = '1px solid #000000';
+    secondDropdown.style.fontFamily='scd';  // 글꼴 설정
+    
+    popup.appendChild(secondDropdown);
 
-        // AI 측에서 받아온 데이터 길이를 판별하여 2 번째 드롭다운 메뉴 생성
-        if(response.data.status==false){
-            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
-            secondDropdown.innerHTML='';
 
-            // 2번쨰 드롭다운에 '수집된 데이터가 없습니다.' 문구 추가
-            var option = document.createElement('option');
-            option.value = '수집된 데이터가 없습니다.'; 
-            option.textContent = '수집된 데이터가 없습니다.';
-            secondDropdown.appendChild(option);
-        }
-        else {
-            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
-            secondDropdown.innerHTML='';
+    // 처음에 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게끔 함수 호출
+    updateSecondDropdown(firstDropdown.options[firstDropdown.selectedIndex].value,
+                         firstDropdown.options[firstDropdown.selectedIndex].title,
+                         secondDropdown);
 
-            // 데이터를 받아와서 2번쨰 드롭다운 메뉴에 추가한다.
-            for (var key in response.data) {
-                if (response.data.hasOwnProperty(key)) {
-                    var option = document.createElement('option');
-                    option.value = response.data[key]; // 값으로 설정
-                    option.textContent = key; // 키를 텍스트로 설정
-                    secondDropdown.appendChild(option);
-                }
-            }
-        }
-        popup.appendChild(secondDropdown);
+    // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
+    firstDropdown.onchange = function() {
+        var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
+        // console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
+        // console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
 
-        // 두 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
-        secondDropdown.onchange = function() {
-            // '조회 영역' 텍스트에 이렇게 배치한다.
-            resultTextArea.value = '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
-        };
+        updateSecondDropdown(selectedOption.value,    // 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게 함수 호출 
+                             selectedOption.title, 
+                             secondDropdown);
+    };
 
 
         // '조회 결과' 표시 영역
@@ -1779,6 +1789,13 @@ function crawlerTemplateSetting() {
 
 // 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handlePromptClick(){
+    // 버튼
+    crawlerBtn.classList.remove("active");
+    promptBtn.classList.add("active");
+    reportBtn.classList.remove("active");
+    modelSelectionBtn.classList.remove("active");
+    frequentUseBtn.classList.remove("active");
+    
     // AI 측에서 정보를 가져온다.
     axios({
         method: 'get',
@@ -1794,6 +1811,8 @@ function handlePromptClick(){
 
         var popup4_content = document.querySelector(".popup4-content");
         popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+        var messageBtnGroup = document.querySelector(".message-btn-group");
+        messageBtnGroup.style.display = 'none';
 
         var popup5_content = document.querySelector(".popup5-content");
         popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
@@ -1824,7 +1843,7 @@ function handlePromptClick(){
 
         // Divider 선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
 
@@ -1852,7 +1871,7 @@ function handlePromptClick(){
 
         // Divider 선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
 
@@ -1882,8 +1901,9 @@ function handlePromptClick(){
         // 버튼 컨테이너 및 버튼들
         var buttonContainer = document.createElement('div');
         buttonContainer.style.display = 'flex';
+        buttonContainer.style.width = '80%';
         buttonContainer.style.justifyContent = 'flex-end';
-        buttonContainer.style.marginTop = '20px';
+        buttonContainer.style.margin = '20px auto 0';
 
         // '초기화' 버튼 
         var resetButton = document.createElement('button');
@@ -1954,6 +1974,13 @@ function handlePromptClick(){
 
 // 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleReportClick(){
+    // 버튼
+    crawlerBtn.classList.remove("active");
+    promptBtn.classList.remove("active");
+    reportBtn.classList.add("active");
+    modelSelectionBtn.classList.remove("active");
+    frequentUseBtn.classList.remove("active");
+    
     // AI 측으로부터 '리포트 템플릿', 'document 템플릿' 데이터를 가져온다.
     axios({ 
         method: 'get',
@@ -1970,6 +1997,8 @@ function handleReportClick(){
 
         var popup4_content = document.querySelector(".popup4-content");
         popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+        var messageBtnGroup = document.querySelector(".message-btn-group");
+        messageBtnGroup.style.display = 'none';
 
         var popup5_content = document.querySelector(".popup5-content");
         popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
@@ -2014,7 +2043,7 @@ function handleReportClick(){
 
         // 구분선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px 0px 10px'; // 위아래 마진 설정
         popup3_content.appendChild(divider);
@@ -2040,7 +2069,7 @@ function handleReportClick(){
 
         // 구분선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
         popup3_content.appendChild(divider);
@@ -2063,10 +2092,11 @@ function handleReportClick(){
 
         // 템플릿 저장 버튼 컨테이너
         var saveButtonContainer = document.createElement('div');
-        saveButtonContainer.style.width = '100%'; // 컨테이너의 너비를 100%로 설정
+        saveButtonContainer.style.width = '80%'; // 컨테이너의 너비를 80%로 설정
         saveButtonContainer.style.display = 'flex';
         saveButtonContainer.style.justifyContent = 'flex-end'; // 모든 버튼을 오른쪽으로 정렬
-        saveButtonContainer.style.marginTop = '10px';
+        saveButtonContainer.style.margin = '20px auto 0';
+
         
         // 초기화 버튼
         var resetButton = document.createElement('button');
@@ -2125,7 +2155,7 @@ function handleReportClick(){
 
         // Divider 선
         var divider = document.createElement('hr');
-        divider.style.width = '110%'; // 너비 설정
+        // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
         popup3_content.appendChild(divider);
@@ -2134,12 +2164,14 @@ function handleReportClick(){
         var createButtonContainer = document.createElement('div');
         createButtonContainer.style.display = 'flex';
         createButtonContainer.style.justifyContent = 'flex-end';
-        createButtonContainer.style.marginTop = '10px';
+        createButtonContainer.style.width = '80%'; // 컨테이너의 너비를 80%로 설정
+        createButtonContainer.style.margin = '10px auto 0';
 
         // 레포트 만들기 버튼
         var createReportButton = document.createElement('button');
         createReportButton.textContent = '레포트 만들기';
         createReportButton.style.fontFamily='scd';  // 글꼴 설정
+        createReportButton.style.marginRight='10px';
         createReportButton.onclick = function() {
             console.log('레포트 만들기 버튼 클릭');
             // console.log(`수집 선택 드롭다운 target_object : ${dropdown.options[dropdown.selectedIndex].value}`);
@@ -2188,6 +2220,13 @@ function handleReportClick(){
 
 // 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleUseClick(){
+    // 버튼
+    crawlerBtn.classList.remove("active");
+    promptBtn.classList.remove("active");
+    reportBtn.classList.remove("active");
+    modelSelectionBtn.classList.remove("active");
+    frequentUseBtn.classList.add("active");
+
     var popup1_content = document.querySelector(".popup1-content");
     popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
 
@@ -2203,6 +2242,9 @@ function handleUseClick(){
     var popup4_content = document.querySelector(".popup4-content");
     popup4_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
     popup4_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+    var messageBtnGroup = document.querySelector(".message-btn-group");
+    messageBtnGroup.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    messageBtnGroup.style.display = 'flex';
 
     // 백엔드에서 구현한 '자주 쓰는 문구 리스트 불러오기'를 구현한다.
     var frequentMessage_URL='http://localhost:8000/main/frequentMessage/';
@@ -2231,6 +2273,13 @@ function handleUseClick(){
 function handleModelClick() {
     console.log('재호출');
 
+    // 버튼
+    crawlerBtn.classList.remove("active");
+    promptBtn.classList.remove("active");
+    reportBtn.classList.remove("active");
+    modelSelectionBtn.classList.add("active");
+    frequentUseBtn.classList.remove("active");
+
     // AI측으로부터 자신의 모델 설정이 현재 어떠한지에 대한 정보를 가져온다.
     axios({
         method: 'get',
@@ -2249,6 +2298,8 @@ function handleModelClick() {
 
         var popup4_content = document.querySelector(".popup4-content");
         popup4_content.style.display = 'none';
+        var messageBtnGroup = document.querySelector(".message-btn-group");
+        messageBtnGroup.style.display = 'none';
 
         // 모델 설정 팝업 내용 설정
         var popup5_content = document.querySelector(".popup5-content");
@@ -2358,6 +2409,9 @@ function handleModelClick() {
 // 모달 창에서 자주 쓰는 문구를 목록으로 보여주는 함수
 function renderFrequentMessages(messageList){
     const container = document.querySelector('.popup4-content'); // 문구를 표시할 컨테이너 선택
+    const contentArea = document.querySelector(".content-area");
+    container.style.height = 'calc(70vh - 171.97px)';
+    container.style.overflowY = 'auto';
     container.innerHTML = ''; // 기존 내용 클리어
 
     // 하나씩 자주 쓰는 문구를 화면에 그린다.
@@ -2369,18 +2423,20 @@ function renderFrequentMessages(messageList){
 
         div.innerHTML = `
             <input type="radio" 
-                    name="selectedMessage"
-                    data-template-id="${message.template_id}"
-                    style="width:30px; 
-                    margin-right: 10px;">
-                  
-            <p style="margin: 0px 10px 0px 0px; width: 300px; font-family: 'scd';">${message.template_name}</p>
+                name="selectedMessage"
+                id="${message.template_id}"
+                data-template-id="${message.template_id}"
+                style="width:30px; 
+                margin-right: 10px;">
+
+            <p style="margin: 0px 10px 0px 0px; width: 35%; font-family: 'scd';">
+                <label style="cursor:pointer;" for="${message.template_id}">${message.template_name}<label>
+            </p>
+            
  
-            <textarea style="width:60%; text-align: left; font-family: 'scd'; resize: none;" 
+            <textarea style="width:100%; text-align: left; font-family: 'scd'; resize: none; padding:10px;" 
                       placeholder='자주 쓰는 문구에 대한 Text를 불러와야 합니다.'
-                      disabled>
-                        ${message.template_content}
-            </textarea>
+                      disabled>${message.template_content}</textarea>
             
 
             <button type="button"
@@ -2390,17 +2446,18 @@ function renderFrequentMessages(messageList){
             <button type="button" 
                     style="background-color: #ffcccc; color: black; padding: 5px 10px; border: none; border-radius: 5px; margin-left: 10px; width: 160px; text-align: center;  font-family: 'scd';"
                     onclick="deleteFrequentMessage('${message.template_id}')">삭제</button>
-
-            <div style="margin-left: 20px;"></div>
         `;
 
         container.appendChild(div);
     });
 
     // "추가하기"와 "반영하기" 버튼을 포함하는 div 추가
-    const actionDiv = document.createElement('div');
-    actionDiv.style.display = 'flex';
-    actionDiv.style.justifyContent = 'flex-end';
+    var messageBtnGroup = document.querySelector(".message-btn-group");
+    messageBtnGroup.style.display = 'flex';
+    messageBtnGroup.style.justifyContent = 'flex-end';
+    messageBtnGroup.style.width = '80%';
+    messageBtnGroup.style.margin = '15px auto 0';
+    messageBtnGroup.style.paddingRight = '6px';
 
     const addButton = document.createElement('span');
     addButton.className = 'add';
@@ -2419,22 +2476,49 @@ function renderFrequentMessages(messageList){
         reflectFrequentMessage();
     };
 
-    actionDiv.appendChild(addButton);
-    actionDiv.appendChild(reflectButton);
-    container.appendChild(actionDiv); // 컨테이너에 추가
+    messageBtnGroup.appendChild(addButton);
+    messageBtnGroup.appendChild(reflectButton);
+    contentArea.appendChild(messageBtnGroup); // 컨테이너에 추가
 }
 
 // 모달 창에서 '자주 쓰는 문구' -> '수정하기' 버튼이 click 될 떄 호출하는 함수
 function editFrequentMessage(template_id){
-      // 수정용 팝업 표시
-      document.getElementById("editFrequentMessagePopup").style.display = "flex";
+    console.log("???")
+    
+    // 수정용 팝업 표시
+    document.getElementById("editFrequentMessagePopup").style.display = "flex";
+    
+    // 데이터 가져오기
+    axios({
+        method: 'get',
+        url: `http://localhost:8000/main/frequentMessage/${template_id}/`,
+        headers: { 
+            'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
+        }
+    })
+    .then(response => {
+        // 요청이 성공하면 이 부분이 실행됩니다.
+        console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
-      // 입력을 빈칸으로 표시
-      document.getElementById("editMessageTitle").value='';
-      document.getElementById("editMessageContent").value='';
+        // 입력을 기존 값으로 표시
+        console.log("response.data.data.template_content");
+        document.getElementById("editMessageTitle").value=response.data.data.template_name;
+        document.getElementById("editMessageContent").value=response.data.data.template_content;
 
-      // '수정하기' 버튼에 template_id 설정
-     document.getElementById("editSubmitButton").dataset.templateId = template_id;
+        // '수정하기' 버튼에 template_id 설정
+        document.getElementById("editSubmitButton").dataset.templateId = template_id;
+    })
+    .catch(error => {
+        modal.style.display = 'none';
+        removeBlurFromElements();
+        closeEditFrequentMessage();
+        Toast.fire({
+            width: '500px',
+            padding: '20px',    
+            icon: 'error',
+            title: '오류가 발생했습니다. 다시 시도해주세요.',
+        });
+    });
 }
 
 // 자주 쓰는 문구를 수정하는 팝업에서 '수정하기'를 click했을 떄 호출되는 함수
@@ -2594,7 +2678,12 @@ function checkMessageFormDisplay(templateValue){
         textareaElement.value=templateValue.trim();
     }  
     else {
-        alert('하단에 입력창이 활성화 되어야 적용할 수 있습니다.');
+        Toast.fire({
+            width: '500px',
+            padding: '20px',    
+            icon: 'error',
+            title: '하단에 입력창이 활성화 되어야 적용할 수 있습니다.'
+        });
     }
 }
 
@@ -2602,6 +2691,16 @@ function checkMessageFormDisplay(templateValue){
 function goInquiry(){
     window.location.href='../inquiryBoard_test.html';
 }
+
+// 바깥쪽 클릭시 모달창 닫기
+const modal = document.getElementById('myModal');
+// 모달 바깥 영역 클릭 시 모달 닫기
+window.addEventListener('click', function (event) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+        removeBlurFromElements();
+    }
+});
 
 // toTop 함수
 function toTop() {
