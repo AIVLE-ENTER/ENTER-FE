@@ -1345,23 +1345,23 @@ function targetSetting(chatRoomList) {
         console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
 
 
-        // 2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
-        // axios({
-        //     method: '',
-        //     url: ``,
-        // })
-        // .then(response => {
-        //     alert('수집 시작을 합니다.');
-        //     console.log('수집 완료: ', response);
+        //2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
+        axios({
+            method: 'get',
+            url: `http://f3e4.ngrok-free.app/start_crawl/asdf1234/${dropdown.options[dropdown.selectedIndex].value}`,
+        })  // ex.) http://f3e4-(ip 주소).ngrok-free.app 주원 행님이 ip 주소 없애라 한다.
+        .then(response => {
+            alert('수집 시작을 합니다.');
+            console.log('수집 완료: ', response);
         
-        //     // 나가기
-        //     document.body.removeChild(popup); 
-        // })
-        // .catch(error => {
-        //     alert('오류가 발생했습니다.');
-        //     console.log('에러');
-        //     console.error(error); // 오류 로그
-        // });
+            // 나가기
+            document.body.removeChild(popup); 
+        })
+        .catch(error => {
+            alert('오류가 발생했습니다.');
+            console.log('에러');
+            console.error(error); // 오류 로그
+        });
     };
     buttonContainer.appendChild(startButton);
 
@@ -1558,17 +1558,33 @@ function collectStatus(chatRoomList) {
 // 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
 function updateSecondDropdown(target_object, title, secondDropdown) {
     // 1. axios로 AI측과 연동하여 데이터를 받아온다.
+    // axios({
+        //     method: '',
+        //     url: ``,
+        // })
+        // .then(response => {
+        //     alert('수집 시작을 합니다.');
+        //     console.log('수집 완료: ', response);
+        
+        //     // 나가기
+        //     document.body.removeChild(popup); 
+        // })
+        // .catch(error => {
+        //     alert('오류가 발생했습니다.');
+        //     console.log('에러');
+        //     console.error(error); // 오류 로그
+        // });
 
 
-    // 2. 두 번째 드롭다운의 기존 내용을 초기화
-    secondDropdown.innerHTML = '';
+        // 2. 두 번째 드롭다운의 기존 내용을 초기화
+        secondDropdown.innerHTML = '';
 
-    // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
-    var option = document.createElement('option');
-    option.value = target_object;
-    option.title = title;
-    option.textContent = title;
-    secondDropdown.appendChild(option);
+        // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
+        var option = document.createElement('option');
+        option.value = target_object;
+        option.title = title;
+        option.textContent = title;
+        secondDropdown.appendChild(option);
 }
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
