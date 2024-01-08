@@ -44,7 +44,7 @@ function getUserInfo(token){
         document.querySelector('header .logout').style.display = 'block';
     })
     .catch(error => {
-        window.location.reload(); // 새로 고침한다.
+        console.log('error : ', error);
     });
 }
 

@@ -51,10 +51,17 @@
              alt="로고"
              id="header-logo">
 
-        <a href="/mypage_test.html" 
-           class="header-link">
-            <h3>~님 안녕하세요!!</h3>
-       </a>
+        <div style="display: flex; align-items: center;">
+            <a href="/mypage_test.html"  class="header-link">
+                <h3></h3>
+            </a>
+            <button class='logout' onclick='goLogout();'>
+                <img src="assets/img/login_out.png" 
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+            <button class='login' onclick='goLogin();'><img src="assets/img/login_out.png" 
+                style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+        </div>
     </header>
 
     <!-- 사실상 body -->
