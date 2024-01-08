@@ -1408,63 +1408,123 @@ function targetSetting(chatRoomList) {
 
 // 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function collectStatus(chatRoomList) {
-    var popup = document.createElement('div');
-    popup.style.width = '400px';
-    popup.style.height = 'auto'; // 높이 자동 조절
-    popup.style.backgroundColor = 'white';
-    popup.style.position = 'fixed';
-    popup.style.top = '50%';
-    popup.style.left = '50%';
-    popup.style.transform = 'translate(-50%, -50%)';
-    popup.style.border = '1px solid black';
-    popup.style.padding = '20px';
-    popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
-    popup.style.zIndex = 1000;
-    popup.style.display = 'flex';
-    popup.style.flexDirection = 'column';
-    popup.style.justifyContent = 'space-around';
+    console.log('chatRoomList : ', chatRoomList);
 
-
-    // 첫 번째 드롭다운 설정
-    var firstDropdownText = document.createElement('h4');
-    firstDropdownText.textContent = '수집된 대상 설정';
-    popup.appendChild(firstDropdownText);
-
-    var firstDropdown = document.createElement('select');
-    firstDropdown.style.width = '100%';
-    firstDropdown.style.border = '1px solid #000000';
-    firstDropdown.style.fontFamily='scd';  // 글꼴 설정
-    firstDropdown.style.padding = '5px'; 
-    firstDropdown.style.borderRadius = '5px';
-    
-    if (chatRoomList.length === 0) { // 채팅방이 없으면 수집하는 alert 문구를 띄우고 더이상 진행하지 못하게 한다.
+    // 채팅방이 없으면 수집하는 alert 문구를 띄우고 더이상 진행하지 못하게 한다.
+    if (chatRoomList.length === 0) { 
         alert("채팅방을 만들어야 수집할 수 있습니다.");
         return;
     }
 
-    chatRoomList.forEach(chatRoom => {  // 드롭다운 메뉴마다 채팅방의 target_object와 title을 저장했다.
-        var option = document.createElement('option');
-        option.value = chatRoom.target_object;
-        option.title = chatRoom.title;
-        option.textContent = chatRoom.target_object + ' | ' + chatRoom.title;
-        firstDropdown.appendChild(option);
-    });
+    // '수집 현황' 버튼 click 했을 떄 AI 측에서 키워드와 키워드에 대한 시간 데이터(??)를 받아온다.
+    axios({
+        method: 'post',
+        url: `http://localhost:8002/crawl_data/${user_id}/${chatRoomList[0].target_object}`,
+    })  
+    .then(response => {
+        console.log('성공 : ', response);
+        
+        // 첫번쨰 드롭다운, 두번쨰 드롭다운, 나가기 버튼을 담는 div 영역을 마련한다.
+        var popup = document.createElement('div');
+        popup.style.width = '400px';
+        popup.style.height = 'auto'; // 높이 자동 조절
+        popup.style.backgroundColor = 'white';
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.border = '1px solid black';
+        popup.style.padding = '20px';
+        popup.style.boxShadow = '0px 4px 8px rgba(0, 0, 0, 0.5)';
+        popup.style.zIndex = 1000;
+        popup.style.display = 'flex';
+        popup.style.flexDirection = 'column';
+        popup.style.justifyContent = 'space-around';
 
-    popup.appendChild(firstDropdown);
+        // div 영역 내 첫 번째 드롭다운 설정
+        var firstDropdownText = document.createElement('h4');
+        firstDropdownText.textContent = '수집된 대상 설정';
+        popup.appendChild(firstDropdownText);
 
+        var firstDropdown = document.createElement('select');
+        firstDropdown.style.width = '80%';
+        firstDropdown.style.height = '25px';
+        firstDropdown.style.border = '1px solid #000000';
+        firstDropdown.style.fontFamily='scd';  // 글꼴 설정
 
+        // 드롭다운마다 채팅방의 target_object와 title을 저장한 메뉴를 보여준다.
+        chatRoomList.forEach(chatRoom => { 
+            var option = document.createElement('option');
+            option.value = chatRoom.target_object;
+            option.title = chatRoom.title;
+            option.textContent = chatRoom.target_object + ' | ' + chatRoom.title;
+            firstDropdown.appendChild(option);
+        });
 
-    // 두 번째 드롭다운 설정
-    var secondDropdownText = document.createElement('h4');
-    secondDropdownText.textContent = '데이터 선택';
-    popup.appendChild(secondDropdownText);
+        popup.appendChild(firstDropdown);
+
+        // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
+        firstDropdown.onchange = function() {
+            var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
+
+            // axios로 해당 드롭다운 메뉴의 user_id와 target_object를 활용해 요청을 보낸다.
+            axios({
+                method: 'post',
+                url: `http://localhost:8002/crawl_data/${user_id}/${selectedOption.value}`,
+            })
+            .then(response => {
+                console.log('성공 : ', response);
+
+                // data가 있는지 없는지 확인하여 2번째 드롭다운 메뉴에 포함한다.
+                if(response.data.status==false){
+                    console.log('if문 적용');
+
+                    // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+                    secondDropdown.innerHTML='';
+
+                    var option = document.createElement('option');
+                    option.value = '수집된 데이터가 없습니다.'; 
+                    option.textContent = '수집된 데이터가 없습니다.';
+                    secondDropdown.appendChild(option);
+
+                    resultTextArea.value = '결과를 확인할 수 없습니다.';
+                }
+                else {
+                    console.log('else문 적용');
+
+                    // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+                    secondDropdown.innerHTML='';
+
+                    // 데이터를 받아와서 2번쨰 드롭다운 메뉴에 추가한다.
+                    for (var key in response.data) {
+                        if (response.data.hasOwnProperty(key)) {
+                            var option = document.createElement('option');
+                            option.value = response.data[key]; // 값으로 설정
+                            option.textContent = key; // 키를 텍스트로 설정
+                            secondDropdown.appendChild(option);
+                        }
+                    }
+
+                    // '조회 결과' 텍스트에 이렇게 대치한다.
+                    resultTextArea.value = '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
+                }
+            })
+            .catch(error => {
+                alert('오류가 발생했습니다.');
+                console.log('에러');
+                console.error(error); // 오류 로그
+            }); 
+        };
+
+        // '데이터 선택' 드롭다운 text
+        var secondDropdownText = document.createElement('h4');
+        secondDropdownText.textContent = '데이터 선택';
+        popup.appendChild(secondDropdownText);
 
     var secondDropdown = document.createElement('select');
-    secondDropdown.style.width = '100%';
+    secondDropdown.style.width = '80%';
     secondDropdown.style.border = '1px solid #000000';
     secondDropdown.style.fontFamily='scd';  // 글꼴 설정
-    secondDropdown.style.padding = '5px'; 
-    secondDropdown.style.borderRadius = '5px';
     
     popup.appendChild(secondDropdown);
 
@@ -1486,136 +1546,111 @@ function collectStatus(chatRoomList) {
     };
 
 
-    // '조회 결과' 표시 영역 
-    var resultTitle = document.createElement('h4');
-    resultTitle.textContent = '조회 결과';
-    resultTitle.style.display = 'none';
-    resultTitle.style.marginTop = '20px';
-    resultTitle.style.fontFamily='scd';  // 글꼴 설정
-    popup.appendChild(resultTitle);
-
-    var resultContainer = document.createElement('div');
-    resultContainer.style.display = 'none';
-    resultContainer.style.marginTop = '5px';
-    resultContainer.style.border = '1px solid #000000';
-    resultContainer.style.padding = '10px';
-    resultContainer.style.wordWrap = 'break-word'; // 긴 텍스트가 넘칠 때 자동으로 줄바꿈
-    resultContainer.style.fontFamily='scd';  // 글꼴 설정
-    popup.appendChild(resultContainer);
+        // '조회 결과' 표시 영역
+        var resultTitle = document.createElement('h4');
+        resultTitle.textContent = '조회 결과';
+        resultTitle.style.display = 'block';
+        resultTitle.style.marginTop = '20px';
+        resultTitle.style.fontFamily='scd';  // 글꼴 설정
+        popup.appendChild(resultTitle);
 
 
+        var resultTextArea = document.createElement('textarea');
+        resultTextArea.style.display = 'block';
 
-    // '조회' 버튼과 '나가기' 버튼을 담는 컨테이너 설정
-    var buttonContainer = document.createElement('div');
-    buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'flex-end';
-    buttonContainer.style.alignItems = 'center';
-    buttonContainer.style.width = '100%';
-    buttonContainer.style.marginTop = '20px';
+        resultTextArea.value = (response.data.status == false)  
+                              ? '결과를 확인할 수 없습니다.'
+                              : '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
 
-    // '조회' 버튼
-    var queryButton = document.createElement('button');
-    queryButton.textContent = '조회';
-    queryButton.style.background = '#FFFFFF';
-    queryButton.style.color = '#000000';
-    queryButton.style.padding = '10px 20px';
-    queryButton.style.border = '1px solid black';
-    queryButton.style.cursor = 'pointer';
-    queryButton.style.fontFamily='scd';  // 글꼴 설정
-    queryButton.onmouseover = function() {
-        this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-        this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
-    };
-    queryButton.onmouseout = function() {
-        this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
-        this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
-    };
-    queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
-
-        // 1. '조회' 버튼을 클릭했을 떄  첫 번쨰 드롭다운 메뉴와 두 번쨰 드롭다운 메뉴와 관련된 필요한 정보들이 잘 넘어가는지 확인 
-        console.log('1번쨰 드롭다운 target_object : ', firstDropdown.options[firstDropdown.selectedIndex].value);
-        console.log('1번쨰 드롭다운 title : ', firstDropdown.options[firstDropdown.selectedIndex].title);
-        console.log('2번쨰 드롭다운 target_object : ',  secondDropdown.options[secondDropdown.selectedIndex].value);
-        console.log('2번쨰 드롭다운 title : ',  secondDropdown.options[secondDropdown.selectedIndex].title);
+        resultTextArea.style.marginTop = '5px';
+        resultTextArea.style.border = 'none';  // 외곽선 제거
+        resultTextArea.style.padding = '10px';
+        resultTextArea.style.wordWrap = 'break-word'; // 긴 텍스트가 넘칠 때 자동으로 줄바꿈
+        resultTextArea.style.fontFamily = 'scd';  // 글꼴 설정
+        resultTextArea.readOnly = true; // 편집 불가능하게 설정 
+        resultTextArea.style.resize = 'none';
+        popup.appendChild(resultTextArea);
 
 
-        // 2. axios로 AI측과 백엔드 연동  -> 조회 결과 데이터를 가져온다.
 
+        // '나가기' 버튼을 담는 컨테이너 설정
+        var buttonContainer = document.createElement('div');
+        buttonContainer.style.display = 'flex';
+        buttonContainer.style.justifyContent = 'flex-end';
+        buttonContainer.style.alignItems = 'center';
+        buttonContainer.style.width = '100%';
+        buttonContainer.style.marginTop = '20px';
 
- 
-        // 3. 조회 결과 데이터를 화면에 보여준다.
+        // '나가기' 버튼
+        var exitButton = document.createElement('button');
+        exitButton.textContent = '나가기';
+        exitButton.style.background = '#FFFFFF';
+        exitButton.style.color = '#000000';
+        exitButton.style.padding = '10px 20px';
+        exitButton.style.border = '1px solid black';
+        exitButton.style.cursor = 'pointer';
+        exitButton.style.marginLeft = '10px';
+        exitButton.style.fontFamily='scd';  // 글꼴 설정
+        exitButton.onmouseover = function() {
+            this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
+            this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+        };
+        exitButton.onmouseout = function() {
+            this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
+            this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+        };
+        exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
+            document.body.removeChild(popup); // 나가기
+        };
+        buttonContainer.appendChild(exitButton);
 
-            // resultTitle.style.display = 'block';
-            // resultContainer.style.display = 'block';
-        
-            // resultContainer.textContent = '여기에 조회 결과를 표시합니다. dasdsad asdsadsadsadsadsadsdsdsadadsadsadsadsadsadsaddsadsadsdsadsadsadsasdsadasdsadsadsadsdsadsadsadsadasdsadsadsadsadsadsadsadasdsadsadsadasdsadsadsadsadsadsasadsadasdsadsadasdasdsadad';
-    };
-    buttonContainer.appendChild(queryButton);
+        // 버튼 컨테이너를 팝업에 추가
+        popup.appendChild(buttonContainer);
 
-    // '나가기' 버튼
-    var exitButton = document.createElement('button');
-    exitButton.textContent = '나가기';
-    exitButton.style.background = '#FFFFFF';
-    exitButton.style.color = '#000000';
-    exitButton.style.padding = '10px 20px';
-    exitButton.style.border = '1px solid black';
-    exitButton.style.cursor = 'pointer';
-    exitButton.style.marginLeft = '10px';
-    exitButton.style.fontFamily='scd';  // 글꼴 설정
-    exitButton.onmouseover = function() {
-        this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-        this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
-    };
-    exitButton.onmouseout = function() {
-        this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
-        this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
-    };
-    exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
-        document.body.removeChild(popup); // 나가기
-    };
-    buttonContainer.appendChild(exitButton);
-
-    // 버튼 컨테이너를 팝업에 추가
-    popup.appendChild(buttonContainer);
-
-    // 팝업을 body에 추가
-    document.body.appendChild(popup);
+        // 팝업을 body에 추가
+        document.body.appendChild(popup);
+    })
+    .catch(error => {
+        alert('오류가 발생했습니다.');
+        console.log('에러');
+        console.error(error); // 오류 로그
+    });
 }
 
 // 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수 (AI 설정 모달)
-function updateSecondDropdown(target_object, title, secondDropdown) {
-    // 1. axios로 AI측과 연동하여 데이터를 받아온다.
-    axios({
-            method: 'post',
-            url: ``,
-        })
-        .then(response => {
-            // 2. 두 번째 드롭다운의 기존 내용을 초기화한다.
-            secondDropdown.innerHTML = '';
+// function updateSecondDropdown(target_object, title, secondDropdown) {
+//     // 1. axios로 AI측과 연동하여 데이터를 받아온다.
+//     axios({
+//             method: 'post',
+//             url: ``,
+//         })
+//         .then(response => {
+//             // 2. 두 번째 드롭다운의 기존 내용을 초기화한다.
+//             secondDropdown.innerHTML = '';
 
-            // 3. 시간대가 없는 경우, 
-            if(response.data.length === 0){
-                var noDataOption = document.createElement('option');
-                    noDataOption.value = '시간대 데이터 없음';
-                    secondDropdown.appendChild(noDataOption);
-            }
-            // 3. 시간대가 있는 경우를 고려해서 AI 측에 받아온 데이터를 바탕으로 두 번쨰 드롭다운에 옵션을 다시 생성한다.
-            else {
-                response.data.forEach(item => {
-                    var option = document.createElement('option');
-                    option.value = item.value;
-                    option.title = item.title;
-                    option.textContent = item.title;
-                    secondDropdown.appendChild(option);
-                });
-            }
-        })
-        .catch(error => {
-            alert('오류가 발생했습니다.');
-            console.log('에러');
-            console.error(error); // 오류 로그
-        });  
-}
+//             // 3. 시간대가 없는 경우, 
+//             if(response.data.length === 0){
+//                 var noDataOption = document.createElement('option');
+//                     noDataOption.value = '시간대 데이터 없음';
+//                     secondDropdown.appendChild(noDataOption);
+//             }
+//             // 3. 시간대가 있는 경우를 고려해서 AI 측에 받아온 데이터를 바탕으로 두 번쨰 드롭다운에 옵션을 다시 생성한다.
+//             else {
+//                 response.data.forEach(item => {
+//                     var option = document.createElement('option');
+//                     option.value = item.value;
+//                     option.title = item.title;
+//                     option.textContent = item.title;
+//                     secondDropdown.appendChild(option);
+//                 });
+//             }
+//         })
+//         .catch(error => {
+//             alert('오류가 발생했습니다.');
+//             console.log('에러');
+//             console.error(error); // 오류 로그
+//         });  
+// }
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function crawlerTemplateSetting() {
