@@ -153,7 +153,7 @@ function syncLogin() {
 
     axios.post(loginURL, userData)
     .then(response => {
-        if (response.data.success & response.data.message == "exists") {
+        if (response.data.success) {
             // localStroage에 토큰(Token)을 적재한다.
             const accessToken = response['data']['data']['token'];
             setWithExpire('accessToken', accessToken, 12*60*60*1000); //12 시간

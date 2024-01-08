@@ -55,85 +55,129 @@
 
     <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
 </head>
 
 <body>
     <!-- Header -->
     <header>
-        <img src="assets/img/ENTR_logo.png" 
-             alt="로고"
-             id="header-logo">
+        <div style="height: 35px;">
+            <a href="/index_test.html" 
+                class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
+        </div>
 
-        <a href="/mypage_test.html" 
-           class="header-link">
-            <h3>~님 안녕하세요!!</h3>
-       </a>
+        <div style="display: flex;">
+            <a href="/mypage_test.html" 
+                class="header-link">
+                    <h3></h3>
+            </a>
+            <button class='logout' onclick='goLogout();'><img src="assets/img/login_out.png" 
+                style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+            <button class='login' onclick='goLogin();'><img src="assets/img/login_out.png" 
+                style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+        </div>
     </header>
 
     <!-- 사실상 body -->
-    <div style="height: 100px;"></div> <!-- 20px의 높이를 가진 세로 간격 -->
     
     <main>
-        <form class="contract">
-            <h4>서비스 탈퇴 안내사항(필수) </h4>                                        <!-- 탈퇴 처리 방침 -->
- 
-            <div style="height: 20px;"></div>                                         <!-- 간격 -->
+        <div class="inner">
 
-            <div class="text">
-                - 본 서비스를 탈퇴하면 프롬프트를 이용한 분석 결과 보기 기능과 게시판을 이용할 수 없습니다.
- 
-                - 회원 탈퇴를 하면, 이메일 비밀번호 아이디 이름과 같은 개인 정보가 삭제되어 더이상 복구될 수 없습니다.
+            <form class="contract">
+                <h4>서비스 탈퇴 안내사항(필수) </h4>                                        <!-- 탈퇴 처리 방침 -->
+     
+                <div class="text">- 본 서비스를 탈퇴하면 프롬프트를 이용한 분석 결과 보기 기능과 게시판을 이용할 수 없습니다.
+     
+                    - 회원 탈퇴를 하면, 이메일 비밀번호 아이디 이름과 같은 개인 정보가 삭제되어 더이상 복구될 수 없습니다.
+                </div>                                                                   <!-- 탈퇴 처리 방침 본 내용 -->
     
-            </div>                                                                   <!-- 탈퇴 처리 방침 본 내용 -->
-
-            <div style="text-align: right;">
-                <p><input type="checkbox" 
-                          id="termsCheckbox"
-                          required> 약관에 동의</p>                                    <!-- 약관에 동의  -->           
-            </div>
-
-            <h4>탈퇴 사유(필수) </h4>                                                   <!-- 탈퇴 사유-->
-
-            <div style="height: 20px;"></div>                                          <!-- 간격 -->
-            
-            <div class="radio-row">
-                <label><input type="radio" 
-                              name="reason" 
-                              value="reason1"> 사용빈도 낮음</label>
-
-                <div style="width: 20px;"></div>                                          <!-- 간격 -->
-
-                <label><input type="radio"
-                              name="reason"
-                              value="reason2"> 서비스 불만</label>
-            </div>
-            <div class="radio-row">
-                <label><input type="radio" 
-                              name="reason"
-                              value="reason3"> 콘텐츠 내용 불만</label>
-
-                <div style="width: 20px;"></div>                                          <!-- 간격 -->
-
-                <label><input type="radio"
-                              name="reason"
-                              value="reason4"> 개인정보 유출 우려</label>
-            </div>
-            <div class="radio-row">
-                <label><input type="radio" 
-                              name="reason"
-                              value="reason5"> 기타</label>
-            </div>
-            
-
-            <div style="text-align: right;">
-                <button type="button"
-                        class="btn btn-secondary"  
-                        onclick="withdrawAccount();">탈퇴하기</button> <!-- 탈퇴하기 -->
-            </div>
+                <h4>탈퇴 사유 (필수) </h4>                                                   <!-- 탈퇴 사유-->
                 
+                <div class="radio-row">
+                    <label><input type="radio" 
+                                  name="reason" 
+                                  value="reason1"> 사용빈도 낮음</label>
+    
+                    <div style="width: 20px;"></div>                                          <!-- 간격 -->
+    
+                    <label><input type="radio"
+                                  name="reason"
+                                  value="reason2"> 서비스 불만</label>
+                </div>
+                <div class="radio-row">
+                    <label><input type="radio" 
+                                  name="reason"
+                                  value="reason3"> 콘텐츠 내용 불만</label>
+    
+                    <div style="width: 20px;"></div>                                          <!-- 간격 -->
+    
+                    <label><input type="radio"
+                                  name="reason"
+                                  value="reason4"> 개인정보 유출 우려</label>
+                </div>
+                <div class="radio-row">
+                    <label><input type="radio" 
+                                  name="reason"
+                                  value="reason5"> 기타</label>
+                </div>
+                
+                <div class="display-flex">
+                    <p><label><input type="checkbox" 
+                                id="termsCheckbox"
+                                required> 약관에 동의<label></p>
+                    <button type="button" 
+                                class="btn btn-secondary"
+                                onclick="withdrawAccount();">탈퇴하기</button>                   
+                </div>
+            </form>
 
-        </form>
+        </div>
     </main>
+
+    <!-- 회원 탈퇴 모달창 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalBtn">&times;</span>
+            <div class="modal-screen">
+                <div>
+                    <div class="img-container">
+                        <img src="/assets/img/withdrawAccount.png"/>
+                    </div>
+
+                    <div class="check-pw" id="syncView">
+                        <div>
+                            <p>비밀번호 확인이 필요합니다.</p>
+                            <form>
+                                <div class="field">
+                                    <input type="password"
+                                        id='password'
+                                        placeholder="비밀번호를 입력해주세요."
+                                        autocomplete='off'/>
+                                </div>
+
+                                <div class="field">
+                                    <input type="password"
+                                        id='check-password'
+                                        placeholder="비밀번호를 한번 더 입력해주세요."
+                                        autocomplete='off'/>
+                                </div>
+                                <div class="error-message" id="error-modal"></div>
+                                <button type="button" class="login-button" onclick="confirmPassword();">탈퇴하기</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
     
     <!-- JS와 연동 -->

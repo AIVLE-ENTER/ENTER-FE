@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'scd';
+    src: url('../assets/fonts/SCDream5.otf') format('truetype');
+}
+
 /* header에 대한 css 적용 */
 header {
     width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
@@ -44,11 +49,6 @@ header .login:hover {
     box-shadow: none;
 }
 
-@font-face {
-    font-family: 'scd';
-    src: url('../assets/fonts/SCDream5.otf') format('truetype');
-}
-
 * {
     box-sizing: border-box;
     outline: none;
@@ -62,7 +62,7 @@ label, input[type=checkbox], button {
 
 /* 사실상 Body에 대한 CSS */
 body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'scd', sans-serif;
     margin: 0;
 }
 
