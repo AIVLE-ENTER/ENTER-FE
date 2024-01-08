@@ -128,7 +128,7 @@
                 <!-- New Chat -->
                 <div class="sidebar-controls">
                     <button class="new-chat"
-                            style='color:black'
+                            style='color: black; margin-top: 10px; margin: bottom 5px;'
                             onclick="openPopup()">
                             <i class="fa fa-plus" style="margin-right: 10px; color: white"></i>
                             <span style="color: white">New Chat</span>
@@ -238,7 +238,8 @@
             <div style='height:20px'></div>
 
             <!-- Modal Body -->
-            <div class="modal-view new-chat-view">
+            <div class="modal-view new-chat-view"
+                 style="display: flex; flex-direction: row">
                 <!-- SideBar-->
                 <div class="sidebar-area">
                     <!-- 크롤러 설정 섹션 -->
@@ -265,20 +266,20 @@
                              style='font-size:15px; margin: 0;'>리포트 설정</p>
                     </div>
 
-                    <!-- 자주 쓰는 문구 섹션 -->
-                    <div class="section" 
-                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
-                         onclick='handleUseClick()'>
-                        <p id='frequentUse'
-                           style='font-size:15px; margin: 0;'>자주 쓰는 문구</p>
-                    </div>
-
                     <!-- 모델 설정 섹션 -->
                     <div class="section" 
                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
                          onclick='handleModelClick()'>
                         <p id='modelSelection'
                            style='font-size:15px; margin: 0;'>모델 설정</p>
+                    </div>
+
+                      <!-- 자주 쓰는 문구 섹션 -->
+                    <div class="section" 
+                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                         onclick='handleUseClick()'>
+                         <p id='frequentUse'
+                            style='font-size:15px; margin: 0;'>자주 쓰는 문구</p>
                     </div>
                 </div>
 
@@ -302,16 +303,16 @@
                         <!-- 동적으로 리포트 설정하는 내용이 짜여진다.-->
                     </div>
 
-                    <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
-                    <div class="popup4-content"
-                         style='display:none'>
-                        <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
-                    </div>
-
                     <!-- '모델 설정 click 했을 떄 나옴'-->
                     <div class="popup5-content"
                          style='display:none'>
                      <!-- 동적으로 모델 설정 가져오기 -->
+                    </div>
+
+                    <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
+                    <div class="popup4-content"
+                         style='display:none'>
+                     <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
                 </div>
             </div>

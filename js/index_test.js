@@ -375,7 +375,7 @@ function getChatRoomList(){
                 contextMenu.style.left = event.clientX + 'px';
                 contextMenu.style.top = event.clientY + 'px';
 
-                 // 외부 클릭 시 컨텍스트 메뉴 숨기기
+                // 외부 클릭 시 컨텍스트 메뉴 숨기기
                 document.addEventListener("click", function() {
                     document.getElementById("contextMenu").style.display = "none";
                 });
@@ -410,8 +410,8 @@ function getChatQaHistory(chatRoom){
         activeButton.classList.add('active');
     }
 
-    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
+    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // AI 소통 URL
     axios({
         method: 'get',
         url: getHistory_URL, 
@@ -479,7 +479,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         const questionDiv = document.createElement('div');
         questionDiv.style.width = '80%'; // 질문 div width
         questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
-        questionDiv.style.color = '#515563'; // 질문 텍스트 색
+        questionDiv.style.color = '#3B3F4E'; // 질문 텍스트 색
         questionDiv.style.padding = '10px';   
         questionDiv.style.margin = '0'; // 위쪽 마진
         questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -507,7 +507,7 @@ function displayChatQaHistory(QaDatas, chatRoom) {
         const answerDiv = document.createElement('div');
         answerDiv.style.width = '80%'; // 대답 영역 width
         answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
-        answerDiv.style.color = 'black'; // 대답 텍스트 색
+        answerDiv.style.color = '#3B3F4E'; // 대답 텍스트 색
         answerDiv.style.padding = '10px';
         answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
         answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
@@ -684,7 +684,7 @@ function addQA(message, bgColor, isAnswer) {
     } 
     // 질문인 경우
     else {
-        messageDiv.style.color = '#515563';     // 텍스트 색깔
+        messageDiv.style.color = '#3B3F4E';     // 텍스트 색깔
         messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진만 적용
 
         // '사람' 아이콘 추가
@@ -1345,23 +1345,23 @@ function targetSetting(chatRoomList) {
         console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
 
 
-        // 2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
-        // axios({
-        //     method: '',
-        //     url: ``,
-        // })
-        // .then(response => {
-        //     alert('수집 시작을 합니다.');
-        //     console.log('수집 완료: ', response);
+        //2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
+        axios({
+            method: 'get',
+            url: `http://f3e4.ngrok-free.app/start_crawl/asdf1234/${dropdown.options[dropdown.selectedIndex].value}`,
+        })  // ex.) http://f3e4-(ip 주소).ngrok-free.app 주원 행님이 ip 주소 없애라 한다.
+        .then(response => {
+            alert('수집 시작을 합니다.');
+            console.log('수집 완료: ', response);
         
-        //     // 나가기
-        //     document.body.removeChild(popup); 
-        // })
-        // .catch(error => {
-        //     alert('오류가 발생했습니다.');
-        //     console.log('에러');
-        //     console.error(error); // 오류 로그
-        // });
+            // 나가기
+            document.body.removeChild(popup); 
+        })
+        .catch(error => {
+            alert('오류가 발생했습니다.');
+            console.log('에러');
+            console.error(error); // 오류 로그
+        });
     };
     buttonContainer.appendChild(startButton);
 
@@ -1370,7 +1370,7 @@ function targetSetting(chatRoomList) {
     exitButton.textContent = '나가기';
     exitButton.style.fontFamily='scd';  // 글꼴 설정
     exitButton.onclick = function() {
-        document.body.removeChild(popup);
+        document.body.removeChild(popup); // 나가기
     };
     buttonContainer.appendChild(exitButton);
 
@@ -1558,17 +1558,33 @@ function collectStatus(chatRoomList) {
 // 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
 function updateSecondDropdown(target_object, title, secondDropdown) {
     // 1. axios로 AI측과 연동하여 데이터를 받아온다.
+    // axios({
+        //     method: '',
+        //     url: ``,
+        // })
+        // .then(response => {
+        //     alert('수집 시작을 합니다.');
+        //     console.log('수집 완료: ', response);
+        
+        //     // 나가기
+        //     document.body.removeChild(popup); 
+        // })
+        // .catch(error => {
+        //     alert('오류가 발생했습니다.');
+        //     console.log('에러');
+        //     console.error(error); // 오류 로그
+        // });
 
 
-    // 2. 두 번째 드롭다운의 기존 내용을 초기화
-    secondDropdown.innerHTML = '';
+        // 2. 두 번째 드롭다운의 기존 내용을 초기화
+        secondDropdown.innerHTML = '';
 
-    // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
-    var option = document.createElement('option');
-    option.value = target_object;
-    option.title = title;
-    option.textContent = title;
-    secondDropdown.appendChild(option);
+        // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
+        var option = document.createElement('option');
+        option.value = target_object;
+        option.title = title;
+        option.textContent = title;
+        secondDropdown.appendChild(option);
 }
 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
@@ -1610,6 +1626,7 @@ function crawlerTemplateSetting() {
         companyInfoInput.value = response.data.company_info=='' ? response.data.company_info_default : response.data.company_info;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
         companyInfoInput.style.width = '100%';
         companyInfoInput.style.height = '120px';
+        companyInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
         companyInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
         companyInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(companyInfoInput);
@@ -1625,6 +1642,7 @@ function crawlerTemplateSetting() {
         targetInfoInput.value = response.data.product_info=='' ? response.data.product_info_default : response.data.product_info;   // response 받아와서 product_info가 빈값이면 product_info_default 값으로 대치한다. (삼항 연산자를 통해서)
         targetInfoInput.style.width = '100%';
         targetInfoInput.style.height = '240px';
+        targetInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
         targetInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
         targetInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
         popup.appendChild(targetInfoInput);
@@ -2118,9 +2136,9 @@ function handleModelClick() {
 
         // 모델 섹션 생성
         const models = ['ChatGPT 3.5', 'ChatGPT 4'];
-        models.forEach(modelName => {
+        models.forEach((modelName, index) => {
             var section = document.createElement('div');
-            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; border: 1px solid black; padding: 10px;';
+            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 10px;';
 
             var modelText = document.createElement('span');
             modelText.textContent = modelName;
@@ -2152,11 +2170,16 @@ function handleModelClick() {
             }
 
             popup5_content.appendChild(section);
+
+            // 모든 섹션 뒤에 구분선 추가
+            var divider = document.createElement('hr');
+            popup5_content.appendChild(divider);
         });
 
         // 현재 사용 중인 모델 표시
         var currentModelText = document.createElement('p');
-        currentModelText.textContent = `현재 사용모델: 안양역`;
+        currentModelText.textContent = `현재 사용모델: chatgpt-3.5`;
+        currentModelText.style.marginLeft = '8px'; // 마진 상단 추가
         currentModelText.style.marginTop = '20px'; // 마진 상단 추가
         currentModelText.style.fontSize = '14px'; // 폰트 사이즈 줄이기
         popup5_content.appendChild(currentModelText);
