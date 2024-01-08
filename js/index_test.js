@@ -1234,7 +1234,7 @@ function removeBlurFromElements() {
     document.querySelector('main').classList.remove('blur-effect');
 }
 
-// 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수
+// 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleCrawlerClick() {
     // 버튼 
     crawlerBtn.classList.add("active");
@@ -1302,7 +1302,7 @@ function handleCrawlerClick() {
     popup1_content.appendChild(crawlerTemplateSettingButton);
 }
 
-// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수
+// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function targetSetting(chatRoomList) {
     // 팝업 div 생성
     var popup = document.createElement('div');
@@ -1406,7 +1406,7 @@ function targetSetting(chatRoomList) {
     document.body.appendChild(popup);
 }
 
-// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수
+// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function collectStatus(chatRoomList) {
     var popup = document.createElement('div');
     popup.style.width = '400px';
@@ -1477,8 +1477,8 @@ function collectStatus(chatRoomList) {
     // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
     firstDropdown.onchange = function() {
         var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
-        console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
-        console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
+        // console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
+        // console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
 
         updateSecondDropdown(selectedOption.value,    // 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게 함수 호출 
                              selectedOption.title, 
@@ -1532,8 +1532,7 @@ function collectStatus(chatRoomList) {
     };
     queryButton.onclick = function() {  // '조회' 버튼을 click 했을 떄 
 
-        // 1. '조회' 버튼을 클릭했을 떄  첫 번쨰 드롭다운 메뉴와 두 번쨰 드롭다운 메뉴와 관련된
-        //                              필요한 정보들이 잘 넘어가는지 확인 
+        // 1. '조회' 버튼을 클릭했을 떄  첫 번쨰 드롭다운 메뉴와 두 번쨰 드롭다운 메뉴와 관련된 필요한 정보들이 잘 넘어가는지 확인 
         console.log('1번쨰 드롭다운 target_object : ', firstDropdown.options[firstDropdown.selectedIndex].value);
         console.log('1번쨰 드롭다운 title : ', firstDropdown.options[firstDropdown.selectedIndex].title);
         console.log('2번쨰 드롭다운 target_object : ',  secondDropdown.options[secondDropdown.selectedIndex].value);
@@ -1583,39 +1582,42 @@ function collectStatus(chatRoomList) {
     document.body.appendChild(popup);
 }
 
-// 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수
+// 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수 (AI 설정 모달)
 function updateSecondDropdown(target_object, title, secondDropdown) {
     // 1. axios로 AI측과 연동하여 데이터를 받아온다.
-    // axios({
-        //     method: '',
-        //     url: ``,
-        // })
-        // .then(response => {
-        //     alert('수집 시작을 합니다.');
-        //     console.log('수집 완료: ', response);
-        
-        //     // 나가기
-        //     document.body.removeChild(popup); 
-        // })
-        // .catch(error => {
-        //     alert('오류가 발생했습니다.');
-        //     console.log('에러');
-        //     console.error(error); // 오류 로그
-        // });
+    axios({
+            method: 'post',
+            url: ``,
+        })
+        .then(response => {
+            // 2. 두 번째 드롭다운의 기존 내용을 초기화한다.
+            secondDropdown.innerHTML = '';
 
-
-        // 2. 두 번째 드롭다운의 기존 내용을 초기화
-        secondDropdown.innerHTML = '';
-
-        // 3. AI 측에 받아온 데이터를 바탕으로 두 번째 드롭다운에 옵션을 다시 생성한다.
-        var option = document.createElement('option');
-        option.value = target_object;
-        option.title = title;
-        option.textContent = title;
-        secondDropdown.appendChild(option);
+            // 3. 시간대가 없는 경우, 
+            if(response.data.length === 0){
+                var noDataOption = document.createElement('option');
+                    noDataOption.value = '시간대 데이터 없음';
+                    secondDropdown.appendChild(noDataOption);
+            }
+            // 3. 시간대가 있는 경우를 고려해서 AI 측에 받아온 데이터를 바탕으로 두 번쨰 드롭다운에 옵션을 다시 생성한다.
+            else {
+                response.data.forEach(item => {
+                    var option = document.createElement('option');
+                    option.value = item.value;
+                    option.title = item.title;
+                    option.textContent = item.title;
+                    secondDropdown.appendChild(option);
+                });
+            }
+        })
+        .catch(error => {
+            alert('오류가 발생했습니다.');
+            console.log('에러');
+            console.error(error); // 오류 로그
+        });  
 }
 
-// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
+// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function crawlerTemplateSetting() {
     // AI 측으로부터 크롤러 템플릿 설정 정보를 가져온다.
     const templateLoad_URL=`http://localhost:8002/load_template/${user_id}/llama/crawl`;
@@ -1750,7 +1752,7 @@ function crawlerTemplateSetting() {
     });
 }
 
-// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수
+// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handlePromptClick(){
     // 버튼
     crawlerBtn.classList.remove("active");
@@ -1935,7 +1937,7 @@ function handlePromptClick(){
     });
 }
 
-// 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수
+// 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleReportClick(){
     // 버튼
     crawlerBtn.classList.remove("active");
@@ -1944,12 +1946,13 @@ function handleReportClick(){
     modelSelectionBtn.classList.remove("active");
     frequentUseBtn.classList.remove("active");
     
-    axios({
+    // AI 측으로부터 '리포트 템플릿', 'document 템플릿' 데이터를 가져온다.
+    axios({ 
         method: 'get',
         url: `http://localhost:8002/load_template/${user_id}/chatgpt/report`,
     })
     .then(response => {
-        console.log('리포트 설정 완료 :', response);
+        console.log('리포트 불러오기 완료 :', response);
 
         var popup1_content = document.querySelector(".popup1-content");
         popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
@@ -1968,7 +1971,49 @@ function handleReportClick(){
         var popup3_content = document.querySelector(".popup3-content");
         popup3_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
         popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+ 
+        // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져옵니다. 다 쓰일떄가 있으니까 가져온거여 ~ 
+        const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
+        const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); // JSON 문자열을 객체로 
 
+        // '수집 대상' 텍스트 그 자체 
+        var collectionTargetText = document.createElement('h4');
+        collectionTargetText.textContent = '수집 대상';
+        collectionTargetText.style.marginLeft = '60px'; // 여기에서 마진을 설정합니다
+        popup3_content.appendChild(collectionTargetText);
+
+        // 동적으로 생성한 드롭다운 메뉴
+        var dropdown = document.createElement('select');
+        dropdown.style.width = '40%';
+        dropdown.style.height = '25px';
+        dropdown.style.marginLeft = '60px'; // 여기에서 마진을 설정합니다
+        dropdown.style.border = '1px solid #000000';
+        dropdown.style.fontFamily = 'scd'; // font-family 스타일 추가
+
+        // chatRoomList 길이가 0이면?
+        if (chatRoomList.length === 0) {
+            alert("채팅방을 만들어야 수집할 수 있습니다.");
+            return; 
+        }
+
+        // chatRoomList를 이용하여 드롭다운 옵션을 동적으로 생성
+        chatRoomList.forEach(chatRoom => {
+            var option = document.createElement('option');
+            option.value = chatRoom.target_object;                                // 채팅방의 고유 ID
+            option.textContent = chatRoom.target_object + ' | ' + chatRoom.title; // 드롭다운에 이렇게 표시한다.
+            dropdown.appendChild(option);
+        });
+
+        popup3_content.appendChild(dropdown);
+
+        // 구분선
+        var divider = document.createElement('hr');
+        divider.style.width = '110%'; // 너비 설정
+        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
+        divider.style.margin = '20px 20px 0px 10px'; // 위아래 마진 설정
+        popup3_content.appendChild(divider);
+
+        
         // '리포트 템플릿' 텍스트
         var templateText = document.createElement('h4');
         templateText.textContent = '리포트 템플릿';
@@ -1992,7 +2037,6 @@ function handleReportClick(){
         // divider.style.width = '110%'; // 너비 설정
         divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
         divider.style.margin = '20px 20px'; // 위아래 마진 설정
-
         popup3_content.appendChild(divider);
 
         // 'Document 템플릿'
@@ -2048,7 +2092,7 @@ function handleReportClick(){
                 }
             })
             .then(response => {
-                alert('리포트 설정이 완료되었습니다.');  // alert
+                alert('리포트 템플릿 설정이 완료되었습니다.');  // alert
                 popup3_content.style.display = 'none'; // 나가기 
             })
             .catch(error => {
@@ -2095,16 +2139,39 @@ function handleReportClick(){
         createReportButton.style.marginRight='10px';
         createReportButton.onclick = function() {
             console.log('레포트 만들기 버튼 클릭');
+            // console.log(`수집 선택 드롭다운 target_object : ${dropdown.options[dropdown.selectedIndex].value}`);
 
-            // 1. AI측과 '레포트 만들기' 기능을 가지고 소통한다.
+            // 1. AI측과 '레포트 만들기' 기능을 가지고 소통한다.(axio 라는 비동기 통신 라이브리리 활용)
+            axios({
+                method: 'post',
+                url: `http://localhost:8002/report`, 
+                responseType: 'blob',
+                data : { 
+                    // 유저 아이디
+                    'user_id' :  user_id,
 
-
-            // 2. 로컬 컴퓨터에 실제 pdf 파일을 다운로드 받을 수 있도록 한다. (Blob 객체를 활용)
-
-
-            // 3. 나가기 
-
-
+                    // 키워드(target_object)
+                    'keyword' : dropdown.options[dropdown.selectedIndex].value,
+                }
+            })
+            .then(response => {
+                // 2. 로컬 컴퓨터에 실제 pdf 파일을 다운로드 받을 수 있도록 한다. (Blob 객체를 활용)
+                data = new Blob([response.data]);
+                const a =  document.createElement("a");
+                a.href = window.URL.createObjectURL(data);
+                a.download = 'Report.pdf';
+                a.click();
+                a.remove();
+                
+                // 3. 나가기
+                alert('리포트 만들기가 완료되었습니다.');
+                popup3_content.style.display = 'none'; 
+            })
+            .catch(error => {
+                alert('오류가 발생했습니다.');
+                console.log('에러');
+                console.error(error); // 오류 처리
+            });
         };
         createButtonContainer.appendChild(createReportButton);
         popup3_content.appendChild(createButtonContainer);
@@ -2116,7 +2183,7 @@ function handleReportClick(){
     }); 
 }
 
-// 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
+// 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleUseClick(){
     // 버튼
     crawlerBtn.classList.remove("active");
@@ -2167,8 +2234,10 @@ function handleUseClick(){
     });
 }
 
-// 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수
+// 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleModelClick() {
+    console.log('재호출');
+
     // 버튼
     crawlerBtn.classList.remove("active");
     promptBtn.classList.remove("active");
@@ -2179,7 +2248,7 @@ function handleModelClick() {
     // AI측으로부터 자신의 모델 설정이 현재 어떠한지에 대한 정보를 가져온다.
     axios({
         method: 'get',
-        url: '', // 백엔드 URL
+        url: `http://localhost:8002/load_template/${user_id}/chatgpt/params`, 
     })
     .then(response => {
         // 기존 팝업 내용 숨기기
@@ -2203,9 +2272,12 @@ function handleModelClick() {
         popup5_content.style.display = 'block';
         popup5_content.style.padding = '20px';
 
+        console.log('현재 사용중인 모델 : ', response.data.model); 
+
         // 모델 섹션 생성
-        const models = ['ChatGPT 3.5', 'ChatGPT 4'];
-        models.forEach((modelName, index) => {
+        const models = ['gpt-3.5-turbo', 'gpt-4'];
+        models.forEach((modelName) => {
+            // gpt-3.5-turbo와 gpt-4 텍스트와 Button을 보여주는 태그를 만든다.
             var section = document.createElement('div');
             section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 10px;';
 
@@ -2213,12 +2285,11 @@ function handleModelClick() {
             modelText.textContent = modelName;
             section.appendChild(modelText);
 
-            // ex) 예를 들어 내가 'ChatGPT 3.5'로 설정되어 있으면 'ChatGPT 4'를 선택할 수 있는 Button을 마련한다.  
-            if (modelName =='ChatGPT 4') {
+            // ex) 내가 'gpt-3.5-turbo'로 설정되었다면 'gpt-4'를 선택할 수 있는 Button을 마련한다.  
+            if (modelName != response.data.model) {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
                 modelButton.style.fontFamily='scd'; // 글꼴 설정
-                // modelButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: default;';
                 modelButton.onmouseover = function() {
                     this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
                     this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
@@ -2230,14 +2301,28 @@ function handleModelClick() {
                 modelButton.onclick = function() { // '선택' 버튼을 click 했을 떄 
                     console.log('선택 버튼 click');
 
-
-                    // Axios를 이용하여 AI 측과 연동
-
-
+                    // AI 측과 비동기 통신한다. response.data.model == 'gpt-3.5-turbo' ? 'gpt-4' : 'gpt-3.5-turbo' 라고 삼항연산자를 적용한다.
+                    axios({
+                        method: 'post',
+                        url: `http://localhost:8002/edit_template/${user_id}/chatgpt/params`,
+                        data : {
+                            'template_config' : {
+                                'model' : response.data.model == 'gpt-3.5-turbo' ? 'gpt-4' : 'gpt-3.5-turbo'
+                            }
+                        }
+                    })
+                    .then(response => {       
+                        alert('모델을 변경했습니다.');
+                        popup5_content.style.display = 'none';  // 나가기
+                    })
+                    .catch(error => {
+                        alert('오류가 발생했습니다.');
+                        console.log('에러');
+                        console.error(error); // 오류 처리
+                    }); 
                 }
                 section.appendChild(modelButton);
             }
-
             popup5_content.appendChild(section);
 
             // 모든 섹션 뒤에 구분선 추가
@@ -2247,7 +2332,7 @@ function handleModelClick() {
 
         // 현재 사용 중인 모델 표시
         var currentModelText = document.createElement('p');
-        currentModelText.textContent = `현재 사용모델: chatgpt-3.5`;
+        currentModelText.textContent = `현재 사용모델: ${response.data.model}`;
         currentModelText.style.marginLeft = '8px'; // 마진 상단 추가
         currentModelText.style.marginTop = '20px'; // 마진 상단 추가
         currentModelText.style.fontSize = '14px'; // 폰트 사이즈 줄이기

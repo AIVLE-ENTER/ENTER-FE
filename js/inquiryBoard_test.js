@@ -65,7 +65,7 @@ axios.get(tempUrl)
     
     console.log(Object.keys(board_list).length)
     totalBoardCount = document.querySelector('.aside');
-    totalBoardCount.append('▷ 총 ' + response.data['tot_post'] + '개의 게시물이 있습니다.');
+    totalBoardCount.append('총 ' + response.data['tot_post'] + '개의 게시물이 있습니다.');
 
     
     board_list.forEach((content) => {     
