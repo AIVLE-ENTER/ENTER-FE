@@ -40,7 +40,7 @@ function getUserInfo(token){
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         user_name=response.data['data']['user_name'];   // 아이디를 가져온다.
-        document.querySelector('.header-link h3').textContent = `${user_name}님 안녕하세요!!`; // h3 태그에 보여준다.
+        document.querySelector('.header-link h3').textContent = `${user_name}님 안녕하세요`; // h3 태그에 보여준다.
         document.querySelector('header .logout').style.display = 'block';
     })
     .catch(error => {

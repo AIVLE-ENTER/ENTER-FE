@@ -639,7 +639,7 @@ p {
 .conversations {
     overflow-y: auto; /* 세로 스크롤바 설정 */
     width: calc( 100% + 8px );
-    height: 50vh; 
+    height: 47vh; 
     overflow-y: scroll;
 }
 
@@ -669,7 +669,7 @@ p {
     width: 50%; /* 팝업의 가로 크기를 화면 너비의 50%로 설정 */
     max-width: 350px; /* 팝업의 최대 가로 크기 설정 */
     background: white; 
-    padding: 60px 40px 30px; 
+    padding: 27px 30px 30px;
     border-radius: 5px;
     display: flex;
     flex-direction: column; /* 자식 요소들을 세로로 정렬 */
