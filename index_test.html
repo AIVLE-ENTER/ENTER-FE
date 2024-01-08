@@ -241,42 +241,42 @@
                 <div class="sidebar-area">
                     <!-- 크롤러 설정 섹션 -->
                     <div class="section" 
-                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                         style='margin-bottom:30px; display: flex; align-items: center; cursor: pointer;'
                          onclick="handleCrawlerClick()">
                         <p id='crawler'
-                           style='font-size:15px; margin: 0;'>크롤러 설정</p>
+                           style='font-size:15px;'>크롤러 설정</p>
                     </div>
 
                     <!-- 프롬프트 설정 섹션  -->
                     <div class="section" 
-                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                         style='margin-bottom:30px; display: flex; align-items: center; cursor: pointer;'
                          onclick="handlePromptClick()">
                         <p id='prompt'
-                           style='font-size:15px; margin: 0;'>프롬프트 설정</p>
+                           style='font-size:15px;'>프롬프트 설정</p>
                     </div>
 
                      <!-- 리포트 설정 섹션  -->
                      <div class="section" 
-                          style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                          style='margin-bottom:30px; display: flex; align-items: center; cursor: pointer;'
                           onclick="handleReportClick()">
                           <p id='report'
-                             style='font-size:15px; margin: 0;'>리포트 설정</p>
+                             style='font-size:15px;'>리포트 설정</p>
                     </div>
 
                     <!-- 모델 설정 섹션 -->
                     <div class="section" 
-                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                         style='margin-bottom:30px; display: flex; align-items: center; cursor: pointer;'
                          onclick='handleModelClick()'>
                         <p id='modelSelection'
-                           style='font-size:15px; margin: 0;'>모델 설정</p>
+                           style='font-size:15px;'>모델 설정</p>
                     </div>
 
                       <!-- 자주 쓰는 문구 섹션 -->
                     <div class="section" 
-                         style='margin-bottom:50px; display: flex; align-items: center; cursor: pointer;'
+                         style='margin-bottom:30px; display: flex; align-items: center; cursor: pointer;'
                          onclick='handleUseClick()'>
                          <p id='frequentUse'
-                            style='font-size:15px; margin: 0;'>자주 쓰는 문구</p>
+                            style='font-size:15px;'>자주 쓰는 문구</p>
                     </div>
                 </div>
 
@@ -309,6 +309,9 @@
                     <!-- '자주 쓰는 문구 click 했을 떄 나옴'-->
                     <div class="popup4-content"
                          style='display:none'>
+                    </div>
+                    <div class="message-btn-group"
+                        style='display:none;'>
                      <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
                 </div>
@@ -370,14 +373,14 @@
                    id="messageTitle"
                    name="messageTitle"
                    placeholder="문구 제목" 
-                   style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+                   style="width:100%; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
     
             
-            <input type="text"
+            <textarea rows="4"
                     id="messageContent"
                     name="messageContent"
                     placeholder="문구 내용" 
-                    style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;">
+                    style="margin-top: 5px; width:100%; resize: none; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
 
             <div id="errorMessage"
                  style="display: none; color: red; margin-top: 10px; font-family:scd;">
@@ -385,7 +388,7 @@
             </div>
 
             <div class="button-container"
-                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-right:70px;'>
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 5px;'>
                 <button style='font-family:scd;'
                         onclick="submitFrequentMessage()">추가</button>
             </div>
@@ -400,22 +403,22 @@
                   onclick="closeEditFrequentMessage()">&times;</span>
 
             <h2>자주 쓰는 문구 수정</h2>
-        
-            <input type="text" 
+            
+            <input type="text"
                    id="editMessageTitle"
                    name="editMessageTitle"
                    placeholder="문구 제목" 
-                   style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
-
-            <input type="text" 
+                   style="width:100%; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+    
+            
+            <textarea rows="4"
                     id="editMessageContent"
                     name="editMessageContent"
                     placeholder="문구 내용" 
-                    style="width:200px; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
-
+                    style="margin-top: 5px; width:100%; resize: none; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
 
             <div class="button-container"
-                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-right:70px;'>
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px;'>
                 <button onclick="submitEditFrequentMessage()"
                         data-template-id=""
                         style='font-family:scd;'
