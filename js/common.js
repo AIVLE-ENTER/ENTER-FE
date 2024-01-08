@@ -46,7 +46,7 @@ function goLogout(){
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#454997',
         confirmButtonText: '예',
         cancelButtonText: '아니오'
     }).then((result) => {
@@ -65,7 +65,7 @@ function goLogin(){
         icon: 'question',
         showCancelButton: true,
         confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
+        cancelButtonColor: '#454997',
         confirmButtonText: '예',
         cancelButtonText: '아니오'
     }).then((result) => {
