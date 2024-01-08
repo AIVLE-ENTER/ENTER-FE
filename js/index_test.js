@@ -375,7 +375,7 @@ function getChatRoomList(){
                 contextMenu.style.left = event.clientX + 'px';
                 contextMenu.style.top = event.clientY + 'px';
 
-                 // 외부 클릭 시 컨텍스트 메뉴 숨기기
+                // 외부 클릭 시 컨텍스트 메뉴 숨기기
                 document.addEventListener("click", function() {
                     document.getElementById("contextMenu").style.display = "none";
                 });
@@ -410,8 +410,8 @@ function getChatQaHistory(chatRoom){
         activeButton.classList.add('active');
     }
 
-    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // 백엔드 소통 URL
     // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
+    const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // AI 소통 URL
     axios({
         method: 'get',
         url: getHistory_URL, 
@@ -1370,7 +1370,7 @@ function targetSetting(chatRoomList) {
     exitButton.textContent = '나가기';
     exitButton.style.fontFamily='scd';  // 글꼴 설정
     exitButton.onclick = function() {
-        document.body.removeChild(popup);
+        document.body.removeChild(popup); // 나가기
     };
     buttonContainer.appendChild(exitButton);
 
