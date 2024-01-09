@@ -603,7 +603,7 @@ p.secondary {
     border-radius: 5px;
     display: inline-block;
     font-size: 1em;
-    padding: 7px 9px 7px 7px;
+    padding: 8px 8px 0px 8px;
     color: var(--color-white);
     border: none;
     margin-top: -2px;
@@ -640,7 +640,6 @@ p {
     overflow-y: auto; /* 세로 스크롤바 설정 */
     width: calc( 100% + 8px );
     height: 47vh; 
-    overflow-y: scroll;
 }
 
 #chat-list {
@@ -977,10 +976,8 @@ p {
 }
 
 .section p {
-    width: 100%;
-    margin: 0 10px 0 0;
-    padding: 10px;
-    border-radius: 10px;
+    border-radius: 4px;
+    padding: 5px;
 }
 .section p:hover {
     background-color: #D6D9DE;

@@ -74,6 +74,9 @@ function pageRendering(page_num) {
         
         
         var htmlhead = document.createElement('thead');
+        // htmlhead.createElement('tr');
+
+
         htmlhead.innerHTML = `<tr>
                                 <th>번호</th>
                                 <th>문의유형</th>
@@ -83,16 +86,16 @@ function pageRendering(page_num) {
                              </tr>`
         document.getElementById('boardList').appendChild(htmlhead);
 
-        var tmpContentNumber = 1 + (page_num - 1) * 10;
+        var tmpContentNumber = response['data']['tot_post'] - (page_num-1) * 10
         board_list.forEach((content) => {     
             htmlItem = document.createElement('tbody');
             htmlItem.onclick = function() {
                 redirectToDetailPage(content.board_id);
             }
             
-            htmlItem.innerHTML = `<td>${tmpContentNumber++}</td>
+            htmlItem.innerHTML = `<td>${tmpContentNumber--}</td>
                                     <td>${content.question_type_title}</td>
-                                    <td>${content.question_title}</td>
+                                    <td style="cursor: pointer;">${content.question_title}</td>
                                     <td>${content.user_name}</td>
                                     <td>${content.question_datetime.substr(0, 10)}</td>`
             document.getElementById('boardList').appendChild(htmlItem);            
@@ -134,14 +137,14 @@ function pageNumbering() {
     
     var prevSpan = document.createElement('span');
     var postSpan = document.createElement('span');
-    prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전</a>';
-    postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp;&nbsp;다음 ▶</a>';
+    prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전&nbsp;&nbsp;</a>';
+    postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp다음 ▶</a>';
     
     tmpHTML.appendChild(prevSpan);
     console.log(totalPage)
     for (var i=0; i<totalPage; i++) {
         var pageSpan = document.createElement('span');
-        pageSpan.innerHTML = `<a href="javascript:void(0);" onclick="pageRendering(${i+1})">&nbsp;&nbsp;&nbsp;${i+1}</a>`;
+        pageSpan.innerHTML = `<a href="javascript:void(0);" onclick="pageRendering(${i+1})">&nbsp;&nbsp;${i+1}&nbsp;&nbsp;</a>`;
         tmpHTML.appendChild(pageSpan);
     }
     tmpHTML.appendChild(postSpan);
