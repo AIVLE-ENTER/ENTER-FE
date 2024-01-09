@@ -214,7 +214,7 @@ function editButton() {
     const deletebutton = document.querySelector(".delete-button");
     const buttonsection = document.querySelector(".button-section");
     const itembox = document.querySelector(".faqItem-box");
-    const imagep = document.querySelector(".faqItem-image > p");
+    const imagep = document.querySelector(".attached-file");
 
     var typeURL=`http://localhost:8000/board/questionTypeList/`;
     var editURL = 
@@ -224,9 +224,11 @@ function editButton() {
 
     const completeeditbutton = document.createElement("button");
     const cancelbutton = document.createElement("button");
+    completeeditbutton.className = "custombutton"
     completeeditbutton.textContent = '수정완료';
     cancelbutton.textContent = '취소';
     cancelbutton.type = 'button';
+    cancelbutton.className = 'custombutton';
 
     buttonsection.appendChild(completeeditbutton);
     buttonsection.appendChild(cancelbutton);
