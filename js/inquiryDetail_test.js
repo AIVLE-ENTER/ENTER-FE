@@ -270,10 +270,12 @@ function editButton() {
     const contentedit = document.createElement("textarea");
     //contentedit.id = 'inputBoardContent';
     contentedit.className = 'faqItem-content';
+    contentedit.style.cssText = 'width : 100%; border:none; resize:none'
     contentedit.textContent = content.textContent;
 
     const titleedit = document.createElement("textarea");
     titleedit.className = 'faqItem-title';
+    titleedit.style.cssText = 'width : 100%; border:none; resize:none; background-color:transparent'
     //titleedit.id = 'inputBoardTitle';
     titleedit.textContent = title.textContent.trim();
 
