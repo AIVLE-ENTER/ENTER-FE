@@ -120,10 +120,12 @@ h2 {
 .select-dropbox {
     height: 25px;
     font-size: 16px;
+    margin-right: 5px;
 }
 
 .select-textbox {
     height: 25px;
+    margin-right: 5px;
 }
 
 #select-button { 
