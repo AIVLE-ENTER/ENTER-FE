@@ -217,16 +217,39 @@ function editButton() {
 }
 
 function deleteButton() {
-    if (window.confirm("정말로 삭제하시겠습니까?")) {
-        axios.post(deleteBoardURL, {}, config)
-        .then((response) => {
-            alert('삭제가 완료되었습니다.');
-            window.location.href = '../inquiryBoard_test.html';   
-        })
-        .catch((error) => {
-            console.log('error')
-        })
-    } else {
-        alert('취소되었습니다.')
-    }
+    Swal.fire({
+        title: '정말 삭제하시겠습니까?',
+        text: "삭제한 데이터는 복구할 수 없습니다!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#454997',
+        confirmButtonText: '삭제',
+        cancelButtonText: '취소'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // 실제 동작 수행
+            axios.post(deleteBoardURL, {}, config)
+            .then((response) => {
+                Toast.fire({
+                    width: '420px',
+                    icon: 'success',
+                    title: '삭제되었습니다.'
+                });
+                setTimeout(function() {
+                    window.location.href = '../inquiryBoard_test.html';   
+                }, 900);
+            })
+            .catch((error) => {
+                Toast.fire({
+                    width: '420px',
+                    icon: 'error',
+                    title: '오류가 발생했습니다. 다시 시도해주세요.'
+                });
+                setTimeout(function() {
+                    location.reload();
+                }, 900);
+            });
+        }
+    });
 }

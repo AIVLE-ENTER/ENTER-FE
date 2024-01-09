@@ -42,14 +42,22 @@
 
     <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
     <!-- Header -->
     <header>
-        <img src="assets/img/ENTR_logo.png" 
-             alt="로고"
-             id="header-logo">
+        <div style="height: 35px;">
+            <a href="/index_test.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
+        </div>
 
         <div style="display: flex; align-items: center;">
             <a href="/mypage_test.html"
@@ -70,7 +78,7 @@
     <div class='card-write'>
         <!-- 유형 -->
         <div class="horizontal-layout" 
-             style='width:80%; margin-top:200px; display:flex; justify-content: center;  position: relative;'>
+             style='width:80%; margin-top:50px; display:flex; justify-content: center;  position: relative;'>
             <p style='margin-right:10px;'>유형</p>
 
             <select id="exampleSelect" 
@@ -83,7 +91,7 @@
         <div class="horizontal-layout" 
                 style='width:80%; margin-top:50px; display:flex; justify-content: center;  position: relative;'>
             <p style='margin-top: 5px; margin-right:10px;'>제목</p>
-            
+
             <textarea id="inputBoardTitle" 
                       placeholder="제목을 입력하세요."></textarea>
         </div>
@@ -102,7 +110,7 @@
              style="width:50%; display: flex; flex-direction: column; margin-top: 20px; position: relative;">
             <!-- 파일 영역 -->
             <div class="file-detach"
-                 style="display: flex; margin-bottom: 20px; justify-content: flex-end;">
+                 style="display: flex; justify-content: flex-end; margin-bottom: 20px;">
                 
                 <input type='file' 
                         name='' 
