@@ -77,8 +77,7 @@ axios.get(tempUrl)
                                 <td>${content.question_type_title}</td>
                                 <td>${content.question_title}</td>
                                 <td>${content.user_name}</td>
-                                <td>${content.question_datetime.substr(0, 10)}</td>
-                                <td>${15}</td>`
+                                <td>${content.question_datetime.substr(0, 10)}</td>`
         document.getElementById('boardList').appendChild(htmlItem);
         
     });
