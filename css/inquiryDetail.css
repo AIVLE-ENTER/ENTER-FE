@@ -11100,9 +11100,11 @@ color:#fff
 .card {
     width: 100vw; /* 뷰포트의 전체 너비 */
     height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
-    margin: 0;
-    padding: 200px;             /* 모든 방향에 20px의 패딩 적용 */
+    margin: auto;
     background-color: #f8f9fa; /* 회색으로 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-write {
@@ -11301,6 +11303,17 @@ header .logout:hover, header .login:hover {
 
 .reply-button, .edit-button, .delete-button {
   display: none;
+  margin-top: 15px;
+  border: 0;
+  outline: none;
+  font-size: 16px;
+  background: #454997;
+  color: white;
+  cursor: pointer;
+  border-radius: 10px;
+  font-family: 'scd';
+  padding: 10px 20px;
+  height: 50px;
 }
 
 /* 모달창 */
