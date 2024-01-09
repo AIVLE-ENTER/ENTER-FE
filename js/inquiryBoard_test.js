@@ -54,67 +54,144 @@ function getUserInfo(token){
 const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL 
 const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
-var contentNumber = 1;
+var pageNumber = 1;
+var totalPage = 1;
 
-tempUrl = 'http://127.0.0.1:8000/board/' // ?page=2 이런식으로 페이지 넣어서 보내야 함
-axios.get(tempUrl, 3)
-.then((response) => {
-    console.log(response);
-    console.log('success');
-    var board_list = response.data['post_list'];
+defaultUrl = 'http://127.0.0.1:8000/board/?page='; // ?page=2 이런식으로 페이지 넣어서 보내야 함
+function pageRendering(page_num) {
+    var renderUrl = defaultUrl + page_num;
     
-    totalBoardCount = document.querySelector('.aside');
-    totalBoardCount.append('총 ' + response['data']['tot_post'] + '개의 게시물이 있습니다.');
-
-    
-    board_list.forEach((content) => {     
-        htmlItem = document.createElement('tbody');
-        htmlItem.onclick = function() {
-            redirectToDetailPage(content.board_id);
-        }
-        htmlItem.innerHTML = `<td>${contentNumber++}</td>
-                                <td>${content.question_type_title}</td>
-                                <td>${content.question_title}</td>
-                                <td>${content.user_name}</td>
-                                <td>${content.question_datetime.substr(0, 10)}</td>`
-        document.getElementById('boardList').appendChild(htmlItem);
-        
-    });
-})
-.catch((error) => {
-    console.log(`error: ${error}`);
-})
-
-function redirectToDetailPage(postId) {    
-    window.location.href = '/inquiryDetail_test.html?id=' + postId;
-}
-
-function page_rendering(page_num) {
-    axios.get(tempUrl, page_num)
+    axios.get(renderUrl)
     .then((response) => {
         console.log('success');
+        totalPage = Math.ceil(response['data']['tot_post'] / 10);
+        console.log('total:', totalPage);
+        
         var board_list = response.data['post_list'];
-        
-        totalBoardCount = document.querySelector('.aside');
+        empty()
+        var totalBoardCount = document.querySelector('.aside');
         totalBoardCount.append('총 ' + response['data']['tot_post'] + '개의 게시물이 있습니다.');
-
         
+        
+        var htmlhead = document.createElement('thead');
+        htmlhead.innerHTML = `<tr>
+                                <th>번호</th>
+                                <th>문의유형</th>
+                                <th>제목</th>
+                                <th>글쓴이</th>
+                                <th>작성일시</th>
+                             </tr>`
+        document.getElementById('boardList').appendChild(htmlhead);
+
+        var tmpContentNumber = 1 + (page_num - 1) * 10;
         board_list.forEach((content) => {     
             htmlItem = document.createElement('tbody');
             htmlItem.onclick = function() {
                 redirectToDetailPage(content.board_id);
             }
-            htmlItem.innerHTML = `<td>${contentNumber++}</td>
+            
+            htmlItem.innerHTML = `<td>${tmpContentNumber++}</td>
                                     <td>${content.question_type_title}</td>
                                     <td>${content.question_title}</td>
                                     <td>${content.user_name}</td>
                                     <td>${content.question_datetime.substr(0, 10)}</td>`
-            document.getElementById('boardList').appendChild(htmlItem);
-            
+            document.getElementById('boardList').appendChild(htmlItem);            
         });
+        pageNumbering()
+        
     })
     .catch((error) => {
         console.log(`error: ${error}`);
     })
 }
 
+function prevPage() {
+    if (pageNumber > 1) {
+        pageNumber--;
+        pageRendering(pageNumber);
+    }
+}
+
+function postPage() {
+    if (pageNumber < totalPage) {
+        pageNumber++;
+        pageRendering(pageNumber)
+    }
+}
+
+function empty() {
+    var tmp1 = document.querySelector('.aside');
+    var tmp2 = document.querySelector('#boardList');
+    var tmp3 = document.querySelector('#pageNumber');
+
+    tmp1.innerHTML = '';
+    tmp2.innerHTML = '';
+    tmp3.innerHTML = '';
+}
+
+function pageNumbering() {
+    tmpHTML = document.getElementById('pageNumber');
+    
+    var prevSpan = document.createElement('span');
+    var postSpan = document.createElement('span');
+    prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전</a>';
+    postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp;&nbsp;다음 ▶</a>';
+    
+    tmpHTML.appendChild(prevSpan);
+    console.log(totalPage)
+    for (var i=0; i<totalPage; i++) {
+        var pageSpan = document.createElement('span');
+        pageSpan.innerHTML = `<a href="javascript:void(0);" onclick="pageRendering(${i+1})">&nbsp;&nbsp;&nbsp;${i+1}</a>`;
+        tmpHTML.appendChild(pageSpan);
+    }
+    tmpHTML.appendChild(postSpan);
+}
+
+function redirectToDetailPage(postId) {    
+    window.location.href = '/inquiryDetail_test.html?id=' + postId;
+}
+
+pageRendering(pageNumber);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// axios.get(defaultUrl)
+// .then((response) => {
+//     console.log(response);
+//     console.log('success');
+//     var board_list = response.data['post_list'];
+    
+//     totalPage = response['data']['tot_post'];
+//     totalBoardCount = document.querySelector('.aside');
+//     totalBoardCount.append('총 ' + response['data']['tot_post'] + '개의 게시물이 있습니다.');
+    
+//     board_list.forEach((content) => {     
+//         htmlItem = document.createElement('tbody');
+//         htmlItem.onclick = function() {
+//             redirectToDetailPage(content.board_id);
+//         }
+//         htmlItem.innerHTML = `<td>${contentNumber++}</td>
+//                                 <td>${content.question_type_title}</td>
+//                                 <td>${content.question_title}</td>
+//                                 <td>${content.user_name}</td>
+//                                 <td>${content.question_datetime.substr(0, 10)}</td>`
+//         document.getElementById('boardList').appendChild(htmlItem);
+        
+//     });
+// })
+// .catch((error) => {
+//     console.log(`error: ${error}`);
+// })
