@@ -138,7 +138,7 @@ function answer() {
     var answer_content = document.getElementById("answer_content").value;
     console.log(answer_content);
 
-    if(answer_content=="") {
+    if(answer_content.trim()=="") {
         Toast.fire({
             width: '420px',
             icon: 'error',
