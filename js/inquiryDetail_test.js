@@ -60,10 +60,10 @@ function getUserInfo(token){
 const currentId = window.location.search.substring(4);
 var boardDetaildUrl = `http://127.0.0.1:8000/board/` + currentId + `/`;
 var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
-var editBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/post_update_get/`;
+var editBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/post_update_post/`;
 var deleteBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/delete/`;
 
-const token = JSON.parse(localStorage.getItem('accessToken')).accessToken;
+const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 const config = {
     headers: {
         'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`})
@@ -89,7 +89,17 @@ axios.get(boardDetaildUrl)
     imageDownloadLink.style.marginLeft = "20px";
     imageDownloadLink.href = inquiryData['question_image_file'];
     imageDownloadLink.download = 'Temp Name';
-    imageDownloadLink.textContent = 'Temp Name';
+    var llist = inquiryData['question_image_file'].split('/')
+    len = llist.length;
+    imageDownloadLink.textContent = decode(llist[len-1]);
+
+    function decode(x) {
+
+        y = decodeURIComponent(x.replace(/\+/g,  " "));
+        return y
+    }
+
+    console.log(llist[len-1]);
     faqItemImage.appendChild(imageDownloadLink);
 
     // 작성자일 경우에만 수정, 삭제 버튼 보여주기
@@ -114,25 +124,145 @@ function replyButton() {
     }
 }
 
-function editButton() {   
-    console.log(config);
-    axios.get(editBoardURL, config)
-    .then((response) => {
-        const popupUrl = "inquiry_test.html";
-        const popupName = "게시글 수정";
-    
-        var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
-        var popHeight = (window.screen.height / 2) - (600 / 2);
-    
-        const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
-        console.log(popupOption);
+function editButton() {
+    const title = document.querySelector(".faqItem-title");
+    const content = document.querySelector(".faqItem-content");
+    const category = document.querySelector(".faqItem-type");
+    const replybutton = document.querySelector(".reply-button");
+    const editbutton = document.querySelector(".edit-button");
+    const deletebutton = document.querySelector(".delete-button");
+    const buttonsection = document.querySelector(".button-section");
+    const itembox = document.querySelector(".faqItem-box");
+    const imagep = document.querySelector(".faqItem-image > p");
 
-        window.open(popupUrl, popupName, popupOption);
-    })
-    .catch((error) => {
-        console.log('error');
-        alert('권한이 없습니다.')
-    }) 
+    var typeURL=`http://localhost:8000/board/questionTypeList/`;
+    var editURL = 
+    replybutton.remove();
+    editbutton.remove();
+    deletebutton.remove();
+
+    const completeeditbutton = document.createElement("button");
+    const cancelbutton = document.createElement("button");
+    completeeditbutton.textContent = '수정완료';
+    cancelbutton.textContent = '취소';
+    cancelbutton.type = 'button';
+
+    buttonsection.appendChild(completeeditbutton);
+    buttonsection.appendChild(cancelbutton);
+
+    const categoryedit = document.createElement("select");
+
+    cat = category.textContent;
+
+    axios.get(typeURL).then(
+        (response) => {
+            const typeData = response.data.type_list;
+        
+            typeData.forEach(function (type) {
+                const option = document.createElement("option");
+                option.value = type.question_type_id;
+                option.text = type.question_type_title;
+                if (option.text==cat){
+                    option.selected = true;
+                }
+                categoryedit.appendChild(option);
+            });
+        });
+        //console.log(category.textContent);
+
+    category.textContent = '';
+    category.appendChild(categoryedit);
+
+    const contentedit = document.createElement("textarea");
+    //contentedit.id = 'inputBoardContent';
+    contentedit.className = 'faqItem-content';
+    contentedit.textContent = content.textContent;
+
+    const titleedit = document.createElement("textarea");
+    titleedit.className = 'faqItem-title';
+    //titleedit.id = 'inputBoardTitle';
+    titleedit.textContent = title.textContent;
+
+    content.textContent = '';
+    title.textContent = '';
+    content.appendChild(contentedit);
+    title.appendChild(titleedit);
+
+
+    imagep.textContent = "기존파일";
+    filediv = document.createElement('div')
+    filediv.className = "file-detach";
+    filep = document.createElement('p');
+    filep.textContent = '파일을 새로 첨부하려면 파일을 선택하세요.';
+    fileinput = document.createElement('input');
+    fileinput.type = "file";
+    fileinput.id = 'imageFile';
+    filediv.appendChild(filep);
+    filediv.appendChild(fileinput);
+    itembox.appendChild(filediv);
+
+    const editcomplete = () =>{
+        var formData = new FormData();
+        var question_type = categoryedit.value;
+        console.log(question_type);
+        var title = titleedit.value;
+        var content = contentedit.value;
+        var image = document.getElementById("imageFile").files[0];
+
+        formData.append('question_type_id', question_type);
+        formData.append('question_title', title);
+        formData.append('question_content', content);
+        if (image !== null) {
+            formData.append('image', image);
+        } else {
+            formData.append('image', none);
+        }
+        if (question_type == '문의 유형 선택' || title === null || content === null) {
+            alert("글의 제목과 내용 모두 작성해 주세요!")
+        } else {
+            axios.post(editBoardURL, formData, config)
+            .then((response) => {
+                console.log('success');
+                alert('작성이 완료되었습니다.');
+                window.location.reload();  
+            })
+            .catch((error) => {
+                console.log('error');
+            })
+        }    
+    };
+
+    const cancel = () =>{
+        window.location.reload();
+    };
+
+    cancelbutton.onclick = cancel;
+    completeeditbutton.onclick = editcomplete;
+
+
+
+
+    
+
+
+    // console.log(config);
+    // axios.get(editBoardURL, config)
+    // .then((response) => {
+    //     const popupUrl = "inquiry_test.html";
+    //     const popupName = "게시글 수정";
+    
+    //     var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
+    //     var popHeight = (window.screen.height / 2) - (600 / 2);
+    
+    //     const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
+    //     console.log(popupOption);
+
+    //     window.open(popupUrl, popupName, popupOption);
+    // })
+    // .catch((error) => {
+    //     console.log('error');
+    //     alert('권한이 없습니다.')
+    // }) 
 }
 
 function deleteButton() {
