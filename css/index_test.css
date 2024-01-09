@@ -603,7 +603,7 @@ p.secondary {
     border-radius: 5px;
     display: inline-block;
     font-size: 1em;
-    padding: 7px 9px 7px 7px;
+    padding: 8px 8px 0px 8px;
     color: var(--color-white);
     border: none;
     margin-top: -2px;
