@@ -46,7 +46,6 @@ function getUserInfo(token){
     });
 }
 
-
 var boardURL= 'http://localhost:8000/board/';
 var boardCreateURL= 'http://localhost:8000/board/create/';
 var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
