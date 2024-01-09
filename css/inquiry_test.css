@@ -21,6 +21,10 @@ header {
     display: flex; /* 가로 정렬 */
 }
 
+p {
+    color: #454997;
+}
+
 #header-logo {
     height: 35px;
     margin-left: 20px;
