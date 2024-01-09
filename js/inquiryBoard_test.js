@@ -93,7 +93,7 @@ function pageRendering(page_num) {
                 redirectToDetailPage(content.board_id);
             }
             
-            htmlItem.innerHTML = `<td>${tmpContentNumber--}</td>
+            htmlItem.innerHTML = `<td>${content.number}</td>
                                     <td>${content.question_type_title}</td>
                                     <td style="cursor: pointer;">${content.question_title}</td>
                                     <td>${content.user_name}</td>
