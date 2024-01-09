@@ -79,24 +79,6 @@ axios.get(boardDetaildUrl)
     faqItemTitle.append(inquiryData['question_title']);
     faqItemWriter.append(inquiryData['user_name']);
     faqItemContent.append(inquiryData['question_content']);
-    
-    var imageDownloadLink = document.createElement("a");
-    imageDownloadLink.className = 'attached-file';
-    imageDownloadLink.style.marginLeft = "20px";
-    imageDownloadLink.href = inquiryData['question_image_file'];
-    imageDownloadLink.download = 'Temp Name';
-    var llist = inquiryData['question_image_file'].split('/')
-    len = llist.length;
-    imageDownloadLink.textContent = decode(llist[len-1]);
-
-    function decode(x) {
-
-        y = decodeURIComponent(x.replace(/\+/g,  " "));
-        return y
-    }
-
-    console.log(llist[len-1]);
-    faqItemImage.appendChild(imageDownloadLink);
 
     // 답변이 아직 없고 & 관리자일 경우에만 답변하기 버튼 보여주기
     if(user_role=='admin' & inquiryData['answer_content']==null) {
@@ -104,6 +86,7 @@ axios.get(boardDetaildUrl)
     }
 
     // 작성자일 경우에만 수정, 삭제 버튼 보여주기
+    console.log(user_id, inquiryData['user_id']);
     if(user_id==inquiryData['user_id']) {
         document.querySelector(".edit-button").style.display='block';
         document.querySelector(".delete-button").style.display='block';
@@ -111,9 +94,33 @@ axios.get(boardDetaildUrl)
         // 관리자일 경우 삭제버튼 보여주기
         document.querySelector(".delete-button").style.display='block';
     }
+    
+    var imageDownloadLink = document.createElement("a");
+    imageDownloadLink.className = 'attached-file';
+    imageDownloadLink.style.marginLeft = "20px";
+    imageDownloadLink.href = inquiryData['question_image_file'];
+    imageDownloadLink.download = 'Temp Name';
+    
+    function decode(x) {
+
+        y = decodeURIComponent(x.replace(/\+/g,  " "));
+        return y
+    }
+
+    if (inquiryData['question_image_file'] != null || inquiryData['question_image_file'] != "") {
+        var llist = inquiryData['question_image_file'].split('/')
+        len = llist.length;
+        imageDownloadLink.textContent = decode(llist[len-1]);
+        faqItemImage.appendChild(imageDownloadLink);
+    } else {
+        // imageDownloadLink = document.createElement("a");
+        // imageDownloadLink.textContent = '';
+        // faqItemImage.appendChild('');
+    }
+    
 })
 .catch((error) => {
-    console.log(`error: ${error}`);
+    console.log(error);
 })
 
 
@@ -215,6 +222,7 @@ function editButton() {
     const buttonsection = document.querySelector(".button-section");
     const itembox = document.querySelector(".faqItem-box");
     const imagep = document.querySelector(".attached-file");
+    console.log(imagep);
 
     var typeURL=`http://localhost:8000/board/questionTypeList/`;
     var editURL = 
@@ -271,8 +279,9 @@ function editButton() {
     content.appendChild(contentedit);
     title.appendChild(titleedit);
 
-
-    imagep.textContent = "기존파일";
+    if (imagep){
+        imagep.textContent = "기존파일";
+    }
     filediv = document.createElement('div')
     filediv.className = "file-detach";
     filep = document.createElement('p');
