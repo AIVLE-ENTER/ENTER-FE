@@ -98,8 +98,8 @@ function writeBoard() {
     } else {
         formData.append('image', none);
     }    
-
-    if (title === null || content === null) {
+    console.log(question_type)
+    if (question_type == '문의 유형 선택' || title === null || content === null) {
         alert("글의 제목과 내용 모두 작성해 주세요!")
     } else {
         axios.post(boardCreateURL, formData, config)
