@@ -74,6 +74,9 @@ function pageRendering(page_num) {
         
         
         var htmlhead = document.createElement('thead');
+        // htmlhead.createElement('tr');
+
+
         htmlhead.innerHTML = `<tr>
                                 <th>번호</th>
                                 <th>문의유형</th>
@@ -83,14 +86,14 @@ function pageRendering(page_num) {
                              </tr>`
         document.getElementById('boardList').appendChild(htmlhead);
 
-        var tmpContentNumber = 1 + (page_num - 1) * 10;
+        var tmpContentNumber = response['data']['tot_post'] - (page_num-1) * 10
         board_list.forEach((content) => {     
             htmlItem = document.createElement('tbody');
             htmlItem.onclick = function() {
                 redirectToDetailPage(content.board_id);
             }
             
-            htmlItem.innerHTML = `<td>${tmpContentNumber++}</td>
+            htmlItem.innerHTML = `<td>${tmpContentNumber--}</td>
                                     <td>${content.question_type_title}</td>
                                     <td>${content.question_title}</td>
                                     <td>${content.user_name}</td>
