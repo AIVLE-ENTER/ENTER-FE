@@ -176,7 +176,7 @@ table.board-table {
 
 /* 버튼에 대한 공통 스타일 */
 button, .button-gray, .button-black {
-  font-family: 'Noto Sans KR', sans-serif; /* 폰트 적용 */
+  font-family: 'scd', sans-serif; /* 폰트 적용 */
   font-size: 1em; /* 폰트 크기 */
   padding: 10px 20px; /* 버튼 안쪽 여백 */
   border-radius: 5px; /* 버튼 모서리 둥글게 */

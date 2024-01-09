@@ -193,10 +193,15 @@ color:#fff
 
 /* '사실상 body'에 대한 css */
 .card {
-    width: 1000px; /* 뷰포트의 전체 너비 */
-    height: 100%;
-    margin-top: 200px;
-    background-color: #ffffff; /* 회색으로 설정 */
+    position: relative;
+    width: 100vw;
+    height: calc(100vh - 50px);
+    margin: 0;
+    margin: auto;
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .card-write {
