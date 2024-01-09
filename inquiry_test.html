@@ -68,55 +68,59 @@
     <div class='card-write'>
         <!-- 유형 -->
         <div class="horizontal-layout" 
-                style='width:80%; margin-top:300px; display:flex; justify-content: center;'>
+                style='width:80%; margin-top:200px; display:flex; justify-content: center;  position: relative;'>
             <p style='margin-right:10px;'>유형</p>
-            <select id="exampleSelect" name="example">
+
+            <select id="exampleSelect" 
+                    name="example">
                 <!-- 옵션들을 여기에 추가 -->
             </select>
         </div>
 
         <!-- 제목 -->
         <div class="horizontal-layout" 
-                style='width:80%; margin-top:50px; display:flex; justify-content: center;'>
+                style='width:80%; margin-top:50px; display:flex; justify-content: center;  position: relative;'>
             <p style='margin-top: 5px; margin-right:10px;'>제목</p>
-            <textarea id="inputBoardTitle" placeholder="제목을 입력하세요."></textarea>
+            <textarea id="inputBoardTitle" 
+                      placeholder="제목을 입력하세요."></textarea>
         </div>
 
         <!-- 내용 -->
         <div class="msg" 
-             style='width:80%; margin-top:50px; display:flex; margin-top:50px;'>
+             style='width:80%; display:flex; margin-top:50px; justify-content: center;  position: relative;'>
             <p style='margin-top: 5px; margin-right:10px;'>내용</p>
-            <textarea id="inputBoardContent" placeholder="내용을 입력하세요."></textarea>
+
+            <textarea id="inputBoardContent"
+                      placeholder="내용을 입력하세요."></textarea>
         </div>
 
         <!-- 파일, 목록, 작성 버튼 영역 -->
-        <div class="bottom-right" style="display: flex; flex-direction: column; margin-top: 20px;">
+        <div class="bottom-right" 
+             style="width:50%; display: flex; flex-direction: column; margin-top: 20px; position: relative;">
             <!-- 파일 영역 -->
-            <div class="file-detach" style="margin-bottom: 20px;">
-                <p>파일</p>
-                <input type='file' name='' id='imageFile'>
+            <div class="file-detach"
+                 style="display: flex; margin-bottom: 20px; justify-content: flex-end;">
+                
+                <input type='file' 
+                        name='' 
+                        id='imageFile'
+                        style='width:30%; margin-top: 5px; margin-left: 30px; font-family: scd;'>
             </div>
 
-<<<<<<< HEAD
-                                                             <!-- 파일 다운로드-->
-            <div class="buttons">
-                  <div class='btn-w'                                                                        
-                        id='writeL'>
-                        <a href="inquiryBoard_test.html">목록</a>                                      <!-- 작성 -->       
-                  </div>
-                  <div class='btn-w'                                                                        
-                        id='writeW'>
-                        <a href="javascript:void(0);" onclick="writeBoard()">작성</a>                                      <!-- 작성 -->       
-                  </div>
-=======
             <!-- 버튼 영역 -->
-            <div class="btn-w" style="display: flex;">
-                <button id="listBtn" style="margin-right: 10px;">목록</button>
-                <button id="writeBtn" onclick="writeBoard()">작성</button>
->>>>>>> 1fac190158d8959e2591910b5b4c690ca0d4a0d0
+            <div class="btn-w" 
+                 style="display: flex; justify-content: flex-end; margin-right:50px;">
+                <button id="listBtn" 
+                        style="margin-right: 10px;">목록</button> <!-- 목록 버튼 -->
+
+                <button id="writeBtn"
+                         onclick="writeBoard()">작성</button> <!-- 작성 버튼 -->
             </div>
             
+            <!-- 간격 -->
+            <div style='height:30px;'></div>
         </div>
+
     </div>
 
     <!-- JS와 연동 -->
