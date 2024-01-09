@@ -902,6 +902,8 @@ function showMemo(history_id, flag, txt = '') {
         editButton.textContent = '수정';
         editButton.style.marginLeft = '10px';
         editButton.style.fontFamily='scd'; // 글꼴 설정
+        editButton.style.backgroundColor='#454997'; // 배경색 설정
+        editButton.style.color= 'white'; // 폰트 색 설정
         editButton.onclick = function() {
             const updatedMemo = memoInput.value;
             updateMemo(history_id, updatedMemo);
@@ -912,6 +914,8 @@ function showMemo(history_id, flag, txt = '') {
         deleteButton.textContent = '삭제';
         deleteButton.style.marginLeft = '10px';
         deleteButton.style.fontFamily='scd'; // 글꼴 설정
+        deleteButton.style.backgroundColor='#454997'; // 배경색 설정
+        deleteButton.style.color= 'white'; // 폰트 색 설정
         deleteButton.onclick = function() {
             deleteMemo(history_id);
         };
@@ -925,6 +929,8 @@ function showMemo(history_id, flag, txt = '') {
         const saveButton = document.createElement('button');
         saveButton.textContent = '저장';
         saveButton.style.fontFamily='scd'; // 글꼴 설정
+        saveButton.style.backgroundColor='#454997'; // 배경색 설정
+        saveButton.style.color= 'white'; // 폰트 색 설정
         saveButton.onclick = function() {
             const memoContent = memoInput.value;
             if (memoContent === '') {
@@ -1369,6 +1375,8 @@ function targetSetting(chatRoomList) {
     startButton.textContent = '수집시작';
     startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
     startButton.style.fontFamily='scd';  // 글꼴 설정
+    startButton.style.backgroundColor='#454997'; // 배경색 설정
+    startButton.style.color= 'white'; // 폰트 색 설정
     startButton.onclick = function() {
         // 1. 첫 번쨰 드롭다운 메뉴에 있는 관련된 정보들이 콘솔에 정상적으로 찍히는지 확인한다.
         console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
@@ -1398,6 +1406,8 @@ function targetSetting(chatRoomList) {
     var exitButton = document.createElement('button');
     exitButton.textContent = '나가기';
     exitButton.style.fontFamily='scd';  // 글꼴 설정
+    exitButton.style.backgroundColor='#454997'; // 배경색 설정
+    exitButton.style.color= 'white'; // 폰트 색 설정
     exitButton.onclick = function() {
         document.body.removeChild(popup); // 나가기
     };
@@ -1604,7 +1614,8 @@ function collectStatus(chatRoomList) {
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.background = '#FFFFFF';
-        exitButton.style.color = '#000000';
+        exitButton.style.backgroundColor='#454997'; // 배경색 설정
+        exitButton.style.color= 'white'; // 폰트 색 설정
         exitButton.style.padding = '10px 20px';
         exitButton.style.border = '1px solid black';
         exitButton.style.cursor = 'pointer';
@@ -1710,6 +1721,8 @@ function crawlerTemplateSetting() {
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
         resetButton.style.fontFamily='scd';  // 글꼴 설정
+        resetButton.style.backgroundColor='#454997'; // 배경색 설정
+        resetButton.style.color= 'white'; // 폰트 색 설정
         resetButton.onclick = function() {
             // 입력란의 값을 기본값으로 재설정합니다.
             companyInfoInput.value = response.data.company_info_default;
@@ -1722,6 +1735,8 @@ function crawlerTemplateSetting() {
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
         applyButton.style.fontFamily='scd';  // 글꼴 설정
+        applyButton.style.backgroundColor='#454997'; // 배경색 설정
+        applyButton.style.color= 'white'; // 폰트 색 설정
         applyButton.onclick = function() {
             // AI 측에 크롤러 템플릿을 적용한다.
             const templateEdit_URL=`http://localhost:8002/edit_template/${user_id}/llama/crawl`;
@@ -1754,6 +1769,8 @@ function crawlerTemplateSetting() {
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.fontFamily='scd';  // 글꼴 설정
+        exitButton.style.backgroundColor='#454997'; // 배경색 설정
+        exitButton.style.color= 'white'; // 폰트 색 설정
         exitButton.onclick = function() {
             document.body.removeChild(popup);
         };
@@ -1897,6 +1914,8 @@ function handlePromptClick(){
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
         resetButton.style.fontFamily='scd';  // 글꼴 설정
+        resetButton.style.backgroundColor='#454997'; // 배경색 설정
+        resetButton.style.color= 'white'; // 폰트 색 설정
         resetButton.onclick = function() {
             // 입력란의 값을 기본값으로 재설정합니다.
             promptNameInput.value = response.data.system_default;
@@ -1910,6 +1929,8 @@ function handlePromptClick(){
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
         applyButton.style.fontFamily='scd';  // 글꼴 설정
+        applyButton.style.backgroundColor='#454997'; // 배경색 설정
+        applyButton.style.color= 'white'; // 폰트 색 설정
         applyButton.onclick = function() {
             console.log('적용 버튼 클릭');
 
@@ -1943,6 +1964,8 @@ function handlePromptClick(){
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.fontFamily='scd';  // 글꼴 설정
+        exitButton.style.backgroundColor='#454997'; // 배경색 설정
+        exitButton.style.color= 'white'; // 폰트 색 설정
         exitButton.onclick = function() {
             popup2_content.style.display = 'none';
         };
@@ -2092,6 +2115,8 @@ function handleReportClick(){
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px'; // 오른쪽 마진 적용
         resetButton.style.fontFamily='scd';  // 글꼴 설정
+        resetButton.style.backgroundColor='#454997'; // 배경색 설정
+        resetButton.style.color= 'white'; // 폰트 색 설정
         resetButton.onclick = function() {
             templateTextArea.value = response.data.prompt_default;
             DocumentTextArea.value = response.data.document_default;
@@ -2103,6 +2128,8 @@ function handleReportClick(){
         saveTemplateButton.textContent = '템플릿 저장';
         saveTemplateButton.style.marginRight = '10px'; // 오른쪽 마진 적용
         saveTemplateButton.style.fontFamily='scd';  // 글꼴 설정
+        saveTemplateButton.style.backgroundColor='#454997'; // 배경색 설정
+        saveTemplateButton.style.color= 'white'; // 폰트 색 설정
         saveTemplateButton.onclick = function() {
             // AI 측에 템플릿 저장 설정을 적용한다.
             axios({
@@ -2132,6 +2159,8 @@ function handleReportClick(){
         exitButton.textContent = '나가기';
         exitButton.style.marginRight = '10px'; // 오른쪽 마진 적용
         exitButton.style.fontFamily='scd';  // 글꼴 설정
+        exitButton.style.backgroundColor='#454997'; // 배경색 설정
+        exitButton.style.color= 'white'; // 폰트 색 설정
         exitButton.onclick = function() {
             // 나가기 버튼 클릭 시 팝업을 닫습니다.
             popup3_content.style.display = 'none';
@@ -2161,6 +2190,8 @@ function handleReportClick(){
         createReportButton.textContent = '레포트 만들기';
         createReportButton.style.fontFamily='scd';  // 글꼴 설정
         createReportButton.style.marginRight='10px';
+        createReportButton.style.backgroundColor='#454997'; // 배경색 설정
+        createReportButton.style.color= 'white'; // 폰트 색 설정
         createReportButton.onclick = function() {
             console.log('레포트 만들기 버튼 클릭');
             // console.log(`수집 선택 드롭다운 target_object : ${dropdown.options[dropdown.selectedIndex].value}`);
@@ -2307,7 +2338,7 @@ function handleModelClick() {
         models.forEach((modelName) => {
             // gpt-3.5-turbo와 gpt-4 텍스트와 Button을 보여주는 태그를 만든다.
             var section = document.createElement('div');
-            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 10px;';
+            section.style.cssText = 'display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; padding: 10px 0px 10px 10px;';
 
             var modelText = document.createElement('span');
             modelText.textContent = modelName;
@@ -2318,13 +2349,15 @@ function handleModelClick() {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
                 modelButton.style.fontFamily='scd'; // 글꼴 설정
+                modelButton.style.backgroundColor='#454997'; // 배경색 설정
+                modelButton.style.color= 'white'; // 폰트 색 설정
                 modelButton.onmouseover = function() {
                     this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
                     this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
                 };
                 modelButton.onmouseout = function() { 
-                    this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
-                    this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+                    this.style.backgroundColor = '#454997'; // 마우스 아웃 시 원래 배경 색상으로 변경
+                    this.style.color = 'white'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
                 };
                 modelButton.onclick = function() { // '선택' 버튼을 click 했을 떄 
                     console.log('선택 버튼 click');
@@ -2374,14 +2407,16 @@ function handleModelClick() {
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.fontFamily='scd';
+        exitButton.style.backgroundColor='#454997'; // 배경색 설정
+        exitButton.style.color= 'white'; // 폰트 색 설정
         // exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
         exitButton.onmouseover = function() { 
             this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-            this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+            this.style.color = 'white'; // 호버 시 텍스트 색상 변경
         };
         exitButton.onmouseout = function() { 
-            this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
-            this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+            this.style.backgroundColor = '#454997'; // 마우스 아웃 시 원래 배경 색상으로 변경
+            this.style.color = 'white'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
         };
         exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄
             popup5_content.style.display = 'none'; // 나가기
@@ -2456,6 +2491,8 @@ function renderFrequentMessages(messageList){
     addButton.className = 'add';
     addButton.textContent = '추가';
     addButton.style.fontFamily='scd'; // 글꼴 설정
+    addButton.style.backgroundColor='#454997'; // 배경색 설정
+    addButton.style.color= 'white'; // 폰트 색 설정
     addButton.onclick = function() {
         addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
     };
@@ -2464,14 +2501,27 @@ function renderFrequentMessages(messageList){
     reflectButton.className = 'reflect';
     reflectButton.textContent = '반영';
     reflectButton.style.fontFamily='scd'; // 글꼴 설정
+    reflectButton.style.backgroundColor='#454997'; // 배경색 설정
+    reflectButton.style.color= 'white'; // 폰트 색 설정
     // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
     reflectButton.onclick = function() {
         reflectFrequentMessage();
     };
 
+    const exit2Button = document.createElement('span');
+    exit2Button.className = 'reflect';
+    exit2Button.textContent = '나가기';
+    exit2Button.style.fontFamily='scd'; // 글꼴 설정
+    exit2Button.style.backgroundColor='#454997'; // 배경색 설정
+    exit2Button.style.color= 'white'; // 폰트 색 설정
+    // 버튼 클릭 시 호출될 함수 추가
+    exit2Button.onclick = function() {
+        contentArea.style.display = 'none'; // 나가기
+    };
 
     messageBtnGroup.appendChild(addButton);
     messageBtnGroup.appendChild(reflectButton);
+    messageBtnGroup.appendChild(exit2Button);
     contentArea.appendChild(messageBtnGroup); // 컨테이너에 추가
 }
 

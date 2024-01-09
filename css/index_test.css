@@ -768,11 +768,6 @@ p {
     color: black;
 }
 
-.add:hover, .reflect:hover {
-    background-color: #454997; /* 연한 검정색 배경 */
-    color: white; /* 텍스트 색상 */
-    border: none;
-}
 
 .close-btn:hover {
     background-color: #606060; /* 마우스 오버 시 배경색 변경 */
@@ -990,4 +985,16 @@ p {
 textarea {
     padding: 15px;
     border-radius: 10px;
+}
+
+#btn_final{
+    display: block;
+    background-color: #454997;
+    border: 1px solid var(--color-border1);
+    border-radius: 5px;
+    color: white;
+    padding: 13px;
+    box-sizing: border-box;
+    text-align: left;
+    cursor: pointer;
 }
