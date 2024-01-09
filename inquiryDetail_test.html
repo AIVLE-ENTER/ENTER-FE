@@ -97,22 +97,13 @@
             </div>
         </div>
 
-        <div class='button-section'>
+        <div id="buttonLayer" class='button-section'>
             <button class="reply-button" onclick="replyButton()">답변하기</button>
+            <button class="reply-button" onclick="redirectPage()">목록</button>
             <button class="edit-button" onclick="editButton()" type="button">수정</button>
             <button class="delete-button" onclick="deleteButton()" type="button">삭제</button>
         </div>
     </div>
-
-<<<<<<< HEAD
-=======
-    <div class='button-section'
-         style="height:100px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
-         
-        <button class="reply-button" onclick="replyButton()">답변하기</button>
-        <button class="edit-button" onclick="editButton()" type="button">수정</button>
-        <button class="delete-button" onclick="deleteButton()" type="button">삭제</button>
-   </div>
 
    <!-- 답변하기 모달창 -->
    <div id="answer-modal" class="modal">
@@ -137,7 +128,6 @@
             </div>
         </div>
     </div>
->>>>>>> 1fac190158d8959e2591910b5b4c690ca0d4a0d0
     
 
     <!-- JS와 연동 -->
