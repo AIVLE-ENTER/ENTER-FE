@@ -85,6 +85,10 @@ header .logout:hover, header .login:hover {
 /* Body 영역에 대한 css */
 article {
     font-family: 'scd';
+    height: calc(100vh - 50px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 h2 {
@@ -153,9 +157,9 @@ table.board-table {
     text-align: center;
 }
 
-.board-table td:nth-child(2) {
+/* .board-table td:nth-child(2) {
     text-align: left;
-}
+} */
 
 .page {
     text-align: center;
