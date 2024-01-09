@@ -114,3 +114,7 @@ function writeBoard() {
 
     
 }
+
+function goInquiryBoard(){
+    window.location.href='../inquiryBoard_test.html';
+}
