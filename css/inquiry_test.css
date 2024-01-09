@@ -12,13 +12,12 @@ header {
     position: relative;
     padding: 7.5px 0; /* 상하 패딩 */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    position: fixed; /* 상단에 고정 */
     top: 0; /* 상단에 위치 */
     left: 0; /* 왼쪽에 위치 */
     z-index: 100;
+    display: flex; /* 가로 정렬 */
     align-items: center; /* 수직 중앙 정렬 */
     justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
-    display: flex; /* 가로 정렬 */
 }
 
 p {
@@ -82,180 +81,11 @@ body {
     outline: none; /*focus 했을때 테두리 나오게 */
 }
 
-
-<<<<<<< HEAD
-a{
-    text-decoration: none;
-    color: #222;
-}
-
-/*member sign in*/
-.member{
-    width: 400px;
-    /* border: 1px solid #000; */
-    margin: auto; /*중앙 정렬*/
-    padding: 0 20px;
-    margin-bottom: 20px;
-}
-
-.member .logo{
-    /*로고는 이미지라 인라인 블록이니까 마진 오토 안됨 블록요소만 됨 */
-    display: block;
-    margin :50px auto;
-}
-
-.member .field{
-    margin :5px 0; /*상하로 좀 띄워주기*/
-}
-
-.member b{
-    /* border: 1px solid #000; */
-    display: block; /*수직 정렬하기 */
-    margin-bottom: 5px;
-}
-
-/*input 중 radio 는 width 가 100%면 안되니까 */
-.member input:not(input[type=radio]),.member select{
-    border: 1px solid #dadada;
-    padding: 15px;
-    width: 100%;
-    margin-bottom: 5px;
-}
-
-.member input[type=button],
-.member input[type=submit]{
-background-color: #2db400;
-color:#fff
-}
-
-.member input:focus, .member select:focus{
-    border: 1px solid #2db400;
-}
-
-.field.birth div{ /*field 이면서 birth*/
-    display: flex;
-    gap:10px; /*간격 벌려줄때 공식처럼 사용핟나 */
-}
-
-/* .field.birth div > * {  gap 사용한거랑 같은 효과를 줌 
-    flex:1;
-} */
-
-.field.tel-number div {
-    display: flex;
-}
-
-.field.tel-number div input:nth-child(1){
-    flex:2;
-}
-
-.field.tel-number div input:nth-child(2){
-    flex:1;
-}
-
-.field.gender div{
-    border: 1px solid #dadada;
-    padding: 15px 5px;
-    background-color: #fff;
-}
-
-.placehold-text{
-    display: block; /*span 으로 감싸서 크기영역을 블록요소로 만들어ㅜ저야한다*/
-    position:relative;
-    /* border: 1px solid #000; */
+p {
+    font-weight: bold;
 }
 
 
-.userpw{
-    background:url(./images/images2/icon-01.png) no-repeat center right 15px;
-    background-size: 20px;
-    background-color: #fff;
-}
-
-.userpw-confirm{
-    background:url(./images/images2/icon-02.png) no-repeat center right 15px;
-    background-size: 20px;
-    background-color: #fff;
-}
-
-.member-footer {
-    text-align: center;
-    font-size: 12px;
-    margin-top: 20px;
-}
-
-.member-footer div a:hover{
-    text-decoration: underline;
-    color:#2db400
-}
-
-.member-footer div a:after{
-    content:'|';
-    font-size: 10px;
-    color:#bbb;
-    margin-right: 5px;
-    margin-left: 7px;
-    /*살짝 내려가 있기 때문에 위로 올려주기 위해 transform 사용하기*/
-    display: inline-block;
-    transform: translateY(-1px);
-
-}
-
-.member-footer div a:last-child:after{
-    display: none;
-}
-
-@media (max-width:768px) {
-    .member{
-        width: 100%;
-    }
-}
-
-
-/* '사실상 body'에 대한 css */
-
-.card {
-    width: 100vw; /* 뷰포트의 전체 너비 */
-    height: calc(100vh - 100px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
-    margin: 0;
-    padding: 30px;             /* 모든 방향에 20px의 패딩 적용 */
-}
-
-.question-type {
-    display: flex;
-}
-
-.title-w {
-    display: flex;
-    margin-top: 15px;
-}
-
-.msg {
-    display: flex;
-}
-
-.file-detach {
-    display: flex;
-    align-items: center;
-}
-
-#imageFile { 
-    margin-left: 620px;
-}
-
-
-#exampleSelect {
-    width: 20%; /* 드롭다운의 너비 */
-    padding: 8px; /* 드롭다운 내부의 패딩 */
-    margin-top: 10px; /* 드롭다운 위의 여백 */
-    margin-left: 10px;
-    border-radius: 12px; /* 드롭다운 모서리의 둥근 정도 */
-    background-color: #ffffff; /* 드롭다운의 배경색 */
-    border: 1px solid #ddd; /* 드롭다운의 테두리 스타일 */
-  }
-
-=======
->>>>>>> 1fac190158d8959e2591910b5b4c690ca0d4a0d0
 .card-write {
     width: 100vw; /* 뷰포트의 전체 너비 */
     height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
@@ -268,19 +98,6 @@ color:#fff
     align-items: center; /* 수직 중앙 정렬 */
 }
 
-.card-write input[type='file'] {
-    border:none;
-    box-shadow:none;
-    padding: 10px;
-    margin-left: 10px;
-}
-
-<<<<<<< HEAD
-.buttons {
-    display: flex;
-    margin-left: 680px;
-}
-=======
 #exampleSelect {
     width: 50%; /* 드롭다운의 너비 */
     margin-top: 10px; /* 드롭다운 위의 여백 */
@@ -295,39 +112,6 @@ color:#fff
     box-shadow:3px 3px 10px #e6e6e6;
   }
 
-
->>>>>>> 1fac190158d8959e2591910b5b4c690ca0d4a0d0
-
-/* 작성 버튼 스타일 */
-.btn-w {
-  width: 75px;
-  height: 50px;
-  margin: 5px;
-  background-color: #454997; /* 검은색 배경 */
-  color: #ffffff; /* 흰색 텍스트 */
-  text-align: center; /* 텍스트 중앙 정렬 */
-  line-height: 50px; /* 텍스트를 버튼 높이의 중앙에 위치시킴 */
-  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* 그림자 효과 */
-  border-radius: 5px; /* 모서리 둥글게 */
-  text-decoration: none; /* 링크 밑줄 제거 */
-}
-
-/* a 태그 스타일 - 버튼 내부의 링크에 적용 */
-.btn-w#writeL a {
-  color: inherit; /* 부모 요소의 텍스트 색상 상속 */
-  text-decoration: none; /* 링크 밑줄 제거 */
-  display: block; /* 블록 레벨 요소로 만들기 */
-  height: 100%; /* 부모의 전체 높이를 차지 */
-}
-
-<<<<<<< HEAD
-.btn-w#writeW a {
-    color: inherit; /* 부모 요소의 텍스트 색상 상속 */
-    text-decoration: none; /* 링크 밑줄 제거 */
-    display: block; /* 블록 레벨 요소로 만들기 */
-    height: 100%; /* 부모의 전체 높이를 차지 */
-  }
-=======
 #inputBoardTitle {
     width: 50%; /* 혹은 필요한 대로 조절 */
     height: 100px; /* 원하는 높이로 설정 */
@@ -343,7 +127,7 @@ color:#fff
 
 #inputBoardContent {
     width: 50%;
-    height: 300px;
+    height: 200px;
     font-family: 'scd';
     border: 1px solid black;
     resize: none;
@@ -354,15 +138,21 @@ color:#fff
     box-shadow:3px 3px 10px #e6e6e6;
 }
 
-
->>>>>>> 1fac190158d8959e2591910b5b4c690ca0d4a0d0
-
-
-#exampleSelect, #inputBoardTitle {
-    width: 800px;
-    height: 50px;
+#listBtn, #writeBtn {
+    background-color: #454997;
+    width:75px;
+    height: 40px;
+    border-radius: 10px;
+    color:white;
+    font-family: 'scd';
 }
 
-#inputBoardContent {
-    width: 800px;
+#listBtn:hover, #writeBtn:hover {
+    cursor: pointer; /* 마우스 포인터를 손가락 모양으로 변경 */
 }
+
+
+
+
+
+
