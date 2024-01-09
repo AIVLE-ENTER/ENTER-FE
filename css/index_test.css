@@ -616,7 +616,7 @@ button.send-button:hover {
 }
 
 p {
-    margin: 0 0 1.5em 0;
+    margin: 0 0.69em 1.5em 0;
 }
 
 #exit-button {
@@ -865,10 +865,10 @@ p {
     display: flex; /* 플렉스박스 레이아웃 사용 */
 }
 
-.sidebar-area {
-    flex: 0.25; /* 사이드바 영역이 차지할 공간 비율 */
+/* .sidebar-area { */
+    /* flex: 0.25; 사이드바 영역이 차지할 공간 비율 */
     /* 추가 스타일링 */
-}
+/* } */
 
 .content-area {
     flex: 1.5; /* 내용 영역이 차지할 공간 비율 */
