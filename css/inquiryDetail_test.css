@@ -41,7 +41,7 @@ header {
 
 /* Body에 따른 CSS 스타일 적용 */
 
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');  /* Google web font CDN*/
+
 
 
 *{
@@ -58,7 +58,7 @@ body{
     margin: 0;
 }
 
-a{
+a {
     text-decoration: none;
     color: #222;
 }
@@ -193,7 +193,7 @@ color:#fff
 
 /* '사실상 body'에 대한 css */
 .card {
-    width: 100vw; /* 뷰포트의 전체 너비 */
+    width: 1000px; /* 뷰포트의 전체 너비 */
     height: 100%;
     margin-top: 200px;
     background-color: #ffffff; /* 회색으로 설정 */
@@ -214,43 +214,6 @@ color:#fff
     box-shadow:3px 3px 10px #e6e6e6;
 }
 
-.card-write .myinfo input[type='text'] {
-    width:25%;
-    margin-right:50px;
-}
-
-.card-write .myinfo input[type='password'] {
-    width:31%;
-}
-
-.card-write .title-w input[type='text'] {
-    margin-top:20px;
-    margin-bottom:20px;
-    width:85.5%;
-}
-
-.card-write .msg textarea {
-    min-width:85.5%;
-    max-width:85.5%;
-    min-height:200px;
-    max-height:200px;
-    box-shadow: inset 3px 3px 10px #e6e6e6;
-    vertical-align: top;
-}
-
-.card-write input[type='file'] {
-    border:none;
-    box-shadow:none;
-    padding:10px;
-    margin-left:40px;
-}
-
-#write {
-    padding: 10px;
-    margin-left: 30px; /* 원하는 여백 크기로 설정 */
-}
-
-
 #write a {
     padding:10px;
     color:#fff;
@@ -261,8 +224,8 @@ textarea:disabled {
     background-color: white; /* 배경색을 흰색으로 설정 */
 }
 
-.content-button-section {
-    width: 1200px;
+.button-section {
+    width: 100%;
     text-align: right;
 }
 
@@ -271,7 +234,7 @@ button.reply-button {
     outline: none;
     font-size: 16px;
     margin: 20px;
-    background: #2e316d;
+    background: #454997;
     color: white;
     padding: 10px;
     cursor: pointer;
@@ -283,7 +246,7 @@ button.edit-button {
     outline: none;
     font-size: 16px;
     margin: 20px;
-    background: #2e316d;
+    background: #454997;
     color: white;
     padding: 10px;
     cursor: pointer;
@@ -295,10 +258,9 @@ button.delete-button {
     outline: none;
     font-size: 16px;
     margin: 20px;
-    background: #2e316d;
+    background: #454997;
     color: white;
     padding: 10px;
     cursor: pointer;
     border-radius: 10px;
 }
-

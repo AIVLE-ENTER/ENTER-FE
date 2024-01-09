@@ -81,10 +81,11 @@ axios.get(boardDetaildUrl)
     faqItemContent.append(inquiryData['question_content']);
     
     var imageDownloadLink = document.createElement("a");
+    imageDownloadLink.className = 'attached-file';
     imageDownloadLink.style.marginLeft = "20px";
     imageDownloadLink.href = inquiryData['question_image_file'];
-    imageDownloadLink.download = 'Temp Name';
-    imageDownloadLink.textContent = 'Temp Name';
+    imageDownloadLink.download = 'Attached File';
+    imageDownloadLink.textContent = 'Attached File';
     faqItemImage.appendChild(imageDownloadLink);
 
     // 답변이 아직 없고 & 관리자일 경우에만 답변하기 버튼 보여주기
