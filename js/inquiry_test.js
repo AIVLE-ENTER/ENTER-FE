@@ -70,7 +70,7 @@ axios.get(typeURL).then(
         typeSelect.appendChild(option);
     });
 });
-
+  
 
 var myInfoData;
 axios.get(myInfoURL, config)
@@ -98,9 +98,38 @@ function writeBoard() {
         formData.append('image', none);
     }    
     console.log(question_type)
-    if (question_type == '문의 유형 선택' || title === null || content === null) {
-        alert("글의 제목과 내용 모두 작성해 주세요!")
-    } else {
+    if (question_type == '문의 유형 선택' || question_type != '문의 유형 선택' || title === null || content === null) {
+        Toast.fire({
+            width: '500px',
+            icon: 'error',
+            title: '글과 내용을 모두 작성해주세요!'
+        });
+    }
+
+    if (title.length > 30) { 
+        Toast.fire({
+            width: '500px',
+            icon: 'error',
+            title: '제목은 30자 이내로 작성해주세요!'
+        });
+    }
+
+    if (content.length > 100) {
+        Toast.fire({
+            width: '500px',
+            icon: 'error',
+            title: '내용은 100자 이내로 작성해주세요!'
+        });
+    }
+    
+    if (title.length > 30 || content.length > 100) {
+        Toast.fire({
+            width: '500px',
+            icon: 'error',
+            title: '제목은 30자, 내용은 100자 이내로 작성해주세요!'
+        });
+    }
+    else {
         axios.post(boardCreateURL, formData, config)
         .then((response) => {
             console.log('success');
