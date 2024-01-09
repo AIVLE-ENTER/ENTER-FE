@@ -1243,6 +1243,10 @@ function handleCrawlerClick() {
     modelSelectionBtn.classList.remove("active");
     frequentUseBtn.classList.remove("active");
 
+    document.querySelector(".content-area").style.display ="flex";
+    document.querySelector(".content-area").style.alignItems ="center";
+    document.querySelector(".content-area").style.justifyContent ="center";
+
     // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져옵니다. 다 쓰일떄가 있으니까 가져온거여 ~ 
     const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
     const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); // JSON 문자열을 객체로 변환
@@ -1776,6 +1780,8 @@ function handlePromptClick(){
     reportBtn.classList.remove("active");
     modelSelectionBtn.classList.remove("active");
     frequentUseBtn.classList.remove("active");
+
+    document.querySelector(".content-area").style.display = "block";
     
     // AI 측에서 정보를 가져온다.
     axios({
@@ -1961,6 +1967,8 @@ function handleReportClick(){
     reportBtn.classList.add("active");
     modelSelectionBtn.classList.remove("active");
     frequentUseBtn.classList.remove("active");
+
+    document.querySelector(".content-area").style.display = "block";
     
     // AI 측으로부터 '리포트 템플릿', 'document 템플릿' 데이터를 가져온다.
     axios({ 
@@ -2208,6 +2216,8 @@ function handleUseClick(){
     modelSelectionBtn.classList.remove("active");
     frequentUseBtn.classList.add("active");
 
+    document.querySelector(".content-area").style.display = "block";
+
     var popup1_content = document.querySelector(".popup1-content");
     popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
 
@@ -2260,6 +2270,8 @@ function handleModelClick() {
     reportBtn.classList.remove("active");
     modelSelectionBtn.classList.add("active");
     frequentUseBtn.classList.remove("active");
+
+    document.querySelector(".content-area").style.display = "block";
 
     // AI측으로부터 자신의 모델 설정이 현재 어떠한지에 대한 정보를 가져온다.
     axios({
@@ -2456,6 +2468,7 @@ function renderFrequentMessages(messageList){
     reflectButton.onclick = function() {
         reflectFrequentMessage();
     };
+
 
     messageBtnGroup.appendChild(addButton);
     messageBtnGroup.appendChild(reflectButton);

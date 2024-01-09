@@ -639,7 +639,7 @@ p {
 .conversations {
     overflow-y: auto; /* 세로 스크롤바 설정 */
     width: calc( 100% + 8px );
-    height: 47vh; 
+    height: 44vh; 
 }
 
 #chat-list {
