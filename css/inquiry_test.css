@@ -238,7 +238,7 @@ color:#fff
 }
 
 #imageFile { 
-    margin-left: 250px;
+    margin-left: 620px;
 }
 
 
@@ -297,12 +297,17 @@ color:#fff
     margin-left: 10px;
 }
 
+.buttons {
+    display: flex;
+    margin-left: 680px;
+}
+
 /* 작성 버튼 스타일 */
-.btn-w#write {
+.btn-w {
   width: 75px;
   height: 50px;
-  float: right;
-  background-color: #000000; /* 검은색 배경 */
+  margin: 5px;
+  background-color: #454997; /* 검은색 배경 */
   color: #ffffff; /* 흰색 텍스트 */
   text-align: center; /* 텍스트 중앙 정렬 */
   line-height: 50px; /* 텍스트를 버튼 높이의 중앙에 위치시킴 */
@@ -312,13 +317,26 @@ color:#fff
 }
 
 /* a 태그 스타일 - 버튼 내부의 링크에 적용 */
-.btn-w#write a {
+.btn-w#writeL a {
   color: inherit; /* 부모 요소의 텍스트 색상 상속 */
   text-decoration: none; /* 링크 밑줄 제거 */
   display: block; /* 블록 레벨 요소로 만들기 */
   height: 100%; /* 부모의 전체 높이를 차지 */
 }
 
+.btn-w#writeW a {
+    color: inherit; /* 부모 요소의 텍스트 색상 상속 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    display: block; /* 블록 레벨 요소로 만들기 */
+    height: 100%; /* 부모의 전체 높이를 차지 */
+  }
 
 
+#exampleSelect, #inputBoardTitle {
+    width: 800px;
+    height: 50px;
+}
 
+#inputBoardContent {
+    width: 800px;
+}

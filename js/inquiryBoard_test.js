@@ -134,14 +134,14 @@ function pageNumbering() {
     
     var prevSpan = document.createElement('span');
     var postSpan = document.createElement('span');
-    prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전</a>';
-    postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp;&nbsp;다음 ▶</a>';
+    prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전&nbsp;&nbsp;</a>';
+    postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp다음 ▶</a>';
     
     tmpHTML.appendChild(prevSpan);
     console.log(totalPage)
     for (var i=0; i<totalPage; i++) {
         var pageSpan = document.createElement('span');
-        pageSpan.innerHTML = `<a href="javascript:void(0);" onclick="pageRendering(${i+1})">&nbsp;&nbsp;&nbsp;${i+1}</a>`;
+        pageSpan.innerHTML = `<a href="javascript:void(0);" onclick="pageRendering(${i+1})">&nbsp;&nbsp;${i+1}&nbsp;&nbsp;</a>`;
         tmpHTML.appendChild(pageSpan);
     }
     tmpHTML.appendChild(postSpan);
