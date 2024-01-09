@@ -1521,30 +1521,45 @@ function collectStatus(chatRoomList) {
         secondDropdownText.textContent = '데이터 선택';
         popup.appendChild(secondDropdownText);
 
-    var secondDropdown = document.createElement('select');
-    secondDropdown.style.width = '80%';
-    secondDropdown.style.border = '1px solid #000000';
-    secondDropdown.style.fontFamily='scd';  // 글꼴 설정
-    
-    popup.appendChild(secondDropdown);
+        var secondDropdown = document.createElement('select');
+        secondDropdown.style.width = '80%';
+        secondDropdown.style.border = '1px solid #000000';
+        secondDropdown.style.fontFamily='scd';  // 글꼴 설정
+        
+        popup.appendChild(secondDropdown);
 
+        // AI 측에서 받아온 데이터 길이를 판별하여 2 번째 드롭다운 메뉴 생성
+        if(response.data.status==false){
+            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+            secondDropdown.innerHTML='';
 
-    // 처음에 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게끔 함수 호출
-    updateSecondDropdown(firstDropdown.options[firstDropdown.selectedIndex].value,
-                         firstDropdown.options[firstDropdown.selectedIndex].title,
-                         secondDropdown);
+            // 2번쨰 드롭다운에 '수집된 데이터가 없습니다.' 문구 추가
+            var option = document.createElement('option');
+            option.value = '수집된 데이터가 없습니다.'; 
+            option.textContent = '수집된 데이터가 없습니다.';
+            secondDropdown.appendChild(option);
+        }
+        else {
+            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+            secondDropdown.innerHTML='';
 
-    // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
-    firstDropdown.onchange = function() {
-        var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
-        // console.log('target_object: ', selectedOption.value); // 선택된 옵션의 값
-        // console.log('title : ', selectedOption.title); // 선택된 옵션의 title 속성
+            // 데이터를 받아와서 2번쨰 드롭다운 메뉴에 추가한다.
+            for (var key in response.data) {
+                if (response.data.hasOwnProperty(key)) {
+                    var option = document.createElement('option');
+                    option.value = response.data[key]; // 값으로 설정
+                    option.textContent = key; // 키를 텍스트로 설정
+                    secondDropdown.appendChild(option);
+                }
+            }
+        }
+        popup.appendChild(secondDropdown);
 
-        updateSecondDropdown(selectedOption.value,    // 첫 번쨰 드롭다운 텍스트에 따라 두 번쨰 드롭다운도 자동적으로 불러올 수 있게 함수 호출 
-                             selectedOption.title, 
-                             secondDropdown);
-    };
-
+        // 두 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
+        secondDropdown.onchange = function() {
+            // '조회 영역' 텍스트에 이렇게 배치한다.
+            resultTextArea.value = '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
+        };
 
         // '조회 결과' 표시 영역
         var resultTitle = document.createElement('h4');
@@ -1617,41 +1632,7 @@ function collectStatus(chatRoomList) {
     });
 }
 
-// 첫 번쨰 드롭다운 선택된 값에 따라 두 번쨰 드롭다운 텍스트를 보여주는 함수 (AI 설정 모달)
-// function updateSecondDropdown(target_object, title, secondDropdown) {
-//     // 1. axios로 AI측과 연동하여 데이터를 받아온다.
-//     axios({
-//             method: 'post',
-//             url: ``,
-//         })
-//         .then(response => {
-//             // 2. 두 번째 드롭다운의 기존 내용을 초기화한다.
-//             secondDropdown.innerHTML = '';
-
-//             // 3. 시간대가 없는 경우, 
-//             if(response.data.length === 0){
-//                 var noDataOption = document.createElement('option');
-//                     noDataOption.value = '시간대 데이터 없음';
-//                     secondDropdown.appendChild(noDataOption);
-//             }
-//             // 3. 시간대가 있는 경우를 고려해서 AI 측에 받아온 데이터를 바탕으로 두 번쨰 드롭다운에 옵션을 다시 생성한다.
-//             else {
-//                 response.data.forEach(item => {
-//                     var option = document.createElement('option');
-//                     option.value = item.value;
-//                     option.title = item.title;
-//                     option.textContent = item.title;
-//                     secondDropdown.appendChild(option);
-//                 });
-//             }
-//         })
-//         .catch(error => {
-//             alert('오류가 발생했습니다.');
-//             console.log('에러');
-//             console.error(error); // 오류 로그
-//         });  
-// }
-
+// 
 // 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function crawlerTemplateSetting() {
     // AI 측으로부터 크롤러 템플릿 설정 정보를 가져온다.
