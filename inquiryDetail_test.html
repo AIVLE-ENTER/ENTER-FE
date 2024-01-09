@@ -107,6 +107,30 @@
         <button class="edit-button" onclick="editButton()" type="button">수정</button>
         <button class="delete-button" onclick="deleteButton()" type="button">삭제</button>
    </div>
+
+   <!-- 답변하기 모달창 -->
+   <div id="answer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModalAnswer">&times;</span>
+            <div class="modal-screen">
+                <div class="answer-view" id="answerView">
+                    <div>
+                        <h2>답변하기</h2>
+                        <form>
+                            <div class="field">
+                                <textarea rows="5"
+                                    id='answer_content'
+                                    placeholder="답변을 입력해주세요."
+                                    autocomplete='off'></textarea>
+                            </div>
+                            <div class="error-message" id="error-modal"></div>
+                            <button type="button" class="answer-button" onclick="answer();">답변하기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
 
     <!-- JS와 연동 -->
