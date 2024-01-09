@@ -21,6 +21,10 @@ function checkLoginStatusAndUpdateUI() {
     }
 }
 
+// 전역 변수
+let user_role = 'user';
+let user_id = '';
+
 // 백엔드에서 유저 정보 불러오기
 function getUserInfo(token){
     const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
@@ -38,8 +42,15 @@ function getUserInfo(token){
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
         user_name=response.data['data']['user_name'];   // 아이디를 가져온다.
+        user_role=response.data.data.role;
+        user_id=response.data.data.user_id;
         document.querySelector('.header-link h3').textContent = `${user_name}님 안녕하세요!!`; // h3 태그에 보여준다.
         document.querySelector('header .logout').style.display = 'block';
+
+        // 관리자일 경우에만 답변하기 버튼 보여주기
+        if(user_role=='admin') {
+            document.querySelector(".reply-button").style.display='block';        
+        }
     })
     .catch(error => {
         window.location.reload(); // 새로 고침한다.
@@ -80,32 +91,27 @@ axios.get(boardDetaildUrl)
     imageDownloadLink.download = 'Temp Name';
     imageDownloadLink.textContent = 'Temp Name';
     faqItemImage.appendChild(imageDownloadLink);
+
+    // 작성자일 경우에만 수정, 삭제 버튼 보여주기
+    if(user_id==inquiryData['user_id']) {
+        document.querySelector(".edit-button").style.display='block';
+        document.querySelector(".delete-button").style.display='block';
+    }
 })
 .catch((error) => {
     console.log(`error: ${error}`);
 })
 
 function replyButton() {
-    
-    axios.get(myInfoURL, config)
-    .then((response) => {
-        var user_role = response.data.data.role;
-        console.log(user_role);
-        if (user_role == 'user') {
-            alert('권한이 없습니다.');
-        } else {
-            const popupUrl = "inquiry_test.html";
-            const popupName = "게시글 수정";
-        
-            var popWidth = (document.body.offsetWidth / 2) - (600 / 2);
-            var popHeight = (window.screen.height / 2) - (600 / 2);
-        
-            const popupOption = "location = no, width = 600, height = 600, top = " + popHeight + ",left = " + popWidth;
-            console.log(popupOption);
-
-            window.open(popupUrl, popupName, popupOption);
-        }
-    })
+    if (user_role == 'user') {
+        Toast.fire({
+            width: '420px',
+            icon: 'error',
+            title: '권한이 없습니다.'
+        });
+    } else {
+        console.log('');
+    }
 }
 
 function editButton() {   
