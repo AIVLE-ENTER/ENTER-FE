@@ -5,6 +5,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
     checkLoginStatusAndUpdateUI();
 });
 
+
+const currentId = window.location.search.substring(4);
+var boardDetaildUrl = `http://127.0.0.1:8000/board/` + currentId + `/`;
+var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
+var editBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/post_update_post/`;
+var deleteBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/delete/`;
+
 // 로그인 여부를 판별하는 함수
 function checkLoginStatusAndUpdateUI() {
     const token = getWithExpire('accessToken'); // 토큰을 받아온다.
@@ -46,17 +53,13 @@ function getUserInfo(token){
         user_id=response.data.data.user_id;
         document.querySelector('.header-link h3').textContent = `${user_name}님 안녕하세요!!`; // h3 태그에 보여준다.
         document.querySelector('header .logout').style.display = 'block';
+        boardDetail(boardDetaildUrl);
     })
     .catch(error => {
         window.location.reload(); // 새로 고침한다.
     });
 }
 
-const currentId = window.location.search.substring(4);
-var boardDetaildUrl = `http://127.0.0.1:8000/board/` + currentId + `/`;
-var myInfoURL = `http://127.0.0.1:8000/account/auth/userInfo/`;
-var editBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/post_update_post/`;
-var deleteBoardURL = `http://127.0.0.1:8000/board/` + currentId + `/delete/`;
 
 const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 const config = {
@@ -64,65 +67,65 @@ const config = {
         'Authorization': JSON.stringify({'Authorization': `Bearer ${token}`})
     }
 }
+function boardDetail(boardDetaildUrl) {
+    axios.get(boardDetaildUrl)
+        .then((response) => {
+            var inquiryData = response.data;
+            
+            var faqItemType = document.querySelector('.faqItem-type');
+            var faqItemTitle = document.querySelector('.faqItem-title');
+            var faqItemWriter = document.querySelector('.faqItem-writer');
+            var faqItemContent = document.querySelector('.faqItem-content');
+            var faqItemImage = document.querySelector('.faqItem-image');
 
-axios.get(boardDetaildUrl)
-.then((response) => {
-    var inquiryData = response.data;
-    
-    var faqItemType = document.querySelector('.faqItem-type');
-    var faqItemTitle = document.querySelector('.faqItem-title');
-    var faqItemWriter = document.querySelector('.faqItem-writer');
-    var faqItemContent = document.querySelector('.faqItem-content');
-    var faqItemImage = document.querySelector('.faqItem-image');
+            faqItemType.append(inquiryData['question_type_title']);
+            faqItemTitle.append(inquiryData['question_title']);
+            faqItemWriter.append(inquiryData['user_name']);
+            faqItemContent.append(inquiryData['question_content']);
 
-    faqItemType.append(inquiryData['question_type_title']);
-    faqItemTitle.append(inquiryData['question_title']);
-    faqItemWriter.append(inquiryData['user_name']);
-    faqItemContent.append(inquiryData['question_content']);
+            // 답변이 아직 없고 & 관리자일 경우에만 답변하기 버튼 보여주기
+            if(user_role=='admin' & inquiryData['answer_content']==null) {
+                document.querySelector(".reply-button").style.display='block';        
+            }
 
-    // 답변이 아직 없고 & 관리자일 경우에만 답변하기 버튼 보여주기
-    if(user_role=='admin' & inquiryData['answer_content']==null) {
-        document.querySelector(".reply-button").style.display='block';        
-    }
+            // 작성자일 경우에만 수정, 삭제 버튼 보여주기
+            console.log(user_id, inquiryData['user_id']);
+            if(user_id==inquiryData['user_id']) {
+                document.querySelector(".edit-button").style.display='block';
+                document.querySelector(".delete-button").style.display='block';
+            } else if(user_role=='admin') {
+                // 관리자일 경우 삭제버튼 보여주기
+                document.querySelector(".delete-button").style.display='block';
+            }
+            
+            var imageDownloadLink = document.createElement("a");
+            imageDownloadLink.className = 'attached-file';
+            imageDownloadLink.style.marginLeft = "20px";
+            imageDownloadLink.href = inquiryData['question_image_file'];
+            imageDownloadLink.download = 'Temp Name';
+            
+            function decode(x) {
 
-    // 작성자일 경우에만 수정, 삭제 버튼 보여주기
-    console.log(user_id, inquiryData['user_id']);
-    if(user_id==inquiryData['user_id']) {
-        document.querySelector(".edit-button").style.display='block';
-        document.querySelector(".delete-button").style.display='block';
-    } else if(user_role=='admin') {
-        // 관리자일 경우 삭제버튼 보여주기
-        document.querySelector(".delete-button").style.display='block';
-    }
-    
-    var imageDownloadLink = document.createElement("a");
-    imageDownloadLink.className = 'attached-file';
-    imageDownloadLink.style.marginLeft = "20px";
-    imageDownloadLink.href = inquiryData['question_image_file'];
-    imageDownloadLink.download = 'Temp Name';
-    
-    function decode(x) {
+                y = decodeURIComponent(x.replace(/\+/g,  " "));
+                return y
+            }
 
-        y = decodeURIComponent(x.replace(/\+/g,  " "));
-        return y
-    }
-
-    if (inquiryData['question_image_file'] != null || inquiryData['question_image_file'] != "") {
-        var llist = inquiryData['question_image_file'].split('/')
-        len = llist.length;
-        imageDownloadLink.textContent = decode(llist[len-1]);
-        faqItemImage.appendChild(imageDownloadLink);
-    } else {
-        // imageDownloadLink = document.createElement("a");
-        // imageDownloadLink.textContent = '';
-        // faqItemImage.appendChild('');
-    }
-    
-})
-.catch((error) => {
-    console.log(error);
-})
-
+            if (inquiryData['question_image_file'] != null || inquiryData['question_image_file'] != "") {
+                var llist = inquiryData['question_image_file'].split('/')
+                len = llist.length;
+                imageDownloadLink.textContent = decode(llist[len-1]);
+                faqItemImage.appendChild(imageDownloadLink);
+            } else {
+                // imageDownloadLink = document.createElement("a");
+                // imageDownloadLink.textContent = '';
+                // faqItemImage.appendChild('');
+            }
+            
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+}
 
 // 답변 모달창
 const answer_modal = document.getElementById('answer-modal');
