@@ -976,10 +976,8 @@ p {
 }
 
 .section p {
-    width: 100%;
-    margin: 0 10px 0 0;
-    padding: 10px;
-    border-radius: 10px;
+    border-radius: 4px;
+    padding: 5px;
 }
 .section p:hover {
     background-color: #D6D9DE;
