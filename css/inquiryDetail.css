@@ -11301,7 +11301,7 @@ header .logout:hover, header .login:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
 } */
 
-.reply-button, .edit-button, .delete-button {
+.reply-button, .edit-button, .delete-button, .list-button {
   display: none;
   margin-top: 15px;
   border: 0;
