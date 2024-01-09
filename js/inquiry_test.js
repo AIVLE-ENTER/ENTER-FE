@@ -92,13 +92,14 @@ function writeBoard() {
     formData.append('question_type_id', question_type);
     formData.append('question_title', title);
     formData.append('question_content', content);
+
     if (image !== null) {
         formData.append('image', image);
     } else {
         formData.append('image', none);
     }    
     console.log(question_type)
-    if (question_type == '문의 유형 선택' || question_type != '문의 유형 선택' || title === null || content === null) {
+    if (title === '' || content === '') {
         Toast.fire({
             width: '500px',
             icon: 'error',
@@ -106,7 +107,7 @@ function writeBoard() {
         });
     }
 
-    if (title.length > 30) { 
+    else if (title.length > 30) { 
         Toast.fire({
             width: '500px',
             icon: 'error',
@@ -114,7 +115,7 @@ function writeBoard() {
         });
     }
 
-    if (content.length > 100) {
+    else if (content.length > 100) {
         Toast.fire({
             width: '500px',
             icon: 'error',
@@ -122,13 +123,14 @@ function writeBoard() {
         });
     }
     
-    if (title.length > 30 || content.length > 100) {
+    else if (title.length > 30 || content.length > 100) {
         Toast.fire({
             width: '500px',
             icon: 'error',
             title: '제목은 30자, 내용은 100자 이내로 작성해주세요!'
         });
     }
+    
     else {
         axios.post(boardCreateURL, formData, config)
         .then((response) => {
