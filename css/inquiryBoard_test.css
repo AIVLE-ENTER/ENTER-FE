@@ -31,6 +31,16 @@ header {
     display: flex; /* 가로 정렬 */
 }
 
+th {
+    text-align: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration-line: none;
+    color: black;
+}
+
 #header-logo {
     height: 35px; /* 로고 이미지의 높이 */
     margin-left:20px;
@@ -75,14 +85,9 @@ header .logout:hover, header .login:hover {
 /* Body 영역에 대한 css */
 article {
     font-family: 'scd';
-    height: calc(100vh - 50px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 h2 {
-    margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 1px solid gray;
 }
@@ -111,12 +116,10 @@ h2 {
 .select-dropbox {
     height: 25px;
     font-size: 16px;
-    margin-right: 5px;
 }
 
 .select-textbox {
     height: 25px;
-    margin-right: 5px;
 }
 
 #select-button { 
@@ -150,13 +153,13 @@ table.board-table {
     text-align: center;
 }
 
-/* .board-table td:nth-child(2) {
+.board-table td:nth-child(2) {
     text-align: left;
-} */
+}
 
 .page {
     text-align: center;
-    padding: 15px;
+    padding: 20px;
 }
 
 
