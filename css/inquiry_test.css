@@ -21,6 +21,10 @@ header {
     display: flex; /* 가로 정렬 */
 }
 
+p {
+    color: #454997;
+}
+
 #header-logo {
     height: 35px;
     margin-left: 20px;
@@ -210,17 +214,40 @@ color:#fff
 
 .card {
     width: 100vw; /* 뷰포트의 전체 너비 */
-    height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
+    height: calc(100vh - 100px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
     margin: 0;
     padding: 30px;             /* 모든 방향에 20px의 패딩 적용 */
 }
+
+.question-type {
+    display: flex;
+}
+
+.title-w {
+    display: flex;
+    margin-top: 15px;
+}
+
+.msg {
+    display: flex;
+}
+
+.file-detach {
+    display: flex;
+    align-items: center;
+}
+
+#imageFile { 
+    margin-left: 250px;
+}
+
 
 #exampleSelect {
     width: 20%; /* 드롭다운의 너비 */
     padding: 8px; /* 드롭다운 내부의 패딩 */
     margin-top: 10px; /* 드롭다운 위의 여백 */
     margin-left: 10px;
-    border-radius: 4px; /* 드롭다운 모서리의 둥근 정도 */
+    border-radius: 12px; /* 드롭다운 모서리의 둥근 정도 */
     background-color: #ffffff; /* 드롭다운의 배경색 */
     border: 1px solid #ddd; /* 드롭다운의 테두리 스타일 */
   }
@@ -228,7 +255,7 @@ color:#fff
 .card-write {
     padding:20px;
     margin-left: 200px; /* 원하는 여백 크기로 설정 */
-    margin-top: -100px; /* 위로 100px 이동 */
+    margin-top: 100px; /* 위로 100px 이동 */
 }
 
 .card-write input, textarea {

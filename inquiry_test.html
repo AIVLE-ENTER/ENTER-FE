@@ -66,12 +66,14 @@
 
     <!-- 사실상 body -->
     <div class='card'>
-        <div class='card-write'>                                         <!-- 문의 유형 선택 -->
-            <p>문의 유형 선택</p>
-            <select id="exampleSelect" 
-                    name="example">
-            </select>
-            <br><br>
+        <div class='card-write'>
+            <div class="question-type">
+                  <p>유형</p>
+                  <select id="exampleSelect" 
+                          name="example">
+                          <option>문의 유형 선택</option>
+                  </select>
+            </div>                                         <!-- 문의 유형 선택 -->
 
             <div class='title-w'>    
                 <p>제목</p>
@@ -84,7 +86,6 @@
                 <p>내용</p>
                 <textarea id="inputBoardContent" placeholder='내용을 입력하세요.'></textarea>
             </div>
-            <br>
 
             <div class="file-detach">
                 <p>파일</p>
@@ -92,12 +93,19 @@
             </div>
 
                                                              <!-- 파일 다운로드-->
-            
-            <div class='btn-w'                                                                        
-                 id='write'
-                 style='width:75px; height:50px; float: right;'>
-                 <a href="javascript:void(0);" onclick="writeBoard()">작성</a>                                      <!-- 작성 -->       
+            <div class="buttons">
+                  <div class='btn-w'                                                                        
+                        id='write'
+                        style='width:75px; height:50px; background-color: #454997'>
+                        <a href="inquiryBoard_test.html">목록</a>                                      <!-- 작성 -->       
+                  </div>
+                  <div class='btn-w'                                                                        
+                        id='write'
+                        style='width:75px; height:50px; background-color: #454997'>
+                        <a href="javascript:void(0);" onclick="writeBoard()">작성</a>                                      <!-- 작성 -->       
+                  </div>
             </div>
+            
         </div>
 
     </div>
