@@ -275,7 +275,7 @@ function editButton() {
     const titleedit = document.createElement("textarea");
     titleedit.className = 'faqItem-title';
     //titleedit.id = 'inputBoardTitle';
-    titleedit.textContent = title.textContent;
+    titleedit.textContent = title.textContent.trim();
 
     content.textContent = '';
     title.textContent = '';
