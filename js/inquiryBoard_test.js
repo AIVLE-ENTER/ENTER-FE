@@ -96,9 +96,9 @@ function pageRendering(page_num) {
 
         board_list.forEach((content) => {
             htmlItem = document.createElement('tbody');
-            htmlItem.onclick = function() {
-                redirectToDetailPage(content.board_id);
-            }
+            //htmlItem.onclick = function() {
+            //    redirectToDetailPage(content.board_id);
+            //}
             
             htmlItem.innerHTML = `<td>${content.number}</td>
                                     <td>${content.question_type_title}</td>
