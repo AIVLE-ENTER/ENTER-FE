@@ -1193,6 +1193,8 @@ frequentUseBtn = document.getElementById("frequentUse");
 
 // 'AI 설정'을 click하면 호출되는 함수
 function AIconfig() {
+    document.querySelector(".settings-img").style.display = 'block';
+
     // 버튼 
     crawlerBtn.classList.remove("active");
     promptBtn.classList.remove("active");
@@ -1242,6 +1244,9 @@ function removeBlurFromElements() {
 
 // 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleCrawlerClick() {
+    // 이미지
+    document.querySelector(".settings-img").style.display = 'none';
+
     // 버튼 
     crawlerBtn.classList.add("active");
     promptBtn.classList.remove("active");
@@ -1791,6 +1796,9 @@ function crawlerTemplateSetting() {
 
 // 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handlePromptClick(){
+    // 이미지
+    document.querySelector(".settings-img").style.display = 'none';
+
     // 버튼
     crawlerBtn.classList.remove("active");
     promptBtn.classList.add("active");
@@ -1984,6 +1992,9 @@ function handlePromptClick(){
 
 // 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleReportClick(){
+    // 이미지
+    document.querySelector(".settings-img").style.display = 'none';
+
     // 버튼
     crawlerBtn.classList.remove("active");
     promptBtn.classList.remove("active");
@@ -2240,6 +2251,9 @@ function handleReportClick(){
 
 // 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleUseClick(){
+    // 이미지
+    document.querySelector(".settings-img").style.display = 'none';
+
     // 버튼
     crawlerBtn.classList.remove("active");
     promptBtn.classList.remove("active");
@@ -2294,6 +2308,9 @@ function handleUseClick(){
 // 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
 function handleModelClick() {
     console.log('재호출');
+
+    // 이미지
+    document.querySelector(".settings-img").style.display = 'none';
 
     // 버튼
     crawlerBtn.classList.remove("active");
