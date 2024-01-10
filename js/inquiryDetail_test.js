@@ -338,7 +338,7 @@ function editButton() {
                 Toast.fire({
                     width: '420px',
                     icon: 'success',
-                    title: '답변이 작성되었습니다.'
+                    title: '수정이 완료되었습니다.'
                 });
                 setTimeout(function() {
                     location.reload();
