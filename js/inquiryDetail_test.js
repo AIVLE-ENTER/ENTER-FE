@@ -89,13 +89,17 @@ function boardDetail(boardDetaildUrl) {
             }
 
             // 작성자일 경우에만 수정, 삭제 버튼 보여주기
-            console.log(user_id, inquiryData['user_id']);
             if(user_id==inquiryData['user_id']) {
                 document.querySelector(".edit-button").style.display='block';
                 document.querySelector(".delete-button").style.display='block';
             } else if(user_role=='admin') {
                 // 관리자일 경우 삭제버튼 보여주기
                 document.querySelector(".delete-button").style.display='block';
+            }
+
+            // 답변이 이미 있는 경우 수정 버튼 숨기기 
+            if(inquiryData['answer_content'] != null) {
+                document.querySelector(".edit-button").style.display='none';
             }
             
             var imageDownloadLink = document.createElement("a");
