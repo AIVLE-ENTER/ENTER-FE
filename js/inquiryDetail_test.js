@@ -388,6 +388,7 @@ function editButton() {
     //     console.log('error');
     //     alert('권한이 없습니다.')
     // }) 
+    
 }
 
 function deleteButton() {
