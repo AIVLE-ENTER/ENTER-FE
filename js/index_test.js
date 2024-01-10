@@ -588,26 +588,23 @@ function displayChatQaHistory(QaDatas, chatRoom) {
             sendQuestion(chatRoom, QaDatas);   // 질문과 대답을 추가한다.
         }
     };
-
+    
     // 하단 입력창에 엔터 클릭했을 때 리스너
-    messageForm.addEventListener("keydown", (e) => {
+    // onkeydown 이벤트 핸들러를 할당합니다
+    messageForm.onkeydown = function(e) {
         if (e.key === "Enter" && !e.shiftKey) {
-            // e.preventDefault(); // 폼의 기본 제출 이벤트 방지
             const messageInput = document.getElementById('message');
-            
+            e.preventDefault(); // 폼의 기본 제출 이벤트 방지
+
             if (messageInput.value.trim() === '') {
-                // 입력 필드를 빈 문자열로 설정하고 placeholder 추가
                 alert('빈 값 입니다.');
                 messageInput.value = '';
                 messageInput.placeholder = '질문을 입력하고 ENTER만 치세요!';
-                window.location.reload(); // 새로고침
-            } 
-            else {
-                // 입력 필드에 값이 있으면 질문과 대답을 처리
+            } else {
                 sendQuestion(chatRoom, QaDatas);
             }
         }
-    });
+    };
 
 }
 
