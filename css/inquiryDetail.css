@@ -11098,8 +11098,8 @@ color:#fff
 /* '사실상 body'에 대한 css */
 
 .card {
-    width: 100vw; /* 뷰포트의 전체 너비 */
-    height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
+    width: 100%; /* 뷰포트의 전체 너비 */
+    min-height: calc(100vh - 50px); /* 'nav' 태그의 높이를 제외한 뷰포트의 전체 높이 */
     margin: auto;
     background-color: #f8f9fa; /* 회색으로 설정 */
     display: flex;
@@ -11183,6 +11183,7 @@ textarea:disabled {
 .faq {
   position: relative;
   padding: 10px;
+  width: 72%;
 }
 
 .faqHeader {
@@ -11237,6 +11238,17 @@ textarea:disabled {
 }
 
 .faqItem-content {
+  margin-top: 20px;
+  display: flex;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 300px;
+  background-color: #f1f1f1;
+}
+
+.answer-area {
+  width: 100%;
+  margin: 20px 0 30px;
   display: flex;
   padding: 20px;
   border-radius: 10px;

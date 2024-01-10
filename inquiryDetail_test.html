@@ -97,12 +97,16 @@
         </div>
 
         <div class='button-section'
-            style="width: 1080px; height:100px; display: flex; justify-content: flex-end; gap: 10px;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+            style="width: 72%; height:100px; display: flex; justify-content: flex-end; gap: 10px; margin-right: 20px;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
             
             <button class="reply-button" onclick="replyButton()">답변하기</button>
             <button style="display: block;" class="list-button" onclick="location.href='http://localhost:5500/inquiryBoard_test.html';">목록</button>
             <button class="edit-button" onclick="editButton()" type="button">수정</button>
             <button class="delete-button" onclick="deleteButton()" type="button">삭제</button>
+        </div>
+
+        <div class="faq">
+            <div class="answer-area" id="answer-area" style="display: none;"></div>
         </div>
     </div>
 

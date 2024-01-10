@@ -135,11 +135,24 @@ function writeBoard() {
         axios.post(boardCreateURL, formData, config)
         .then((response) => {
             console.log('success');
-            alert('작성이 완료되었습니다.');
-            window.location.href = '../inquiryBoard_test.html';   
+            Toast.fire({
+                width: '420px',
+                icon: 'success',
+                title: '작성이 완료되었습니다.'
+            });
+            setTimeout(function() {
+                window.location.href = '../inquiryBoard_test.html';   
+            }, 900)
         })
         .catch((error) => {
-            console.log('error');
+            Toast.fire({
+                width: '420px',
+                icon: 'error',
+                title: '오류가 발생했습니다. 다시 시도해주세요.'
+            });
+            setTimeout(function() {
+                location.reload();
+            }, 900);
         })
     }    
 

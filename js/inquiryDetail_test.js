@@ -71,6 +71,7 @@ function boardDetail(boardDetaildUrl) {
     axios.get(boardDetaildUrl)
         .then((response) => {
             var inquiryData = response.data;
+            console.log(inquiryData);
             
             var faqItemType = document.querySelector('.faqItem-type');
             var faqItemTitle = document.querySelector('.faqItem-title');
@@ -106,6 +107,7 @@ function boardDetail(boardDetaildUrl) {
             imageDownloadLink.className = 'attached-file';
             imageDownloadLink.style.marginLeft = "20px";
             imageDownloadLink.href = inquiryData['question_image_file'];
+            imageDownloadLink.target = '_blank';
             imageDownloadLink.download = 'Temp Name';
             
             function decode(x) {
@@ -114,15 +116,17 @@ function boardDetail(boardDetaildUrl) {
                 return y
             }
 
-            if (inquiryData['question_image_file'] != null || inquiryData['question_image_file'] != "") {
+            if (inquiryData['question_image_file'] != null & inquiryData['question_image_file'] != "") {
                 var llist = inquiryData['question_image_file'].split('/')
                 len = llist.length;
                 imageDownloadLink.textContent = decode(llist[len-1]);
                 faqItemImage.appendChild(imageDownloadLink);
-            } else {
-                // imageDownloadLink = document.createElement("a");
-                // imageDownloadLink.textContent = '';
-                // faqItemImage.appendChild('');
+            }
+
+            // 답변 보여주기
+            if (inquiryData['answer_content'] != null) {
+                document.getElementById('answer-area').style.display = 'block';
+                document.getElementById('answer-area').textContent  = inquiryData['answer_content'];
             }
             
         })
@@ -319,16 +323,36 @@ function editButton() {
             formData.append('image', none);
         }
         if (question_type == '문의 유형 선택' || title === null || content === null) {
-            alert("글의 제목과 내용 모두 작성해 주세요!")
+            Toast.fire({
+                width: '420px',
+                icon: 'error',
+                title: '글의 제목과 내용 모두 작성해 주세요!'
+            });
+            setTimeout(function() {
+                location.reload();
+            }, 900);
         } else {
             axios.post(editBoardURL, formData, config)
             .then((response) => {
                 console.log('success');
-                alert('작성이 완료되었습니다.');
-                window.location.reload();  
+                Toast.fire({
+                    width: '420px',
+                    icon: 'success',
+                    title: '답변이 작성되었습니다.'
+                });
+                setTimeout(function() {
+                    location.reload();
+                }, 900);
             })
             .catch((error) => {
-                console.log('error');
+                Toast.fire({
+                    width: '420px',
+                    icon: 'error',
+                    title: '오류가 발생했습니다. 다시 시도해주세요.'
+                });
+                setTimeout(function() {
+                    location.reload();
+                }, 900);
             })
         }    
     };

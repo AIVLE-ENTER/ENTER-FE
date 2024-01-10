@@ -159,15 +159,9 @@ table.board-table {
     text-align: center;
 }
 
-<<<<<<< HEAD
 .board-table td:nth-child(2) {
     text-align: center;
 }
-=======
-/* .board-table td:nth-child(2) {
-    text-align: left;
-} */
->>>>>>> a79775eea0906fb7a6049bd9bfbf10d5e7c21dec
 
 .page {
     text-align: center;
