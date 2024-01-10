@@ -120,6 +120,7 @@ function boardDetail(boardDetaildUrl) {
                 var answer = document.createElement('textarea')
                 answer.className = 'answer-area'
                 answer.style = 'padding: 70px;'
+                answer.setAttribute('readonly', true);
 
                 answer.innerHTML = inquiryData['answer_content'];
                 tmpHTML.appendChild(answer);
