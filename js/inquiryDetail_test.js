@@ -70,9 +70,7 @@ const config = {
 function boardDetail(boardDetaildUrl) {
     axios.get(boardDetaildUrl)
         .then((response) => {
-            var inquiryData = response.data;
-            console.log(inquiryData);
-            
+            var inquiryData = response.data;            
             var faqItemType = document.querySelector('.faqItem-type');
             var faqItemTitle = document.querySelector('.faqItem-title');
             var faqItemWriter = document.querySelector('.faqItem-writer');
@@ -111,7 +109,6 @@ function boardDetail(boardDetaildUrl) {
             imageDownloadLink.download = 'Temp Name';
             
             function decode(x) {
-
                 y = decodeURIComponent(x.replace(/\+/g,  " "));
                 return y
             }
