@@ -214,3 +214,8 @@ form .button-black {
 button:hover, .button-gray:hover, .button-black:hover {
   box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.4); /* 그림자 강조 */
 }
+
+.page {
+    margin-top: 20px;
+    text-align: center;
+}
