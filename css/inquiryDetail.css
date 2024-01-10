@@ -11238,8 +11238,16 @@ textarea:disabled {
 
 .faqItem-content {
   display: flex;
-  padding: 20px;
   border-radius: 10px;
+  width: 100%;
+  min-height: 300px;
+  background-color: #f1f1f1;
+}
+
+.answer-area {
+  display: flex;
+  border-radius: 10px;
+  width: 100%;
   min-height: 300px;
   background-color: #f1f1f1;
 }
@@ -11301,7 +11309,7 @@ header .logout:hover, header .login:hover {
   box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); 
 } */
 
-.reply-button, .edit-button, .delete-button, .list-button, .custombutton{
+.reply-button, .edit-button, .delete-button, .list-button {
   display: none;
   margin-top: 15px;
   border: 0;
@@ -11314,9 +11322,6 @@ header .logout:hover, header .login:hover {
   font-family: 'scd';
   padding: 10px 20px;
   height: 50px;
-}
-.custombutton {
-  display: block;
 }
 
 /* 모달창 */
