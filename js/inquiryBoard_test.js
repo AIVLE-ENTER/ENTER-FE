@@ -8,7 +8,7 @@ if(search != null) {
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('새로고침');
 
-    checkLoginStatusAndUpdateUI(); 
+    checkLoginStatusAndUpdateUI();
 });
 
 // 로그인 여부를 판별하는 함수
@@ -18,7 +18,7 @@ function checkLoginStatusAndUpdateUI() {
     if (token!==null) {
         // 백엔드 코드를 이용해서 유저 정보 불러오기
         getUserInfo(token);
-    } 
+    }
     // 비로그인 상태이면?
     else {
       // Header 창 오른쪽 '~님 안녕하세요!!를 보여주지 않도록 한다.
@@ -31,11 +31,11 @@ function checkLoginStatusAndUpdateUI() {
 function getUserInfo(token){
     const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
 
-    // 백엔드 유저 정보 불러오기 
+    // 백엔드 유저 정보 불러오기
     axios({
         method: 'get',
         url: getUserInfo_URL,
-        headers: { 
+        headers: {
             'Authorization':  JSON.stringify({'Authorization': `Bearer ${token}`})
         }
     })
@@ -53,7 +53,9 @@ function getUserInfo(token){
 }
 
 
-const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL 
+
+
+const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
 const token = getWithExpire('accessToken'); // 토큰을 받아온다.
 
 var pageNumber = 1;
@@ -71,13 +73,13 @@ function pageRendering(page_num) {
         console.log('success');
         totalPage = Math.ceil(response['data']['tot_post'] / 10);
         console.log('total:', totalPage);
-        
+
         var board_list = response.data['post_list'];
         empty()
         var totalBoardCount = document.querySelector('.aside');
         totalBoardCount.append('총 ' + response['data']['tot_post'] + '개의 게시물이 있습니다.');
-        
-        
+
+
         var htmlhead = document.createElement('thead');
         htmlhead.innerHTML = `<tr>
                                 <th>번호</th>
@@ -88,22 +90,26 @@ function pageRendering(page_num) {
                              </tr>`
         document.getElementById('boardList').appendChild(htmlhead);
 
-        var tmpContentNumber = response['data']['tot_post'] - (page_num-1) * 10
-        board_list.forEach((content) => {     
+        var tmpContentNumber = 1 + (page_num - 1) * 10;
+
+
+
+        board_list.forEach((content) => {
             htmlItem = document.createElement('tbody');
             htmlItem.onclick = function() {
                 redirectToDetailPage(content.board_id);
             }
             
-            htmlItem.innerHTML = `<td>${tmpContentNumber--}</td>
+            htmlItem.innerHTML = `<td>${content.number}</td>
                                     <td>${content.question_type_title}</td>
-                                    <td>${content.question_title}</td>
+                                    <td style="cursor: pointer;" onclick="handleQuestionTitleClick(${content.board_id})">${content.question_title}</td>
                                     <td>${content.user_name}</td>
-                                    <td>${content.question_datetime.substr(0, 10)}</td>`
-            document.getElementById('boardList').appendChild(htmlItem);            
+                                    <td>${content.question_datetime.substr(0, 10)}</td>`;
+            document.getElementById('boardList').appendChild(htmlItem);
         });
+
         pageNumbering()
-        
+
     })
     .catch((error) => {
         console.log(`error: ${error}`);
@@ -136,12 +142,12 @@ function empty() {
 
 function pageNumbering() {
     tmpHTML = document.getElementById('pageNumber');
-    
+
     var prevSpan = document.createElement('span');
     var postSpan = document.createElement('span');
     prevSpan.innerHTML = '<a href="javascript:void(0);" onclick="prevPage()">◀ 이전&nbsp;&nbsp;</a>';
     postSpan.innerHTML = '<a href="javascript:void(0);" onclick="postPage()">&nbsp;&nbsp다음 ▶</a>';
-    
+
     tmpHTML.appendChild(prevSpan);
     console.log(totalPage)
     for (var i=0; i<totalPage; i++) {
@@ -152,9 +158,18 @@ function pageNumbering() {
     tmpHTML.appendChild(postSpan);
 }
 
-function redirectToDetailPage(postId) {    
+function redirectToDetailPage(postId) {
     window.location.href = '/inquiryDetail_test.html?id=' + postId;
 }
+
+function handleQuestionTitleClick(questionId) {
+    // 여기에 클릭 이벤트에 대한 처리 로직을 추가합니다.
+    // console.log("Clicked question ID:", questionId);
+    redirectToDetailPage(questionId);
+    console.log(questionId)
+    // 예를 들어, 다른 페이지로 이동하거나, 상세 정보를 보여주는 등의 작업을 수행할 수 있습니다.
+}
+
 
 pageRendering(pageNumber);
 
@@ -178,12 +193,12 @@ pageRendering(pageNumber);
 //     console.log(response);
 //     console.log('success');
 //     var board_list = response.data['post_list'];
-    
+
 //     totalPage = response['data']['tot_post'];
 //     totalBoardCount = document.querySelector('.aside');
 //     totalBoardCount.append('총 ' + response['data']['tot_post'] + '개의 게시물이 있습니다.');
-    
-//     board_list.forEach((content) => {     
+
+//     board_list.forEach((content) => {
 //         htmlItem = document.createElement('tbody');
 //         htmlItem.onclick = function() {
 //             redirectToDetailPage(content.board_id);
@@ -194,7 +209,7 @@ pageRendering(pageNumber);
 //                                 <td>${content.user_name}</td>
 //                                 <td>${content.question_datetime.substr(0, 10)}</td>`
 //         document.getElementById('boardList').appendChild(htmlItem);
-        
+
 //     });
 // })
 // .catch((error) => {
