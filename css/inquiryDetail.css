@@ -184,9 +184,14 @@ h6, .h6 {
   font-size: 1rem;
 }
 
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
+/* p {
+  margin-top: 0.8rem;
+  margin-bottom: 0.8rem;
+} */
+
+.faqHeader p, .faqItem-info p {
+  margin-top: 0.7rem;
+  margin-bottom: 0.7rem;
 }
 
 abbr[title] {
@@ -11187,10 +11192,9 @@ textarea:disabled {
 }
 
 .faqHeader {
-  margin-top: 30px;
+  margin-top: 55px;
   display: flex;
   width: 100%;
-  height: 50px;
   border-top: 3px solid #000;
   border-bottom: 1px dotted #000;
   align-items: center;
@@ -11218,7 +11222,6 @@ textarea:disabled {
 .faqItem-info {
   display: flex;
   width: 100%;
-  height: 50px;  
   align-items: center;
   justify-content: center;
 }
@@ -11243,7 +11246,7 @@ textarea:disabled {
   display: flex;
   padding: 20px;
   border-radius: 10px;
-  min-height: 300px;
+  min-height: 200px;
   background-color: #f1f1f1;
 }
 
@@ -11253,7 +11256,7 @@ textarea:disabled {
   display: flex;
   padding: 20px;
   border-radius: 10px;
-  min-height: 300px;
+  min-height: 200px;
   background-color: #f1f1f1;
 }
 
