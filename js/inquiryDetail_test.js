@@ -71,6 +71,7 @@ function boardDetail(boardDetaildUrl) {
     axios.get(boardDetaildUrl)
         .then((response) => {
             var inquiryData = response.data;
+            console.log(inquiryData['answer_content'])
             
             var faqItemType = document.querySelector('.faqItem-type');
             var faqItemTitle = document.querySelector('.faqItem-title');
@@ -109,20 +110,20 @@ function boardDetail(boardDetaildUrl) {
             imageDownloadLink.download = 'Temp Name';
             
             function decode(x) {
-
                 y = decodeURIComponent(x.replace(/\+/g,  " "));
                 return y
             }
 
-            if (inquiryData['question_image_file'] != null || inquiryData['question_image_file'] != "") {
-                var llist = inquiryData['question_image_file'].split('/')
-                len = llist.length;
-                imageDownloadLink.textContent = decode(llist[len-1]);
-                faqItemImage.appendChild(imageDownloadLink);
-            } else {
-                // imageDownloadLink = document.createElement("a");
-                // imageDownloadLink.textContent = '';
-                // faqItemImage.appendChild('');
+            console.log(inquiryData['answer_content'])
+            if (inquiryData['answer_content'] !== null) {
+                var tmpHTML = document.getElementById('answerArea')
+                var answer = document.createElement('textarea')
+                answer.className = 'answer-area'
+                answer.style = 'padding: 70px;'
+                answer.setAttribute('readonly', true);
+
+                answer.innerHTML = inquiryData['answer_content'];
+                tmpHTML.appendChild(answer);
             }
             
         })
