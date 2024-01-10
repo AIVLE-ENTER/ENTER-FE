@@ -428,3 +428,7 @@ function deleteButton() {
         }
     });
 }
+
+function goInquiryDetail(){ // '목록' 버튼을 클릭했을 떄 다시 inquiryBoard_test.html로 Routing 한다.
+    window.location.href='inquiryBoard_test.html';
+}
