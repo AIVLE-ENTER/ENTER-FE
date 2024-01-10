@@ -1,10 +1,15 @@
-// 3 ~ 58줄 추가좀 했습니다
+//calllback으로 받은 검색어
+search = new URL(window.location.href).searchParams.get('search');
+if(search != null) {
+    document.getElementById("search").value = search;
+}
+
 
 // inquiryBoard_test.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('새로고침');
 
-    checkLoginStatusAndUpdateUI();
+    checkLoginStatusAndUpdateUI(); 
 });
 
 // 로그인 여부를 판별하는 함수
@@ -60,6 +65,10 @@ var totalPage = 1;
 defaultUrl = 'http://127.0.0.1:8000/board/?page='; // ?page=2 이런식으로 페이지 넣어서 보내야 함
 function pageRendering(page_num) {
     var renderUrl = defaultUrl + page_num;
+    console.log(search);
+    if(search != null) {
+        renderUrl += `&keyword=${search}`
+    }
 
     axios.get(renderUrl)
     .then((response) => {
