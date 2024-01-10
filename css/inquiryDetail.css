@@ -11238,6 +11238,7 @@ textarea:disabled {
 }
 
 .faqItem-content {
+  width: 100%;
   margin-top: 20px;
   display: flex;
   padding: 20px;
