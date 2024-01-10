@@ -114,7 +114,6 @@ p {
 
 #inputBoardTitle {
     width: 50%; /* 혹은 필요한 대로 조절 */
-    height: 100px; /* 원하는 높이로 설정 */
     font-family: 'scd';
     border: 1px solid black; /* 1픽셀 두께의 실선 테두리를 검정색으로 설정 */
     resize: none; /* 크기 조절 비활성화 */
