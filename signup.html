@@ -1,4 +1,4 @@
-<!-- 회원 가입(SignUp) 페이지 -->
+<!-- 회원 가입 페이지 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>상무상조 회원가입 폼</title>
+    <title>ENTER 회원가입</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -41,212 +41,176 @@
 
     <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between">
-            <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/aivle-logo.png"
-                     class='navbar-brand'
-                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
-
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-    
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/inquiry.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/board2" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/signup.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/mypage.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-    
-            </div>
+    <header>
+        <!-- Enter 로고 -->
+        <div style="height: 35px;">
+            <a href="/index.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                     alt="로고"
+                     id="header-logo">
+            </a>
         </div>
-    </nav>
+
+        <div style="display: flex; align-items: center;">
+            <!-- 로그인 아이콘 -->
+            <button class='login' 
+                    onclick='goLogin();'>
+                    <img src="assets/img/login_out.png" 
+                         style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+        </div>
+    </header>
     
-    <!-- 본 body-->
+    <!-- body-->
     <div class="member">
-        <!-- 1. 로고 -->
-        <img class="logo" 
-             src="./assets/favicon.ico">
+        <div class="inner">
+            <!-- '회원가입' text --> 
+            <h1 class="logo">회원가입</h1>
 
-        <!-- 2. 아이디 -->
-        <div class="field">
-            <b id='signup_id'>아이디</b>
-            <div class="input-group mb-3">
-                <input type="text"
-                       class="form-control"
-                       id="input_id"
-                       placeholder="아이디를 입력해주세요."
-                       aria-label="Username">
+            <!-- 2. 아이디 -->
+            <div class="field">
+                <b id='signup_id'>아이디</b>
+                <div class="input-group mb-3">
+                    <input type="text"
+                            class="form-control"
+                            id="input_id"
+                            placeholder="4~12자 영문 대소문자, 숫자로만 입력해주세요."
+                            aria-label="Username">
+                    <div class="error-message" id="error-id"></div>
 
-                <div class="container">
-                    <div class="row">
-                        <div class="col-6 d-flex justify-content-start">
-                            <button class="btn btn-custom"
-                                    type="button"
-                                    id="check-duplicate"
-                                    onclick="checkDuplicateID()">중복 확인</button>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6 d-flex justify-content-start">
+                                <button class="btn btn-custom"
+                                        type="button"
+                                        id="check-duplicate"
+                                        onclick="checkDuplicateID()">중복 확인</button>
+                            </div>
+
+                            <div class="col-6 d-flex justify-content-end">
+                                <button class="btn btn-custom"
+                                        type="button"
+                                        id="modify-id"
+                                        onclick="modify_ID()">아이디 수정하기</button>
+                            </div>
+                            
                         </div>
-
-                        <div class="col-6 d-flex justify-content-end">
-                            <button class="btn btn-custom"
-                                    type="button"
-                                    id="modify-id"
-                                    onclick="modify_ID()">아이디 수정하기</button>
-                        </div>
-                        
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- 3. 비밀번호 -->
-        <div class="field">
-            <b>비밀번호</b>
-            <input class="userpw"
-                   id='password' 
-                   type="password">
-        </div>
-
-        <div class="field">
-            <b>비밀번호 재확인</b>
-            <input class="userpw-confirm" 
-                   id='confirm_password'
-                   type="password"
-                   onkeyup="checkPasswordMatch();">
-        </div>
-
-       <!-- 비밀번호 일치 여부 메시지 (default로 보이지 않게(hidden) 한다.) -->
-       <span id="password_match" 
-             style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
-
-        <div class="field">
-            <b>이름</b>
-            <input type="text"
-                   id="name">
-        </div>
-
-        <!-- 4. 회사 -->
-        <b>회사</b>
-        <select id="company_select"></select>
-    
-        <!-- 5. 이메일 -->
-        <div class="field">
-            <b>본인 확인 이메일</b>
-            <input type="email" 
-                   id='input_email'
-                   placeholder="이메일 입력">
-
-            <input type="button"
-                   value="인증번호 받기"
-                   style="background-color: #808080; color: white;"
-                   id='receiveVerificationCodeBtn'
-                   onclick="requestVerificationCode();">    
-                   
-            <div class="timer-container">    <!-- 타이머 -->
-                  <span id="timer">01:00</span>
-            </div>   
-        </div>
-        
-        <div class="field tel-number">
-            <b>인증번호</b>
-            <div>
-                <input type="tel"
-                       id='verifyCodeInput'
-                       placeholder="인증번호 입력"
-                       disabled>
-            </div>
-        </div>
-
-         <input type="submit"
-                id='checkAuthNum'
-                value="인증번호 확인"
-                style="background-color: #808080; color: white; display:none;"
-                onclick="checkAuthNum();">
-
-        <div style="margin-top: 40px; margin-bottom: 20px;"></div>
-        
-        <!-- 6. 가입하기 버튼 -->
-        <input type="submit"
-               value="가입하기"
-               style="background-color: #808080; color: white;"
-               id='signUpBtn'
-               onclick="signUp();"
-               disabled>
-
-        <!-- 7. 푸터 -->
-        <div class="member-footer">
-            <div>
-                <a href="#none">이용약관</a>
-
-                <a href="#none">개인정보처리방침</a>
-
-                <a href="#none">책임의 한계와 법적고지</a>
-
-                <a href="#none">회원정보 고객센터</a>
+            <!-- 3. 비밀번호 -->
+            <div class="field">
+                <b>비밀번호</b>
+                <input class="userpw"
+                        id='password' 
+                        type="password"
+                        placeholder="4~12자 영문 대소문자, 숫자로만 입력해주세요.">
+                    <div class="error-message" id="error-pw"></div>
             </div>
 
-            <span><a href="#none">Aivle Corp.</a></span>
+            <div class="field">
+                <b>비밀번호 재확인</b>
+                <input class="userpw-confirm" 
+                        id='confirm_password'
+                        type="password"
+                        onkeyup="checkPasswordMatch();"
+                        placeholder="비밀번호를 한번 더 입력해주세요.">
+            </div>
+
+        <!-- '비밀번호가 일치하지 않습니다.' text -->
+        <span id="password_match" 
+                style="display: none; color: red;">비밀번호가 일치하지 않습니다.</span>
+
+            <div class="field">
+                <b>이름</b>
+                <input type="text"
+                       id="name"
+                       placeholder="이름을 입력해주세요.">
+                <div class="error-message"
+                     id="error-name"></div>
+            </div>
+
+            <!-- 회사 -->
+            <b>회사</b>
+            <select id="company_select"></select>
+        
+            <!-- 이메일 -->
+            <div class="field">
+                <b>본인 확인 이메일</b>
+                <input type="email" 
+                        id='input_email'
+                        placeholder="예: kimenter@gmail.com">
+                <div class="error-message" 
+                     id="error-email"></div>
+
+                <input type="button"
+                        class="btn"
+                        value="인증번호 받기"
+                        id='receiveVerificationCodeBtn'
+                        onclick="requestVerificationCode();">    
+            </div>
+            
+            <!-- 인증번호 -->
+            <div class="field tel-number">
+                <b>인증번호</b>
+                <div class="code_wrap">
+                    <input type="number"
+                            id='verifyCodeInput'
+                            placeholder="인증번호를 입력해주세요."
+                            disabled>
+                    <span id="timer" 
+                          class="timer-container">03:00</span>
+                </div>
+                <div class="error-message" 
+                     id="error-certi"></div>
+            </div>
+
+            <input type="submit"
+                    id='checkAuthNum'
+                    class="btn"
+                    value="인증번호 확인"
+                    style="display:none;"
+                    onclick="checkAuthNum();">
+
+            <!-- 간격 -->
+            <div style="margin-top: 40px; margin-bottom: 20px;"></div>
+            
+            <!-- '가입하기' 버튼 -->
+            <input type="submit"
+                class="btn"
+                id='signUpBtn'
+                value="가입하기"
+                onclick="signUp();"
+                disabled>
+
+            <!-- 7. 푸터 -->
+            <div class="member-footer">
+                <div>
+                    <a href="#none">이용약관</a>
+
+                    <a href="#none">개인정보처리방침</a>
+
+                    <a href="#none">책임의 한계와 법적고지</a>
+
+                    <a href="#none">회원정보 고객센터</a>
+                </div>
+
+                <span><a href="#none">ENTER Corp.</a></span>
+            </div>
         </div>
     </div>
 
      <!-- JS와 연동 -->
-     <script src="js/signup.js"></script>
+     <script src='/js/common.js'></script>
+     <script src="/js/signup.js"></script>
 </body>
 </html>

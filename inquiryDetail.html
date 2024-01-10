@@ -1,4 +1,4 @@
-<!-- 문의 글에 대한 상세 페이지(Inquiry Detail) -->
+<!-- 문의 글에 대한 상세 페이지 -->
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title>상부상조 문의 상세 페이지</title>
+    <title>ENTER 문의 상세보기</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -23,7 +23,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
           rel="stylesheet">
 
-    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <!-- 글꼴(팀원이 추천하신 구글 폰트 적용)-->
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
     <link rel="preconnect"
@@ -44,85 +44,47 @@
     </style>
     
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- sweet alert -->
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between">
-            <div class="d-flex flex-row align-items-center">
+    <!-- Header -->
+    <header>
+        <!-- Enter 로고 -->
+        <div style="height: 35px;">
+            <a href="/index.html"
+               class="header-logo-link">
                 <img src="assets/img/ENTR_logo.png" 
                     alt="로고"
-                    id="header-logo"> <!-- 이미지 로고-->
-
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-    
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/board" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/board2" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                    id='huiwongaip'
-                    href="/signup.html" 
-                    style="color: inherit;
-                           background-color:
-                           transparent; 
-                           border: none;
-                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/privacyPolicy.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-    
-            </div>
+                    id="header-logo">
+            </a>
         </div>
-    </nav>
 
-    <!-- 사실상 body -->
+        <div style="display: flex; align-items: center;">
+            <!-- 사용자 정보 표시 -->
+            <a href="/mypage.html"  class="header-link">
+                <h3></h3>
+            </a>
+
+            <!-- 로그 아웃 아이콘 -->
+            <button class='logout' onclick='goLogout();'>
+                <img src="assets/img/login_out.png" 
+                    style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+
+            <!-- 로그인 아이콘 -->
+            <button class='login' 
+                    onclick='goLogin();'>
+                    <img src="assets/img/login_out.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;"></button>
+        </div>
+    </header>
+
+    <!-- body -->
     <div class="card">
         <div class="faq">
             <div class="faqHeader">
@@ -130,52 +92,81 @@
                 <p class="faqHeader-title">제목</p>
                 <p class="faqHeader-writer">작성자</p>    
             </div>
+
             <div class="faqItem-box">
                 <div class="faqItem-header">
                     <div class="faqItem-info">
                         <p class="faqItem-type"></p>
-                        <p class="faqItem-title"></p>
+                        <p class="faqItem-title" style="text-align: center"></p>
                         <p class="faqItem-writer"></p>
                     </div>
-                    <p style="margin: 10px;">내용</p>
                 </div>
-                <div class="faqItem-content">
-                </div>
+                <textarea class="faqItem-content" 
+                          readonly style="width: 100%; resize:none; box-shadow: none; border: none;"></textarea>
                 <div class="faqItem-image">
                 </div>
             </div>
         </div>
+
+        <div class='button-section'
+             style="width: 72%; height:100px; display: flex; justify-content: flex-end; gap: 10px; margin-right: 20px;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
+            
+            <button class="reply-button"
+                    onclick="replyButton()">답변하기</button>
+
+            <button style="display: block;" 
+                    class="list-button"
+                    onclick="goInquiryDetail();">목록</button>
+
+            <button class="edit-button"
+                    onclick="editButton()"
+                    type="button">수정</button>
+
+            <button class="delete-button"
+                    onclick="deleteButton()"
+                    type="button">삭제</button>
+        </div>
+
+        <div class="faq">
+            <div class="answer-area"
+                 id="answer-area"
+                 style="display: none;"></div>
+        </div>
     </div>
 
-    <div class='update-delete-buttons'
-         style="height:100px; display: flex; justify-content: flex-end;"> <!-- 글 작성자이면 보이게 하고 아니면 보이지 않게 한다.-->
-         <div class='response'
-              id='write'
-              style="width:100px; height:50px; background-color: #000000;
-                     color: #ffffff; text-align: center; box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-                <a href='#'
-                   style="color: inherit; text-decoration: none;">답변하기</a>
+   <!-- 답변하기 모달창 -->
+   <div id="answer-modal"
+        class="modal">
+        <div class="modal-content">
+            <span class="close" 
+                  id="closeModalAnswer">&times;</span>
+            <div class="modal-screen">
+                <div class="answer-view" 
+                     id="answerView">
+                    <div>
+                        <h2>답변하기</h2>
+                        <form>
+                            <div class="field">
+                                <textarea rows="5"
+                                          id='answer_content'
+                                          placeholder="답변을 입력해주세요."
+                                          autocomplete='off'></textarea>
+                            </div>
+                            <div class="error-message" 
+                                 id="error-modal"></div>
+                            <button type="button"
+                                    class="answer-button"
+                                    onclick="answer();">답변하기</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-         
-        <div class='update'
-              id='write'
-              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center;
-                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">수정</a>
-        </div>
-
-        <div class='delete' 
-              id='write'
-              style="width:100px; height:50px; background-color: #000000; color: #ffffff; text-align: center; 
-                     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); border-radius: 5px; margin-right:50px;">
-              <a href='#'
-                style="color: inherit; text-decoration: none;">삭제</a>
-        </div>
-   </div>
+    </div>
     
 
     <!-- JS와 연동 -->
+    <script src="js/common.js"></script>
     <script src="js/inquiryDetail.js"></script>
 </body>
 </html>

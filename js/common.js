@@ -2,6 +2,7 @@
 const setWithExpire = (key, value, exp) => {
     let now = new Date(); // 현재 날짜와 시간
     const item = {[`${key}`]: value, expires: now.getTime() + exp}
+
     // item의 형태로 로컬에 저장
     localStorage.setItem(key, JSON.stringify(item));
 }
@@ -53,7 +54,7 @@ function goLogout(){
         if (result.isConfirmed) {
             // 실제 동작 수행
             localStorage.removeItem('accessToken'); // localStroage에서 'accessToken' 삭제    
-            window.location.reload(); // 현재 페이지를 새로고침
+            window.location.reload();               // 현재 페이지를 새로고침
         }
     });   
 }
@@ -71,7 +72,7 @@ function goLogin(){
     }).then((result) => {
         if (result.isConfirmed) {
             // 실제 동작 수행
-            window.location.href = '../signin_test.html';
+            window.location.href = '../signin.html';
         }
     });   
 }

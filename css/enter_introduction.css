@@ -1,22 +1,9 @@
 @charset "UTF-8";
-/*!
-* Start Bootstrap - Landing Page v6.0.6 (https://startbootstrap.com/theme/landing-page)
-* Copyright 2013-2023 Start Bootstrap
-* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-landing-page/blob/master/LICENSE)
-*/
-/*!
- * Bootstrap  v5.2.3 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
-
- */
 
 @font-face {
   font-family: 'scd';
   src: url('../assets/fonts/SCDream5.otf') format('truetype');
 }
-
 
 :root {
   --bs-blue: #0d6efd;
@@ -94,8 +81,8 @@
 }
 
 *{
-    box-sizing: border-box; /*전체에 박스사이징*/
-    outline: none; /*focus 했을때 테두리 나오게 */
+    box-sizing: border-box; 
+    outline: none; 
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -115,7 +102,7 @@ body {
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-family: 'scd'; /* 폰트 패밀리 지정 */
+  font-family: 'scd';
 }
 
 hr {
@@ -263,9 +250,6 @@ a {
   color: var(--bs-link-color);
   text-decoration: underline;
 }
-/* a:hover {
-  color: var(--bs-link-hover-color);
-} */
 
 a:not([href]):not([class]), a:not([href]):not([class]):hover {
   color: inherit;
@@ -459,14 +443,6 @@ legend + * {
   -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
-[type="tel"],
-[type="url"],
-[type="email"],
-[type="number"] {
-  direction: ltr;
-}
-*/
 ::-webkit-search-decoration {
   -webkit-appearance: none;
 }
@@ -10937,41 +10913,37 @@ footer.footer {
 
 
 #realHead {
-    width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
+    width: 100%; 
     height:50px;
-    margin: 0; /* 상하 마진 제거 */
-    background-color: white; /* 흰색 배경 */
+    margin: 0; 
+    background-color: white; 
     position: fixed;
-    padding: 10px 0; /* 상하 패딩 */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-    position: fixed; /* 상단에 고정 */
-    top: 0; /* 상단에 위치 */
-    left: 0; /* 왼쪽에 위치 */
+    padding: 10px 0; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed; 
+    top: 0; 
+    left: 0; 
     z-index: 100;
-    align-items: center; /* 수직 중앙 정렬 */
-    justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
-    display: flex; /* 가로 정렬 */
+    align-items: center; 
+    justify-content: space-between; 
+    display: flex; 
 }
-
-/* .header-link:hover h3 {
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2); /* 마우스 오버 시 그림자 효과 */
-/* } */
 
 
 header {
-  width: 100%; /* 헤더의 너비를 전체 폭으로 설정 */
+  width: 100%; 
   height:50px;
-  margin: 0; /* 상하 마진 제거 */
-  background-color: white; /* 흰색 배경 */
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
   position: relative;
-  padding: 7.5px 0; /* 상하 패딩 */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
-  top: 0; /* 상단에 위치 */
-  left: 0; /* 왼쪽에 위치 */
+  background-color: white;
+  margin: 0; 
+  padding: 7.5px 0; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  top: 0; 
+  left: 0; 
   z-index: 100;
-  align-items: center; /* 수직 중앙 정렬 */
-  justify-content: space-between; /* 요소들 사이에 공간을 균등하게 분배 */
-  display: flex; /* 가로 정렬 */
 }
 
 body {
@@ -10981,7 +10953,7 @@ body {
 }
 
 #header-logo {
-  height: 35px; /* 로고 이미지의 높이 */
+  height: 35px;
   margin-left:20px;
 }
 
@@ -10990,14 +10962,13 @@ body {
 }
 
 .header-link {
-  text-decoration: none; /* 밑줄 제거 */
-  color: inherit; /* 링크의 색상을 상속받아 기본 텍스트 색상과 동일하게 설정 */
+  text-decoration: none;
+  color: inherit;
 }
 
 
 .header-link h3 {
-  /* margin-right: 20px; */
-  transition: box-shadow 0.3s ease; /* 그림자 효과의 전환을 부드럽게 */
+  transition: box-shadow 0.3s ease;
   font-size: 13px;
   margin: 0;
   color: #222222;

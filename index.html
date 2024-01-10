@@ -1,391 +1,490 @@
 <!DOCTYPE html>
 <html lang="en">
-    <!-- head-->
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport"
-              content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<head>
+    <meta charset="UTF-8">
 
-        <meta name="description" 
-              content="" />
+    <meta http-equiv="X-UA-Compatible" 
+          content="IE=edge">
 
-        <meta name="author"
-              content="" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0">
 
-        <title>제품 및 서비스 트렌드 파악 Home Page </title>
+   <link rel="stylesheet" 
+         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-        <!-- 글꼴 (구글 폰트 적용 ) -->
-        <link rel="preconnect"
-              href="https://fonts.googleapis.com">
-        <link rel="preconnect"
-              href="https://fonts.gstatic.com"
-              crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap"
-              rel="stylesheet">
+    <!-- 글꼴(팀원이 추천하신 구글 폰트 적용)-->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
+          rel="stylesheet">
 
-        
-        <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
-        <link rel="preconnect"
-              href="https://fonts.googleapis.com">
-        <link rel="preconnect"
-              href="https://fonts.gstatic.com"
-              crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
-              rel="stylesheet">
-       
-        <!-- Favicon-->
-        <link rel="icon"
-              type="image/x-icon"
-              href="assets/favicon.ico" />
 
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" 
-              rel="stylesheet"
-              type="text/css" />
-        
-        <!-- Google fonts-->
-        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic"
-              rel="stylesheet"
-              type="text/css" />
+    <!-- CSS와 연계 -->
+    <link rel="stylesheet"
+          href="/css/index.css" />
 
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="css/styles.css"
-              rel="stylesheet" />
-    </head>
+    <!-- 구글 아이콘-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+          rel="stylesheet">
 
-    <body>
-        <!-- header -->
-        <nav class="navbar navbar-light bg-light static-top">
-            <div class="container d-flex justify-content-between">
-                <div class="d-flex flex-row align-items-center">
-                    <img src="assets/img/aivle-logo.png"
-                         class='navbar-brand'
-                         alt="KT 에이블 로고"/> <!-- 이미지 로고-->
 
-                    <p class="webpage_title"
-                       style="font-size:3em" 
-                       href="#!">상부상조</p> <!-- 타이틀 제목 -->
-                </div>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" 
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer" />
 
-        
-                <div class="d-flex flex-row align-items-center"
-                     style="margin-right: 80px;">
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='prompt_sayong'
-                            href="/prompt_version2.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                    </div>
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                            <a class="btn btn-light"
-                                id='gaseipan'
-                                href="/inquiryBoard.html" 
-                                style="color: inherit;
-                                       background-color:
-                                       transparent; 
-                                       border: none;
-                                       font-size:2em">게시판</a>          <!-- 게시판 --> 
-                    </div>
+    <!-- sweet alert -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                                id='login_logout'
-                                href="/signin.html" 
-                                style="color: inherit;
-                                       background-color:
-                                       transparent; 
-                                       border: none;
-                                       font-size:2em">로그인</a>          <!-- 로그인 --> 
+    <title>ENTER 프롬프트</title>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <!-- Enter 로고 -->
+        <div style="height: 35px;">
+            <a href="/index_test.html" 
+                class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
+        </div>
 
-                    </div>
+        <div style="display: flex;">
+            <!-- 사용자 표시 -->
+            <a href="/mypage.html" 
+                class="header-link">
+                    <h3></h3>
+            </a>
 
-                    <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='huiwongaip'
-                            href="/privacyPolicy.html" 
-                            style="color: inherit;
-                                background-color:
-                                transparent; 
-                                border: none;
-                                font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                    </div>
+            <!-- 로그아웃 아이콘 -->
+            <button class='logout' 
+                    onclick='goLogout();'>
+                    <img src="assets/img/login_out.png" 
+                         style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
 
-                    <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='huiwongaip'
-                            href="/mypage.html" 
-                            style="color: inherit;
-                                background-color:
-                                transparent; 
-                                border: none;
-                                font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                    </div>
-                </div>
-            </div>
-        </nav>
+            <!-- 로그인 아이콘 -->
+            <button class='login' 
+                    onclick='goLogin();'>
+                    <img src="assets/img/login_out.png" 
+                         style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+        </div>
+
+    </header>
     
-        <!-- header 메인 화면 -->
-        <header class="masthead">
-            <div class="container position-relative">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6">
-                        <div class="text-center text-white">
-                            <!-- Page Title-->
-                            <h2 class="mb-5">원하는 제품을 입력하면<br> 리서치 결과 즉시 도출<br> 간단하고 손쉬운 프롬프트 사용 하기</h1>
-
-                            <!-- Page Subtitle-->
-                            <h3 class="mb-4"
-                                id='sonshipgae'>"손쉽게 경쟁력을 키워보세요"</h3>
-
-                            <!-- 바로 시작하기! 버튼 -->
-                            <button type="button" 
-                                    class="btn btn-secondary">프롬프트 사용하기!</button>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-
-        <!-- section1 - 서비스에 대한 핵심 요약 -->
-        <section class="features-icons bg-light text-center">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-4"> <!-- Summarize Point 1-->
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
-                                 style="height: 100%;">
-                                <img src="assets/img/automation.png"
-                                     alt="automated"
-                                     width="100"
-                                     height="100">
-                            </div>
-
-                            <h3 style="margin-top: 20px;"
-                                id='sm_title1'>자동화</h3>
-
-                            <p class="lead mb-0"
-                               id='sm_content1'>제품 및 서비스에 대한<br> 분석, 시각화를 자동화!!</p>
-                        </div>
-                    </div>
-
-
-                    <div class="col-lg-4"> <!-- Summarize Point 2-->
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
-                                 style="height: 100%;">
-                                <img src="assets/img/marketing-strategy-2.png"
-                                     alt="automated"
-                                     width="100"
-                                     height="100">
-                            </div>
-
-                            <h3 style="margin-top: 20px;"
-                                id='sm_title2'>전략 수립 체계화</h3>
-
-                            <p class="lead mb-0"
-                               id='sm_content2'>새로운 인사이트를 바탕으로<br> 전략 수립을 효율적이면서 신속하게!!</p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4"> <!-- Summarize Point 3-->
-                        <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-                            <div class="features-icons-icon d-flex justify-content-center align-items-center" 
-                                 style="height: 100%;">
-                                <img src="assets/img/easy-to-use.png"
-                                     alt="automated"
-                                     width="100"
-                                     height="100">
-                            </div>
-
-                            <h3 style="margin-top: 20px;"
-                                id='sm_title3'>직관적인 사용법</h3>
-
-                            <p class="lead mb-0"
-                               id='sm_content3'>프롬프트에 입력하고<br> 리서치 결과를 받기만 하면 끝!!</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- section2 - 서비스에 대한 자세한 내용 -->
-        <section class="showcase">
-            <div class="container-fluid p-0">
-                <div class="row g-0">  <!-- Point 1-->
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" 
-                         style="background-image: url('assets/img/automation_picture.png')"></div>
-
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2 id='main_title1'>자동화</h2>
-                        <p class="lead mb-0"
-                            id='main_content1'>
-                            제품 및 서비스에 대한 만족도 조사, 시장 조사에 따른 분석, 시각화를 자동화 합니다.<br>
-                            데이터 수집 부터 통계 도출까지 시간 소요를 줄이고, 해당 파이프라인을 수행할<br>
-                            인적 자원 비용 그 외 비용 부담에서 크게 벗어날 수 있습니다. 
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row g-0">  <!-- Point 2-->
-                    <div class="col-lg-6 text-white showcase-img" 
-                         style="background-image: url('assets/img/startup.png')"></div>
-
-                    <div class="col-lg-6 my-auto showcase-text">
-                        <h2 id='main_title2'>전략 수립 체계화</h2>
-                        <p class="lead mb-0"
-                            id='main_content2'>
-                            새로운 인사이트를 도출하여 전략 수립을 효율적이면서 신속하게 진행할 수 있습니다.<br>
-                            예를 들어 개선 사항, 타겟 세분화, 광고 제작 가이드, 예상 판매량 등에 대한 전략 수립이<br>
-                            가능합니다.<br>
-
-                        </p>
-                    </div>
-                </div>
-
-                <div class="row g-0">  <!-- Point 3-->
-                    <div class="col-lg-6 order-lg-2 text-white showcase-img" 
-                         style="background-image: url('assets/img/easy_to_use.png')"></div>
-
-                    <div class="col-lg-6 order-lg-1 my-auto showcase-text">
-                        <h2 id='main_title3'>간단하고 직관적인 사용법</h2>
-                        <p class="lead mb-0"
-                           id='main_content3'>프롬프트 페이지에 들어가세요<br>
-                                             주제를 입력하여 채팅방에 입장하세요<br>
-                                             주제와 관련된 질문을 하세요 (ex. ~의 제품에 대한 대중들의 인식은 어떄?)<br>
-                                             5초 안으로 즉시 리서치 결과를 받아보세요!!
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-      
-        <!-- section3 - 어떤 기능이 있는지에 대한 소개 -->
-        <section class="testimonials text-center bg-light">
-            <div class="container">
-                <h2 class="mb-5">대표적인 기능을 소개 합니다.</h2>  
-
-                <div class="row">        
-                    
-                    <div class="col-lg-4">   <!-- 기능 1 -->
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3"
-                                 src="assets/img/anaylize_computer2.png" 
-                                 alt="..."
-                                 style="border-radius: 50%; width: 200px; height: 175px; object-fit: cover;" />
-                            <h5 id='func_title1'>분석 결과 기능</h5>
-                            <p class="font-weight-light mb-0"
-                               id='func_content1'>기본적으로 Langchain 프레임워크를 사용하며
-                                다양한 제품 및 서비스에 대한 축적된 데이터를 바탕으로 LLM 모델 중 LLama2 모델과 ChatGPT 모델을 이용하여
-                                기존에 데이터를 수집하고 통계를 내는 방식으로 결과를 도출합니다.
-                            </p>
-                        </div>
-                    </div>
-                    
-
-                    <div class="col-lg-4">    <!-- 기능 2 -->
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3" 
-                                 src="assets/img/gesipan.png"
-                                 alt="..."
-                                 style="border-radius: 50%; width: 200px; height: 175px; object-fit: cover;" />
-                            <h5 id='func_title2'>게시판 기능 </h5>
-                            <p class="font-weight-light mb-0"
-                               id='func_content2'>
-                                운영자에게 문의사항을 질문하는<br> Q&A 성격의 게시판
-                                그리고 실사용자가 위 서비스를 사용하면서 의견을 공유하는 커뮤니티 성격의 게시판입니다.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-4">    <!-- 기능 3 -->
-                        <div class="testimonial-item mx-auto mb-5 mb-lg-0">
-                            <img class="img-fluid rounded-circle mb-3"
-                                 src="assets/img/testimonials-3.jpg"
-                                 alt="..."
-                                 style="border-radius: 50%; width: 200px; height: 175px; object-fit: cover;" />
-                            <h5 id='func_title3'>다양한 편의 기능</h5>
-                            <p class="font-weight-light mb-0"
-                               id='func_content3'>
-                                1. 분석 결과에 대한 코멘트(comment)를 작성하여 히스토리로 확인할 수 있는 기능<br><br>
-                                2. 프롬프트 입력 메시지를 템플릿으로 저장해놨다가 바로 사용할 수 있는 기능<br><br>
-                                3. 서비스 사용에 대한 가이드라인과 설명서를 확인할 수 있는 기능<br><br>
-                            </p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer 1 -->
-        <section class="call-to-action text-white text-center" 
-                 id="signup">
-            <div class="container position-relative">
-                <div class="row justify-content-center">
-                    <div class="col-xl-6">
-                        <h3 class="mb-4">자 이제 서비스를 사용할 준비가 되셨나요? </h3>
-
-                         <!-- 바로 시작하기! 버튼 -->
-                         <button type="button" 
-                                 class="btn btn-secondary">프롬프트 사용하기!</button>
+    <div class="screen">
+        <!-- Prompt Sidebar-->
+        <nav id="sidebar">
+            <div class="float-top">
+                <!-- 'New Chat' 팝업 레이아웃 --> 
+                <div id="new-chat-popup"
+                     class="popup"
+                     style="display: none;">
+                    <!-- 팝업 콘텐츠 -->
+                    <div class="popup-content">
+                        <!-- 나가기 -->
+                        <span class="close-button" 
+                              onclick="closePopup()">&times;</span>
                         
+                        <!-- '새 채팅 시작' text -->
+                        <h3 style='font-size:25px; font-family:scd; font-weight:bold'>새 채팅 시작</h3>
+
+                        <form id="new-chat-form">
+                            <!-- '주제' input -->
+                            <input type="text" 
+                                    id="topic"
+                                    name="topic"
+                                    placeholder="주제" 
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+
+                            <!-- '채팅방명' input -->                     
+                            <input type="text"
+                                    id="chatroom-name"
+                                    name="chatroom"
+                                    placeholder="채팅방명" 
+                                    style="height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+
+                            <!-- 오류 메시지 -->
+                            <div id="error-message" 
+                                style="display: none; color: red; margin:10px; font-family:scd;">
+                            </div> 
+                        </form>
+
+                        <!-- '생성' button -->
+                        <div style="width:200px; display: flex; justify-content: flex-end; margin-right:21px;">
+                            <button type="submit" 
+                                    style="font-family:scd;"
+                                    id = "btn_final"
+                                    onclick='generateChat(event)'>생성</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 간격 -->
+                <div style="height: 10px;"></div>
+                
+                <!-- 'New Chat' button  -->
+                <div class="sidebar-controls">
+                    <button class="new-chat"
+                            style='color: black; margin-top: 10px; margin: bottom 5px;'
+                            onclick="openPopup()">
+                            <i class="fa fa-plus" style="margin-right: 10px; color: white"></i>
+                            <span style="color: white">New Chat</span>
+                    </button>
+                </div>
+
+                <!-- '채팅 목록' text -->
+                <p class='topic'  
+                   style="color: black; font-weight: bold; margin:10px">채팅 목록</p>
+
+                <!-- 채팅 목록 -->
+                <ul class="conversations"> 
+                    <!-- 채팅 목록이 JS 코드로 동적으로 생성됩니다.-->
+                </ul>
+            </div>
+
+            <!-- User Menu-->
+            <div class="user-menu"
+                 style='margin-bottom:20px;'>
+                <!-- 엔터란? -->
+                <div class="menu1" 
+                     style='padding:10px;'
+                     onclick='question_enter();'>
+                    <img src="assets/img/what_enter.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+
+                    <span>엔터란?</span>
+                </div>
+
+                <!-- AI 설정 -->
+                <div class="menu2"
+                     style='padding:8px;'
+                     onclick='AIconfig()'>
+                    <img src="assets/img/ai_setting.png" 
+                         style="width: 25px; height: 25px; vertical-align: middle;">
+
+                     <span>AI 설정</span>
+                </div>
+
+                <!-- 문의 게시판 -->
+                <div class="menu3"
+                     style='padding:10px;'
+                     onclick='goInquiry();'>
+                    <img src="assets/img/board.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+
+                    <span>문의 게시판</span>
+                </div>
+
+                <!-- 로그인/로그아웃 -->
+                <div class="menu4"
+                     style='padding:10px;'
+                     onclick='goLogout();'>
+                     <img src="assets/img/login_out.png" 
+                          style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+
+                     <span>로그아웃</span>
+                </div>
+            </div>
+
+        </nav>
+ 
+        <!-- Prompt Main -->
+        <main>
+            <!-- 상단 -->
+            <div class="view new-chat-view">  
+            </div>
+
+            <div id="to-top" 
+                 onclick="toTop();">
+                <div class="material-icons">arrow_upward</div>
+            </div>
+
+            <div id="to-bottom" 
+                 onclick="toBottom();">
+                <div class="material-icons">arrow_downward</div>
+            </div>
+
+            <!-- 질문과 대답의 반복(History) 동적 데이터 -->
+            <div class="view conversation-view"
+                style="flex-grow: 1; height: auto; overflow-y: auto; margin: 0px; padding: 40px 40px 0; height: calc(100vh - 200.5px)">  
+                <!-- 질문과 대답의 반복 (History) 데이터가 JS 코드로 구현 -->
+            </div>
+
+            <!-- 하단 메시지 입력창 -->
+            <div id="message-form"
+                 style='display:none; margin: 20px 0 30px;'>                
+                <div class="message-wrapper">
+                    <!-- 메시지 입력 -->
+                    <textarea id="message"
+                              rows="1"
+                              placeholder="질문을 입력하고 ENTER만 치세요!"></textarea>
+
+                    <!-- 메시지 전송 아이콘 -->
+                    <button class="send-button">
+                        <img src="assets/img/enter_icon_color-removebg.png"
+                             width="32" height="32"
+                             alt="아이콘">
+                    </button>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+    <!-- 기타 -->
+
+    <!-- 'AI 설정' 모달 -->
+    <div id="myModal"
+         class="modal"
+         style='display:none'>
+        <!-- 모달 내용 -->
+        <div class="modal-content">
+            <!-- 나가기 -->
+            <span class="close"
+                    onclick='AIconfig()'>&times;</span>
+
+            <!-- 'AI 설정' text -->
+            <h2> &nbsp;AI 설정</h2>
+
+            <!-- 간격 -->
+            <div style='height:20px'></div>
+
+            <!-- 모달 사이드바 & 내부 콘텐츠 -->
+            <div class="modal-view new-chat-view"
+                 style="display: flex; flex-direction: row">
+                <!-- 모달 사이드바 -->
+                <div class="sidebar-area">
+                    <!-- 크롤러 설정 섹션 -->
+                    <div class="section" 
+                         style='margin-bottom:19px; display: flex; align-items: center; cursor: pointer;'
+                         onclick="handleCrawlerClick()">
+                        <p id='crawler'
+                           style='font-size:15px;'>크롤러 설정</p>
+                    </div>
+
+                    <!-- 프롬프트 설정 섹션  -->
+                    <div class="section" 
+                         style='margin-bottom:19px; display: flex; align-items: center; cursor: pointer;'
+                         onclick="handlePromptClick()">
+                        <p id='prompt'
+                           style='font-size:15px;'>프롬프트 설정</p>
+                    </div>
+
+                     <!-- 레포트 설정 섹션  -->
+                     <div class="section" 
+                          style='margin-bottom:19px; display: flex; align-items: center; cursor: pointer;'
+                          onclick="handleReportClick()">
+                          <p id='report'
+                             style='font-size:15px;'>레포트 설정</p>
+                    </div>
+
+                    <!-- 모델 설정 섹션 -->
+                    <div class="section" 
+                         style='margin-bottom:19px; display: flex; align-items: center; cursor: pointer;'
+                         onclick='handleModelClick()'>
+                        <p id='modelSelection'
+                           style='font-size:15px;'>모델 설정</p>
+                    </div>
+
+                      <!-- 자주 쓰는 문구 섹션 -->
+                    <div class="section" 
+                         style='margin-bottom:19px; display: flex; align-items: center; cursor: pointer;'
+                         onclick='handleUseClick()'>
+                         <p id='frequentUse'
+                            style='font-size:15px; margin:0px 0px;'>자주 쓰는 문구</p>
+                    </div>
+                </div>
+
+                <!-- 모달 내부 콘텐츠  -->
+                <div class="content-area" 
+                     style="display: flex; justify-content: center; align-items: center;">
+                    
+                    <!-- AI 세팅 이미지 -->
+                    <div class="settings-img" style="text-align: center">
+                        <img src="/assets/img/ai_settings_img.png"/>
+                    </div>
+                    
+                    <!-- '크롤러 설정' 콘텐츠 -->
+                    <div class='popup1-content'
+                         style='display:none'>
+                         <!-- 동적으로 '대상 설정', '수집 현황', '크롤러 템플릿 설정' 버튼이 나온다. -->
+                    </div>
+
+                    <!-- '프롬프트 설정' 콘텐츠 -->
+                    <div class='popup2-content'
+                        style='display:none'>
+                        <!-- 동적으로 프롬프트 설정하는 내용으로 구성된다. -->
+                    </div>
+                    
+                    <!-- '레포트 설정' 콘텐츠 -->
+                    <div class='popup3-content'
+                         style='display:none'>
+                        <!-- 동적으로 레포트 설정하는 내용으로 구성된다. -->
+                    </div>
+
+                    <!-- '모델 설정' 콘텐츠 -->
+                    <div class="popup5-content"
+                         style='display:none'>
+                     <!-- 동적으로 모델 설정 가져오기 -->
+                    </div>
+
+                    <!-- '자주 쓰는 문구' 콘텐츠 -->
+                    <div class="popup4-content"
+                         style='display:none'>
+                    </div>
+                    <div class="message-btn-group"
+                        style='display:none;'>
+                     <!-- 동적으로 사용자의 자주 쓰는 문구 가져오기 -->
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </div>
 
-        <!-- Footer-->
-        <footer class="footer bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                        <ul class="list-inline mb-2">
-                            <li class="list-inline-item"><a href="#!">About</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Contact</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                            <li class="list-inline-item">⋅</li>
-                            <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                        </ul>
-                        <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                    </div>
-                    <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                        <ul class="list-inline mb-0">
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item me-4">
-                                <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+    <!-- context 메뉴 -->
+    <div id="contextMenu"
+         class="context-menu">
+        <ul>
+            <!-- 수정 -->
+            <li onclick="modify()" 
+                style="border-bottom: #dadada 1px solid;">수정</li>
+            
+            <!-- 삭제 -->
+            <li onclick="deleteChatRoom()">삭제</li>
+        </ul>
+    </div>
+
+    <!-- 채팅방명 수정 팝업--> 
+    <div id="update-popup"
+          class="popup"
+          style="display: none;">
+
+        <!-- 채팅방명 수정 팝업 -->
+        <div class="popup-content">
+            <!-- 나가기 -->
+            <span class="close-button" 
+                  onclick="closePopup()">&times;</span>
+ 
+            <!-- '채팅방명 변경' text -->
+            <h3 style='font-size:25px; font-family:scd; font-weight:bold'>채팅방명 변경 </h3>
+
+            <form id="update-chat-form">
+                <!-- '변경할 채팅방명' input -->
+                <input type="text"
+                    id="chatroom-name"
+                    name="chatroom"
+                    placeholder="변경할 채팅방명" 
+                    style="width:200px; height: 35px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;"><br>
+                
+                <!-- 오류 메시지를 위한 요소 -->
+                <div id="error-message" 
+                    style="display: none; color: red; margin:10px; font-family:scd;">
+                </div>   
+            </form>
+
+            <!-- '변경' button -->
+            <div style="width:230px; display: flex; justify-content: flex-end; margin-top: 10px; margin-right:25px;">
+                <button type="submit"
+                        style="font-family:scd;"
+                        id = "btn_final"
+                        onclick='editChatRoom()'>변경</button>
             </div>
-        </footer>
+        </div>
+    </div>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- '자주 쓰는 문구' 추가 팝업 -->
+    <div id="addFrequentMessagePopup" 
+         style="display:none;">
+        <!-- '자주 쓰는 문구' 추가 팝업 -->
+        <div class="popup-content">
+            <!-- 나가기 -->
+            <span class="close-button" 
+                  onclick="closeFrequentMessage()">&times;</span>
 
-        <!-- Core theme JS-->
-        <script src="js/scripts.js"></script>
+            <!-- '자주 쓰는 문구' text -->
+            <h2 style='font-size:25px; font-family:scd; font-weight:bold'>자주 쓰는 문구 추가</h2>
 
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- * *                               SB Forms JS                               * *-->
-        <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-        <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-        <!-- <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script> -->
-    </body>
+            <!-- '문구 제목' input -->
+            <input type="text"
+                   id="messageTitle"
+                   name="messageTitle"
+                   placeholder="문구 제목" 
+                   style="width:100%; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+    
+            <!-- '문구 내용' textarea -->
+            <textarea rows="4"
+                    id="messageContent"
+                    name="messageContent"
+                    placeholder="문구 내용" 
+                    style="margin-top: 5px; width:100%; resize: none; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
+
+            <!-- 오류 메시지 -->
+            <div id="errorMessage"
+                 style="display: none; color: red; margin-top: 10px; font-family:scd;">
+                 여기에 오류 메시지가 표시됩니다.
+            </div>
+
+            <!-- '추가' button -->
+            <div class="button-container"
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px; margin-top: 5px;'>
+                <button style='font-family:scd;'
+                        onclick="submitFrequentMessage()">추가</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- '자주 쓰는 문구' 수정 팝업 -->
+    <div id="editFrequentMessagePopup"
+         style="display:none;">
+        <!-- '자주 쓰는 문구' 수정 팝업 -->
+        <div class="popup-content">
+            <!-- 나가기 -->
+            <span class="close-button" 
+                  onclick="closeEditFrequentMessage()">&times;</span>
+
+            <!-- '자주 쓰는 문구 수정' text -->
+            <h2>자주 쓰는 문구 수정</h2>
+            
+            <!-- '문구 제목' text -->
+            <input type="text"
+                   id="editMessageTitle"
+                   name="editMessageTitle"
+                   placeholder="문구 제목" 
+                   style="width:100%; height: 40px; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd;">
+    
+            <!-- '문구 내용' textarea -->
+            <textarea rows="4"
+                    id="editMessageContent"
+                    name="editMessageContent"
+                    placeholder="문구 내용" 
+                    style="margin-top: 5px; width:100%; resize: none; border: 1px solid black; border-radius: 5px; padding: 5px 10px; font-family:scd; resize:none; white-space: nowrap;"></textarea>
+
+            <!-- '수정' button -->
+            <div class="button-container"
+                 style='width:100%; display: flex; flex-direction: row; justify-content: flex-end; gap: 10px;'>
+                <button onclick="submitEditFrequentMessage()"
+                        data-template-id=""
+                        style='font-family:scd;'
+                        id="editSubmitButton">수정</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS와 연계 -->
+    <script src="/js/common.js"></script>
+    <script src="/js/index.js"></script>
+</body>
 </html>

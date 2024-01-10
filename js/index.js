@@ -2,7 +2,7 @@
 let user_id; // 사용자 id 
 let token;   // 토큰 
 
-// index_test.html을 불러왔을 떄 로그인 여부를 판별한다.
+// index.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
     console.log('새로고침');
 
@@ -38,7 +38,7 @@ function checkLoginStatusAndUpdateUI() {
                              style="width: 20px; height: 20px; vertical-align: middle; margin-bottom:3px; margin-right: 5px;">
                         엔터란?
                     </a>
-                    <a href="../signin_test.html"
+                    <a href="../signin.html"
                        style="text-decoration: none; color: black; display: block;">
                         <img src="assets/img/login_out.png" 
                              style="width: 20px; height: 20px; vertical-align: middle; margin-bottom:3px; margin-right: 5px;">
@@ -55,8 +55,8 @@ function checkLoginStatusAndUpdateUI() {
         // 'main -> conversation-view'에는 이렇게 화면을 그려준다.
         const conversationView = document.querySelector('.view.conversation-view');
         conversationView.style.overflowY = 'scroll';
-        conversationView.style.display = 'flex';  // display 'flex'
-        conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
+        conversationView.style.display = 'flex';  
+        conversationView.style.alignItems = 'center'; 
 
         // 질문과 대답 데이터 5쌍
         const questionsAndAnswers = [
@@ -104,84 +104,84 @@ kt인터넷에서 기술지원부족에 대한 이야기를 다음과 같은 리
         for(let i = 0; i < questionsAndAnswers.length; i++){
             // 질문 div 생성
             const questionDiv = document.createElement('div');
-            questionDiv.style.width = '80%'; // 질문 div width
-            questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
-            questionDiv.style.color = '#3B3F4E'; // 질문 텍스트 색
+            questionDiv.style.width = '80%';                        // 질문 div width
+            questionDiv.style.backgroundColor = '#F7F6FF';          // 질문 배경색
+            questionDiv.style.color = '#3B3F4E';                    // 질문 텍스트 색
             questionDiv.style.padding = '10px';   
-            questionDiv.style.margin = '10px 0 0 0'; // 위쪽 마진
-            questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-            questionDiv.style.display = 'flex'; // flexbox 사용
-            questionDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
-            questionDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+            questionDiv.style.margin = '10px 0 0 0';                // 위쪽 마진
+            questionDiv.style.borderRadius = '8px';                 // 모서리 외곽선 둥글게
+            questionDiv.style.display = 'flex';                     // flexbox 사용
+            questionDiv.style.flexDirection = 'column';             // 아이콘과 텍스트를 위아래로 정렬
+            questionDiv.style.alignItems = 'flex-start';            // 텍스트를 왼쪽 정렬
 
             // '사람' 아이콘 추가
             const userIcon = document.createElement('i');
-            userIcon.className = 'material-icons'; // Material Icons 클래스
-            userIcon.textContent = 'person'; // 사용자 아이콘
-            userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
-            userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
-            userIcon.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
+            userIcon.className = 'material-icons';                  // Material Icons 클래스
+            userIcon.textContent = 'person';                        // 사용자 아이콘
+            userIcon.style.color = 'black';                         // 아이콘 색상을 검정색으로 설정
+            userIcon.style.marginBottom = '10px';                   // 아이콘과 텍스트 간격 조절
+            userIcon.style.cursor = 'default';                      // 마우스 커서를 기본으로 설정
 
-            questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
+            questionDiv.appendChild(userIcon);                      // 아이콘을 div에 추가
 
             // 질문 텍스트 추가
             const questionText = document.createElement('span');
             questionText.innerHTML = '<br>' + questionsAndAnswers[i].question;
-            questionText.style.padding = '10px';   // 패딩 추가
-            questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+            questionText.style.padding = '10px';                    // 패딩 추가
+            questionDiv.appendChild(questionText);                  // 질문 텍스트를 div에 추가
 
             // 대답 div 생성
             const answerDiv = document.createElement('div');
-            answerDiv.style.width = '80%'; // 대답 영역 width
-            answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
-            answerDiv.style.color = '#3B3F4E'; // 대답 텍스트 색
+            answerDiv.style.width = '80%';                          // 대답 영역 width
+            answerDiv.style.backgroundColor = '#F2F7FF';            // 대답 배경색
+            answerDiv.style.color = '#3B3F4E';                      // 대답 텍스트 색깔
             answerDiv.style.padding = '10px';
-            answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
-            answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-            answerDiv.style.display = 'flex'; // flexbox 사용
-            answerDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
-            answerDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+            answerDiv.style.margin = '10px 0 40px 0';               // 위쪽 마진 및 하단 마진 증가
+            answerDiv.style.borderRadius = '8px';                   // 모서리 외곽선 둥글게
+            answerDiv.style.display = 'flex';                       // flexbox 사용
+            answerDiv.style.flexDirection = 'column';               // 아이콘과 텍스트를 위아래로 정렬
+            answerDiv.style.alignItems = 'flex-start';              // 텍스트를 왼쪽 정렬
 
-            // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+            // 이미지 추가
             const enterImage = document.createElement('img');
-            enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
-            enterImage.style.height = '24px'; // 이미지 높이 조절
+            enterImage.src = 'assets/img/ENTR_logo.png';            // ENTER 이미지 파일 경로
+            enterImage.style.height = '24px';                       // 이미지 높이 조절
 
             // 대답 텍스트 추가
             const answerText = document.createElement('span');
             answerText.innerHTML = '<br>' + questionsAndAnswers[i].answer;
-            answerText.style.padding = '10px'; // 패딩 추가
-            answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
-            answerText.style.whiteSpace = 'pre-wrap';  // 대답 줄 바꿈
+            answerText.style.padding = '10px';                      // 패딩 추가
+            answerText.style.marginTop = '10px';                    // 텍스트 위쪽 마진 추가
+            answerText.style.whiteSpace = 'pre-wrap';               // 대답 줄 바꿈
 
             // 'edit Icon'을 배치한 div 생성
             const editIconDiv = document.createElement('div');
-            editIconDiv.style.marginTop = '10px'; // edit 아이콘 위쪽 마진 추가
-            editIconDiv.style.marginLeft = 'auto'; // 오른쪽 정렬
+            editIconDiv.style.marginTop = '10px';                   // edit 아이콘 위쪽 마진 추가
+            editIconDiv.style.marginLeft = 'auto';                  // 오른쪽 정렬
 
             // 'edit Icon' 추가
             const span = document.createElement('span');
             
             // 이미지 태그 생성
             const img = document.createElement('img');
-            img.src = 'assets/img/memo_icon.png'; // 이미지의 URL을 설정하세요.
-            img.alt = '메모 아이콘'; // 이미지에 대한 대체 텍스트를 설정하세요.
-            img.width = 22; // 너비를 22px로 설정
-            img.height = 22; // 높이를 22px로 설정                       
+            img.src = 'assets/img/memo_icon.png';                     // 이미지의 URL을 설정하세요.
+            img.alt = '메모 아이콘';                                  // 이미지에 대한 대체 텍스트를 설정하세요.
+            img.width = 22;                                          // 너비를 22px로 설정
+            img.height = 22;                                         // 높이를 22px로 설정                       
                             
-            span.appendChild(img); // span 요소에 이미지를 추가합니다.
-            span.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
+            span.appendChild(img);                                   // span 요소에 이미지를 추가합니다.
+            span.style.cursor = 'default';                           // 마우스 커서를 기본으로 설정
 
             // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
             span.onclick = function() {
                 // 보기 용도이므로 굳이 이벤트가 발생할 필요가 없다.
             };
 
-            editIconDiv.appendChild(span); // 아이콘을 div에 추가
+            editIconDiv.appendChild(span);                           // 아이콘을 div에 추가
 
-            answerDiv.appendChild(enterImage); // 이미지를 div에 추가
-            answerDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
-            answerDiv.appendChild(editIconDiv); // edit 아이콘을 div에 추가
+            answerDiv.appendChild(enterImage);                       // 이미지를 div에 추가
+            answerDiv.appendChild(answerText);                       // 대답 텍스트를 div에 추가
+            answerDiv.appendChild(editIconDiv);                      // edit 아이콘을 div에 추가
 
             // 질문, 아이콘 및 대답 div를 conversation view에 추가
             conversationView.appendChild(questionDiv);
@@ -190,11 +190,11 @@ kt인터넷에서 기술지원부족에 대한 이야기를 다음과 같은 리
     }
 }
 
-// 백엔드에서 유저 정보 불러오기
+// 유저 정보 불러오는 함수
 function getUserInfo(){
     const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL
 
-    // 백엔드 유저 정보 불러오기 
+    // 백엔드측으로부터 유저 정보 불러오는 통신(Rest-Api)
     axios({
         method: 'get',
         url: getUserInfo_URL,
@@ -203,7 +203,7 @@ function getUserInfo(){
         }
     })
     .then(response => {
-        user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
+        user_id=response.data['data']['user_id'];                                                              // 아이디를 가져온다.
         document.querySelector('.header-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
         document.querySelector('header .logout').style.display = 'block';
     })
@@ -229,24 +229,24 @@ function openPopup() {
     });
 }
 
-// 'New Chat - 생성하기' click 했을 떄 호출되는 함수
+// 'New Chat' - 생성 click 했을 떄 호출되는 함수
 function generateChat(event) {
-    event.preventDefault();  // 폼 제출에 의한 페이지 새로고침 방지
-
+    event.preventDefault();                                               // 폼 제출에 의한 페이지 새로고침 방지
+ 
     console.log('생성하기');
 
-    var topic=document.getElementById('topic').value;                // 주제를 가져온다.
-    var chatRoomName=document.getElementById('chatroom-name').value; // 채팅방명을 가져온다.
+    var topic=document.getElementById('topic').value;                     // 주제를 가져온다.
+    var chatRoomName=document.getElementById('chatroom-name').value;      // 채팅방명을 가져온다.
     var generateChat_URL='http://localhost:8000/main/chatWindow/create/'; // 백엔드 통신 URL
 
-    if(topic=='' || chatRoomName==''){  // 둘 중 하나가 빈 값일 떄 처리
+    if(topic=='' || chatRoomName==''){                                    // 둘 중 하나가 빈 값일 떄 처리
         const errorMessageDiv = document.getElementById('error-message');
-        errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
-        errorMessageDiv.textContent='빈 값이 있습니다.'; // 오류 메시지 설정
+        errorMessageDiv.style.display = 'block';                          // 오류 메시지 요소를 보이게 설정
+        errorMessageDiv.textContent='빈 값이 있습니다.';                   // 오류 메시지 설정
         return;
     }
 
-    // 백엔드에서 구현한 '채팅방 생성' 기능을 통신한다.
+    // 백엔드측으로부터 '채팅방 생성' 기능 통신(Rest-Api)
     axios({
         method: 'post',
         url: generateChat_URL,
@@ -270,8 +270,8 @@ function generateChat(event) {
         console.error('Error :', error);
 
         const errorMessageDiv = document.getElementById('error-message');
-        errorMessageDiv.style.display = 'block'; // 오류 메시지 요소를 보이게 설정
-        errorMessageDiv.textContent=error.response.data.message; // 오류 메시지 설정
+        errorMessageDiv.style.display = 'block';                        // 오류 메시지 요소를 보이게 설정
+        errorMessageDiv.textContent=error.response.data.message;        // 오류 메시지 설정
     });
 }
 
@@ -282,10 +282,11 @@ function closePopup() {
 
 }
 
-// 백엔드에서 채팅방 목록 가져오기
+// 채팅방 목록을 가져오는 함수
 function getChatRoomList(){
     const getChatList_URL=`http://localhost:8000/main/`;
 
+    // 백엔드측으로부터 채팅방 목록을 가져오는 통신(Rest-Api)
     axios({
         method: 'get',
         url: getChatList_URL,
@@ -294,36 +295,37 @@ function getChatRoomList(){
         }
     })
     .then(response => {
-        console.log('채팅방 불러오기 성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+        console.log('채팅방 불러오기 성공:', response.data);                     // 로그에 응답 데이터를 찍습니다.
 
-        const conversationsElement = document.querySelector('.conversations'); // HTML에서 채팅방 목록을 담는 ul 요소 선택
-        conversationsElement.innerHTML = ''; // 기존 목록 클리어
+        // HTML에서 채팅방 목록을 담는 ul 요소를 선택하고 기존 목록을 클리어(clear) 한다.
+        const conversationsElement = document.querySelector('.conversations');  
+        conversationsElement.innerHTML = '';                                                 
 
         const chatRoomList = response.data['data']['chat_list']; // 백엔드에서 받은 채팅방 목록
 
-        // '크롤러 설정' 섹션 요소를 찾고 chatRoomList 데이터를 저장합니다. 다 쓰일 떄가 있으니까 마련한 것이여 ~ 
+        // '크롤러 설정' 섹션 요소를 찾고 chatRoomList 데이터를 저장한다.
         const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
-        crawlerSettingSection.dataset.chatroomlist = JSON.stringify(chatRoomList); // JSON 문자열로 변환하여 저장
+        crawlerSettingSection.dataset.chatroomlist = JSON.stringify(chatRoomList); 
         
-        // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' imgage를 보여준다.
+        // main 부분 중앙에 '원하는 주제로 채팅을 시작하세요' imgage를 보여준다.
         var conversationView = document.querySelector('.view.conversation-view');
         conversationView.style.padding = '40px';
         conversationView.style.height = 'calc(100vh - 50px)';
 
         // 중앙 정렬을 위한 컨테이너 div 생성
         var containerDiv = document.createElement('div');
-        containerDiv.style.display = 'flex'; // Flexbox 레이아웃 사용
-        containerDiv.style.justifyContent = 'center'; // 수평 중앙 정렬
-        containerDiv.style.alignItems = 'center'; // 수직 중앙 정렬
-        containerDiv.style.height = '100%'; // 컨테이너의 높이 설정
+        containerDiv.style.display = 'flex';                  // Flexbox 레이아웃 사용
+        containerDiv.style.justifyContent = 'center';         // 수평 중앙 정렬
+        containerDiv.style.alignItems = 'center';             // 수직 중앙 정렬
+        containerDiv.style.height = '100%';                  // 컨테이너의 높이 설정
 
         // 새로운 img 요소를 생성
         var img = document.createElement('img');
-        img.src = 'assets/img/chatting.png'; // 여기에 이미지의 URL을 입력하세요
-        img.alt = '설명'; // 대체 텍스트를 제공합니다
-        img.style.width='400px';  // width를 정한다.
-        img.style.display = 'block'; // 블록 레벨 요소로 설정
-        img.style.margin = 'auto'; // 가로 방향으로 자동 마진 적용
+        img.src = 'assets/img/chatting.png'; 
+        img.alt = '설명'; 
+        img.style.width='400px';  
+        img.style.display = 'block'; 
+        img.style.margin = 'auto'; 
 
         // 컨테이너 div에 img 요소 추가
         containerDiv.appendChild(img);
@@ -333,20 +335,19 @@ function getChatRoomList(){
 
        // 채팅방이 없을 떄 
        if(chatRoomList.length==0){
-            // 채팅방 목록이 비어 있을 때
             const li = document.createElement('li');
             li.textContent = '채팅방이 없습니다';
             li.style.padding='30px';
             li.style.textAlign = 'center';
-            li.style.marginTop = '125px'; // 위치를 아래로 조정
-            li.style.fontSize = '1.6em'; // 텍스트 크기 키우기
+            li.style.marginTop = '125px'; 
+            li.style.fontSize = '1.6em'; 
             conversationsElement.appendChild(li);
        }
        // 채팅방이 있을 떄 
        else{
          // 채팅방 목록을 순회하면서 각 채팅방에 대한 HTML 요소 생성
          chatRoomList.forEach(chatRoom => {
-            const li = document.createElement('li'); // 새로운 li 요소 생성
+            const li = document.createElement('li'); 
 
             // 채팅방 버튼 생성
             const button = document.createElement('button');
@@ -396,7 +397,7 @@ function getChatRoomList(){
     });
 }
 
-// AI로부터 채팅방에 대한 질문 대답에 따른 히스토리를 가져오는 함수
+// 채팅방에 대한 질문(Q) 대답(A)에 따른 히스토리를 가져오는 함수
 function getChatQaHistory(chatRoom){
     // 모든 버튼에서 'active' 클래스 제거 
     const buttons = document.querySelectorAll('.conversation-button');
@@ -410,7 +411,7 @@ function getChatQaHistory(chatRoom){
         activeButton.classList.add('active');
     }
 
-    // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져온다.
+    // AI에서 제공하는 질문과 대답 쌍으로 이루어진 데이터를 가져오는 통신한다.(Rest-Api)
     const getHistory_URL=`http://127.0.0.1:8002/history/${user_id}/${chatRoom.target_object}`; // AI 소통 URL
     axios({
         method: 'get',
@@ -431,8 +432,9 @@ function getChatQaHistory(chatRoom){
             document.getElementById("to-bottom").style.display = 'none';
         }
 
+        // 화면에 표시하는 함수 호출
         displayChatQaHistory(response.data.conversation, 
-                             chatRoom);   // 화면에 표시하는 함수 호출
+                             chatRoom);   
     })
     .catch(error => {
         console.error('오류:', error);
@@ -440,31 +442,29 @@ function getChatQaHistory(chatRoom){
     });
 }
 
-// 채팅방에 대한 질문과 대답에 대한 히스토리를 보여주는 함수 (제 2안)
+// 채팅방에 대한 질문과 대답에 대한 히스토리를 화면에 보여주는 함수 
 function displayChatQaHistory(QaDatas, chatRoom) {
     const conversationView = document.querySelector('.view.conversation-view');
-    
-    conversationView.style.display = 'flex';  // display 'flex'
-    conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
-    conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+    conversationView.style.display = 'flex';  
+    conversationView.style.alignItems = 'center'; 
+    conversationView.innerHTML = ''; 
 
-    if(QaDatas.length==0){ // 채팅 히스토리 이력이 없는 경우
-        // main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' image를 보여준다.
-        
+    // 채팅 히스토리 이력이 없는 경우 -> main 부분에 중앙에 '원하는 주제로 채팅을 시작하세요' image를 보여준다.
+    if(QaDatas.length==0){ 
         // 중앙 정렬을 위한 컨테이너 div 생성
         var containerDiv = document.createElement('div');
-        containerDiv.style.display = 'flex'; // Flexbox 레이아웃 사용
-        containerDiv.style.justifyContent = 'center'; // 수평 중앙 정렬
-        containerDiv.style.alignItems = 'center'; // 수직 중앙 정렬
-        containerDiv.style.height = '100%'; // 컨테이너의 높이 설정
+        containerDiv.style.display = 'flex';                      // Flexbox 레이아웃 사용
+        containerDiv.style.justifyContent = 'center';             // 수평 중앙 정렬
+        containerDiv.style.alignItems = 'center';                 // 수직 중앙 정렬
+        containerDiv.style.height = '100%';                       // 컨테이너의 높이 설정
 
         // 새로운 img 요소를 생성
         var img = document.createElement('img');
-        img.src = 'assets/img/chatting.png'; // 여기에 이미지의 URL을 입력하세요
-        img.alt = '원하는 주제로 채팅을 시작하세요'; // 대체 텍스트를 제공합니다
-        img.style.width='400px';  // width를 정한다.
-        img.style.display = 'block'; // 블록 레벨 요소로 설정
-        img.style.margin = 'auto'; // 가로 방향으로 자동 마진 적용
+        img.src = 'assets/img/chatting.png';             
+        img.alt = '원하는 주제로 채팅을 시작하세요';                // 대체 텍스트를 제공합니다
+        img.style.width='400px';  
+        img.style.display = 'block'; 
+        img.style.margin = 'auto';                                // 가로 방향으로 자동 마진 적용
 
         // 컨테이너 div에 img 요소 추가
         containerDiv.appendChild(img);
@@ -477,84 +477,84 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     QaDatas.forEach(QaData => { 
         // 질문 div 생성
         const questionDiv = document.createElement('div');
-        questionDiv.style.width = '80%'; // 질문 div width
-        questionDiv.style.backgroundColor = '#F7F6FF'; // 질문 배경색
-        questionDiv.style.color = '#3B3F4E'; // 질문 텍스트 색
+        questionDiv.style.width = '80%';                        // 질문 div width
+        questionDiv.style.backgroundColor = '#F7F6FF';          // 질문 배경색
+        questionDiv.style.color = '#3B3F4E';                    // 질문 텍스트 색깔
         questionDiv.style.padding = '10px';   
-        questionDiv.style.margin = '0'; // 위쪽 마진
-        questionDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-        questionDiv.style.display = 'flex'; // flexbox 사용
-        questionDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
-        questionDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+        questionDiv.style.margin = '0';                         // 위쪽 마진
+        questionDiv.style.borderRadius = '8px';                 // 모서리 외곽선 둥글게
+        questionDiv.style.display = 'flex';                     // flexbox 사용
+        questionDiv.style.flexDirection = 'column';             // 아이콘과 텍스트를 위아래로 정렬
+        questionDiv.style.alignItems = 'flex-start';            // 텍스트를 왼쪽 정렬
 
         // '사람' 아이콘 추가
         const userIcon = document.createElement('i');
-        userIcon.className = 'material-icons'; // Material Icons 클래스
-        userIcon.textContent = 'person'; // 사용자 아이콘
-        userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
-        userIcon.style.marginBottom = '10px'; // 아이콘과 텍스트 간격 조절
-        userIcon.style.cursor = 'default'; // 마우스 커서를 기본으로 설정
+        userIcon.className = 'material-icons';                  // Material Icons 클래스
+        userIcon.textContent = 'person';                        // 사용자 아이콘
+        userIcon.style.color = 'black';                         // 아이콘 색상을 검정색으로 설정
+        userIcon.style.marginBottom = '10px';                   // 아이콘과 텍스트 간격 조절
+        userIcon.style.cursor = 'default';                      // 마우스 커서를 기본으로 설정
 
-        questionDiv.appendChild(userIcon); // 아이콘을 div에 추가
+        questionDiv.appendChild(userIcon);                      // 아이콘을 div에 추가
 
         // 질문 텍스트 추가
         const questionText = document.createElement('span');
         questionText.innerHTML = '<br>' + QaData.question;
-        questionText.style.padding = '10px';   // 패딩 추가
-        questionDiv.appendChild(questionText); // 질문 텍스트를 div에 추가
+        questionText.style.padding = '10px';                    // 패딩 추가
+        questionDiv.appendChild(questionText);                  // 질문 텍스트를 div에 추가
 
         // 대답 div 생성
         const answerDiv = document.createElement('div');
-        answerDiv.style.width = '80%'; // 대답 영역 width
-        answerDiv.style.backgroundColor = '#F2F7FF'; // 대답 배경색
-        answerDiv.style.color = '#3B3F4E'; // 대답 텍스트 색
+        answerDiv.style.width = '80%';                          // 대답 영역 width
+        answerDiv.style.backgroundColor = '#F2F7FF';            // 대답 배경색
+        answerDiv.style.color = '#3B3F4E';                      // 대답 텍스트 색
         answerDiv.style.padding = '10px';
-        answerDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
-        answerDiv.style.borderRadius = '8px'; // 모서리 외곽선 둥글게
-        answerDiv.style.display = 'flex'; // flexbox 사용
-        answerDiv.style.flexDirection = 'column'; // 아이콘과 텍스트를 위아래로 정렬
-        answerDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+        answerDiv.style.margin = '10px 0 40px 0';               // 위쪽 마진 및 하단 마진 증가
+        answerDiv.style.borderRadius = '8px';                   // 모서리 외곽선 둥글게
+        answerDiv.style.display = 'flex';                       // flexbox 사용
+        answerDiv.style.flexDirection = 'column';               // 아이콘과 텍스트를 위아래로 정렬
+        answerDiv.style.alignItems = 'flex-start';              // 텍스트를 왼쪽 정렬
 
-        // 이미지 추가 (ENTER 이미지를 사용하려면 이미지 경로를 수정해야 함)
+        // 이미지 추가
         const enterImage = document.createElement('img');
-        enterImage.src = 'assets/img/ENTR_logo.png'; // ENTER 이미지 파일 경로
-        enterImage.style.height = '24px'; // 이미지 높이 조절
+        enterImage.src = 'assets/img/ENTR_logo.png';            // ENTER 이미지 파일 경로
+        enterImage.style.height = '24px';                       // 이미지 높이 조절
 
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
         answerText.innerHTML = '<br>' + QaData.answer;
-        answerText.style.padding = '10px'; // 패딩 추가
-        answerText.style.marginTop = '10px'; // 텍스트 위쪽 마진 추가
-        answerText.style.whiteSpace = 'pre-wrap';  // 대답 줄 바꿈
+        answerText.style.padding = '10px';                      // 패딩 추가
+        answerText.style.marginTop = '10px';                    // 텍스트 위쪽 마진 추가
+        answerText.style.whiteSpace = 'pre-wrap';               // 대답 줄 바꿈
 
         // 'edit Icon'을 배치한 div 생성
         const editIconDiv = document.createElement('div');
-        editIconDiv.style.marginTop = '10px'; // edit 아이콘 위쪽 마진 추가
-        editIconDiv.style.marginLeft = 'auto'; // 오른쪽 정렬
+        editIconDiv.style.marginTop = '10px';                   // edit 아이콘 위쪽 마진 추가
+        editIconDiv.style.marginLeft = 'auto';                  // 오른쪽 정렬
 
         // 'edit Icon' 추가
         const span = document.createElement('span');
         
         // 이미지 태그 생성
         const img = document.createElement('img');
-        img.src = 'assets/img/memo_icon.png'; // 이미지의 URL을 설정하세요.
-        img.alt = '메모 아이콘'; // 이미지에 대한 대체 텍스트를 설정하세요.
-        img.width = 22; // 너비를 22px로 설정
-        img.height = 22; // 높이를 22px로 설정                       
+        img.src = 'assets/img/memo_icon.png'; 
+        img.alt = '메모 아이콘';  
+        img.width = 22; 
+        img.height = 22;                       
                         
-        span.appendChild(img); // span 요소에 이미지를 추가합니다.
-        span.style.cursor = 'pointer'; // 마우스 오버 시 포인터 모양 변경
+        span.appendChild(img);                                  // span 요소에 이미지를 추가합니다.
+        span.style.cursor = 'pointer';                          // 마우스 오버 시 포인터 모양 변경
 
         // 대답(A) 하단 오른쪽 '연필 아이콘' 클릭 이벤트
         span.onclick = function() {
-            checkMemo(QaData.history_id); // 메모를 확인한다.
+            checkMemo(QaData.history_id);                      // 메모를 확인한다.
         };
 
-        editIconDiv.appendChild(span); // 아이콘을 div에 추가
+        editIconDiv.appendChild(span);                         // 아이콘을 div에 추가
 
-        answerDiv.appendChild(enterImage); // 이미지를 div에 추가
-        answerDiv.appendChild(answerText); // 대답 텍스트를 div에 추가
-        answerDiv.appendChild(editIconDiv); // edit 아이콘을 div에 추가
+        answerDiv.appendChild(enterImage);                     // 이미지를 div에 추가
+        answerDiv.appendChild(answerText);                     // 대답 텍스트를 div에 추가
+        answerDiv.appendChild(editIconDiv);                    // edit 아이콘을 div에 추가
 
         // 질문, 아이콘 및 대답 div를 conversation view에 추가
         conversationView.appendChild(questionDiv);
@@ -565,8 +565,8 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     conversationView.scrollTop = conversationView.scrollHeight;
 
     // 입력창도 보이게 해야 한다.
-    const messageForm = document.getElementById('message-form'); // 메시지 폼을 선택합니다.
-    messageForm.style.display = 'block'; // 메시지 폼을 보이게 설정합니다.
+    const messageForm = document.getElementById('message-form');   // 메시지 폼을 선택합니다.
+    messageForm.style.display = 'block';                           // 메시지 폼을 보이게 설정합니다.
     
     // 입력창에 있는 값은 항상 빈값 상태로 유지
     var textareaElement = document.getElementById('message');
@@ -579,18 +579,17 @@ function displayChatQaHistory(QaDatas, chatRoom) {
     sendButton.onclick = function() {
         // 입력한 값이 빈값인지 확인한다.
         if(document.getElementById('message').value===''){
-            document.getElementById('message').value='';  // 그래도 혹시 모르니 빈 값으로 설정 
-            document.getElementById('message').placeholder = '질문을 입력하고 ENTER만 치세요!'; // placeholder로 보여준다.
+            document.getElementById('message').value='';  
+            document.getElementById('message').placeholder = '질문을 입력하고 ENTER만 치세요!'; 
             alert('빈 값 입니다.');
         }
         else{
             console.log('클릭');
-            sendQuestion(chatRoom, QaDatas);   // 질문과 대답을 추가한다.
+            sendQuestion(chatRoom, QaDatas);                       // 질문과 대답을 추가한다.
         }
     };
     
-    // 하단 입력창에 엔터 클릭했을 때 리스너
-    // onkeydown 이벤트 핸들러를 할당합니다
+    // 하단 입력창에 엔터(Enter) 클릭했을 때 
     messageForm.onkeydown = function(e) {
         if (e.key === "Enter" && !e.shiftKey) {
             const messageInput = document.getElementById('message');
@@ -600,23 +599,23 @@ function displayChatQaHistory(QaDatas, chatRoom) {
                 alert('빈 값 입니다.');
                 messageInput.value = '';
                 messageInput.placeholder = '질문을 입력하고 ENTER만 치세요!';
-            } else {
-                sendQuestion(chatRoom, QaDatas);
+            } 
+            else {
+                sendQuestion(chatRoom, QaDatas);                  // 질문과 대답을 추가한다.
             }
         }
     };
 
 }
 
-// 새로운 메시지를 전송하는 함수
+// 새로운 질문을 전송하는 함수
 function sendQuestion(chatRoom, QaDatas) {
-    // 기존에 채팅 이력이 없었다면 "원하는 주제로 채팅을 시작하세요" image 보여줬던 것을 지운다.(Erase)
+    // 기존에 채팅 이력이 없었다면 "원하는 주제로 채팅을 시작하세요" image 보여줬던 것을 지운다.
     if(QaDatas.length==0){
         const conversationView = document.querySelector('.view.conversation-view');
-    
-        conversationView.style.display = 'flex';  // display 'flex'
-        conversationView.style.alignItems = 'center'; // 모든 자식 요소를 가로축 중앙에 정렬
-        conversationView.innerHTML = ''; // 기존에 채팅 이력을 삭제한다.
+        conversationView.style.display = 'flex';                                  // display 'flex'
+        conversationView.style.alignItems = 'center';                             // 모든 자식 요소를 가로축 중앙에 정렬
+        conversationView.innerHTML = '';                                          // 기존에 채팅 이력을 삭제한다.
     }
 
     // 입력창에 적은 text를 가져온다.
@@ -629,9 +628,9 @@ function sendQuestion(chatRoom, QaDatas) {
     // 질문을 화면에 추가
     addQA(question,
           '#F7F6FF',
-           false); // 질문 추가
+           false); 
 
-    // 대답을 위한 빈 div 추가
+    // 대답을 화면에 추가
     addQA('ENTER',
           '#F2F7FF',
            true);
@@ -641,7 +640,7 @@ function sendQuestion(chatRoom, QaDatas) {
 
     // 대답을 실시간으로 보여줄 떄는 사용자가 클릭 할 수 없게 '전송'하기 버튼을 비활성화 한다.
     const sendButton = document.querySelector('.send-button');
-    sendButton.style.display = 'none'; // 버튼 표시
+    sendButton.style.display = 'none';
 }
 
 // 대화(Q, A)에 메시지를 추가하는 함수
@@ -653,42 +652,42 @@ function addQA(message, bgColor, isAnswer) {
     messageDiv.style.width='80%';
     messageDiv.style.borderRadius = '8px';
     messageDiv.style.padding = '10px';
-    messageDiv.style.display = 'flex'; // Flexbox 적용
-    messageDiv.style.flexDirection = 'column'; // 아이템을 수직으로 정렬
-    messageDiv.style.alignItems = 'flex-start'; // 텍스트를 왼쪽 정렬
+    messageDiv.style.display = 'flex';             // Flexbox 적용
+    messageDiv.style.flexDirection = 'column';     // 아이템을 수직으로 정렬
+    messageDiv.style.alignItems = 'flex-start';    // 텍스트를 왼쪽 정렬
 
     // 대답인 경우
     if (isAnswer) {
         messageDiv.style.color = 'black';          // 텍스트 색깔 
         messageDiv.style.margin = '10px 0 40px 0'; // 위쪽 마진 및 하단 마진 증가
 
-        // 이미지 추가 (경로 수정 필요)
+        // 이미지 추가
         const enterImage = document.createElement('img');
         enterImage.src = 'assets/img/ENTR_logo.png';
         enterImage.style.height = '24px';
 
         // 대답 텍스트 추가
         const answerText = document.createElement('span');
-        answerText.id = 'answer-text'; // ID 설정
-        answerText.innerHTML = '<br>'; // 대답 텍스트 직접 지정
-        answerText.style.padding = '10px'; // 패딩 추가
-        answerText.style.display = 'block'; // 블록 레벨 요소로 만들기
-        answerText.style.marginTop = '10px'; // 상단 여백 추가
-        answerText.style.whiteSpace = 'pre-wrap'; // 대답 텍스트 줄바꿈
+        answerText.id = 'answer-text';              // ID 설정
+        answerText.innerHTML = '<br>';              // 대답 텍스트 직접 지정
+        answerText.style.padding = '10px';          // 패딩 추가
+        answerText.style.display = 'block';         // 블록 레벨 요소로 만들기
+        answerText.style.marginTop = '10px';        // 상단 여백 추가
+        answerText.style.whiteSpace = 'pre-wrap';   // 대답 텍스트 줄바꿈
 
         messageDiv.appendChild(enterImage);
         messageDiv.appendChild(answerText);
     } 
     // 질문인 경우
     else {
-        messageDiv.style.color = '#3B3F4E';     // 텍스트 색깔
-        messageDiv.style.margin = '10px 0 0 0'; // 위쪽 마진만 적용
+        messageDiv.style.color = '#3B3F4E';         // 텍스트 색깔
+        messageDiv.style.margin = '10px 0 0 0';     // 위쪽 마진만 적용
 
         // '사람' 아이콘 추가
         const userIcon = document.createElement('i');
         userIcon.className = 'material-icons';
         userIcon.textContent = 'person';
-        userIcon.style.color = 'black'; // 아이콘 색상을 검정색으로 설정
+        userIcon.style.color = 'black';            // 아이콘 색상을 검정색으로 설정
         userIcon.style.marginBottom = '10px';
 
         messageDiv.appendChild(userIcon);
@@ -696,7 +695,7 @@ function addQA(message, bgColor, isAnswer) {
         // 질문 텍스트 추가
         const questionText = document.createElement('span');
         questionText.innerHTML = '<br>' + message;
-        questionText.style.padding = '10px'; // 패딩 추가
+        questionText.style.padding = '10px'; 
         messageDiv.appendChild(questionText);
     }
 
@@ -704,16 +703,14 @@ function addQA(message, bgColor, isAnswer) {
     messageDiv.style.marginBottom = isAnswer ? '40px' : '0';
 
     conversationView.appendChild(messageDiv);
-    // return messageDiv; // 추가된 div 반환
 }
 
 // 대답(A)을 실시간으로 보여주는 함수
 const generateAnswerLive = (question, chatRoom) => {
     const answerLiveResponse_URL = `http://127.0.0.1:8002/answer/${user_id}/${chatRoom.target_object}/True`;  
-    // const messageElement = emptyAnswerDiv
     const conversationView = document.querySelector('.view.conversation-view');
 
-    // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 실시간으로 화면에 표시한다.
+    // AI에서 구현한 '대답을 실시간으로 보내주는 기능'을 받아와서 대답 실시간 스트리밍을 보여준다.
     fetch(answerLiveResponse_URL, {
         method: 'POST',
         headers: {
@@ -755,7 +752,8 @@ const generateAnswerLive = (question, chatRoom) => {
           return readChunk();
         })
         .then(() => {
-            conversationView.scrollTop = conversationView.scrollHeight;  // 최신 질문과 대답을 볼 수 있도록 자동적으로 아래로 스크롤한다.
+             // 최신 질문과 대답을 볼 수 있도록 자동적으로 아래로 스크롤한다.
+            conversationView.scrollTop = conversationView.scrollHeight; 
 
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
@@ -774,7 +772,7 @@ const generateAnswerLive = (question, chatRoom) => {
             
             // 하단 입력창에 대한 '전송' 버튼을 활성화 한다.
             const sendButton = document.querySelector('.send-button');
-            sendButton.style.display = 'block'; // 버튼 표시
+            sendButton.style.display = 'block'; 
 
             // 1초 (1000 밀리초) 후에 실행할 코드 또는 함수
             setTimeout(function() {
@@ -790,7 +788,7 @@ function checkMemo(history_id) {
     console.log('history_id : ', history_id);
     const getMemo_URL= `http://localhost:8000/main/memo/detail/?memo_id=${history_id}`; // 백엔드 소통 URL
 
-    // 백엔드에서 구현한 '메모 불러오기' 기능과 소통한다.
+    // 백엔드 측으로부터 '메모 불러오기' 기능을 통신한다.(Rest-Api)
     axios({
         method: 'get',
         url: getMemo_URL, 
@@ -801,13 +799,13 @@ function checkMemo(history_id) {
     .then(response => {
         console.log('성공:', response);
         
-        // 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정하기 삭제하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 있으면 사용자가 입력했었던 메모를 보여주고 수정, 삭제 버튼을 클릭할 수 있도록 한다.
         if(response.data.data.is_memo===true){
             showMemo(history_id,
                           true,
                           response.data.data.memo.memo_content);
         }
-        // 메모가 없으면 빈 메모를 보여주고 저장하기 버튼을 클릭할 수 있도록 한다.
+        // 메모가 없으면 빈 메모를 보여주고 저장 버튼을 클릭할 수 있도록 한다.
         else{
             showMemo(history_id, 
                           false);
@@ -850,14 +848,15 @@ function showMemo(history_id, flag, txt = '') {
 
     // 닫기 버튼 생성
     const closeButton = document.createElement('span');
-    closeButton.textContent = '×'; // 'X' 문자
+    closeButton.textContent = '×'; 
     closeButton.className = 'close-button';
     closeButton.style.position = 'absolute';
     closeButton.style.top = '10px';
     closeButton.style.right = '10px';
     closeButton.style.cursor = 'pointer';
-    closeButton.style.fontSize = '30px'; // 크기 설정
-    closeButton.style.fontWeight = 'bold'; // 굵기 설정
+    closeButton.style.fontSize = '30px'; 
+    closeButton.style.fontWeight = 'bold'; 
+
     // 닫기 버튼 클릭 이벤트
     closeButton.onclick = function() {
         document.body.removeChild(popupContainer);
@@ -878,7 +877,7 @@ function showMemo(history_id, flag, txt = '') {
     memoInput.style.marginBottom = '10px';
     memoInput.style.boxSizing = 'border-box';
     memoInput.style.border = '1px solid #333'; 
-    memoInput.style.fontFamily='scd'; // 글꼴 설정
+    memoInput.style.fontFamily='scd'; 
     memoInput.style.resize = 'none';
     memoInput.style.padding = '15px';
     memoInput.style.borderRadius = '5px';
@@ -892,28 +891,30 @@ function showMemo(history_id, flag, txt = '') {
 
     // 메모가 있을 경우
     if (flag) {
-        memoInput.value = txt; // 기존 메모 내용
+        memoInput.value = txt; // 기존 메모 내용으로 대치한다.
 
-        // 수정하기 버튼 생성 및 추가
+        // 수정 버튼 생성 및 추가
         const editButton = document.createElement('button');
         editButton.textContent = '수정';
         editButton.style.marginLeft = '10px';
-        editButton.style.fontFamily='scd'; // 글꼴 설정
-        editButton.style.backgroundColor='#454997'; // 배경색 설정
-        editButton.style.color= 'white'; // 폰트 색 설정
-        editButton.onclick = function() {
+        editButton.style.fontFamily='scd';
+        editButton.style.backgroundColor='#454997';
+        editButton.style.color= 'white'; 
+
+        editButton.onclick = function() {   // 수정 버튼을 클릭했을 떄 메모를 수정한다.
             const updatedMemo = memoInput.value;
             updateMemo(history_id, updatedMemo);
         };
 
-        // 삭제하기 버튼 생성 및 추가
+        // 삭제 버튼 생성 및 추가
         const deleteButton = document.createElement('button');
         deleteButton.textContent = '삭제';
         deleteButton.style.marginLeft = '10px';
-        deleteButton.style.fontFamily='scd'; // 글꼴 설정
-        deleteButton.style.backgroundColor='#454997'; // 배경색 설정
-        deleteButton.style.color= 'white'; // 폰트 색 설정
-        deleteButton.onclick = function() {
+        deleteButton.style.fontFamily='scd'; 
+        deleteButton.style.backgroundColor='#454997'; 
+        deleteButton.style.color= 'white'; 
+
+        deleteButton.onclick = function() {  // 삭제 버튼을 클릭했을 떄 메모를 삭제한다.
             deleteMemo(history_id);
         };
 
@@ -925,14 +926,16 @@ function showMemo(history_id, flag, txt = '') {
         // 저장하기 버튼 생성 및 추가
         const saveButton = document.createElement('button');
         saveButton.textContent = '저장';
-        saveButton.style.fontFamily='scd'; // 글꼴 설정
-        saveButton.style.backgroundColor='#454997'; // 배경색 설정
-        saveButton.style.color= 'white'; // 폰트 색 설정
-        saveButton.onclick = function() {
+        saveButton.style.fontFamily='scd'; 
+        saveButton.style.backgroundColor='#454997'; 
+        saveButton.style.color= 'white'; 
+
+        saveButton.onclick = function() {   // 저장 버튼을 클릭했을 떄 메모를 저장한다.
             const memoContent = memoInput.value;
             if (memoContent === '') {
                 alert('메모 내용을 입력해야 합니다.');
-            } else {
+            } 
+            else {
                 saveMemo(history_id, memoContent);
             }
         };
@@ -961,7 +964,7 @@ function showMemo(history_id, flag, txt = '') {
 
 // 메모를 저장하는 함수
 function saveMemo(history_id, memoContent){
-    // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
+    // 백엔드측으로부터  '메모 작성하기' 기능과 통신(Rest-Api)
     const writeMemo_URL=`http://localhost:8000/main/memo/create/`;
     axios({
         method: 'post',
@@ -987,13 +990,14 @@ function saveMemo(history_id, memoContent){
 
 // 메모를 수정하는 함수
 function updateMemo(history_id, memoContent){
-    // 백엔드에서 구현한 '메모 작성하기' 기능과 소통한다.
     const updateMemo_URL=`http://localhost:8000/main/memo/update/`;
 
-    if(memoContent==''){  // 메모 내용이 빈값인 경우
+    // 메모 내용이 빈값인 경우
+    if(memoContent==''){  
         alert('빈값을 입력하셨습니다.');
     }
     else{
+        // 백엔드 측으로부터 '메모 수정하기' 기능과 통신(Rest-Api)
         axios({
             method: 'post',
             url: updateMemo_URL, 
@@ -1030,10 +1034,8 @@ function deleteMemo(history_id){
         cancelButtonText: '취소'
     }).then((result) => {
         if (result.isConfirmed) {
-            // 실제 동작 수행
-            // 백엔드에서 구현한 '메모 삭제하기' 기능과 소통한다.
+            // 백엔드 측으로부터 '메모 삭제하기' 기능과 통신(Rest-Api)
             const deleteMemo_URL=`http://localhost:8000/main/memo/delete/`;
-
             axios({
                 method: 'post',
                 url: deleteMemo_URL, 
@@ -1061,14 +1063,14 @@ function closeMemo() {
     const overlay = document.getElementById('overlay');
     const popupContainer = document.getElementById('memoPopup');
     if (overlay) {
-        document.body.removeChild(overlay); // 오버레이 제거
+        document.body.removeChild(overlay);        // 오버레이 제거
     }
     if (popupContainer) {
         document.body.removeChild(popupContainer); // 팝업 컨테이너 제거
     }
 }
 
-// context에서 '수정'을 클릭했을 떄 
+// context에서 '수정'을 클릭했을 떄 호출되는 함수
 function modify(){
     var contextMenu=document.getElementById("contextMenu");
     var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
@@ -1088,7 +1090,7 @@ function modify(){
     errorMessageDiv.textContent='';
 }
 
-// 팝업에서 채팅방 제목을 수정했을 떄 호출되는 함수
+// 채팅방 수정하는 팝업에서 수정 button click 했을 떄 호출되는 함수
 function editChatRoom(){
     event.preventDefault(); // 새로고침 방지
 
@@ -1098,9 +1100,9 @@ function editChatRoom(){
     var form = document.getElementById('update-chat-form');
     var chatroomName = form.elements['chatroom-name'].value;
 
-    const editChatRoom_URL='http://localhost:8000/main/chatWindow/update/'; // 백엔드 소통 URL
+    const editChatRoom_URL='http://localhost:8000/main/chatWindow/update/';
 
-    // 백엔드에서 구현한 '채팅방 수정' 기능을 통신한다.
+    // 백엔드 측으로부터 구현한 '채팅방 수정' 기능을 통신(Rest-Api)
     axios({
         method: 'post',
         url: editChatRoom_URL,
@@ -1153,7 +1155,7 @@ function deleteChatRoom(){
             var chatWindowId=contextMenu.getAttribute('data-chat-window-id');
             const deleteChatRoom_URL='http://localhost:8000/main/chatWindow/delete/'; // 백엔드 소통 URL
 
-            // 백엔드에서 구현한 '채팅방 삭제' 기능을 통신한다.
+            // 백엔드 측으로부터 구현한 '채팅방 삭제' 기능을 통신(Rest-Api)
             axios({
                 method: 'post',
                 url: deleteChatRoom_URL,
@@ -1202,13 +1204,13 @@ function AIconfig() {
     var modal = document.getElementById("myModal");  // 모달창 
     var isModalOpen = modal.style.display === "block";
 
-    // modal.style.display==='block'일 떄 (즉 Model 화면을 나가려고 할 떄 )
+    // modal.style.display==='block'일 떄 (Model 화면을 나가려고 할 떄 )
     if (isModalOpen) {     
         modal.style.display="none";
 
         removeBlurFromElements();
     } 
-    // modal.style.display==='none'일 떄  (즉 Model 화면으로 들어왔을 떄 )
+    // modal.style.display==='none'일 떄  (Model 화면으로 들어왔을 떄 )
     else {                
         modal.style.display = "block";
 
@@ -1239,7 +1241,7 @@ function removeBlurFromElements() {
     document.querySelector('main').classList.remove('blur-effect');
 }
 
-// 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창에서 '크롤러 설정'을 click 했을 떄 호출되는 함수 
 function handleCrawlerClick() {
     // 이미지
     document.querySelector(".settings-img").style.display = 'none';
@@ -1255,11 +1257,9 @@ function handleCrawlerClick() {
     document.querySelector(".content-area").style.alignItems ="center";
     document.querySelector(".content-area").style.justifyContent ="center";
 
-    // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져옵니다. 다 쓰일떄가 있으니까 가져온거여 ~ 
+    // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져온다.
     const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
-    const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); // JSON 문자열을 객체로 변환
-
-    console.log('chatRoomList : ', chatRoomList);
+    const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist);
 
     var popup2_content = document.querySelector(".popup2-content");
     popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
@@ -1282,16 +1282,15 @@ function handleCrawlerClick() {
     popup1_content.style.justifyContent = 'center';
     popup1_content.style.alignItems = 'center';
 
-
     // 버튼 스타일
-    var buttonStyle = 'background-color: #454997; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center;  font-family: scd';
+    var buttonStyle = 'background-color: #454997; color: #FFFFFF; margin: 10px; padding: 10px 20px; border: none; cursor: pointer; width: 160px; height: 50px; text-align:center; font-family: scd';
 
     // '대상 설정' 버튼 생성 및 스타일링
     var targetSettingButton = document.createElement('button');
     targetSettingButton.textContent = '대상 설정';
     targetSettingButton.style.cssText = buttonStyle;
-    targetSettingButton.onclick = function() { 
-        targetSetting(chatRoomList); // '대상 설정'에 대한 팝업을 띄운다.
+    targetSettingButton.onclick = function() {                 // '대상 설정' button을 click 했을 떄 
+        targetSetting(chatRoomList);                           // '대상 설정'에 대한 팝업을 띄운다.
     };
     popup1_content.appendChild(targetSettingButton);
 
@@ -1299,8 +1298,8 @@ function handleCrawlerClick() {
     var collectionStatusButton = document.createElement('button');
     collectionStatusButton.textContent = '수집 현황';
     collectionStatusButton.style.cssText = buttonStyle;
-    collectionStatusButton.onclick = function() { 
-        collectStatus(chatRoomList); // '수집 현황'에 대한 팝업을 띄운다.
+    collectionStatusButton.onclick = function() {              // '수집 현황' button을 click 했을 떄 
+        collectStatus(chatRoomList);                           // '수집 현황'에 대한 팝업을 띄운다.
      };
     popup1_content.appendChild(collectionStatusButton);
 
@@ -1308,13 +1307,13 @@ function handleCrawlerClick() {
     var crawlerTemplateSettingButton = document.createElement('button');
     crawlerTemplateSettingButton.textContent = '크롤러 템플릿 설정';
     crawlerTemplateSettingButton.style.cssText = buttonStyle;
-    crawlerTemplateSettingButton.onclick = function() {
-        crawlerTemplateSetting();  // '크롤러 템플릿 설정'에 대한 팝업을 띄운다.
+    crawlerTemplateSettingButton.onclick = function() {        // '크롤러 템플릿 설정' button을 click 했을 떄 
+        crawlerTemplateSetting();                              // '크롤러 템플릿 설정'에 대한 팝업을 띄운다.
     };
     popup1_content.appendChild(crawlerTemplateSettingButton);
 }
 
-// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창 '크롤러 설정' - '대상 설정'을 click 했을 떄 호출되는 함수 
 function targetSetting(chatRoomList) {
     // 팝업 div 생성
     var popup = document.createElement('div');
@@ -1332,7 +1331,6 @@ function targetSetting(chatRoomList) {
     popup.style.display = 'flex';
     popup.style.flexDirection = 'column';
     popup.style.justifyContent = 'space-around';
-    // popup.style.alignItems = 'center';
 
     // '수집 대상' 텍스트
     var collectionTargetText = document.createElement('h3');
@@ -1343,7 +1341,7 @@ function targetSetting(chatRoomList) {
     var dropdown = document.createElement('select');
     dropdown.style.width = '100%';
     dropdown.style.border = '1px solid #000000';
-    dropdown.style.fontFamily = 'scd'; // font-family 스타일 추가
+    dropdown.style.fontFamily = 'scd'; 
     dropdown.style.padding = '5px'; 
     dropdown.style.borderRadius = '5px';
 
@@ -1368,27 +1366,23 @@ function targetSetting(chatRoomList) {
     var buttonContainer = document.createElement('div');
     buttonContainer.style.width = '100%';
     buttonContainer.style.display = 'flex';
-    buttonContainer.style.justifyContent = 'flex-end'; // 오른쪽 정렬
-    buttonContainer.style.alignItems = 'flex-end'; // 하단 정렬
+    buttonContainer.style.justifyContent = 'flex-end'; 
+    buttonContainer.style.alignItems = 'flex-end'; 
     
 
     // '수집시작' 버튼
     var startButton = document.createElement('button');
     startButton.textContent = '수집시작';
-    startButton.style.marginRight = '10px'; // '나가기' 버튼과 간격
-    startButton.style.fontFamily='scd';  // 글꼴 설정
-    startButton.style.backgroundColor='#454997'; // 배경색 설정
-    startButton.style.color= 'white'; // 폰트 색 설정
-    startButton.onclick = function() {
-        // 1. 첫 번쨰 드롭다운 메뉴에 있는 관련된 정보들이 콘솔에 정상적으로 찍히는지 확인한다.
-        console.log('지금 선택한 드롭다운 메뉴의 target_object : ', dropdown.options[dropdown.selectedIndex].value);
-
-
-        //2. 수집 시작 버튼을 클릭했을 떄 AI 측과 연동하여 로직을 구성한다.
+    startButton.style.marginRight = '10px';
+    startButton.style.fontFamily='scd';  
+    startButton.style.backgroundColor='#454997'; 
+    startButton.style.color= 'white'; 
+    startButton.onclick = function() { // '수집시작' 버튼을 click 했을 떄 
+        // AI 측으로부터 주제에 대한 크롤러 수집을 할 수 있도록 한다.
         axios({
             method: 'get',
-            url: `http://f3e4.ngrok-free.app/start_crawl/asdf1234/${dropdown.options[dropdown.selectedIndex].value}`,
-        })  // ex.) http://f3e4-(ip 주소).ngrok-free.app 주원 행님이 ip 주소 없애라 한다.
+            url: `http://f3e4.ngrok-free.app/start_crawl/${user_id}/${dropdown.options[dropdown.selectedIndex].value}`,
+        })  
         .then(response => {
             alert('수집 시작을 합니다.');
             console.log('수집 완료: ', response);
@@ -1407,11 +1401,11 @@ function targetSetting(chatRoomList) {
     // '나가기' 버튼
     var exitButton = document.createElement('button');
     exitButton.textContent = '나가기';
-    exitButton.style.fontFamily='scd';  // 글꼴 설정
-    exitButton.style.backgroundColor='#454997'; // 배경색 설정
-    exitButton.style.color= 'white'; // 폰트 색 설정
-    exitButton.onclick = function() {
-        document.body.removeChild(popup); // 나가기
+    exitButton.style.fontFamily='scd';  
+    exitButton.style.backgroundColor='#454997'; 
+    exitButton.style.color= 'white'; 
+    exitButton.onclick = function() {       // 나가기 버튼을 click 했을 떄 
+        document.body.removeChild(popup);   // 나가기
     };
     buttonContainer.appendChild(exitButton);
 
@@ -1422,24 +1416,20 @@ function targetSetting(chatRoomList) {
     document.body.appendChild(popup);
 }
 
-// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창 '크롤러 설정' - '수집 현황'을 click 했을 떄 호출되는 함수
 function collectStatus(chatRoomList) {
-    console.log('chatRoomList : ', chatRoomList);
-
     // 채팅방이 없으면 수집하는 alert 문구를 띄우고 더이상 진행하지 못하게 한다.
     if (chatRoomList.length === 0) { 
         alert("채팅방을 만들어야 수집할 수 있습니다.");
         return;
     }
 
-    // '수집 현황' 버튼 click 했을 떄 AI 측에서 키워드와 키워드에 대한 시간 데이터(??)를 받아온다.
+    // AI 측으로부터 수집 현황 데이터를 받는 통신한다.(Rest-Api)
     axios({
         method: 'post',
         url: `http://localhost:8002/crawl_data/${user_id}/${chatRoomList[0].target_object}`,
     })  
-    .then(response => {
-        console.log('성공 : ', response);
-        
+    .then(response => {    
         // 첫번쨰 드롭다운, 두번쨰 드롭다운, 나가기 버튼을 담는 div 영역을 마련한다.
         var popup = document.createElement('div');
         popup.style.width = '400px';
@@ -1466,7 +1456,7 @@ function collectStatus(chatRoomList) {
         firstDropdown.style.width = '80%';
         firstDropdown.style.height = '25px';
         firstDropdown.style.border = '1px solid #000000';
-        firstDropdown.style.fontFamily='scd';  // 글꼴 설정
+        firstDropdown.style.fontFamily='scd'; 
 
         // 드롭다운마다 채팅방의 target_object와 title을 저장한 메뉴를 보여준다.
         chatRoomList.forEach(chatRoom => { 
@@ -1479,11 +1469,11 @@ function collectStatus(chatRoomList) {
 
         popup.appendChild(firstDropdown);
 
-        // 첫 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
+        // 첫 번째 드롭다운의 선택 변경 이벤트 처리
         firstDropdown.onchange = function() {
             var selectedOption = firstDropdown.options[firstDropdown.selectedIndex]; // 현재 선택된 옵션
 
-            // axios로 해당 드롭다운 메뉴의 user_id와 target_object를 활용해 요청을 보낸다.
+            // AI 측으로부터 axios로 해당 드롭다운 메뉴의 user_id와 target_object를 활용해 요청 통신(Rest-Api)
             axios({
                 method: 'post',
                 url: `http://localhost:8002/crawl_data/${user_id}/${selectedOption.value}`,
@@ -1493,9 +1483,7 @@ function collectStatus(chatRoomList) {
 
                 // data가 있는지 없는지 확인하여 2번째 드롭다운 메뉴에 포함한다.
                 if(response.data.status==false){
-                    console.log('if문 적용');
-
-                    // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+                    // 기존 두 번쨰 드롭다운에 있었던 메뉴를 지운다.
                     secondDropdown.innerHTML='';
 
                     var option = document.createElement('option');
@@ -1506,12 +1494,10 @@ function collectStatus(chatRoomList) {
                     resultTextArea.value = '결과를 확인할 수 없습니다.';
                 }
                 else {
-                    console.log('else문 적용');
-
-                    // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+                    // 기존 두 번쨰 드롭다운에 있었던 메뉴를 지운다.
                     secondDropdown.innerHTML='';
 
-                    // 데이터를 받아와서 2번쨰 드롭다운 메뉴에 추가한다.
+                    // 데이터를 받아와서 두 번쨰 드롭다운 메뉴에 추가한다.
                     for (var key in response.data) {
                         if (response.data.hasOwnProperty(key)) {
                             var option = document.createElement('option');
@@ -1544,34 +1530,34 @@ function collectStatus(chatRoomList) {
         
         popup.appendChild(secondDropdown);
 
-        // AI 측에서 받아온 데이터 길이를 판별하여 2 번째 드롭다운 메뉴 생성
+        // AI 측에서 받아온 데이터 길이를 판별하여 두 번째 드롭다운 메뉴 생성
         if(response.data.status==false){
-            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+            // 기존 두 번쨰 드롭다운에 있었던 메뉴를 지운다.
             secondDropdown.innerHTML='';
 
-            // 2번쨰 드롭다운에 '수집된 데이터가 없습니다.' 문구 추가
+            // 두 번쨰 드롭다운에 '수집된 데이터가 없습니다.' 문구 추가
             var option = document.createElement('option');
             option.value = '수집된 데이터가 없습니다.'; 
             option.textContent = '수집된 데이터가 없습니다.';
             secondDropdown.appendChild(option);
         }
         else {
-            // 기존 2번쨰 드롭다운에 있었던 메뉴를 지운다.
+            // 기존 두 번쨰 드롭다운에 있었던 메뉴를 지운다.
             secondDropdown.innerHTML='';
 
-            // 데이터를 받아와서 2번쨰 드롭다운 메뉴에 추가한다.
+            // 데이터를 받아와서 두 번쨰 드롭다운 메뉴에 추가한다.
             for (var key in response.data) {
                 if (response.data.hasOwnProperty(key)) {
                     var option = document.createElement('option');
-                    option.value = response.data[key]; // 값으로 설정
-                    option.textContent = key; // 키를 텍스트로 설정
+                    option.value = response.data[key];    // 값으로 설정
+                    option.textContent = key;             // 키를 텍스트로 설정
                     secondDropdown.appendChild(option);
                 }
             }
         }
         popup.appendChild(secondDropdown);
 
-        // 두 번째 드롭다운의 선택 변경 이벤트 처리 (즉 Listener로 생각하면 된다.)
+        // 두 번째 드롭다운의 선택 변경 이벤트 처리
         secondDropdown.onchange = function() {
             // '조회 영역' 텍스트에 이렇게 배치한다.
             resultTextArea.value = '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
@@ -1582,7 +1568,7 @@ function collectStatus(chatRoomList) {
         resultTitle.textContent = '조회 결과';
         resultTitle.style.display = 'block';
         resultTitle.style.marginTop = '20px';
-        resultTitle.style.fontFamily='scd';  // 글꼴 설정
+        resultTitle.style.fontFamily='scd';  
         popup.appendChild(resultTitle);
 
 
@@ -1594,14 +1580,13 @@ function collectStatus(chatRoomList) {
                               : '수집된 데이터는 ' + secondDropdown.options[secondDropdown.selectedIndex].value + '건 입니다.';
 
         resultTextArea.style.marginTop = '5px';
-        resultTextArea.style.border = 'none';  // 외곽선 제거
+        resultTextArea.style.border = 'none';  
         resultTextArea.style.padding = '10px';
-        resultTextArea.style.wordWrap = 'break-word'; // 긴 텍스트가 넘칠 때 자동으로 줄바꿈
-        resultTextArea.style.fontFamily = 'scd';  // 글꼴 설정
-        resultTextArea.readOnly = true; // 편집 불가능하게 설정 
+        resultTextArea.style.wordWrap = 'break-word'; 
+        resultTextArea.style.fontFamily = 'scd';  
+        resultTextArea.readOnly = true;  
         resultTextArea.style.resize = 'none';
         popup.appendChild(resultTextArea);
-
 
 
         // '나가기' 버튼을 담는 컨테이너 설정
@@ -1616,23 +1601,23 @@ function collectStatus(chatRoomList) {
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.background = '#FFFFFF';
-        exitButton.style.backgroundColor='#454997'; // 배경색 설정
-        exitButton.style.color= 'white'; // 폰트 색 설정
+        exitButton.style.backgroundColor='#454997'; 
+        exitButton.style.color= 'white'; 
         exitButton.style.padding = '10px 20px';
         exitButton.style.border = '1px solid black';
         exitButton.style.cursor = 'pointer';
         exitButton.style.marginLeft = '10px';
-        exitButton.style.fontFamily='scd';  // 글꼴 설정
-        exitButton.onmouseover = function() {
-            this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-            this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+        exitButton.style.fontFamily='scd';  
+        exitButton.onmouseover = function() {        // '나가기' 버튼에 mouse를 가까이 둘 떄 
+            this.style.backgroundColor = '#454997';
+            this.style.color = '#FFFFFF'; 
         };
-        exitButton.onmouseout = function() {
-            this.style.backgroundColor = '#FFFFFF'; // 마우스 아웃 시 원래 배경 색상으로 변경
-            this.style.color = '#000000'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+        exitButton.onmouseout = function() {         // '나가기' 버튼에 mouse를 땟을 떄 
+            this.style.backgroundColor = '#FFFFFF'; 
+            this.style.color = '#000000'; 
         };
-        exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄 
-            document.body.removeChild(popup); // 나가기
+        exitButton.onclick = function() {            // '나가기' 버튼을 click 했을 떄 
+            document.body.removeChild(popup);        // 나가기
         };
         buttonContainer.appendChild(exitButton);
 
@@ -1650,9 +1635,9 @@ function collectStatus(chatRoomList) {
 }
 
 // 
-// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창 '크롤러 설정' - '크롤러 템플릿 설정'을 click 했을 떄 호출되는 함수
 function crawlerTemplateSetting() {
-    // AI 측으로부터 크롤러 템플릿 설정 정보를 가져온다.
+    // AI 측으로부터 크롤러 템플릿 설정 정보를 가져오는 통신(Rest-Api)
     const templateLoad_URL=`http://localhost:8002/load_template/${user_id}/llama/crawl`;
     axios({
         method: 'get',
@@ -1686,12 +1671,12 @@ function crawlerTemplateSetting() {
         // 회사 정보 입력칸
         var companyInfoInput = document.createElement('textarea');
         companyInfoInput.type = 'text';
-        companyInfoInput.value = response.data.company_info=='' ? response.data.company_info_default : response.data.company_info;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        companyInfoInput.value = response.data.company_info=='' ? response.data.company_info_default : response.data.company_info;  
         companyInfoInput.style.width = '100%';
         companyInfoInput.style.height = '120px';
-        companyInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
-        companyInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
-        companyInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
+        companyInfoInput.style.border = '1px solid black'; 
+        companyInfoInput.style.resize = 'none';
+        companyInfoInput.style.fontFamily = 'scd'; 
         popup.appendChild(companyInfoInput);
 
         // '타켓 정보 설정' 텍스트
@@ -1702,12 +1687,11 @@ function crawlerTemplateSetting() {
         // 타켓 정보 입력칸
         var targetInfoInput = document.createElement('textarea');
         targetInfoInput.type = 'text';
-        targetInfoInput.value = response.data.product_info=='' ? response.data.product_info_default : response.data.product_info;   // response 받아와서 product_info가 빈값이면 product_info_default 값으로 대치한다. (삼항 연산자를 통해서)
-        targetInfoInput.style.width = '100%';
+        targetInfoInput.value = response.data.product_info=='' ? response.data.product_info_default : response.data.product_info;   
         targetInfoInput.style.height = '240px';
-        targetInfoInput.style.border = '1px solid black'; // This line sets the border thickness to 2px and color to black
-        targetInfoInput.style.resize = 'none'; // 사용자가 크기를 조절하는 것을 방지
-        targetInfoInput.style.fontFamily = 'scd'; // 글꼴 설정
+        targetInfoInput.style.border = '1px solid black'; 
+        targetInfoInput.style.resize = 'none'; 
+        targetInfoInput.style.fontFamily = 'scd'; 
         popup.appendChild(targetInfoInput);
 
         // 버튼 컨테이너
@@ -1722,10 +1706,10 @@ function crawlerTemplateSetting() {
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
-        resetButton.style.fontFamily='scd';  // 글꼴 설정
-        resetButton.style.backgroundColor='#454997'; // 배경색 설정
-        resetButton.style.color= 'white'; // 폰트 색 설정
-        resetButton.onclick = function() {
+        resetButton.style.fontFamily='scd';  
+        resetButton.style.backgroundColor='#454997'; 
+        resetButton.style.color= 'white'; 
+        resetButton.onclick = function() { // '초기화' 버튼을 click 했을 떄 
             // 입력란의 값을 기본값으로 재설정합니다.
             companyInfoInput.value = response.data.company_info_default;
             targetInfoInput.value = response.data.product_info_default;
@@ -1736,11 +1720,11 @@ function crawlerTemplateSetting() {
         var applyButton = document.createElement('button');
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
-        applyButton.style.fontFamily='scd';  // 글꼴 설정
-        applyButton.style.backgroundColor='#454997'; // 배경색 설정
-        applyButton.style.color= 'white'; // 폰트 색 설정
+        applyButton.style.fontFamily='scd';  
+        applyButton.style.backgroundColor='#454997'; 
+        applyButton.style.color= 'white'; 
         applyButton.onclick = function() {
-            // AI 측에 크롤러 템플릿을 적용한다.
+            // AI 측으로부터  크롤러 템플릿을 적용하는 통신(Rest-Api)
             const templateEdit_URL=`http://localhost:8002/edit_template/${user_id}/llama/crawl`;
             axios({
                 method: 'post',
@@ -1770,11 +1754,11 @@ function crawlerTemplateSetting() {
         // '나가기' 버튼
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
-        exitButton.style.fontFamily='scd';  // 글꼴 설정
-        exitButton.style.backgroundColor='#454997'; // 배경색 설정
-        exitButton.style.color= 'white'; // 폰트 색 설정
-        exitButton.onclick = function() {
-            document.body.removeChild(popup);
+        exitButton.style.fontFamily='scd';  
+        exitButton.style.backgroundColor='#454997'; 
+        exitButton.style.color= 'white'; 
+        exitButton.onclick = function() {       // '나가기' 버튼을 click 했을 떄 
+            document.body.removeChild(popup);  // 나가기
         };
         buttonContainer.appendChild(exitButton);
 
@@ -1791,7 +1775,7 @@ function crawlerTemplateSetting() {
     });
 }
 
-// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창에서 '프롬프트 설정'을 click 했을 떄 호출되는 함수
 function handlePromptClick(){
     // 이미지
     document.querySelector(".settings-img").style.display = 'none';
@@ -1805,7 +1789,7 @@ function handlePromptClick(){
 
     document.querySelector(".content-area").style.display = "block";
     
-    // AI 측에서 정보를 가져온다.
+    // AI 측으로부터 프롬프트 설정과 같은 정보를 가져오는 통신(Rest-Api)
     axios({
         method: 'get',
         url: `http://localhost:8002/load_template/${user_id}/chatgpt/conversation`,
@@ -1813,13 +1797,13 @@ function handlePromptClick(){
         console.log('성공 : ', response);
 
         var popup1_content = document.querySelector(".popup1-content");
-        popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+        popup1_content.style.display = 'none';    // '크롤러 설정' 콘텐츠는 display None
 
         var popup3_content = document.querySelector(".popup3-content");
-        popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+        popup3_content.style.display = 'none';    // '레포트 설정' 콘텐츠는 display None
 
         var popup4_content = document.querySelector(".popup4-content");
-        popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+        popup4_content.style.display = 'none';    // '자주 쓰는 문구' 콘텐츠는 display None
         var messageBtnGroup = document.querySelector(".message-btn-group");
         messageBtnGroup.style.display = 'none';
 
@@ -1827,8 +1811,8 @@ function handlePromptClick(){
         popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
 
         var popup2_content = document.querySelector(".popup2-content");
-        popup2_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
-        popup2_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+        popup2_content.innerHTML='';              // 다시 빈 내용으로 설정한다.
+        popup2_content.style.display = 'block';   // 팝업 내용을 표시합니다.
 
         // '프롬프트 설정' 텍스트
         var promptNameText = document.createElement('h4');
@@ -1839,22 +1823,21 @@ function handlePromptClick(){
         // '프롬프트 설정' 입력 칸 
         var promptNameInput = document.createElement('textarea');
         promptNameInput.type = 'text';
-        promptNameInput.value = response.data.system =='' ? response.data.system_default : response.data.system;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        promptNameInput.value = response.data.system =='' ? response.data.system_default : response.data.system; 
         promptNameInput.style.width = '80%';
         promptNameInput.style.height = '200px';
         
-        promptNameInput.style.margin = '0 auto'; // 가운데 정렬
-        promptNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        promptNameInput.style.margin = '0 auto';
+        promptNameInput.style.display = 'block'; 
         promptNameInput.style.resize='none';
-        promptNameInput.style.fontFamily = 'scd'; // 글꼴 설정
+        promptNameInput.style.fontFamily = 'scd'; 
 
         popup2_content.appendChild(promptNameInput);
 
         // Divider 선
         var divider = document.createElement('hr');
-        // divider.style.width = '110%'; // 너비 설정
-        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
-        divider.style.margin = '20px 20px'; // 위아래 마진 설정
+        divider.style.border = '1px solid #ccc'; 
+        divider.style.margin = '20px 20px'; 
 
         popup2_content.appendChild(divider);
         
@@ -1867,26 +1850,24 @@ function handlePromptClick(){
         // 'condense 설정' 입력 칸 
         var condenseNameInput = document.createElement('textarea');
         condenseNameInput.type = 'text';
-        condenseNameInput.value = response.data.condense=='' ? response.data.condense_default : response.data.condense;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        condenseNameInput.value = response.data.condense=='' ? response.data.condense_default : response.data.condense;  
         condenseNameInput.style.width = '80%';
         condenseNameInput.style.height = '200px';
         
-        condenseNameInput.style.margin = '0 auto'; // 가운데 정렬
-        condenseNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        condenseNameInput.style.margin = '0 auto'; 
+        condenseNameInput.style.display = 'block'; 
         condenseNameInput.style.resize='none';
-        condenseNameInput.style.fontFamily = 'scd'; // 글꼴 설정
+        condenseNameInput.style.fontFamily = 'scd'; 
 
         popup2_content.appendChild(condenseNameInput);
 
         // Divider 선
         var divider = document.createElement('hr');
-        // divider.style.width = '110%'; // 너비 설정
-        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
-        divider.style.margin = '20px 20px'; // 위아래 마진 설정
+        divider.style.border = '1px solid #ccc'; 
+        divider.style.margin = '20px 20px'; 
 
         popup2_content.appendChild(divider);
 
-        // ###################################
         // 'Document 데이터 설정' 텍스트
         var metaDataNameText = document.createElement('h4');
         metaDataNameText.textContent = 'Document 데이터 설정';
@@ -1896,14 +1877,14 @@ function handlePromptClick(){
         // 'Document 데이터 설정' 입력 칸
         var metaDataNameInput = document.createElement('textarea');
         metaDataNameInput.type = 'text';
-        metaDataNameInput.value = response.data.document=='' ? response.data.document_default : response.data.document;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        metaDataNameInput.value = response.data.document=='' ? response.data.document_default : response.data.document; 
         metaDataNameInput.style.width = '80%';
         metaDataNameInput.style.height = '200px';
         
-        metaDataNameInput.style.margin = '0 auto'; // 가운데 정렬
-        metaDataNameInput.style.display = 'block'; // 블록 레벨 요소로 만들기
+        metaDataNameInput.style.margin = '0 auto'; 
+        metaDataNameInput.style.display = 'block'; 
         metaDataNameInput.style.resize='none';
-        metaDataNameInput.style.fontFamily = 'scd'; // 글꼴 설정
+        metaDataNameInput.style.fontFamily = 'scd'; 
         
         popup2_content.appendChild(metaDataNameInput);
 
@@ -1918,10 +1899,10 @@ function handlePromptClick(){
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
         resetButton.style.marginRight = '10px';
-        resetButton.style.fontFamily='scd';  // 글꼴 설정
-        resetButton.style.backgroundColor='#454997'; // 배경색 설정
-        resetButton.style.color= 'white'; // 폰트 색 설정
-        resetButton.onclick = function() {
+        resetButton.style.fontFamily='scd';  
+        resetButton.style.backgroundColor='#454997'; 
+        resetButton.style.color= 'white'; 
+        resetButton.onclick = function() {   // '초기화' 버튼 click 했을 떄 
             // 입력란의 값을 기본값으로 재설정합니다.
             promptNameInput.value = response.data.system_default;
             condenseNameInput.value= response.data.condense_default
@@ -1933,13 +1914,11 @@ function handlePromptClick(){
         var applyButton = document.createElement('button');
         applyButton.textContent = '적용';
         applyButton.style.marginRight = '10px';
-        applyButton.style.fontFamily='scd';  // 글꼴 설정
-        applyButton.style.backgroundColor='#454997'; // 배경색 설정
-        applyButton.style.color= 'white'; // 폰트 색 설정
-        applyButton.onclick = function() {
-            console.log('적용 버튼 클릭');
-
-            // AI 측에 프롬프트 설정을 적용한다.
+        applyButton.style.fontFamily='scd';  
+        applyButton.style.backgroundColor='#454997'; 
+        applyButton.style.color= 'white'; 
+        applyButton.onclick = function() { // '적용' 버튼을 click 했을 떄 
+            // AI 측으로부터  프롬프트 설정을 적용하는 통신(Rest-Api)
             axios({
                 method: 'post',
                 url: `http://localhost:8002/edit_template/${user_id}/chatgpt/conversation`,
@@ -1953,14 +1932,12 @@ function handlePromptClick(){
             })
             .then(response => {
                 console.log('성공 : ', response);
-
-                // 나가기 
-                popup2_content.style.display = 'none';
+                popup2_content.style.display = 'none';   // 나가기
             })
             .catch(error => {
                 alert('오류가 발생했습니다.');
                 console.log('에러');
-                console.error(error); // 오류 처리
+                console.error(error); 
             });
         };
         buttonContainer.appendChild(applyButton);
@@ -1968,11 +1945,11 @@ function handlePromptClick(){
         // '나가기' 버튼
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
-        exitButton.style.fontFamily='scd';  // 글꼴 설정
-        exitButton.style.backgroundColor='#454997'; // 배경색 설정
-        exitButton.style.color= 'white'; // 폰트 색 설정
-        exitButton.onclick = function() {
-            popup2_content.style.display = 'none';
+        exitButton.style.fontFamily='scd';  
+        exitButton.style.backgroundColor='#454997'; 
+        exitButton.style.color= 'white'; 
+        exitButton.onclick = function() {               // '나가기' 버튼 click 했을 떄 
+            popup2_content.style.display = 'none';      //  나가기
         };
         buttonContainer.appendChild(exitButton);
 
@@ -1987,7 +1964,7 @@ function handlePromptClick(){
     });
 }
 
-// 모달 창에서 '리포트 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창에서 '레포트 설정'을 click 했을 떄 호출되는 함수 
 function handleReportClick(){
     // 이미지
     document.querySelector(".settings-img").style.display = 'none';
@@ -2001,40 +1978,40 @@ function handleReportClick(){
 
     document.querySelector(".content-area").style.display = "block";
     
-    // AI 측으로부터 '리포트 템플릿', 'document 템플릿' 데이터를 가져온다.
+    // AI 측으로부터 '리포트 템플릿', 'document 템플릿' 데이터를 가져오는 통신(Rest-Api)
     axios({ 
         method: 'get',
         url: `http://localhost:8002/load_template/${user_id}/chatgpt/report`,
     })
     .then(response => {
-        console.log('리포트 불러오기 완료 :', response);
+        console.log('레포트 불러오기 완료 :', response);
 
         var popup1_content = document.querySelector(".popup1-content");
-        popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+        popup1_content.style.display = 'none';          // '크롤러 설정' 콘텐츠는 display None
 
         var popup2_content = document.querySelector(".popup2-content");
-        popup2_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+        popup2_content.style.display = 'none';         // '프롬프트 설정' 콘텐츠는 display None
 
         var popup4_content = document.querySelector(".popup4-content");
-        popup4_content.style.display = 'none'; // '자주 쓰는 문구' 콘텐츠는 display None
+        popup4_content.style.display = 'none';        // '자주 쓰는 문구' 콘텐츠는 display None
         var messageBtnGroup = document.querySelector(".message-btn-group");
         messageBtnGroup.style.display = 'none';
 
         var popup5_content = document.querySelector(".popup5-content");
-        popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
+        popup5_content.style.display = 'none';        // '모델 설정' 콘텐츠는 display None
 
         var popup3_content = document.querySelector(".popup3-content");
-        popup3_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
-        popup3_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+        popup3_content.innerHTML='';                  // 다시 빈 내용으로 설정한다.
+        popup3_content.style.display = 'block';       // 팝업 내용을 표시합니다.
  
-        // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져옵니다. 다 쓰일떄가 있으니까 가져온거여 ~ 
+        // '크롤러 설정' 섹션에서 data-chatroomlist 속성을 가져온다.
         const crawlerSettingSection = document.querySelector(".sidebar-area .section:first-child");
-        const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); // JSON 문자열을 객체로 
+        const chatRoomList = JSON.parse(crawlerSettingSection.dataset.chatroomlist); 
 
-        // '수집 대상' 텍스트 그 자체 
+        // '수집 대상' 텍스트 
         var collectionTargetText = document.createElement('h4');
         collectionTargetText.textContent = '수집 대상';
-        collectionTargetText.style.marginLeft = '60px'; // 여기에서 마진을 설정합니다
+        collectionTargetText.style.marginLeft = '60px'; 
         popup3_content.appendChild(collectionTargetText);
 
         // 동적으로 생성한 드롭다운 메뉴
@@ -2063,35 +2040,33 @@ function handleReportClick(){
 
         // 구분선
         var divider = document.createElement('hr');
-        // divider.style.width = '110%'; // 너비 설정
-        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
-        divider.style.margin = '20px 20px 0px 10px'; // 위아래 마진 설정
+        divider.style.border = '1px solid #ccc'; 
+        divider.style.margin = '20px 20px 0px 10px'; 
         popup3_content.appendChild(divider);
 
         
-        // '리포트 템플릿' 텍스트
+        // '레포트 템플릿' 텍스트
         var templateText = document.createElement('h4');
-        templateText.textContent = '리포트 템플릿';
+        templateText.textContent = '레포트 템플릿';
         templateText.style.marginLeft = '60px';
 
         popup3_content.appendChild(templateText);
 
-        // '리포트 템플릿' TextArea
+        // '레포트 템플릿' TextArea
         var templateTextArea = document.createElement('textarea');
-        templateTextArea.value = response.data.prompt=='' ? response.data.prompt_default : response.data.prompt;   // response 받아와서 company_info가 빈값이면 company_info_default 값으로 대치한다. (삼항 연산자를 통해서)
+        templateTextArea.value = response.data.prompt=='' ? response.data.prompt_default : response.data.prompt; 
         templateTextArea.style.width = '80%';
         templateTextArea.style.height = '300px';
         templateTextArea.style.marginLeft = '60px';
-        templateTextArea.style.resize = 'none'; // 크기 조정 비활성화
-        templateTextArea.style.fontFamily = 'scd'; // 글꼴 설정
+        templateTextArea.style.resize = 'none'; 
+        templateTextArea.style.fontFamily = 'scd'; 
 
         popup3_content.appendChild(templateTextArea);
 
         // 구분선
         var divider = document.createElement('hr');
-        // divider.style.width = '110%'; // 너비 설정
-        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
-        divider.style.margin = '20px 20px'; // 위아래 마진 설정
+        divider.style.border = '1px solid #ccc'; 
+        divider.style.margin = '20px 20px'; 
         popup3_content.appendChild(divider);
 
         // 'Document 템플릿'
@@ -2106,26 +2081,27 @@ function handleReportClick(){
         DocumentTextArea.style.width = '80%';
         DocumentTextArea.style.height = '150px';
         DocumentTextArea.style.marginLeft = '60px';
-        DocumentTextArea.style.resize = 'none'; // 크기 조정 비활성화
-        DocumentTextArea.style.fontFamily = 'scd'; // 글꼴 설정
+        DocumentTextArea.style.resize = 'none'; 
+        DocumentTextArea.style.fontFamily = 'scd'; 
         popup3_content.appendChild(DocumentTextArea);
 
         // 템플릿 저장 버튼 컨테이너
         var saveButtonContainer = document.createElement('div');
-        saveButtonContainer.style.width = '80%'; // 컨테이너의 너비를 80%로 설정
+        saveButtonContainer.style.width = '80%'; 
         saveButtonContainer.style.display = 'flex';
-        saveButtonContainer.style.justifyContent = 'flex-end'; // 모든 버튼을 오른쪽으로 정렬
+        saveButtonContainer.style.justifyContent = 'flex-end'; 
         saveButtonContainer.style.margin = '20px auto 0';
 
         
         // 초기화 버튼
         var resetButton = document.createElement('button');
         resetButton.textContent = '초기화';
-        resetButton.style.marginRight = '10px'; // 오른쪽 마진 적용
-        resetButton.style.fontFamily='scd';  // 글꼴 설정
-        resetButton.style.backgroundColor='#454997'; // 배경색 설정
-        resetButton.style.color= 'white'; // 폰트 색 설정
-        resetButton.onclick = function() {
+        resetButton.style.marginRight = '10px'; 
+        resetButton.style.fontFamily='scd';  
+        resetButton.style.backgroundColor='#454997'; 
+        resetButton.style.color= 'white'; 
+        resetButton.onclick = function() {  // '초기화' 버튼을 click 했을 떄 
+             // 입력란의 값을 기본값으로 재설정합니다.
             templateTextArea.value = response.data.prompt_default;
             DocumentTextArea.value = response.data.document_default;
         };
@@ -2134,12 +2110,12 @@ function handleReportClick(){
         // 템플릿 저장 버튼
         var saveTemplateButton = document.createElement('button');
         saveTemplateButton.textContent = '템플릿 저장';
-        saveTemplateButton.style.marginRight = '10px'; // 오른쪽 마진 적용
-        saveTemplateButton.style.fontFamily='scd';  // 글꼴 설정
-        saveTemplateButton.style.backgroundColor='#454997'; // 배경색 설정
-        saveTemplateButton.style.color= 'white'; // 폰트 색 설정
-        saveTemplateButton.onclick = function() {
-            // AI 측에 템플릿 저장 설정을 적용한다.
+        saveTemplateButton.style.marginRight = '10px'; 
+        saveTemplateButton.style.fontFamily='scd';  
+        saveTemplateButton.style.backgroundColor='#454997'; 
+        saveTemplateButton.style.color= 'white'; 
+        saveTemplateButton.onclick = function() { // 템플릿 저장 버튼을 click 할 떄 
+            // AI 측으로부터 템플릿 저장 설정을 적용하는 통신(Rest-Api)
             axios({
                 method: 'post',
                 url: `http://localhost:8002/edit_template/${user_id}/chatgpt/report`,
@@ -2151,7 +2127,7 @@ function handleReportClick(){
                 }
             })
             .then(response => {
-                alert('리포트 템플릿 설정이 완료되었습니다.');  // alert
+                alert('레포트 템플릿 설정이 완료되었습니다.'); 
                 popup3_content.style.display = 'none'; // 나가기 
             })
             .catch(error => {
@@ -2165,14 +2141,12 @@ function handleReportClick(){
         // 나가기 버튼
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
-        exitButton.style.marginRight = '10px'; // 오른쪽 마진 적용
-        exitButton.style.fontFamily='scd';  // 글꼴 설정
-        exitButton.style.backgroundColor='#454997'; // 배경색 설정
-        exitButton.style.color= 'white'; // 폰트 색 설정
-        exitButton.onclick = function() {
-            // 나가기 버튼 클릭 시 팝업을 닫습니다.
-            popup3_content.style.display = 'none';
-            console.log('나가기 버튼 클릭');
+        exitButton.style.marginRight = '10px'; 
+        exitButton.style.fontFamily='scd';  
+        exitButton.style.backgroundColor='#454997';
+        exitButton.style.color= 'white';
+        exitButton.onclick = function() {           // 나가기 버튼 click 했을 떄 
+            popup3_content.style.display = 'none'; /// 팝업 닫기
         };
         saveButtonContainer.appendChild(exitButton);
 
@@ -2181,30 +2155,26 @@ function handleReportClick(){
 
         // Divider 선
         var divider = document.createElement('hr');
-        // divider.style.width = '110%'; // 너비 설정
-        divider.style.border = '1px solid #ccc'; // 선의 스타일 설정, 예: 회색, 1px 두께
-        divider.style.margin = '20px 20px'; // 위아래 마진 설정
+        divider.style.border = '1px solid #ccc'; 
+        divider.style.margin = '20px 20px'; 
         popup3_content.appendChild(divider);
 
         // 레포트 만들기 버튼 컨테이너
         var createButtonContainer = document.createElement('div');
         createButtonContainer.style.display = 'flex';
         createButtonContainer.style.justifyContent = 'flex-end';
-        createButtonContainer.style.width = '80%'; // 컨테이너의 너비를 80%로 설정
+        createButtonContainer.style.width = '80%'; 
         createButtonContainer.style.margin = '10px auto 0';
 
         // 레포트 만들기 버튼
         var createReportButton = document.createElement('button');
         createReportButton.textContent = '레포트 만들기';
-        createReportButton.style.fontFamily='scd';  // 글꼴 설정
+        createReportButton.style.fontFamily='scd';  
         createReportButton.style.marginRight='10px';
-        createReportButton.style.backgroundColor='#454997'; // 배경색 설정
-        createReportButton.style.color= 'white'; // 폰트 색 설정
-        createReportButton.onclick = function() {
-            console.log('레포트 만들기 버튼 클릭');
-            // console.log(`수집 선택 드롭다운 target_object : ${dropdown.options[dropdown.selectedIndex].value}`);
-
-            // 1. AI측과 '레포트 만들기' 기능을 가지고 소통한다.(axio 라는 비동기 통신 라이브리리 활용)
+        createReportButton.style.backgroundColor='#454997'; 
+        createReportButton.style.color= 'white'; 
+        createReportButton.onclick = function() { // 레포트 만들기 버튼 click 했을 떄 
+            // 1. AI측으로부터 '레포트 만들기' 기능 통신(Rest-Api)
             axios({
                 method: 'post',
                 url: `http://localhost:8002/report`, 
@@ -2218,7 +2188,7 @@ function handleReportClick(){
                 }
             })
             .then(response => {
-                // 2. 로컬 컴퓨터에 실제 pdf 파일을 다운로드 받을 수 있도록 한다. (Blob 객체를 활용)
+                // 로컬 컴퓨터에 실제 pdf 파일을 다운로드 받을 수 있도록 한다.
                 data = new Blob([response.data]);
                 const a =  document.createElement("a");
                 a.href = window.URL.createObjectURL(data);
@@ -2226,14 +2196,14 @@ function handleReportClick(){
                 a.click();
                 a.remove();
                 
-                // 3. 나가기
+                //나가기
                 alert('리포트 만들기가 완료되었습니다.');
                 popup3_content.style.display = 'none'; 
             })
             .catch(error => {
                 alert('오류가 발생했습니다.');
                 console.log('에러');
-                console.error(error); // 오류 처리
+                console.error(error); 
             });
         };
         createButtonContainer.appendChild(createReportButton);
@@ -2242,11 +2212,11 @@ function handleReportClick(){
     .catch(error => {
         alert('오류가 발생했습니다.');
         console.log('에러');
-        console.error(error); // 오류 내용
+        console.error(error); 
     }); 
 }
 
-// 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창에서 '자주 쓰는 문구'을 click 했을 떄 호출되는 함수
 function handleUseClick(){
     // 이미지
     document.querySelector(".settings-img").style.display = 'none';
@@ -2261,25 +2231,26 @@ function handleUseClick(){
     document.querySelector(".content-area").style.display = "block";
 
     var popup1_content = document.querySelector(".popup1-content");
-    popup1_content.style.display = 'none'; // '크롤러 설정' 콘텐츠는 display None
+    popup1_content.style.display = 'none';     // '크롤러 설정' 콘텐츠는 display None
 
     var popup2_content = document.querySelector(".popup2-content");
-    popup2_content.style.display = 'none'; // '프롬프트 설정' 콘텐츠는 display None
+    popup2_content.style.display = 'none';     // '프롬프트 설정' 콘텐츠는 display None
 
     var popup3_content = document.querySelector(".popup3-content");
-    popup3_content.style.display = 'none'; // '리포트 설정' 콘텐츠는 display None
+    popup3_content.style.display = 'none';     // '리포트 설정' 콘텐츠는 display None
 
     var popup5_content = document.querySelector(".popup5-content");
-    popup5_content.style.display = 'none';    // '모델 설정' 콘텐츠는 display None
+    popup5_content.style.display = 'none';     // '모델 설정' 콘텐츠는 display None
 
     var popup4_content = document.querySelector(".popup4-content");
-    popup4_content.innerHTML=''; // 다시 빈 내용으로 설정한다.
-    popup4_content.style.display = 'block'; // 팝업 내용을 표시합니다.
+    popup4_content.innerHTML='';               // 다시 빈 내용으로 설정한다.
+    popup4_content.style.display = 'block';    // 팝업 내용을 표시합니다.
+
     var messageBtnGroup = document.querySelector(".message-btn-group");
-    messageBtnGroup.innerHTML=''; // 다시 빈 내용으로 설정한다.
+    messageBtnGroup.innerHTML='';              // 다시 빈 내용으로 설정한다.
     messageBtnGroup.style.display = 'flex';
 
-    // 백엔드에서 구현한 '자주 쓰는 문구 리스트 불러오기'를 구현한다.
+    // 백엔드 측으로부터 '자주 쓰는 문구 리스트 불러오기' 기능 통신(Rest-Api)
     var frequentMessage_URL='http://localhost:8000/main/frequentMessage/';
     axios({
         method: 'get',
@@ -2293,19 +2264,15 @@ function handleUseClick(){
 
         // 화면에 자주 쓰는 문구를 보여준다.
         const messageList = response.data.data.message_list;
-        renderFrequentMessages(messageList); // 화면에 자주 쓰는 문구를 보여주는 함수 호출
+        renderFrequentMessages(messageList);
     })
     .catch(error => {
-        // console.log('에러');
-        // console.error(error); // 오류 처리
         alert('자주 쓰는 문구를 불러오는데 오류가 발생했습니다.');
     });
 }
 
-// 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수 (AI 설정 모달)
+// 모달 창에서 '모델 설정'을 click 했을 떄 호출되는 함수 
 function handleModelClick() {
-    console.log('재호출');
-
     // 이미지
     document.querySelector(".settings-img").style.display = 'none';
 
@@ -2318,7 +2285,7 @@ function handleModelClick() {
 
     document.querySelector(".content-area").style.display = "block";
 
-    // AI측으로부터 자신의 모델 설정이 현재 어떠한지에 대한 정보를 가져온다.
+    // AI측으로부터 자신의 모델 설정 확인 통신(Rest-Api)
     axios({
         method: 'get',
         url: `http://localhost:8002/load_template/${user_id}/chatgpt/params`, 
@@ -2362,21 +2329,19 @@ function handleModelClick() {
             if (modelName != response.data.model) {
                 var modelButton = document.createElement('button');
                 modelButton.textContent = '선택';
-                modelButton.style.fontFamily='scd'; // 글꼴 설정
-                modelButton.style.backgroundColor='#454997'; // 배경색 설정
-                modelButton.style.color= 'white'; // 폰트 색 설정
-                modelButton.onmouseover = function() {
-                    this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-                    this.style.color = '#FFFFFF'; // 호버 시 텍스트 색상 변경
+                modelButton.style.fontFamily='scd';
+                modelButton.style.backgroundColor='#454997'; 
+                modelButton.style.color= 'white'; 
+                modelButton.onmouseover = function() {  // '선택' 버튼에 mouse를 가까이 댔을 떄 
+                    this.style.backgroundColor = '#454997'; 
+                    this.style.color = '#FFFFFF'; 
                 };
-                modelButton.onmouseout = function() { 
-                    this.style.backgroundColor = '#454997'; // 마우스 아웃 시 원래 배경 색상으로 변경
-                    this.style.color = 'white'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+                modelButton.onmouseout = function() {   // '선택' 버튼에 mouse를 떗을 떄 
+                    this.style.backgroundColor = '#454997'; 
+                    this.style.color = 'white'; 
                 };
                 modelButton.onclick = function() { // '선택' 버튼을 click 했을 떄 
-                    console.log('선택 버튼 click');
-
-                    // AI 측과 비동기 통신한다. response.data.model == 'gpt-3.5-turbo' ? 'gpt-4' : 'gpt-3.5-turbo' 라고 삼항연산자를 적용한다.
+                    // AI 측으로부터 모델 설정 기능 통신(Rest-Api)
                     axios({
                         method: 'post',
                         url: `http://localhost:8002/edit_template/${user_id}/chatgpt/params`,
@@ -2408,31 +2373,30 @@ function handleModelClick() {
         // 현재 사용 중인 모델 표시
         var currentModelText = document.createElement('p');
         currentModelText.textContent = `현재 사용모델: ${response.data.model}`;
-        currentModelText.style.marginLeft = '8px'; // 마진 상단 추가
-        currentModelText.style.marginTop = '20px'; // 마진 상단 추가
-        currentModelText.style.fontSize = '14px'; // 폰트 사이즈 줄이기
+        currentModelText.style.marginLeft = '8px'; 
+        currentModelText.style.marginTop = '20px';
+        currentModelText.style.fontSize = '14px'; 
         popup5_content.appendChild(currentModelText);
 
         // '나가기' 버튼을 포함하는 컨테이너
         var exitButtonContainer = document.createElement('div');
-        exitButtonContainer.style.cssText = 'display: flex; justify-content: flex-end;'; // 오른쪽 정렬을 위한 스타일
+        exitButtonContainer.style.cssText = 'display: flex; justify-content: flex-end;'; 
 
         // '나가기' 버튼 추가
         var exitButton = document.createElement('button');
         exitButton.textContent = '나가기';
         exitButton.style.fontFamily='scd';
-        exitButton.style.backgroundColor='#454997'; // 배경색 설정
-        exitButton.style.color= 'white'; // 폰트 색 설정
-        // exitButton.style.cssText = 'background-color: white; color: black; border: 1px solid black; cursor: pointer; margin-top: 20px;';
-        exitButton.onmouseover = function() { 
-            this.style.backgroundColor = '#454997'; // 호버 시 배경 색상 변경
-            this.style.color = 'white'; // 호버 시 텍스트 색상 변경
+        exitButton.style.backgroundColor='#454997'; 
+        exitButton.style.color= 'white'; 
+        exitButton.onmouseover = function() {  // '나가기' 버튼 mouse를 가까이 댔을 떄 
+            this.style.backgroundColor = '#454997'; 
+            this.style.color = 'white'; 
         };
-        exitButton.onmouseout = function() { 
-            this.style.backgroundColor = '#454997'; // 마우스 아웃 시 원래 배경 색상으로 변경
-            this.style.color = 'white'; // 마우스 아웃 시 원래 텍스트 색상으로 변경
+        exitButton.onmouseout = function() {   // '나가기' 버튼 mouse를 땠을 떄 
+            this.style.backgroundColor = '#454997'; 
+            this.style.color = 'white'; 
         };
-        exitButton.onclick = function() { // '나가기' 버튼을 click 했을 떄
+        exitButton.onclick = function() {      // '나가기' 버튼을 click 했을 떄
             popup5_content.style.display = 'none'; // 나가기
         };
 
@@ -2450,7 +2414,7 @@ function handleModelClick() {
 
 // 모달 창에서 자주 쓰는 문구를 목록으로 보여주는 함수
 function renderFrequentMessages(messageList){
-    const container = document.querySelector('.popup4-content'); // 문구를 표시할 컨테이너 선택
+    const container = document.querySelector('.popup4-content'); 
     const contentArea = document.querySelector(".content-area");
     container.style.height = 'calc(70vh - 171.97px)';
     container.style.overflowY = 'auto';
@@ -2493,7 +2457,7 @@ function renderFrequentMessages(messageList){
         container.appendChild(div);
     });
 
-    // "추가하기"와 "반영하기" 버튼을 포함하는 div 추가
+    // '추가'와 '반영' 그리고 '나가기' 버튼을 포함하는 div 추가
     var messageBtnGroup = document.querySelector(".message-btn-group");
     messageBtnGroup.style.display = 'flex';
     messageBtnGroup.style.justifyContent = 'flex-end';
@@ -2504,32 +2468,30 @@ function renderFrequentMessages(messageList){
     const addButton = document.createElement('span');
     addButton.className = 'add';
     addButton.textContent = '추가';
-    addButton.style.fontFamily='scd'; // 글꼴 설정
-    addButton.style.backgroundColor='#454997'; // 배경색 설정
-    addButton.style.color= 'white'; // 폰트 색 설정
-    addButton.onclick = function() {
-        addFrequentMessage(); // "추가하기" 버튼 클릭 시 호출될 함수
+    addButton.style.fontFamily='scd'; 
+    addButton.style.backgroundColor='#454997'; 
+    addButton.style.color= 'white'; 
+    addButton.onclick = function() { // '추가' 버튼을 click 했을 떄 
+        addFrequentMessage();        // "추가" 버튼 click 시 호출될 함수
     };
 
     const reflectButton = document.createElement('span');
     reflectButton.className = 'reflect';
     reflectButton.textContent = '반영';
-    reflectButton.style.fontFamily='scd'; // 글꼴 설정
-    reflectButton.style.backgroundColor='#454997'; // 배경색 설정
-    reflectButton.style.color= 'white'; // 폰트 색 설정
-    // 필요한 경우 반영하기 버튼 클릭 시 호출될 함수 추가
-    reflectButton.onclick = function() {
-        reflectFrequentMessage();
+    reflectButton.style.fontFamily='scd'; 
+    reflectButton.style.backgroundColor='#454997'; 
+    reflectButton.style.color= 'white'; 
+    reflectButton.onclick = function() { // '반영' 버튼을 click 했을 떄 
+        reflectFrequentMessage();        // '반영' 버튼 click시 호출될 함수
     };
 
     const exit2Button = document.createElement('span');
     exit2Button.className = 'reflect';
     exit2Button.textContent = '나가기';
-    exit2Button.style.fontFamily='scd'; // 글꼴 설정
-    exit2Button.style.backgroundColor='#454997'; // 배경색 설정
-    exit2Button.style.color= 'white'; // 폰트 색 설정
-    // 버튼 클릭 시 호출될 함수 추가
-    exit2Button.onclick = function() {
+    exit2Button.style.fontFamily='scd'; 
+    exit2Button.style.backgroundColor='#454997'; 
+    exit2Button.style.color= 'white'; 
+    exit2Button.onclick = function() {   // '나가기' 버튼을 click 했을 떄 
         contentArea.style.display = 'none'; // 나가기
     };
 
@@ -2539,14 +2501,12 @@ function renderFrequentMessages(messageList){
     contentArea.appendChild(messageBtnGroup); // 컨테이너에 추가
 }
 
-// 모달 창에서 '자주 쓰는 문구' -> '수정하기' 버튼이 click 될 떄 호출하는 함수
-function editFrequentMessage(template_id){
-    console.log("???")
-    
+// 모달 창에서 '자주 쓰는 문구' -> '수정' 버튼이 click 될 떄 호출하는 함수
+function editFrequentMessage(template_id){    
     // 수정용 팝업 표시
     document.getElementById("editFrequentMessagePopup").style.display = "flex";
     
-    // 데이터 가져오기
+    // 백엔드 측으로부터 '해당 문구 불러오기' 기능 통신(Rest-Api)
     axios({
         method: 'get',
         url: `http://localhost:8000/main/frequentMessage/${template_id}/`,
@@ -2556,14 +2516,14 @@ function editFrequentMessage(template_id){
     })
     .then(response => {
         // 요청이 성공하면 이 부분이 실행됩니다.
-        console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
+        console.log('성공:', response.data); 
 
         // 입력을 기존 값으로 표시
         console.log("response.data.data.template_content");
         document.getElementById("editMessageTitle").value=response.data.data.template_name;
         document.getElementById("editMessageContent").value=response.data.data.template_content;
 
-        // '수정하기' 버튼에 template_id 설정
+        // '수정' 버튼에 template_id 설정
         document.getElementById("editSubmitButton").dataset.templateId = template_id;
     })
     .catch(error => {
@@ -2579,13 +2539,13 @@ function editFrequentMessage(template_id){
     });
 }
 
-// 자주 쓰는 문구를 수정하는 팝업에서 '수정하기'를 click했을 떄 호출되는 함수
+// 자주 쓰는 문구를 수정하는 팝업에서 '수정'를 click했을 떄 호출되는 함수
 function submitEditFrequentMessage(){
     var templateId = document.getElementById("editSubmitButton").dataset.templateId;
     var editMessageTitle = document.getElementById("editMessageTitle").value;
     var editMessageContent = document.getElementById("editMessageContent").value;
 
-    // 백엔드에서 구현한 '자주 쓰는 문구 수정' 기능과 통신한다.
+    // 백엔드 측으로부터 '자주 쓰는 문구 수정' 기능과 통신(Rest-Api)
     const editFrequentMessage_URL='http://localhost:8000/main/frequentMessage/update/'; 
     axios({
         method: 'post',
@@ -2610,13 +2570,13 @@ function submitEditFrequentMessage(){
     });
 }
 
-// 자주 쓰는 문구를 수정하는 팝업에서 '취소하기'를 click 했을 떄 호출되는 함수
+// 자주 쓰는 문구를 수정하는 팝업에서 '취소'를 click 했을 떄 호출되는 함수
 function closeEditFrequentMessage(){
     // 수정용 팝업의 'display' 속성을 'none'으로 설정
     document.getElementById("editFrequentMessagePopup").style.display = "none";
 }
 
-// 모달 창에서 '자주 쓰는 문구' -> '삭제하기' 버튼이 click 될 떄 호출하는 함수
+// 모달 창에서 '자주 쓰는 문구' -> '삭제' 버튼이 click 될 떄 호출하는 함수
 function deleteFrequentMessage(template_id){
     // 정말 삭제할건지 묻기
     Swal.fire({
@@ -2631,7 +2591,7 @@ function deleteFrequentMessage(template_id){
     }).then((result) => {
         if (result.isConfirmed) {
             // 실제 동작 수행
-            // 백엔드에서 구현한 '자주 쓰는 문구 삭제하기' 기능과 통신한다.
+            // 백엔드 측으로부터 '자주 쓰는 문구 삭제' 기능과 통신(Rest-APi)
             const deleteFrequentMessage_URL='http://localhost:8000/main/frequentMessage/delete/';
             axios({
                 method: 'post',
@@ -2653,7 +2613,7 @@ function deleteFrequentMessage(template_id){
     });
 }
 
-// 모달 창에서 '자주 쓰는 문구' -> '추가하기' 버튼이 click 될 떄 호출되는 함수
+// 모달 창에서 '자주 쓰는 문구' -> '추가' 버튼이 click 될 떄 호출되는 함수
 function addFrequentMessage() {
     // 추가용 팝업 표시
     document.getElementById("addFrequentMessagePopup").style.display = "flex";
@@ -2669,7 +2629,7 @@ function submitFrequentMessage() {
     var title = document.getElementById("messageTitle").value;
     var content = document.getElementById("messageContent").value;
 
-    // 백엔드에서 구현한 '자주 쓰는 문구 생성'과 연계한다.
+    // 백엔드 측으로부터 '자주 쓰는 문구 생성' 기능과 통신(Rest-Api)
     var addFrequentMessage_URL='http://localhost:8000/main/frequentMessage/create/';
     axios({
         method: 'post',
@@ -2701,13 +2661,12 @@ function closeFrequentMessage() {
     document.getElementById("addFrequentMessagePopup").style.display = "none";
 }
 
-// 모달 창에서 '자주 쓰는 문구' -> '반영하기' 버튼을 click 했을 떄 호출되는 함수
+// 모달 창에서 '자주 쓰는 문구' -> '반영' 버튼을 click 했을 떄 호출되는 함수
 function reflectFrequentMessage(){
     const selectedCheckbox = document.querySelector('.promptTemplate input[type="radio"]:checked'); 
 
     // 체크박스를 적용했는지 안했는지 여부를 판단한다.
     if (selectedCheckbox) {
-        // const templateId = selectedCheckbox.getAttribute('data-template-id');
         const templateValue = selectedCheckbox.nextElementSibling.nextElementSibling.value; // 체크박스의 다음 다음 요소인 input 태그의 value를 가져옵니다.
 
         // AI 설정 팝업을 닫는다.
@@ -2725,7 +2684,7 @@ function reflectFrequentMessage(){
     }
 }
 
-// 하단 입력창이 열려 있는지 확인한다.
+// 하단 입력창이 열려 있는지 확인하는 함수
 function checkMessageFormDisplay(templateValue){
     const messageForm = document.getElementById('message-form');
     const style = window.getComputedStyle(messageForm);
@@ -2745,9 +2704,9 @@ function checkMessageFormDisplay(templateValue){
     }
 }
 
-// '문의 게시판?'를 클릭하면 Routing 하는 함수
+// '문의 게시판'를 클릭하면 Routing 하는 함수
 function goInquiry(){
-    window.location.href='../inquiryBoard_test.html';
+    window.location.href='../inquiryBoard.html';
 }
 
 // 바깥쪽 클릭시 모달창 닫기
@@ -2765,6 +2724,7 @@ function toTop() {
     document.querySelector(".conversation-view").scrollTo(0,0);
 }
 
+// toBottom 함수
 function toBottom() {
     var converView = document.querySelector(".conversation-view")
     console.log(converView.body)

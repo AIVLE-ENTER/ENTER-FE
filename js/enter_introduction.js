@@ -1,5 +1,5 @@
 const getUserInfo_URL= 'http://localhost:8000/account/auth/userInfo/';  // 백엔드 소통 URL 
-const token = getWithExpire('accessToken'); // 토큰을 받아온다.
+const token = getWithExpire('accessToken');                            // 토큰을 받아온다.
 
 // enter_introduction.html을 불러왔을 떄 로그인 여부를 판별한다.
 window.addEventListener('DOMContentLoaded', (event) => {
@@ -16,9 +16,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
 });
 
-// 백엔드에서 유저 정보 불러오기
+// 백엔드측으로부터 유저 정보를 불러오는 함수 
 function getUserInfo(){
-    // 백엔드 유저 정보 불러오기 
+    // 백엔드측으로부터 유저 정보를 불러오는 통신(Rest-Api) 
     axios({
         method: 'get',
         url: getUserInfo_URL,
@@ -30,21 +30,21 @@ function getUserInfo(){
         // 요청이 성공하면 이 부분이 실행됩니다.
         console.log('성공:', response.data); // 로그에 응답 데이터를 찍습니다.
 
-        const user_id=response.data['data']['user_id'];   // 아이디를 가져온다.
         document.querySelector('.header-link h3').textContent = `${response.data.data.user_name}님 안녕하세요`; // h3 태그에 보여준다.
         document.querySelector('header .logout').style.display = 'block';
     })
     .catch(error => {
-        window.location.reload(); // 새로 고침한다.
+        console.log('error : ', error);
+        alert('에러');
     });
 }
 
 // '프롬프트 사용하기' 버튼 클릭 시 이벤트 처리
 document.getElementById('promptButton').addEventListener('click', () => {
-    window.location.href='../index_test.html';
+    window.location.href='../index.html';
 });
 
 // 하단에 '프롬프트 사용하기' 버튼 클릭 시 이벤트 처리
 document.getElementById('belowPromptButton').addEventListener('click', () => {
-    window.location.href='../index_test.html';
+    window.location.href='../index.html';
 });

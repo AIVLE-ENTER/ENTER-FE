@@ -10,7 +10,7 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
 
-    <title></title>
+    <title>ENTER 개인정보 처리 약관</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -24,12 +24,14 @@
           rel="stylesheet">
 
 
-    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <!-- 글꼴(팀원이 추천하신 구글 폰트 적용)-->
     <link rel="preconnect"
           href="https://fonts.googleapis.com">
+
     <link rel="preconnect"
           href="https://fonts.gstatic.com"
           crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@700&display=swap" 
           rel="stylesheet">
 
@@ -52,153 +54,67 @@
     <link href="/css/privacyPolicy.css"
           rel="stylesheet"
           type="text/css">
-
+      
+    <!-- sweet alert -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     
 </head>
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between">
-            <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/aivle-logo.png"
-                     class='navbar-brand'
-                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
-
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-    
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/inquiryBoard.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/signin.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/privacyPolicy.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/mypage.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-    
-            </div>
+    <!-- Header -->
+    <header>
+        <!-- Enter 로고 -->
+        <div style="height: 35px;">
+            <a href="/index.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                    alt="로고"
+                    id="header-logo">
+            </a>
         </div>
-    </nav>
 
-    <!-- 사실상 body -->
-    <div style="height: 40px;"></div> <!-- 20px의 높이를 가진 세로 간격 -->
+        <div style="display: flex; align-items: center;">
+            <!-- 로그인 아이콘 -->
+            <button class='login' 
+                    onclick='goLogin();'>
+                    <img src="assets/img/login_out.png" 
+                         style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+        </div>
+    </header>
     
     <main>
-        <form class="contract">
-            <h3>개인정보 처리 약관 </h3>
+        <div class="inner">
+            <form class="contract">
+                <h3>개인정보 처리 약관 </h3>
 
-            <div style="height: 20px;"></div>
+                <div style="height: 20px;"></div>
 
-            <div class="text">
-                - 필수 항목은 서비스 제공을 위해 필요한 항목으로, 동의를 거부하시는 경우 서비스 이용에 제한이 있을 수 있습니다.
- 
+                <div class="text">- 필수 항목은 서비스 제공을 위해 필요한 항목으로, 동의를 거부하시는 경우 서비스 이용에 제한이 있을 수 있습니다.
+
                 (필수) 개인정보 수집 및 이용 동의
-        
+            
                 가. 필수 수집 이용목적 및 항목
                 목적 : ENTER플랫폼 일반 회원가입 및 서비스의 이용,유지,종료
                 항목 : 회원가입 신청인의 성명(국문 및 영문), 아이디, 이메일, 비밀번호, 회사코드(기업고객에 한함)
                 보유기간 : ENTER플랫폼 제공 서비스 이용기간 동안, 분쟁 대비를 위해 서비스
+                </div>
 
-                
-            </div>
+                <div class="display-flex">
+                  <p><label><input type="checkbox" 
+                                    id="termsCheckbox"
+                                    required> 약관에 동의<label></p>
+                  <button type="button" 
+                          class="btn btn-secondary"
+                          onclick="goToSignUp();">회원가입 하기</button>                   
+                </div>
 
-            <div style="text-align: right;">
-                <p><input type="checkbox" 
-                          id="termsCheckbox"
-                          required> 약관에 동의</p>
-                <button type="button" 
-                        class="btn btn-secondary"
-                        onclick="goToSignUp();">회원가입 하기</button>                   
-            </div>
-
-        </form>
+            </form>
+        </div>
     </main>
     
-    <!-- Footer-->
-    <footer class="footer bg-light">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 h-100 text-center text-lg-start my-auto">
-                    <ul class="list-inline mb-2">
-                        <li class="list-inline-item"><a href="#!">About</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Contact</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Terms of Use</a></li>
-                        <li class="list-inline-item">⋅</li>
-                        <li class="list-inline-item"><a href="#!">Privacy Policy</a></li>
-                    </ul>
-                    <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2023. All Rights Reserved.</p>
-                </div>
-                <div class="col-lg-6 h-100 text-center text-lg-end my-auto">
-                    <ul class="list-inline mb-0">
-                        <li class="list-inline-item me-4">
-                            <a href="#!"><i class="bi-facebook fs-3"></i></a>
-                        </li>
-                        <li class="list-inline-item me-4">
-                            <a href="#!"><i class="bi-twitter fs-3"></i></a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="#!"><i class="bi-instagram fs-3"></i></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </footer>
-
     <!-- JS와 연동 -->
+    <script src="/js/common.js"></script>
     <script src="/js/privacyPolicy.js"></script>
 </body>
 </html>

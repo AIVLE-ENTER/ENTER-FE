@@ -1,12 +1,11 @@
 <!-- 문의 게시판 페이지 -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문의 게시판 페이지</title>
+    <title>ENTER 문의 게시판</title>
 
      <!-- 글꼴 (구글 폰트 적용 ) -->
      <link rel="preconnect"
@@ -18,7 +17,7 @@
         rel="stylesheet">
 
 
-    <!-- 글꼴(주원 행님이 추천하신 구글 폰트 적용)-->
+    <!-- 글꼴(팀원이 추천하신 구글 폰트 적용)-->
     <link rel="preconnect"
         href="https://fonts.googleapis.com">
     <link rel="preconnect"
@@ -43,122 +42,86 @@
         type="text/css" />
 
     <!-- Core theme CSS (includes Bootstrap)-->
-    <link href="css/styles.css"
-        rel="stylesheet" />
+    <link href="/css/inquiryBoard.css"
+          rel="stylesheet" />
 
     <!-- css 연결 -->
     <link rel="stylesheet"
           href="./css/inquiryBoard.css">
-
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    
+    <!-- JQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" 
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+           
+    <!-- Axios CDN(Axios를 사용하기 위함) -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+    <!-- sweet alert -->
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 </head>
 
 <body>
-    <!-- header -->
-    <nav class="navbar navbar-light bg-light static-top">
-        <div class="container d-flex justify-content-between"
-             style="width: 100%;">
-            <div class="d-flex flex-row align-items-center">
-                <img src="assets/img/aivle-logo.png"
-                     class='navbar-brand'
-                     alt="KT 에이블 로고"/> <!-- 이미지 로고-->
-
-                <p class="webpage_title"
-                   style="font-size:3em" 
-                   href="#!">상부상조</p> <!-- 타이틀 제목 -->
-            </div>
-
-            <div class="d-flex flex-row align-items-center"
-                 style="margin-right: 80px;">
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='prompt_sayong'
-                        href="/prompt.html" 
-                        style="color: inherit;
-                               background-color:
-                               transparent; 
-                               border: none;
-                               font-size:2em">프롬프트</a>          <!-- 프롬프트 사용하기 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                        <a class="btn btn-light"
-                            id='gaseipan'
-                            href="/inquiryBoard.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">게시판</a>          <!-- 게시판 --> 
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                            id='login_logout'
-                            href="/signin.html" 
-                            style="color: inherit;
-                                   background-color:
-                                   transparent; 
-                                   border: none;
-                                   font-size:2em">로그인</a>          <!-- 로그인 --> 
-
-                </div>
-
-                <div class="col-md-3 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                    id='huiwongaip'
-                    href="/signup.html" 
-                    style="color: inherit;
-                           background-color:
-                           transparent; 
-                           border: none;
-                           font-size:2em">회원가입</a>          <!-- 회원가입 --> 
-                </div>
-
-                <div class="col-md-4 mb-3"> <!-- mb-3은 margin-bottom을 추가합니다. -->
-                    <a class="btn btn-light"
-                        id='huiwongaip'
-                        href="/privacyPolicy.html" 
-                        style="color: inherit;
-                            background-color:
-                            transparent; 
-                            border: none;
-                            font-size:2em">마이페이지</a>          <!-- 마이페이지 --> 
-                </div>
-    
-            </div>
+    <!-- Header -->
+    <header>
+        <!-- Enter 로고 -->
+        <div style="height: 35px;">
+            <a href="/index.html" class="header-logo-link">
+                <img src="assets/img/ENTR_logo.png" 
+                alt="로고"
+                id="header-logo">
+            </a>
         </div>
-    </nav>
 
-    <!-- 간격 -->
-    <div class="mt-5"></div>
+        <div style="display: flex; align-items: center;">
+            <!-- 사용자 정보 표시 -->
+            <a href="/mypage.html"  
+               class="header-link">
+                <h3></h3>
+            </a>
 
-    <!-- 사실상 본체 -->
+            <!-- 로그아웃 아이콘 -->
+            <button class='logout' 
+                    onclick='goLogout();'>
+                    <img src="assets/img/login_out.png" 
+                        style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+
+            <!-- 로그인 아이콘 -->
+            <button class='login' 
+                    onclick='goLogin();'>
+                    <img src="assets/img/login_out.png" 
+                         style="width: 20px; height: 20px; vertical-align: middle; margin-right:1px;">
+            </button>
+        </div>
+    </header>
+
+    <!-- body -->
     <article>
         <div class="container">
-            <h2>게시판</h2>
+            <!-- '문의 게시판' text -->
+            <h2 style="margin-top: 0;">문의 게시판</h2>
 
-            <div class="aside">
-                ▷ 총 3개의 게시물이 있습니다.
-            </div>
+            <div class="aside"></div>
 
             <div class="select-grup">
                 <form action="">
-                    <span class="select-text">SELECT</span>
-                    <span>
+                    <span class="select-text"></span>
+
+                    <span style="align-items: center; display: flex; margin-bottom: 10px;">
                         <select class="select-dropbox">
                             <option value="s-title">제목</option>
-                            <option value="s-writer">글쓴이</option>
-                            <option value="s-">일시</option>
                         </select>
-                    </span>
-                    <span>
+
                         <input type="text" 
-                               name="search" 
+                               name="search"
+                               id="search"
                                class="select-textbox">
+
                         <input type="submit" 
+                               id='select-button'
                                class="button-black"
                                value="검색" />
                     </span>
@@ -166,41 +129,14 @@
             </div>
 
             <table id="boardList" class="board-table">
-                <thead>
-                    <tr>
-                        <th>번호</th>
-                        <th>문의유형</th>
-                        <th>제목</th>
-                        <th>글쓴이</th>
-                        <th>일시</th>
-                        <th>조회수</th>
-                    </tr>
-                </thead>
-
-                <tbody onclick="redirectToDetailPage(1)">
-                    <tr>
-                        <td>1</td>
-                        <td>요금제</td>
-                        <td>게시글 1 입니다.</td>
-                        <td>김준석</td>
-                        <td>2022-05-16</td>
-                        <td>15</td>
-                    </tr>
-                </tbody>
-
             </table>
 
-            <div class="page">
-                <span><a href="#!">◀ 이전</a></span>
-                <span><a href="#!">1</a></span>
-                <span><a href="#!">다음 ▶</a></span>
+            <div id="pageNumber" class="page">
             </div>
 
             <div class="button">
-                <span><input type="button"
-                             class="button-gray" 
-                             value="목록"></span>
                 <span><input type="button" 
+                             id='write-button'
                              class="button-black"
                              value="글쓰기" 
                              onclick="location.href='/inquiry.html'"></span>
@@ -208,8 +144,9 @@
         </div>
     </article>
 
-    <!-- JS와 연동 -->
-    <script src="/js/inquiryBoard.js"></script>
+     <!-- JS와 연동 -->
+     <script src="/js/common.js"></script>
+     <script src="/js/inquiryBoard.js"></script>
 </body>
 
 </html>
