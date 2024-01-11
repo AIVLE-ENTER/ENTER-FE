@@ -225,7 +225,7 @@ function answer() {
 
 function editButton() {
     const title = document.querySelector(".faqItem-title");
-    const content = document.querySelector(".faqItem-content");
+    const content1 = document.querySelector(".faqItem-content");
     const category = document.querySelector(".faqItem-type");
     const replybutton = document.querySelector(".reply-button");
     const editbutton = document.querySelector(".edit-button");
@@ -274,20 +274,21 @@ function editButton() {
     category.textContent = '';
     category.appendChild(categoryedit);
 
-    const contentedit = document.createElement("textarea");
-    contentedit.className = 'faqItem-content';
-    contentedit.style.cssText = 'width : 100%; border:none; resize:none'
-    contentedit.textContent = content.textContent;
+    // const contentedit = document.createElement("textarea");
+    // contentedit.className = 'faqItem-content';
+    // contentedit.style.cssText = 'width : 100%; border:none; resize:none'
+    // contentedit.textContent = content.textContent;
 
     const titleedit = document.createElement("textarea");
     titleedit.className = 'faqItem-title';
     titleedit.style.cssText = 'width : 100%; border:none; resize:none; background-color:transparent'
     titleedit.textContent = title.textContent.trim();
 
-    content.textContent = '';
+    //content.textContent = '';
     title.textContent = '';
-    content.appendChild(contentedit);
+    //content.appendChild(contentedit);
     title.appendChild(titleedit);
+    content1.readOnly=false;
 
     if (imagep){
         imagep.textContent = "기존파일";
@@ -308,7 +309,7 @@ function editButton() {
         var question_type = categoryedit.value;
         console.log(question_type);
         var title = titleedit.value;
-        var content = contentedit.value;
+        var content = content1.value;
         var image = document.getElementById("imageFile").files[0];
 
         formData.append('question_type_id', question_type);
