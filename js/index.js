@@ -1381,7 +1381,7 @@ function targetSetting(chatRoomList) {
         // AI 측으로부터 주제에 대한 크롤러 수집을 할 수 있도록 한다.
         axios({
             method: 'get',
-            url: `http://f3e4.ngrok-free.app/start_crawl/${user_id}/${dropdown.options[dropdown.selectedIndex].value}`,
+            url: `http://localhost:8002/start_crawl/${user_id}/${dropdown.options[dropdown.selectedIndex].value}`,
         })  
         .then(response => {
             alert('수집 시작을 합니다.');
@@ -1671,7 +1671,7 @@ function crawlerTemplateSetting() {
         // 회사 정보 입력칸
         var companyInfoInput = document.createElement('textarea');
         companyInfoInput.type = 'text';
-        companyInfoInput.value = response.data.company_info=='' ? response.data.company_info_default : response.data.company_info;  
+        companyInfoInput.value = response.data.company_info.length < 6 ? response.data.company_info_default : response.data.company_info;  
         companyInfoInput.style.width = '100%';
         companyInfoInput.style.height = '120px';
         companyInfoInput.style.border = '1px solid black'; 
@@ -1687,7 +1687,7 @@ function crawlerTemplateSetting() {
         // 타켓 정보 입력칸
         var targetInfoInput = document.createElement('textarea');
         targetInfoInput.type = 'text';
-        targetInfoInput.value = response.data.product_info=='' ? response.data.product_info_default : response.data.product_info;   
+        targetInfoInput.value = response.data.product_info.length < 6 ? response.data.product_info_default : response.data.product_info;   
         targetInfoInput.style.height = '240px';
         targetInfoInput.style.border = '1px solid black'; 
         targetInfoInput.style.resize = 'none'; 
@@ -1796,6 +1796,8 @@ function handlePromptClick(){
     }).then(response => {
         console.log('성공 : ', response);
 
+        console.log('길이 : ', response.data.condense.length);
+
         var popup1_content = document.querySelector(".popup1-content");
         popup1_content.style.display = 'none';    // '크롤러 설정' 콘텐츠는 display None
 
@@ -1823,7 +1825,7 @@ function handlePromptClick(){
         // '프롬프트 설정' 입력 칸 
         var promptNameInput = document.createElement('textarea');
         promptNameInput.type = 'text';
-        promptNameInput.value = response.data.system =='' ? response.data.system_default : response.data.system; 
+        promptNameInput.value = response.data.system.length < 6 ? response.data.system_default : response.data.system; 
         promptNameInput.style.width = '80%';
         promptNameInput.style.height = '200px';
         
@@ -1850,7 +1852,7 @@ function handlePromptClick(){
         // 'condense 설정' 입력 칸 
         var condenseNameInput = document.createElement('textarea');
         condenseNameInput.type = 'text';
-        condenseNameInput.value = response.data.condense=='' ? response.data.condense_default : response.data.condense;  
+        condenseNameInput.value = response.data.condense.length < 6 ? response.data.condense_default : response.data.condense;  
         condenseNameInput.style.width = '80%';
         condenseNameInput.style.height = '200px';
         
@@ -1877,7 +1879,7 @@ function handlePromptClick(){
         // 'Document 데이터 설정' 입력 칸
         var metaDataNameInput = document.createElement('textarea');
         metaDataNameInput.type = 'text';
-        metaDataNameInput.value = response.data.document=='' ? response.data.document_default : response.data.document; 
+        metaDataNameInput.value = response.data.document.length < 6 ? response.data.document_default : response.data.document; 
         metaDataNameInput.style.width = '80%';
         metaDataNameInput.style.height = '200px';
         
@@ -2054,7 +2056,7 @@ function handleReportClick(){
 
         // '레포트 템플릿' TextArea
         var templateTextArea = document.createElement('textarea');
-        templateTextArea.value = response.data.prompt=='' ? response.data.prompt_default : response.data.prompt; 
+        templateTextArea.value = response.data.prompt.length < 6 ? response.data.prompt_default : response.data.prompt; 
         templateTextArea.style.width = '80%';
         templateTextArea.style.height = '300px';
         templateTextArea.style.marginLeft = '60px';
@@ -2077,7 +2079,7 @@ function handleReportClick(){
 
         // 'Document 템플릿 TextArea'
         var DocumentTextArea = document.createElement('textarea');
-        DocumentTextArea.value = response.data.document=='' ? response.data.document_default : response.data.document;   
+        DocumentTextArea.value = response.data.document.length < 6 ? response.data.document_default : response.data.document;   
         DocumentTextArea.style.width = '80%';
         DocumentTextArea.style.height = '150px';
         DocumentTextArea.style.marginLeft = '60px';
