@@ -155,7 +155,7 @@ function confirmPassword() {
                 .then(response => {
                     if(response.data.success) {
                         localStorage.removeItem('accessToken');            // localStorage에 accessToken 제거
-                        window.location.href='../index.html'               // index_test.html로 Routing 하기
+                        window.location.href='../index.html'               // index.html로 Routing 하기
                     } else {
                         modal.style.display = 'none';
                         Toast.fire({
