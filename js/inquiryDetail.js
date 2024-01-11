@@ -289,11 +289,13 @@ function editButton() {
     //content.appendChild(contentedit);
     title.appendChild(titleedit);
     content1.readOnly=false;
+    titleedit.rows = 1;
 
     if (imagep){
         imagep.textContent = "기존파일";
     }
     filediv = document.createElement('div')
+    filediv.style.cssText = "text-align: right;"
     filediv.className = "file-detach";
     filep = document.createElement('p');
     filep.textContent = '파일을 새로 첨부하려면 파일을 선택하세요.';
